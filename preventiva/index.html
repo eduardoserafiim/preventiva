@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão de Equipamentos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Menu Lateral -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-cogs"></i> Gestão TI</h2>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="#" class="menu-item active" data-page="computadores">
+                        <i class="fas fa-desktop"></i>
+                        <span>Computadores</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="menu-item" data-page="impressoras">
+                        <i class="fas fa-print"></i>
+                        <span>Impressoras</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="menu-item" data-page="preventiva">
+                        <i class="fas fa-clipboard-list"></i>
+                        <span>Preventiva</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Conteúdo Principal -->
+        <main class="main-content">
+            <!-- Página de Computadores -->
+            <div id="computadores" class="page active">
+                <div class="page-header">
+                    <h1>Cadastro de Computadores</h1>
+                    <p>Gerencie o inventário de computadores da empresa</p>
+                </div>
+                
+                <div class="form-container">
+                    <form id="computerForm" class="equipment-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="comp-nome">Nome do Equipamento</label>
+                                <input type="text" id="comp-nome" name="nome" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comp-modelo">Modelo</label>
+                                <input type="text" id="comp-modelo" name="modelo" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comp-processador">Processador</label>
+                                <input type="text" id="comp-processador" name="processador" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comp-memoria">Memória RAM</label>
+                                <select id="comp-memoria" name="memoria" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="4GB">4GB</option>
+                                    <option value="8GB">8GB</option>
+                                    <option value="16GB">16GB</option>
+                                    <option value="32GB">32GB</option>
+                                    <option value="64GB">64GB</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comp-armazenamento">Disco</label>
+                                <input type="text" id="comp-armazenamento" name="armazenamento" placeholder="Ex: SSD 256GB" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comp-so">Sistema Operacional</label>
+                                <select id="comp-so" name="so" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Windows 10">Windows 10</option>
+                                    <option value="Windows 11">Windows 11</option>
+                                    <option value="Ubuntu">Ubuntu</option>
+                                    <option value="macOS">macOS</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comp-serie">Número de Série</label>
+                                <input type="text" id="comp-serie" name="serie" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comp-localizacao">Localização</label>
+                                <input type="text" id="comp-localizacao" name="localizacao" placeholder="Ex: Sala 101" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="comp-legendaA">Legenda A</label>
+                                <input type="radio" class="radio" name="legendaA"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comp-legendaA">Legenda B</label>
+                                <input type="radio" class="radio" name="legendaB"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comp-legendaA">Legenda C</label>
+                                <input type="radio" class="radio" name="legendaC"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comp-legendaA">Legenda D</label>
+                                <input type="radio" class="radio" name="legendaD"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comp-legendaA">Legenda E</label>
+                                <input type="radio" class="radio" name="legendaE"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comp-legendaA">Legenda F</label>
+                                <input type="radio" class="radio" name="legendaF"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comp-legendaA">Legenda G</label>
+                                <input type="radio" class="radio" name="legendaG"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comp-legendaA">Legenda H</label>
+                                <input type="radio" class="radio" name="legendaH"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comp-legendaA">Legenda I</label>
+                                <input type="radio" class="radio" name="legendaI"  required>
+                            </div>
+                            <div class="form-group">
+                                <label for="comp-legendaA">Legenda J</label>
+                                <input type="radio" class="radio" name="legendaJ"  required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="comp-status">Status</label>
+                                <select id="comp-status" name="status" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Ativo">Ativo</option>
+                                    <option value="Inativo">Inativo</option>
+                                    <option value="Manutenção">Manutenção</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar Computador
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearForm('computerForm')">
+                                <i class="fas fa-eraser"></i> Limpar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Página de Impressoras -->
+            <div id="impressoras" class="page">
+                <div class="page-header">
+                    <h1>Cadastro de Impressoras</h1>
+                    <p>Gerencie o inventário de impressoras da empresa</p>
+                </div>
+                
+                <div class="form-container">
+                    <form id="printerForm" class="equipment-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="imp-nome">Nome da Impressora</label>
+                                <input type="text" id="imp-nome" name="nome" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="imp-marca">Marca</label>
+                                <input type="text" id="imp-marca" name="marca" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="imp-modelo">Modelo</label>
+                                <input type="text" id="imp-modelo" name="modelo" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="imp-tipo">Tipo</label>
+                                <select id="imp-tipo" name="tipo" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Laser">Laser</option>
+                                    <option value="Jato de Tinta">Jato de Tinta</option>
+                                    <option value="Matricial">Matricial</option>
+                                    <option value="Multifuncional">Multifuncional</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="imp-ip">Endereço IP</label>
+                                <input type="text" id="imp-ip" name="ip" placeholder="192.168.1.100">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="imp-serie">Número de Série</label>
+                                <input type="text" id="imp-serie" name="serie" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="imp-localizacao">Localização</label>
+                                <input type="text" id="imp-localizacao" name="localizacao" placeholder="Ex: Recepção" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="imp-status">Status</label>
+                                <select id="imp-status" name="status" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="Ativo">Ativo</option>
+                                    <option value="Inativo">Inativo</option>
+                                    <option value="Manutenção">Manutenção</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar Impressora
+                            </button>
+                            <button type="button" class="btn btn-secondary" onclick="clearForm('printerForm')">
+                                <i class="fas fa-eraser"></i> Limpar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Página de Preventiva -->
+            <div id="preventiva" class="page">
+                <div class="page-header">
+                    <h1>Relatório Preventiva</h1>
+                    <p>Visualize todos os equipamentos cadastrados</p>
+                </div>
+                
+                <div class="tabs">
+                    <button class="tab-button active" onclick="showTab('computers-list')">
+                        <i class="fas fa-desktop"></i> Computadores
+                    </button>
+                    <button class="tab-button" onclick="showTab('printers-list')">
+                        <i class="fas fa-print"></i> Impressoras
+                    </button>
+                </div>
+                
+                <div id="computers-list" class="tab-content active">
+                    <div class="equipment-grid" id="computersGrid">
+                        <p class="empty-state">Nenhum computador cadastrado ainda.</p>
+                    </div>
+                </div>
+                
+                <div id="printers-list" class="tab-content">
+                    <div class="equipment-grid" id="printersGrid">
+                        <p class="empty-state">Nenhuma impressora cadastrada ainda.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
