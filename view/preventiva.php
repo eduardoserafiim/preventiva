@@ -3,7 +3,7 @@ require_once "../models/computadores.php";
 
 require_once "../public/components/header.php";
 require_once "../public/components/navbar.php";
-require_once "../controllers/computadoresListar.php";
+require_once "../public/components/computadoresListar.php";
 
 ?>
 
@@ -11,7 +11,13 @@ require_once "../controllers/computadoresListar.php";
     <div class="app-container">
         <!-- NAVBAR -->
         <?php echo navbar('preventiva'); ?>
-        <?php echo listarComputadores(); ?>
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Relatório Preventiva</h1>
+                <p>Visualize todos os equipamentos cadastrados</p>
+            </div>
+            <?php echo listarComputadores(); ?>
+        </main>
     </div>
 </body>
 </html>

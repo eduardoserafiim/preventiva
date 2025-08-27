@@ -6,7 +6,7 @@ class ComputerModel {
 
     public function __construct() {
         $database = new Database();
-        $this->db = $database->getConnection(); // Assumes getConnection() returns a PDO instance
+        $this->db = $database->getConnection();
     }
 
     public function store($data) {
@@ -40,7 +40,6 @@ class ComputerModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Atualizar computador existente
     public function update($id, $data) {
         $sql = "UPDATE computadores SET 
             semestre = :semestre,

@@ -28,7 +28,6 @@ function showToast(message) {
   setTimeout(() => {
     const formPC = document.getElementById("formularioComputadores");
     formPC.reset();
-
     toast.classList.remove("show");
   }, 3000)
 }
