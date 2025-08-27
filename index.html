@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Gestão de Equipamentos</title>
+    <title>Suporte T.I</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -13,7 +13,7 @@
         <!-- Menu Lateral -->
         <nav class="sidebar">
             <div class="sidebar-header">
-                <h2><i class="fas fa-cogs"></i> Gestão TI</h2>
+                <h2><i class="fas fa-cogs"></i>Suporte T.I</h2>
             </div>
             <ul class="sidebar-menu">
                 <li>
@@ -42,32 +42,105 @@
             <!-- Página de Computadores -->
             <div id="computadores" class="page active">
                 <div class="page-header">
-                    <h1>Cadastro de Computadores</h1>
-                    <p>Gerencie o inventário de computadores da empresa</p>
+                    <h1>Computadores</h1>
+                    <p>Cadastre um computador</p>
                 </div>
                 
                 <div class="form-container">
                     <form id="computerForm" class="equipment-form">
+                        <div class="form-flex">
+                            <!-- SEMESTRE -->
+                            <div class="form-group">
+                                <label for="label-semestre">Semestre</label>
+                                <select id="select-semestre" name="semestre" required>
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value=""></option>
+                                    <option value="1° Semestre">1° Semestre</option>
+                                    <option value="2° Semestre">2° Semestre</option>
+                                </select>
+                            </div>
+                            <!-- ANO -->
+                            <div class="form-group">
+                                <label for="label-ano">Ano</label>
+                                <select id="select-ano" name="ano" required>
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value=""></option>
+                                    <option value="2022">2022</option>
+                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
+                                    <option value="2025">2025</option>
+                                </select>
+                            </div>
+                            <!-- UNIDADE -->
+                            <div class="form-group">
+                                <label for="label-unidade">Unidade</label>
+                                <select id="select-unidaded" name="unidade" required>
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value=""></option>
+                                    <option value="HAP - UNIDADE MATRIZ">HAP - Matriz</option>
+                                    <option value="HAP - UNIDADE CENTRO">HAP - Centro</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="form-grid">
+                            <!-- SETOR -->
+                             <div class="form-group">
+                                <label for="label-setor">Setor</label>
+                                <select id="select-setor" name="setor" required>
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value=""></option>
+                                </select>
+                             </div>
+                            <!-- NOME -->
                             <div class="form-group">
-                                <label for="comp-nome">Nome do Equipamento</label>
-                                <input type="text" id="comp-nome" name="nome" required>
+                                <label for="label-nome">Nome</label>
+                                <input type="text" id="input-nome" name="nome" required>
                             </div>
-                            
+                            <!-- MODELO -->
                             <div class="form-group">
-                                <label for="comp-modelo">Modelo</label>
-                                <input type="text" id="comp-modelo" name="modelo" required>
+                                <label for="label-modelo">Modelo</label>
+                                <input type="text" id="input-modelo" name="modelo" required>
                             </div>
-                            
+                            <!-- MONITOR -->
                             <div class="form-group">
-                                <label for="comp-processador">Processador</label>
-                                <input type="text" id="comp-processador" name="processador" required>
+                                <label for="label-monitor">Monitor</label>
+                                <input type="text" id="input-monitor" name="monitor" required>
                             </div>
-                            
+                            <!-- S.O -->
                             <div class="form-group">
-                                <label for="comp-memoria">Memória RAM</label>
-                                <select id="comp-memoria" name="memoria" required>
+                                <label for="label-so">Sistema Operacional</label>
+                                <select id="select-so" name="so" required>
                                     <option value="">Selecione...</option>
+                                    <option value=""></option>
+                                    <option value="Windows 10 Pro">Windows 10 Pro</option>
+                                    <option value="Windows 10 Home">Windows 10 Home</option>
+                                    <option value="Windows 11 Pro">Windows 11 Pro</option>
+                                    <option value="Windows 11 Home">Windows 11 Home</option>
+                                    <option value="Ubuntu">Ubuntu</option>
+                                </select>
+                            </div>
+                            <!-- OFFICE -->
+                            <div class="form-group">
+                                <label for="label-office">Office</label>
+                                <select id="select-office" name="office" required>
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value=""></option>
+                                    <option value="Office">Office</option>
+                                    <option value="Libre Office">Libre Office</option>
+                                    <option value="WPS">WPS</option>
+                                </select>
+                            </div>
+                            <!-- PROCESSADOR -->
+                            <div class="form-group">
+                                <label for="label-processador">Processador</label>
+                                <input type="text" id="input-processador" name="processador" required>
+                            </div>
+                            <!-- MEMORIA -->
+                            <div class="form-group">
+                                <label for="label-memoria">Memória RAM</label>
+                                <select id="select-memoria" name="memoria" required>
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value=""></option>
                                     <option value="4GB">4GB</option>
                                     <option value="8GB">8GB</option>
                                     <option value="16GB">16GB</option>
@@ -75,78 +148,33 @@
                                     <option value="64GB">64GB</option>
                                 </select>
                             </div>
-                            
+                            <!-- DISCO -->
                             <div class="form-group">
-                                <label for="comp-armazenamento">Disco</label>
-                                <input type="text" id="comp-armazenamento" name="armazenamento" placeholder="Ex: SSD 256GB" required>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="comp-so">Sistema Operacional</label>
-                                <select id="comp-so" name="so" required>
-                                    <option value="">Selecione...</option>
-                                    <option value="Windows 10">Windows 10</option>
-                                    <option value="Windows 11">Windows 11</option>
-                                    <option value="Ubuntu">Ubuntu</option>
-                                    <option value="macOS">macOS</option>
+                                <label for="label-disco">Disco</label>
+                                <select id="select-disco" name="disco" required>
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value=""></option>
+                                    <option value="HDD">HD</option>
+                                    <option value="SSD">SSD</option>
+                                    <option value="SSD NVME">SSD NVME</option>
                                 </select>
                             </div>
-                            
+                            <!-- IP -->
                             <div class="form-group">
-                                <label for="comp-serie">Número de Série</label>
-                                <input type="text" id="comp-serie" name="serie" required>
-                            </div>
-                            
+                                <label for="label-serie">Endereço IP</label>
+                                <input type="text" id="input-ip" name="ip" required>
+                            </div>  
+                            <!-- LACRE -->
                             <div class="form-group">
-                                <label for="comp-localizacao">Localização</label>
-                                <input type="text" id="comp-localizacao" name="localizacao" placeholder="Ex: Sala 101" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="comp-legendaA">Legenda A</label>
-                                <input type="radio" class="radio" name="legendaA"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="comp-legendaA">Legenda B</label>
-                                <input type="radio" class="radio" name="legendaB"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="comp-legendaA">Legenda C</label>
-                                <input type="radio" class="radio" name="legendaC"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="comp-legendaA">Legenda D</label>
-                                <input type="radio" class="radio" name="legendaD"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="comp-legendaA">Legenda E</label>
-                                <input type="radio" class="radio" name="legendaE"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="comp-legendaA">Legenda F</label>
-                                <input type="radio" class="radio" name="legendaF"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="comp-legendaA">Legenda G</label>
-                                <input type="radio" class="radio" name="legendaG"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="comp-legendaA">Legenda H</label>
-                                <input type="radio" class="radio" name="legendaH"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="comp-legendaA">Legenda I</label>
-                                <input type="radio" class="radio" name="legendaI"  required>
-                            </div>
-                            <div class="form-group">
-                                <label for="comp-legendaA">Legenda J</label>
-                                <input type="radio" class="radio" name="legendaJ"  required>
-                            </div>
-                            
+                                <label for="label-lacre">Lacre</label>
+                                <input type="text" id="input-lacre" name="lacre">
+                            </div>      
+                            <!-- STATUS -->
                             <div class="form-group">
                                 <label for="comp-status">Status</label>
                                 <select id="comp-status" name="status" required>
                                     <option value="">Selecione...</option>
+                                    <option value=""></option>
                                     <option value="Ativo">Ativo</option>
                                     <option value="Inativo">Inativo</option>
                                     <option value="Manutenção">Manutenção</option>
@@ -155,10 +183,10 @@
                         </div>
                         
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="botao botao-primario">
                                 <i class="fas fa-save"></i> Salvar Computador
                             </button>
-                            <button type="button" class="btn btn-secondary" onclick="clearForm('computerForm')">
+                            <button type="button" class="botao botao-secundario" onclick="clearForm('computerForm')">
                                 <i class="fas fa-eraser"></i> Limpar
                             </button>
                         </div>
@@ -229,10 +257,10 @@
                         </div>
                         
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="botao botao-primario">
                                 <i class="fas fa-save"></i> Salvar Impressora
                             </button>
-                            <button type="button" class="btn btn-secondary" onclick="clearForm('printerForm')">
+                            <button type="button" class="botao botao-secundario" onclick="clearForm('printerForm')">
                                 <i class="fas fa-eraser"></i> Limpar
                             </button>
                         </div>
