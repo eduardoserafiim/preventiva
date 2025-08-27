@@ -33,11 +33,28 @@ class ComputerController {
         ]);
     }
 
+    public function listar(){
+        $sql = 'SELECT * from computadores';
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     // Atualizar computador existente
     public function update($id, $data) {
-        $sql = "UPDATE computers SET 
-            semestre = :semestre, ano = :ano, unidade = :unidade, setor = :setor, nome = :nome, modelo = :modelo,
-            monitor = :monitor, so = :so, office = :office, processador = :processador, memoria = :memoria, disco = :disco,
+        $sql = "UPDATE computadores SET 
+            semestre = :semestre,
+            ano = :ano, 
+            unidade = :unidade, 
+            setor = :setor, 
+            nome = :nome, 
+            modelo = :modelo,
+            monitor = :monitor, 
+            so = :so, 
+            office = :office, 
+            processador = :processador, 
+            memoria = :memoria, 
+            disco = :disco,
             ip = :ip, lacre = :lacre, status = :status
             WHERE id = :id";
         $stmt = $this->db->prepare($sql);

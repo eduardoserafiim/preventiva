@@ -26,7 +26,10 @@ function showToast(message) {
   toast.classList.add("show")
   
   setTimeout(() => {
-    window.location.href = "../view/index.php";
+    const formPC = document.getElementById("formularioComputadores");
+    formPC.reset();
+
+    toast.classList.remove("show");
   }, 3000)
 }
 
@@ -35,11 +38,11 @@ document.getElementById("formularioComputadores").addEventListener("submit", fun
 
   const formData = new FormData(this);
 
-  fetch("../controllers/computadores.php", {
+  fetch("../controllers/computadoresCriar.php", {
     method: "POST",
     body: formData
   })
-  .then(response => response.text()) // pega como texto cru
+  .then(response => response.text())
   .then(data => {
     console.log("Resposta do PHP:", data);
     try {

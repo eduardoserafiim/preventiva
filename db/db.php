@@ -1,9 +1,9 @@
 <?php
 class Database {
-    private $host = "localhost";
-    private $db = "databasehp";
-    private $user = "root";
-    private $pass = "";
+    private $host = "10.141.121.67:3306";
+    private $db = "informatica";
+    private $user = "info";
+    private $pass = "fefeco123@";
     private $pdo;
 
     public function __construct() {
