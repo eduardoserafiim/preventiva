@@ -1,10 +1,15 @@
+<?php
+require_once '../models/computadores.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Suporte T.I</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../public/styles/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
@@ -47,7 +52,7 @@
                 </div>
                 
                 <div class="form-container">
-                    <form id="computerForm" class="equipment-form">
+                    <form method="POST" action="../controllers/computadores.php" id="formularioComputadores" class="equipment-form">
                         <div class="form-flex">
                             <!-- SEMESTRE -->
                             <div class="form-group">
@@ -302,6 +307,6 @@
     <!-- Toast Notification -->
     <div id="toast" class="toast"></div>
 
-    <script src="script.js"></script>
+    <script src="../public/javascript/script.js"></script>
 </body>
 </html>
