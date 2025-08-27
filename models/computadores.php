@@ -1,7 +1,7 @@
 <?php
 require_once '../db/db.php';
 
-class ComputerController {
+class ComputerModel {
     private $db;
 
     public function __construct() {

@@ -1,47 +1,13 @@
 <?php
 require_once '../models/computadores.php';
-
+require_once '../public/components/header.php';
+require_once '../public/components/navbar.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suporte T.I</title>
-    <link rel="stylesheet" href="../public/styles/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
 <body>
     <div class="app-container">
         <!-- Menu Lateral -->
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <h2><i class="fas fa-cogs"></i>Suporte T.I</h2>
-            </div>
-            <ul class="sidebar-menu">
-                <li>
-                    <a href="#" class="menu-item active" data-page="computadores">
-                        <i class="fas fa-desktop"></i>
-                        <span>Computadores</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="menu-item" data-page="impressoras">
-                        <i class="fas fa-print"></i>
-                        <span>Impressoras</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="menu-item" data-page="preventiva">
-                        <i class="fas fa-clipboard-list"></i>
-                        <span>Preventiva</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-
+        <?php echo navbar('computadores'); ?>
         <!-- Conteúdo Principal -->
         <main class="main-content">
             <!-- Página de Computadores -->
@@ -52,7 +18,7 @@ require_once '../models/computadores.php';
                 </div>
                 
                 <div class="form-container">
-                    <form method="POST" action="../controllers/computadores.php" id="formularioComputadores" class="equipment-form">
+                    <form method="POST" action="../controllers/computadoresCriar.php" id="formularioComputadores" class="equipment-form">
                         <div class="form-flex">
                             <!-- SEMESTRE -->
                             <div class="form-group">
@@ -289,11 +255,7 @@ require_once '../models/computadores.php';
                     </button>
                 </div>
                 
-                <div id="computers-list" class="tab-content active">
-                    <div class="equipment-grid" id="computersGrid">
-                        <p class="empty-state">Nenhum computador cadastrado ainda.</p>
-                    </div>
-                </div>
+                <?php echo listarComputadores() ?>
                 
                 <div id="printers-list" class="tab-content">
                     <div class="equipment-grid" id="printersGrid">

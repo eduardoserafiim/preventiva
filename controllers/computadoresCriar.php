@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'status' => $_POST['status'],
     ];
 
-    $computerController = new ComputerController();
+    $computerController = new ComputerModel();
     $computerController->store($data);
     echo json_encode(['status'=> 'success', 'message' => 'Computador cadastrado com sucesso!']);
 } else {
