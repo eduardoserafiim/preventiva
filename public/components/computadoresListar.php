@@ -53,10 +53,16 @@ function listarComputadores() {
                                     </span>
                                 </div>
                             <?php endforeach; ?>
-
+                            <?php 
+                                $timestp = strtotime($computer['dataCadastro']);
+                                $dataBr = date('d/m/Y', $timestp);
+        
+                            ?>
                             <div class="info-row">
                                 <span class="info-label">Cadastrado:</span>
-                                <span class="info-value"><?= htmlspecialchars($computer["dataCadastro"]) ?></span>
+                                <span class="info-value">
+                                <?=  $dataBr ?>
+                                </span>
                             </div>
                         </div>
                     </div>

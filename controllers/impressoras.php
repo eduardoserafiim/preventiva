@@ -1,2 +1,0 @@
-<!-- ainda nada -->
- <!-- prioridade computadores -->
