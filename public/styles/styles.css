@@ -347,7 +347,6 @@ body {
   grid-column: 1 / -1;
 }
 
-/* Toast */
 .toast {
   position: fixed;
   top: 2rem;

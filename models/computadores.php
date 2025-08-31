@@ -82,11 +82,13 @@ class ComputerModel {
     }
 
     // Deletar computador
-    public function delete($id) {
-        $stmt = $this->db->prepare("DELETE FROM computers WHERE id = :id");
-        $stmt->execute([':id' => $id]);
-        // tira o caraio do echo nao esuqece anial
-        echo json_encode(['success' => true, 'message' => 'Computador apagado com sucesso!']);
+    public function apagar($id) {
+        $sql = "DELETE 
+        FROM computadores 
+        WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 
 }

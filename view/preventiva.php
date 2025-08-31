@@ -6,6 +6,13 @@ require_once "../public/components/navbar.php";
 require_once "../public/components/computadoresListar.php";
 
 ?>
+<?php if (isset($_SESSION['msg'])): ?>
+    <div class="alert <?= $_SESSION['msg']['type'] ?>">
+        <?= htmlspecialchars($_SESSION['msg']['text']) ?>
+    </div>
+    <?php unset($_SESSION['msg']); ?>
+<?php endif; ?>
+
 
 <body>
     <div class="app-container">

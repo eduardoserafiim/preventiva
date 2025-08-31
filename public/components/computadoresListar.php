@@ -21,9 +21,12 @@ function listarComputadores() {
                             <button type="button" class="botao botao-primario" onclick="editarComputador(<?= $computer["id"] ?>)">
                                 <i class="fa-solid fa-pencil"></i> Editar
                             </button>
-                            <button type="button" class="botao botao-cancelar" onclick="deletarComputador(<?= $computer["id"] ?>)">
-                                <i class="fas fa-eraser"></i> Apagar
-                            </button>
+                            <form method="POST">
+                                <input type="hidden" name="apagarComputador" value="<?= $computer['id'] ?>">
+                                <button type="submit" class="botao botao-cancelar">
+                                    <i class="fas fa-eraser"></i> Apagar
+                                </button>
+                            </form>
                         </div>
                         <div class="equipment-info">
                             <?php

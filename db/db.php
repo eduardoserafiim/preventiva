@@ -3,8 +3,7 @@ class Database {
     // private $host = "10.141.121.67:3306";
     private $host = "localhost";
     // private $db = "informatica";
-    
-    private $db = "intermat";
+    private $db = "databasehp";
     private $user = "root";
     private $pass = "";
     private $pdo;
