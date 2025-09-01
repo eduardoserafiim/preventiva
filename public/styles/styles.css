@@ -16,6 +16,14 @@ body {
   min-height: 100vh;
 }
 
+.flex
+{
+  display: flex;
+  align-items: center;
+}
+
+
+
 /* Sidebar */
 .sidebar {
   width: 280px;
@@ -76,6 +84,28 @@ body {
 .menu-item i {
   font-size: 1.25rem;
   width: 20px;
+}
+
+.setor
+{
+  height: auto;
+  width: 300px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 1rem;
+}
+
+.setor i
+{
+  padding: 0px 2rem 0px 0px;
+}
+
+.setor p
+{
+  padding: 2rem 0 0 2rem;
+}
+
+.setor:hover i {
+    animation: fa-bounce 1s infinite;
 }
 
 /* Main Content */
@@ -345,24 +375,6 @@ select:focus {
   font-size: 1.1rem;
   padding: 3rem;
   grid-column: 1 / -1;
-}
-
-.toast {
-  position: fixed;
-  top: 2rem;
-  right: 2rem;
-  padding: 1rem 1.5rem;
-  background-color: #10b981;
-  color: white;
-  border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-  transform: translateX(400px);
-  transition: transform 0.3s ease;
-  z-index: 2000;
-}
-
-.toast.show {
-  transform: translateX(0);
 }
 
 /* Responsive */

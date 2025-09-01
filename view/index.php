@@ -1,7 +1,9 @@
 <?php
 require_once '../models/computadores.php';
+
 require_once '../public/components/header.php';
 require_once '../public/components/navbar.php';
+require_once '../public/components/listarSetoresSelect.php';
 ?>
 
 <body>
@@ -56,7 +58,7 @@ require_once '../public/components/navbar.php';
                                 <label for="label-setor">Setor</label>
                                 <select id="select-setor" name="setor" required>
                                     <option value="" disabled selected>Selecione...</option>
-                                    <option value=""></option>
+                                    <?php echo selectSetores(); ?>
                                 </select>
                              </div>
                             <!-- NOME -->

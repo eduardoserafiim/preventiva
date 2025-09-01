@@ -9,7 +9,7 @@ function listarComputadores() {
     <div id="computers-list" class="tab-content active">
         <div class="equipment-grid" id="computersGrid">
             <?php if (empty($computadores)) : ?>
-                <p class="empty-state">Nenhum computador cadastrado ainda.</p>
+                <p class="empty-state">Nenhum setor visível ainda.</p>
             <?php else : ?>
                 <?php foreach ($computadores as $computer) : ?>
                     <div class="equipment-card" id="computer-<?= $computer["id"] ?>">

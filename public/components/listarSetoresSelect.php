@@ -1,0 +1,79 @@
+<?php
+
+function selectSetores(){
+    return '
+    <option value="Administração">Administração</option>
+    <option value="Almoxarifado">Almoxarifado</option>
+    <option value="Ambulatório">Ambulatório</option>
+    <option value="Auditoria de Enfermagem">Auditoria de Enfermagem</option>
+    <option value="Banco de Sangue">Banco de Sangue</option>
+    <option value="CAF">CAF</option>
+    <option value="Capelania">Capelania</option>
+    <option value="Central de Autorizações">Central de Autorizações</option>
+    <option value="Central de Consultas">Central de Consultas</option>
+    <option value="Centro Cirúrgico">Centro Cirúrgico</option>
+    <option value="CME">CME</option>
+    <option value="Cobrança">Cobrança</option>
+    <option value="Compras">Compras</option>
+    <option value="Comunicação">Comunicação</option>
+    <option value="Contabilidade">Contabilidade</option>
+    <option value="CTI">CTI </option>
+    <option value="CTI 2">CTI 2</option>
+    <option value="CTI 3">CTI 3</option>
+    <option value="CTI 4">CTI 4</option>
+    <option value="Custos">Custos</option>
+    <option value="CVS">CVS</option>
+    <option value="Departamento Comercial">Departamento Comercial</option>
+    <option value="Departamento Pessoal">Departamento Pessoal</option>
+    <option value="Diagnóstico Imagem">Diagnóstico Imagem</option>
+    <option value="Farmácia Central">Farmácia Central</option>
+    <option value="Faturamento">Faturamento</option>
+    <option value="Financeiro">Financeiro</option>
+    <option value="Fisioterapia">Fisioterapia</option>
+    <option value="Gerência de Enfermagem">Gerência de Enfermagem</option>
+    <option value="Gestão de Leitos">Gestão de Leitos</option>
+    <option value="Hemodinâmica">Hemodinâmica</option>
+    <option value="Hotelaria">Hotelaria</option>
+    <option value="Informática">Informática</option>
+    <option value="Jardinagem">Jardinagem</option>
+    <option value="Jurídico">Jurídico</option>
+    <option value="Laboratório">Laboratório</option>
+    <option value="Lavanderia">Lavanderia</option>
+    <option value="Manutenção">Manutenção</option>
+    <option value="Marcenaria">Marcenaria</option>
+    <option value="NEP">NEP</option>
+    <option value="NEWENG">NEWENG</option>
+    <option value="NIR">NIR</option>
+    <option value="OPME">OPME</option>
+    <option value="Ouvidoria">Ouvidoria</option>
+    <option value="Pronto Atendimento">Pronto Atendimento</option>
+    <option value="Psicologia">Psicologia</option>
+    <option value="Qualidade">Qualidade</option>
+    <option value="Radiologia">Radiologia</option>
+    <option value="Recepção">Recepção</option>
+    <option value="Recepção Ambulatório de Ortopedia">Recepção Ambulatório de Ortopedia</option>
+    <option value="Recepção do Centro de Diagnósticos">Recepção do Centro de Diagnósticos</option>
+    <option value="Recepção Internação">Recepção Internação</option>
+    <option value="Recepção Pronto Atendimento">Recepção Pronto atendimento</option>
+    <option value="Recurso de Glosa">Recurso de Glosa</option>
+    <option value="Recursos Humanos">Recursos Humanos</option>
+    <option value="Repasse Médico">Repasse Médico</option>
+    <option value="SAME">SAME</option>
+    <option value="SCIH">SCIH</option>
+    <option value="Serviço de Higiene e Limpeza">Serviço de Higiene e Limpeza</option>
+    <option value="SESMT">SESMT</option>
+    <option value="SND">SND</option>
+    <option value="Supervisão de Enfermagem">Supervisão de Enfermagem</option>
+    <option value="Totalmedcare">Totalmedcare</option>
+    <option value="Transplante">Transplante</option>
+    <option value="Transporte">Transporte</option>
+    <option value="Ultrassom">Ultrassom</option>
+    <option value="Unidade Internação 1ºAndar">Unidade Internação 1° Andar</option>
+    <option value="Unidade Internação 2ºAndar">Unidade Internação 2° Andar</option>
+    <option value="Unidade Internação Cirúrgica">Unidade Internação Cirúrgica</option>
+    <option value="Unidade Internação Clínica">Unidade Internação Clínica</option>
+    <option value="Vigilância">Vigilância</option>
+    <option value="Enfermaria">Enfermaria</option>
+    
+    ';
+};
