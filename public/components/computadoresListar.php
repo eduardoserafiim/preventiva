@@ -18,10 +18,10 @@ function listarComputadores() {
                             <span id="nome-<?= $computer["id"] ?>"><?= htmlspecialchars($computer["nome"]) ?></span>
                         </h3>
                         <div class="form-actions">
-                            <button type="button" class="botao botao-primario" onclick="editarComputador(<?= $computer["id"] ?>)">
+                            <button type="button" class="botao botao-primario editarComputador" data-id="<?= $computer['id'] ?>">
                                 <i class="fa-solid fa-pencil"></i> Editar
                             </button>
-                            <form method="POST">
+                            <form method="POST" action="../controllers/computadoresApagar.php">
                                 <input type="hidden" name="apagarComputador" value="<?= $computer['id'] ?>">
                                 <button type="submit" class="botao botao-cancelar">
                                     <i class="fas fa-eraser"></i> Apagar
@@ -51,7 +51,7 @@ function listarComputadores() {
                             ?>
                                 <div class="info-row">
                                     <span class="info-label"><?= $label ?>:</span>
-                                    <span class="info-value" id="<?= $key ?>-<?= $computer["id"] ?>">
+                                    <span class="info-value" id="<?= $key ?>-<?= $computer["id"] ?>" data-key="<?= $key ?>">
                                         <?= htmlspecialchars($computer[$key]) ?>
                                     </span>
                                 </div>

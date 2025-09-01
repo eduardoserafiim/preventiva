@@ -1,11 +1,11 @@
 <?php
 class Database {
-    // private $host = "10.141.121.67:3306";
-    private $host = "localhost";
-    // private $db = "informatica";
-    private $db = "databasehp";
-    private $user = "root";
-    private $pass = "";
+    private $host = "10.141.121.67:3306";
+    // private $host = "localhost";
+    private $db = "informatica";
+    // private $db = "databasehp";
+    private $user = "info";
+    private $pass = "fefeco123@";
     private $pdo;
 
     public function __construct() {
@@ -29,14 +29,12 @@ class Database {
         return $this->pdo;
     }
 
-    // Método para executar SELECT com prepared statement
     public function select($sql, $params = []) {
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($params);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Método para INSERT, UPDATE, DELETE
     public function execute($sql, $params = []) {
         $stmt = $this->pdo->prepare($sql);
         return $stmt->execute($params);

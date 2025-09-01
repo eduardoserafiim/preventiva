@@ -42,7 +42,7 @@ class ComputerModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $data) {
+    public function atualizar($id, $data) {
         $sql = "UPDATE computadores SET 
             semestre = :semestre,
             ano = :ano, 
@@ -56,32 +56,39 @@ class ComputerModel {
             processador = :processador, 
             memoria = :memoria, 
             disco = :disco,
-            ip = :ip, lacre = :lacre, status = :status
+            ip = :ip, 
+            lacre = :lacre, 
+            status = :status
             WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            ':id' => $id,
-            ':semestre' => $data['semestre'],
-            ':ano' => $data['ano'],
-            ':unidade' => $data['unidade'],
-            ':setor' => $data['setor'],
-            ':nome' => $data['nome'],
-            ':modelo' => $data['modelo'],
-            ':monitor' => $data['monitor'],
-            ':so' => $data['so'],
-            ':office' => $data['office'],
-            ':processador' => $data['processador'],
-            ':memoria' => $data['memoria'],
-            ':disco' => $data['disco'],
-            ':ip' => $data['ip'],
-            ':lacre' => $data['lacre'],
-            ':status' => $data['status'],
-        ]);
-        // tirar o echo depois blud
-        echo json_encode(['success' => true, 'message' => 'Computador atualizado com sucesso!']);
+
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                ':id' => $id,
+                ':semestre' => $data['semestre'],
+                ':ano' => $data['ano'],
+                ':unidade' => $data['unidade'],
+                ':setor' => $data['setor'],
+                ':nome' => $data['nome'],
+                ':modelo' => $data['modelo'],
+                ':monitor' => $data['monitor'],
+                ':so' => $data['so'],
+                ':office' => $data['office'],
+                ':processador' => $data['processador'],
+                ':memoria' => $data['memoria'],
+                ':disco' => $data['disco'],
+                ':ip' => $data['ip'],
+                ':lacre' => $data['lacre'],
+                ':status' => $data['status'],
+            ]);
+            return true;
+
+        } catch (PDOException $e) {
+            error_log("Erro ao atualizar computador: " . $e->getMessage());
+            return false;
+        }
     }
 
-    // Deletar computador
     public function apagar($id) {
         $sql = "DELETE 
         FROM computadores 

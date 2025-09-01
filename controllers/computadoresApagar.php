@@ -2,14 +2,17 @@
 require_once "../models/computadores.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarComputador'])) {
-    $id = intval($_POST['apagarComputador']); // sempre filtrar e validar
+    $id = intval($_POST['apagarComputador']);
 
     $model = new ComputerModel();
     $apagar = $model->apagar($id);
 
     if ($apagar) {
-    $_SESSION['msg'] = ['type' => 'success', 'text' => 'Computador apagado com sucesso!'];
+        echo "Computador excluído com sucesso.";
     } else {
-        $_SESSION['msg'] = ['type' => 'warning', 'text' => '⚠ Erro ao apagar computador.'];
+        echo "Erro ao excluír o computador.";
     }
 }
+
+header("Location: ../view/preventiva.php");
+exit();

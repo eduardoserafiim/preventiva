@@ -25,7 +25,6 @@ require_once '../public/components/navbar.php';
                                 <label for="label-semestre">Semestre</label>
                                 <select id="select-semestre" name="semestre" required>
                                     <option value="" disabled selected>Selecione...</option>
-                                    <option value=""></option>
                                     <option value="1° Semestre">1° Semestre</option>
                                     <option value="2° Semestre">2° Semestre</option>
                                 </select>
@@ -35,7 +34,6 @@ require_once '../public/components/navbar.php';
                                 <label for="label-ano">Ano</label>
                                 <select id="select-ano" name="ano" required>
                                     <option value="" disabled selected>Selecione...</option>
-                                    <option value=""></option>
                                     <option value="2022">2022</option>
                                     <option value="2023">2023</option>
                                     <option value="2024">2024</option>
@@ -47,7 +45,6 @@ require_once '../public/components/navbar.php';
                                 <label for="label-unidade">Unidade</label>
                                 <select id="select-unidaded" name="unidade" required>
                                     <option value="" disabled selected>Selecione...</option>
-                                    <option value=""></option>
                                     <option value="HAP - UNIDADE MATRIZ">HAP - Matriz</option>
                                     <option value="HAP - UNIDADE CENTRO">HAP - Centro</option>
                                 </select>
@@ -82,7 +79,6 @@ require_once '../public/components/navbar.php';
                                 <label for="label-so">Sistema Operacional</label>
                                 <select id="select-so" name="so" required>
                                     <option value="">Selecione...</option>
-                                    <option value=""></option>
                                     <option value="Windows 10 Pro">Windows 10 Pro</option>
                                     <option value="Windows 10 Home">Windows 10 Home</option>
                                     <option value="Windows 11 Pro">Windows 11 Pro</option>
@@ -95,7 +91,6 @@ require_once '../public/components/navbar.php';
                                 <label for="label-office">Office</label>
                                 <select id="select-office" name="office" required>
                                     <option value="" disabled selected>Selecione...</option>
-                                    <option value=""></option>
                                     <option value="Office">Office</option>
                                     <option value="Libre Office">Libre Office</option>
                                     <option value="WPS">WPS</option>
@@ -111,7 +106,7 @@ require_once '../public/components/navbar.php';
                                 <label for="label-memoria">Memória RAM</label>
                                 <select id="select-memoria" name="memoria" required>
                                     <option value="" disabled selected>Selecione...</option>
-                                    <option value=""></option>
+                                    <option value="2GB">2GB</option>
                                     <option value="4GB">4GB</option>
                                     <option value="8GB">8GB</option>
                                     <option value="16GB">16GB</option>
@@ -124,7 +119,6 @@ require_once '../public/components/navbar.php';
                                 <label for="label-disco">Disco</label>
                                 <select id="select-disco" name="disco" required>
                                     <option value="" disabled selected>Selecione...</option>
-                                    <option value=""></option>
                                     <option value="HDD">HD</option>
                                     <option value="SSD">SSD</option>
                                     <option value="SSD NVME">SSD NVME</option>
@@ -145,7 +139,6 @@ require_once '../public/components/navbar.php';
                                 <label for="comp-status">Status</label>
                                 <select id="comp-status" name="status" required>
                                     <option value="">Selecione...</option>
-                                    <option value=""></option>
                                     <option value="Ativo">Ativo</option>
                                     <option value="Inativo">Inativo</option>
                                     <option value="Manutenção">Manutenção</option>
