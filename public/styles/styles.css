@@ -86,12 +86,29 @@ body {
   width: 20px;
 }
 
+.setores
+{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-rows: repeat(200px);
+  grid-template-columns: repeat(3, 400px);
+}
+
 .setor
 {
-  height: auto;
-  width: 300px;
+  display: flex;
+  flex-direction: column;
+  height: 160px;
+  width: 350px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   padding: 1rem;
+  margin: 1rem;
+  border-radius: 12px;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  transition: border 0.2s ease-in-out;
+
 }
 
 .setor i
@@ -101,11 +118,15 @@ body {
 
 .setor p
 {
-  padding: 2rem 0 0 2rem;
+  padding: 0.5rem 0 0 2rem;
 }
 
 .setor:hover i {
     animation: fa-bounce 1s infinite;
+}
+
+.setor:hover{
+  border: 1px solid #334155;
 }
 
 /* Main Content */
