@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
             const card = document.getElementById(`computer-${computerId}`);
             const infoDiv = card.querySelector('.equipment-info');
 
-            // LISTA DOS PARAMETROS PARA O DB
             const fields = {
                 nome: 'Nome',
                 semestre: 'Semestre',
@@ -23,22 +22,38 @@ document.addEventListener('DOMContentLoaded', function () {
                 disco: 'Disco',
                 ip: 'Endereço IP',
                 lacre: 'Lacre',
+                legendaA: 'Legenda A',
+                legendaB: 'Legenda B',
+                legendaC: 'Legenda C',
+                legendaD: 'Legenda D',
+                legendaE: 'Legenda E',
+                legendaF: 'Legenda F',
+                legendaG: 'Legenda G',
+                legendaH: 'Legenda H',
                 status: 'Status'
             };
 
-            // CRIA O FORM
             const form = document.createElement('form');
             form.method = 'POST';
             form.action = '../controllers/computadoresEditar.php';
 
-            // INPUT HIDDEN PARA O ID
             const inputId = document.createElement('input');
             inputId.type = 'hidden';
             inputId.name = 'id';
             inputId.value = computerId;
             form.appendChild(inputId);
 
-            // CRIA OS CAMPOS LABEL E INPUT
+            const labelMap = {
+                legendaA: 'Atualização S.O',
+                legendaB: 'Validação Técnica',
+                legendaC: 'Sincronização',
+                legendaD: 'Backup Efetuado',
+                legendaE: 'Autorização',
+                legendaF: 'Checklist',
+                legendaG: 'Aprovado pela TI',
+                legendaH: 'Relatório Gerado'
+            };
+
             Object.entries(fields).forEach(([key, label]) => {
                 const span = document.getElementById(`${key}-${computerId}`);
                 const value = span ? span.textContent.trim() : '';
@@ -46,12 +61,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 const row = document.createElement('div');
                 row.className = 'info-row';
 
+                // Campos que serão renderizados como SELECT
+                const selectFields = ['semestre', 'ano', 'unidade', 'setor', 'so', 'office', 'memoria', 'disco', 'status'];
+
+                // Campos que serão renderizados como SWITCH
+                const switchFields = ['legendaA', 'legendaB', 'legendaC', 'legendaD', 'legendaE', 'legendaF', 'legendaG', 'legendaH'];
+
+                if (switchFields.includes(key)) {
+                    const checked = value === 'OK' || value === '1' ? 'checked' : '';
+                    const labelText = labelMap[key] || label;
+
+                    row.innerHTML = `
+                        <div class="form-flex switch-wrapper">
+                            <label class="texto">${labelText}</label>
+                            <input type="checkbox" id="input-${key}-${computerId}" name="${key}" value="1" ${checked}>
+                            <label for="input-${key}-${computerId}" class="switch"></label>
+                        </div>
+                    `;
+                    form.appendChild(row);
+                    return; // Pula o restante da lógica para esse campo
+                }
+
                 const labelSpan = document.createElement('span');
                 labelSpan.className = 'info-label';
                 labelSpan.textContent = `${label}:`;
 
                 let input;
-                const selectFields = ['semestre', 'ano', 'unidade', 'setor', 'so', 'office', 'memoria', 'disco', 'status'];
 
                 if (selectFields.includes(key)) {
                     input = document.createElement('select');
@@ -60,7 +95,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     let options = [];
 
-                    // Define opções para cada campo específico
                     switch (key) {
                         case 'semestre':
                             options = ['1° Semestre', '2° Semestre'];
@@ -70,10 +104,83 @@ document.addEventListener('DOMContentLoaded', function () {
                             options = Array.from({ length: 4 }, (_, i) => (currentYear - i).toString());
                             break;
                         case 'unidade':
-                            options =  ['HAP - MATRIZ', 'HAP - UC'];
+                            options = ['HAP - MATRIZ', 'HAP - UC'];
                             break;
                         case 'setor':
-                            options = [''];
+                            options = [
+                                'Administração',
+                                'Almoxarifado',
+                                'Ambulatório',
+                                'Auditoria de Enfermagem',
+                                'Banco de Sangue',
+                                'CAF',
+                                'Capelania',
+                                'Central de Autorizações',
+                                'Central de Consultas',
+                                'Centro Cirúrgico',
+                                'CME',
+                                'Cobrança',
+                                'Compras',
+                                'Comunicação',
+                                'Contabilidade',
+                                'CTI',
+                                'CTI 2',
+                                'CTI 3',
+                                'CTI 4',
+                                'Custos',
+                                'CVS',
+                                'Departamento Comercial',
+                                'Departamento Pessoal',
+                                'Diagnóstico Imagem',
+                                'Farmácia Central',
+                                'Faturamento',
+                                'Financeiro',
+                                'Fisioterapia',
+                                'Gerência de Enfermagem',
+                                'Gestão de Leitos',
+                                'Hemodinâmica',
+                                'Hotelaria',
+                                'Informática',
+                                'Jardinagem',
+                                'Jurídico',
+                                'Laboratório',
+                                'Lavanderia',
+                                'Manutenção',
+                                'Marcenaria',
+                                'NEP',
+                                'NEWENG',
+                                'NIR',
+                                'OPME',
+                                'Ouvidoria',
+                                'Pronto Atendimento',
+                                'Psicologia',
+                                'Qualidade',
+                                'Radiologia',
+                                'Recepção',
+                                'Recepção Ambulatório de Ortopedia',
+                                'Recepção do Centro de Diagnósticos',
+                                'Recepção Internação',
+                                'Recepção Pronto Atendimento',
+                                'Recurso de Glosa',
+                                'Recursos Humanos',
+                                'Repasse Médico',
+                                'SAME',
+                                'SCIH',
+                                'Serviço de Higiene e Limpeza',
+                                'SESMT',
+                                'SND',
+                                'Supervisão de Enfermagem',
+                                'Totalmedcare',
+                                'Transplante',
+                                'Transporte',
+                                'Ultrassom',
+                                'Unidade Internação 1° Andar',
+                                'Unidade Internação 2° Andar',
+                                'Unidade Internação Cirúrgica',
+                                'Unidade Internação Clínica',
+                                'Vigilância',
+                                'Enfermaria'
+                            ];
                             break;
                         case 'so':
                             options = ['Windows 10 Pro', 'Windows 10 Home', 'Windows 11 Pro', 'Windows 11 Home', 'Ubuntu'];
@@ -101,7 +208,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
 
                 } else {
-                    // Default input para os demais campos
                     input = document.createElement('input');
                     input.type = 'text';
                     input.name = key;
@@ -109,14 +215,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     input.className = 'info-value-input';
                 }
 
-
                 row.appendChild(labelSpan);
                 row.appendChild(input);
-
                 form.appendChild(row);
             });
 
-            // BOTOES
             const formActions = card.querySelector('.form-actions');
             formActions.innerHTML = '';
 
@@ -132,16 +235,14 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             form.appendChild(buttonsRow);
 
-            // SUBSTITUIÇÃO
-            infoDiv.innerHTML = ''; // LIMPAR
+            infoDiv.innerHTML = '';
             infoDiv.appendChild(form);
         });
     });
 
-    // BOTAO CANCELAR
     document.addEventListener('click', function (e) {
         if (e.target.classList.contains('cancelar-edicao')) {
-            location.reload(); // RELOAD PARA CANCELAR
+            location.reload();
         }
     });
 });

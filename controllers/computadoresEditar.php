@@ -18,6 +18,14 @@ function alterarComputadores(){
         'ano' => $_POST['ano'] ?? '',
         'semestre' => $_POST['semestre'] ?? '',
         'unidade' => $_POST['unidade'] ?? '',
+        'legendaA' => isset($_POST['legendaA']) ? 1 : 0,
+        'legendaB' => isset($_POST['legendaB']) ? 1 : 0,
+        'legendaC' => isset($_POST['legendaC']) ? 1 : 0,
+        'legendaD' => isset($_POST['legendaD']) ? 1 : 0,
+        'legendaE' => isset($_POST['legendaE']) ? 1 : 0,
+        'legendaF' => isset($_POST['legendaF']) ? 1 : 0,
+        'legendaG' => isset($_POST['legendaG']) ? 1 : 0,
+        'legendaH' => isset($_POST['legendaH']) ? 1 : 0,
         'setor' => $_POST['setor'] ?? '',
     ];
 

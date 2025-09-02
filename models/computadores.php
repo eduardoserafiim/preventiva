@@ -41,17 +41,18 @@ class ComputerModel {
         ]);
     }
 
-    public function listar(){
-        $sql = 'SELECT 
-        *
-        FROM computadores';
+    public function listar($setor){
+        $sql = 'SELECT *
+        FROM computadores 
+        WHERE setor = :setor';
         $stmt = $this->db->prepare($sql);
-        $stmt->execute();
+        $stmt->execute([':setor' => $setor]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function atualizar($id, $data) {
-        $sql = "UPDATE computadores SET 
+        $sql = "UPDATE computadores 
+            SET 
             semestre = :semestre,
             ano = :ano, 
             unidade = :unidade, 

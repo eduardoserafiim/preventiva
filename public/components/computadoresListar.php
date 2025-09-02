@@ -1,15 +1,15 @@
 <?php
 require_once '../db/db.php';
 require_once '../models/computadores.php';
-function listarComputadores() {
+function listarComputadores($setor = '') {
     $model = new ComputerModel();
-    $computadores = $model->listar();
+    $computadores = $model->listar($setor);
 
     ?>
     <div id="computers-list" class="tab-content active">
         <div class="equipment-grid" id="computersGrid">
             <?php if (empty($computadores)) : ?>
-                <p class="empty-state">Nenhum setor visível ainda.</p>
+                <p class="empty-state">Nenhum computador visível ainda.</p>
             <?php else : ?>
                 <?php foreach ($computadores as $computer) : ?>
                     <div class="equipment-card" id="computer-<?= $computer["id"] ?>">
@@ -44,6 +44,14 @@ function listarComputadores() {
                                 "disco" => "Disco",
                                 "ip" => "Endereço IP",
                                 "lacre" => "Lacre",
+                                "legendaA" => "Legenda A",
+                                "legendaB" => "Legenda B",
+                                "legendaC" => "Legenda C",
+                                "legendaD" => "Legenda D",
+                                "legendaE" => "Legenda E",
+                                "legendaF" => "Legenda F",
+                                "legendaG" => "Legenda G",
+                                "legendaH" => "Legenda H",
                                 "status" => "Status",
                             ];
 
