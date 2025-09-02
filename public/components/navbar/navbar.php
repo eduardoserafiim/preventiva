@@ -8,7 +8,7 @@ function navbar($active) {
         </div>
         <ul class="sidebar-menu">
             <li>
-                <a href="index.php" class="menu-item ' . ($active === 'computadores' ? 'active' : '') . '" data-page="computadores">
+                <a href="computadores.php" class="menu-item ' . ($active === 'computadores' ? 'active' : '') . '" data-page="computadores">
                     <i class="fas fa-desktop"></i>
                     <span>Computadores</span>
                 </a>
@@ -23,6 +23,12 @@ function navbar($active) {
                 <a href="preventiva.php" class="menu-item ' . ($active === 'preventiva' ? 'active' : '') . '" data-page="preventiva">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Preventiva</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="menu-item">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Menu Inicial</span>
                 </a>
             </li>
         </ul>

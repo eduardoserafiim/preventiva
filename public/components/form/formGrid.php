@@ -1,0 +1,100 @@
+<?php 
+function formGrid(){
+    return
+    '
+    <div class="form-grid">
+        <!-- SETOR -->
+            <div class="form-group">
+            <label for="label-setor">Setor</label>
+            <select id="select-setor" name="setor" required>
+                <option value="" disabled selected>Selecione...</option>
+                '. selectSetores() .'
+            </select>
+            </div>
+        <!-- NOME -->
+        <div class="form-group">
+            <label for="label-nome">Nome</label>
+            <input type="text" id="input-nome" name="nome" required>
+        </div>
+        <!-- MODELO -->
+        <div class="form-group">
+            <label for="label-modelo">Modelo</label>
+            <input type="text" id="input-modelo" name="modelo" required>
+        </div>
+        <!-- MONITOR -->
+        <div class="form-group">
+            <label for="label-monitor">Monitor</label>
+            <input type="text" id="input-monitor" name="monitor" required>
+        </div>
+        <!-- S.O -->
+        <div class="form-group">
+            <label for="label-so">Sistema Operacional</label>
+            <select id="select-so" name="so" required>
+                <option value="">Selecione...</option>
+                <option value="Windows 10 Pro">Windows 10 Pro</option>
+                <option value="Windows 10 Home">Windows 10 Home</option>
+                <option value="Windows 11 Pro">Windows 11 Pro</option>
+                <option value="Windows 11 Home">Windows 11 Home</option>
+                <option value="Ubuntu">Ubuntu</option>
+            </select>
+        </div>
+        <!-- OFFICE -->
+        <div class="form-group">
+            <label for="label-office">Office</label>
+            <select id="select-office" name="office" required>
+                <option value="" disabled selected>Selecione...</option>
+                <option value="Office">Office</option>
+                <option value="Libre Office">Libre Office</option>
+                <option value="WPS">WPS</option>
+            </select>
+        </div>
+        <!-- PROCESSADOR -->
+        <div class="form-group">
+            <label for="label-processador">Processador</label>
+            <input type="text" id="input-processador" name="processador" required>
+        </div>
+        <!-- MEMORIA -->
+        <div class="form-group">
+            <label for="label-memoria">Memória RAM</label>
+            <select id="select-memoria" name="memoria" required>
+                <option value="" disabled selected>Selecione...</option>
+                <option value="2GB">2GB</option>
+                <option value="4GB">4GB</option>
+                <option value="8GB">8GB</option>
+                <option value="16GB">16GB</option>
+                <option value="32GB">32GB</option>
+                <option value="64GB">64GB</option>
+            </select>
+        </div>
+        <!-- DISCO -->
+        <div class="form-group">
+            <label for="label-disco">Disco</label>
+            <select id="select-disco" name="disco" required>
+                <option value="" disabled selected>Selecione...</option>
+                <option value="HDD">HD</option>
+                <option value="SSD">SSD</option>
+                <option value="SSD NVME">SSD NVME</option>
+            </select>
+        </div>
+        <!-- IP -->
+        <div class="form-group">
+            <label for="label-serie">Endereço IP</label>
+            <input type="text" id="input-ip" name="ip" required>
+        </div>  
+        <!-- LACRE -->
+        <div class="form-group">
+            <label for="label-lacre">Lacre</label>
+            <input type="text" id="input-lacre" name="lacre">
+        </div>      
+        <!-- STATUS -->
+        <div class="form-group">
+            <label for="comp-status">Status</label>
+            <select id="comp-status" name="status" required>
+                <option value="">Selecione...</option>
+                <option value="Ativo">Ativo</option>
+                <option value="Inativo">Inativo</option>
+                <option value="Manutenção">Manutenção</option>
+            </select>
+        </div>
+    ';
+}

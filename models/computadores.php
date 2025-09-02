@@ -9,10 +9,10 @@ class ComputerModel {
         $this->db = $database->getConnection();
     }
 
-    public function store($data) {
+    public function criar($data) {
         $sql = "INSERT INTO computadores
-            (semestre, ano, unidade, setor, nome, modelo, monitor, so, office, processador, memoria, disco, ip, lacre, status, dataCadastro)
-            VALUES (:semestre, :ano, :unidade, :setor, :nome, :modelo, :monitor, :so, :office, :processador, :memoria, :disco, :ip, :lacre, :status, NOW())";
+            (semestre, ano, unidade, setor, nome, modelo, monitor, so, office, processador, memoria, disco, ip, lacre, status, legendaA, legendaB, legendaC, legendaD, legendaE, legendaF, legendaG, legendaH, dataCadastro)
+            VALUES (:semestre, :ano, :unidade, :setor, :nome, :modelo, :monitor, :so, :office, :processador, :memoria, :disco, :ip, :lacre, :status, :legendaA, :legendaB, :legendaC, :legendaD, :legendaE, :legendaF, :legendaG, :legendaH,  NOW())";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             ':semestre' => $data['semestre'],
@@ -29,6 +29,14 @@ class ComputerModel {
             ':disco' => $data['disco'],
             ':ip' => $data['ip'],
             ':lacre' => $data['lacre'],
+            ':legendaA' => $data['legendaA'] ? 1 : 0,
+            ':legendaB' => $data['legendaB'] ? 1 : 0,
+            ':legendaC' => $data['legendaC'] ? 1 : 0,
+            ':legendaD' => $data['legendaD'] ? 1 : 0,
+            ':legendaE' => $data['legendaE'] ? 1 : 0,
+            ':legendaF' => $data['legendaF'] ? 1 : 0,
+            ':legendaG' => $data['legendaG'] ? 1 : 0,
+            ':legendaH' => $data['legendaH'] ? 1 : 0,
             ':status' => $data['status'],
         ]);
     }

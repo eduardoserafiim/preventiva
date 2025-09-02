@@ -18,11 +18,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'disco' => $_POST['disco'],
         'ip' => $_POST['ip'],
         'lacre' => $_POST['lacre'],
+        'legendaA' => isset($_POST['legendaA']) ? 1 : 0,
+        'legendaB' => isset($_POST['legendaB']) ? 1 : 0,
+        'legendaC' => isset($_POST['legendaC']) ? 1 : 0,
+        'legendaD' => isset($_POST['legendaD']) ? 1 : 0,
+        'legendaE' => isset($_POST['legendaE']) ? 1 : 0,
+        'legendaF' => isset($_POST['legendaF']) ? 1 : 0,
+        'legendaG' => isset($_POST['legendaG']) ? 1 : 0,
+        'legendaH' => isset($_POST['legendaH']) ? 1 : 0,
         'status' => $_POST['status'],
     ];
 
     $computerController = new ComputerModel();
-    $computerController->store($data);
+    $computerController->criar($data);
     echo json_encode(['status'=> 'success', 'message' => 'Computador cadastrado com sucesso!']);
     
 } else {

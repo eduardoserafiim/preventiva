@@ -14,8 +14,16 @@ CREATE TABLE computadores(
     processador VARCHAR(100),
     memoria VARCHAR(50),
     disco VARCHAR(50),
-    ip VARCHAR(45), 
+    ip VARCHAR(45),
     lacre VARCHAR(50),
     status VARCHAR(50),
+    legendaA boolean,
+    legendaB boolean,
+    legendaC boolean,
+    legendaD boolean,
+    legendaE boolean,
+    legendaF boolean,
+    legendaG boolean,
+    legendaH boolean,
     dataCadastro DATE
 );
