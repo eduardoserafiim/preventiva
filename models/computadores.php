@@ -50,6 +50,31 @@ class ComputerModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function filtrar($setor, $semestre = '', $ano = '', $unidade = '') {
+        $query = "SELECT * FROM computadores WHERE setor = :setor";
+        $params = [':setor' => $setor];
+
+        if ($semestre) {
+            $query .= " AND semestre = :semestre";
+            $params[':semestre'] = $semestre;
+        }
+
+        if ($ano) {
+            $query .= " AND ano = :ano";
+            $params[':ano'] = $ano;
+        }
+
+        if ($unidade) {
+            $query .= " AND unidade = :unidade";
+            $params[':unidade'] = $unidade;
+        }
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
     public function atualizar($id, $data) {
         $sql = "UPDATE computadores 
             SET 

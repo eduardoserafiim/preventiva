@@ -1,9 +1,7 @@
 <?php
 require_once '../db/db.php';
 require_once '../models/computadores.php';
-function listarComputadores($setor = '') {
-    $model = new ComputerModel();
-    $computadores = $model->listar($setor);
+function listarComputadores(array $computadores) {
 
     ?>
     <div id="computers-list" class="tab-content active">
@@ -21,7 +19,7 @@ function listarComputadores($setor = '') {
                             <button type="button" class="botao botao-primario editarComputador" data-id="<?= $computer['id'] ?>">
                                 <i class="fa-solid fa-pencil"></i> Editar
                             </button>
-                            <form method="POST" action="../controllers/computadoresApagar.php">
+                            <form method="POST" action="../controllers/computadoresApagar.php" onsubmit="return confirmarExclusao()">
                                 <input type="hidden" name="apagarComputador" value="<?= $computer['id'] ?>">
                                 <button type="submit" class="botao botao-cancelar">
                                     <i class="fas fa-eraser"></i> Apagar

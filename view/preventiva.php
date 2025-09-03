@@ -12,10 +12,19 @@ require_once "../public/components/setores/dictionarySetores.php";
 <?php
 
 $setor = $_GET['setor'] ?? '';
+$semestre = $_GET['semestre'] ?? '';
+$ano = $_GET['ano'] ?? '';
+$unidade = $_GET['unidade'] ?? '';
 
-require_once '../models/computadores.php'; 
 $db = new ComputerModel();
-$computadores = $db->listar($setor);
+if ($setor) {
+    if ($semestre || $ano || $unidade) {
+        $computadores = $db->filtrar($setor, $semestre, $ano, $unidade);
+    } else {
+        $computadores = $db->listar($setor);
+    }
+}
+?>
 
 ?>
 <body>
@@ -40,11 +49,11 @@ $computadores = $db->listar($setor);
                     echo '
                         <div class="filtro">
                             <h3 class="filtragem">Adicione filtros</h3>
-                            <div class="form-flex">
+                            <form method="GET" class="form-flex">
                                 <!-- SEMESTRE -->
                                 <div class="form-group">
                                     <label for="label-semestre">Semestre</label>
-                                    <select id="select-semestre" name="semestre" required>
+                                    <select id="select-semestre" name="semestre">
                                         <option value="" disabled selected>Selecione...</option>
                                         <option value="1° Semestre">1° Semestre</option>
                                         <option value="2° Semestre">2° Semestre</option>
@@ -53,7 +62,7 @@ $computadores = $db->listar($setor);
                                 <!-- ANO -->
                                 <div class="form-group">
                                     <label for="label-ano">Ano</label>
-                                    <select id="select-ano" name="ano" required>
+                                    <select id="select-ano" name="ano">
                                         <option value="" disabled selected>Selecione...</option>
                                         <option value="2022">2022</option>
                                         <option value="2023">2023</option>
@@ -64,23 +73,23 @@ $computadores = $db->listar($setor);
                                 <!-- UNIDADE -->
                                 <div class="form-group">
                                     <label for="label-unidade">Unidade</label>
-                                    <select id="select-unidaded" name="unidade" required>
+                                    <select id="select-unidaded" name="unidade">
                                         <option value="" disabled selected>Selecione...</option>
-                                        <option value="HAP - UNIDADE MATRIZ">HAP - Matriz</option>
-                                        <option value="HAP - UNIDADE CENTRO">HAP - Centro</option>
+                                        <option value="HAP - MATRIZ">HAP - Matriz</option>
+                                        <option value="HAP - UC">HAP - Centro</option>
                                     </select>
                                 </div>
-                                
+                                <input type="hidden" name="setor" value="'.htmlspecialchars($setor).'">
                                 <button type="submit" class="botao botao-primario filtro">Filtrar</button> 
                                 
-                            </div>
+                            </form>
                         </div>
                         <div class="voltar">
                             <a href="preventiva.php">
                                 <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
                             </a>
                         </div>';
-                    echo listarComputadores($_GET['setor']);
+                    echo listarComputadores($computadores);
                 } else {
                     echo '<div class="setores">';
                     foreach ($setores as $setor) {
@@ -92,5 +101,6 @@ $computadores = $db->listar($setor);
         </main>
     </div>
     <script src="../public/javascript/atualizarComputadores.js"></script>
+    <script src="../public/javascript/excluirComputadores.js"></script>
 </body>
 </html>

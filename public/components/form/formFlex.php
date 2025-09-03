@@ -29,8 +29,8 @@ function formFlex(){
             <label for="label-unidade">Unidade</label>
             <select id="select-unidaded" name="unidade" required>
                 <option value="" disabled selected>Selecione...</option>
-                <option value="HAP - UNIDADE MATRIZ">HAP - Matriz</option>
-                <option value="HAP - UNIDADE CENTRO">HAP - Centro</option>
+                <option value="HAP - MATRIZ">HAP - Matriz</option>
+                <option value="HAP - UC">HAP - Centro</option>
             </select>
         </div>
     </div>
