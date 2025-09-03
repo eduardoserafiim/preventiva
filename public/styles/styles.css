@@ -26,6 +26,7 @@ a
 {
   display: flex;
   align-items: center;
+  gap: 1rem;
 }
 
 
@@ -261,6 +262,11 @@ select:focus {
   position: relative;
 }
 
+.switch-wrapper label
+{
+  color: #374151;
+}
+
 .switch-wrapper input[type="checkbox"] {
   display: none;
 }
@@ -305,6 +311,12 @@ select:focus {
 .filtragem
 {
   margin-bottom: 2rem;
+}
+
+.imprimir, .observacao
+{
+  margin-top: 1.3rem;
+
 }
 
 .filtro
@@ -539,4 +551,35 @@ select:focus {
     flex-direction: column;
   }
 
+}
+
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 10mm;
+  }
+
+  body * {
+    visibility: hidden;
+    font-family: Montserrat;
+  }
+
+  #printable-area, #printable-area * {
+    visibility: visible;
+  }
+
+  #printable-area {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+    font-size: 12px;
+    text-align: center;
+  }
 }

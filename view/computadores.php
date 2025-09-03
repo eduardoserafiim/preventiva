@@ -33,6 +33,5 @@ require_once '../public/components/form/formActions.php';
             </div>
         </main>
     </div>
-    <script src="../public/javascript/script.js"></script>
 </body>
 </html>

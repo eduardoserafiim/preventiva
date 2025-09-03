@@ -74,7 +74,6 @@ class ComputerModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
     public function atualizar($id, $data) {
         $sql = "UPDATE computadores 
             SET 
