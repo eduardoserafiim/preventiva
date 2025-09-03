@@ -1,11 +1,13 @@
 <?php
 class Database {
-    private $host = "10.141.121.67:3306";
-    // private $host = "localhost";
+    // private $host = "10.141.121.67:3306";
+    private $host = "localhost";
     private $db = "informatica";
     // private $db = "databasehp";
-    private $user = "info";
-    private $pass = "fefeco123@";
+    private $user = "root";
+    // private $user = "info";
+    private $pass = "";
+    // private $pass = "fefeco123@";
     private $pdo;
 
     public function __construct() {

@@ -200,7 +200,7 @@ a
   display: flex;
   align-items: center;
   gap: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.8rem;
 }
 
 .form-flex select
@@ -214,12 +214,18 @@ a
   flex-direction: column;
 }
 
-.form-group label, .form-flex label 
+.form-group label
 {
   font-weight: 600;
   color: #374151;
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
+}
+
+.texto
+{
+  font-weight: 600;
+  color: #6b7280;
 }
 
 input,
@@ -294,6 +300,16 @@ select:focus {
   display: flex;
   gap: 1rem;
   justify-content: flex-start;
+}
+
+.filtragem
+{
+  margin-bottom: 2rem;
+}
+
+.filtro
+{
+  margin-top: 2.2rem;
 }
 
 .botao 

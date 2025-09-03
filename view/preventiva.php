@@ -27,12 +27,54 @@ $computadores = $db->listar($setor);
                 <h1>Relatório Preventiva</h1>
                 <p>Visualize todos os equipamentos cadastrados</p>
             </div>
-            <div class="search">
-                <input type="text" name="search-input" id="search-input" placeholder="Digite o setor aqui...">
-            </div>
+            <?php
+                if (!isset($_GET['setor'])) {
+                    echo '
+                    <div class="search">
+                        <input type="text" name="search-input" id="search-input" placeholder="Digite o setor aqui...">
+                    </div>';
+                }
+            ?>
             <?php
                 if (isset($_GET['setor'])) {
                     echo '
+                        <div class="filtro">
+                            <h3 class="filtragem">Adicione filtros</h3>
+                            <div class="form-flex">
+                                <!-- SEMESTRE -->
+                                <div class="form-group">
+                                    <label for="label-semestre">Semestre</label>
+                                    <select id="select-semestre" name="semestre" required>
+                                        <option value="" disabled selected>Selecione...</option>
+                                        <option value="1° Semestre">1° Semestre</option>
+                                        <option value="2° Semestre">2° Semestre</option>
+                                    </select>
+                                </div>
+                                <!-- ANO -->
+                                <div class="form-group">
+                                    <label for="label-ano">Ano</label>
+                                    <select id="select-ano" name="ano" required>
+                                        <option value="" disabled selected>Selecione...</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                    </select>
+                                </div>
+                                <!-- UNIDADE -->
+                                <div class="form-group">
+                                    <label for="label-unidade">Unidade</label>
+                                    <select id="select-unidaded" name="unidade" required>
+                                        <option value="" disabled selected>Selecione...</option>
+                                        <option value="HAP - UNIDADE MATRIZ">HAP - Matriz</option>
+                                        <option value="HAP - UNIDADE CENTRO">HAP - Centro</option>
+                                    </select>
+                                </div>
+                                
+                                <button type="submit" class="botao botao-primario filtro">Filtrar</button> 
+                                
+                            </div>
+                        </div>
                         <div class="voltar">
                             <a href="preventiva.php">
                                 <i class="fa-solid fas fa-arrow-left fa-2xl"></i>

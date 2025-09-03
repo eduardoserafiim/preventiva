@@ -44,26 +44,40 @@ function listarComputadores($setor = '') {
                                 "disco" => "Disco",
                                 "ip" => "Endereço IP",
                                 "lacre" => "Lacre",
-                                "legendaA" => "Legenda A",
-                                "legendaB" => "Legenda B",
-                                "legendaC" => "Legenda C",
-                                "legendaD" => "Legenda D",
-                                "legendaE" => "Legenda E",
-                                "legendaF" => "Legenda F",
-                                "legendaG" => "Legenda G",
-                                "legendaH" => "Legenda H",
+                                "legendaA" => "Atualização S.O",
+                                "legendaB" => "Atualização Antivírus",
+                                "legendaC" => "Área de Trabalho Padrão",
+                                "legendaD" => "Orientação Pasta Compartilhada",
+                                "legendaE" => "Verificação de Software Não permitido",
+                                "legendaF" => "Limpeza do Gabinete",
+                                "legendaG" => "OEM Windows",
+                                "legendaH" => "Licença SQL Server",
                                 "status" => "Status",
                             ];
 
                             foreach ($fields as $key => $label) :
-                            ?>
-                                <div class="info-row">
-                                    <span class="info-label"><?= $label ?>:</span>
-                                    <span class="info-value" id="<?= $key ?>-<?= $computer["id"] ?>" data-key="<?= $key ?>">
-                                        <?= htmlspecialchars($computer[$key]) ?>
-                                    </span>
-                                </div>
-                            <?php endforeach; ?>
+                                ?>
+                                    <div class="info-row">
+                                        <span class="info-label"><?= $label ?>:</span>
+                                        <span class="info-value" id="<?= $key ?>-<?= $computer["id"] ?>" data-key="<?= $key ?>">
+                                            <?php
+                                            
+                                            if (preg_match('/^legenda[A-H]$/', $key)) {
+                                                $value = trim($computer[$key]);
+                                                $checked = ($value == '1' || $value === 1) ? 'checked' : '';
+                                                ?>
+                                                <div class="switch-wrapper">
+                                                    <input type="checkbox" disabled <?= $checked ?>>
+                                                    <label class="switch"></span>
+                                                </div>
+                                                <?php
+                                            } else {
+                                                echo htmlspecialchars($computer[$key]);
+                                            }
+                                            ?>
+                                        </span>
+                                    </div>
+                                <?php endforeach; ?>
                             <?php 
                                 $timestp = strtotime($computer['dataCadastro']);
                                 $dataBr = date('d/m/Y', $timestp);
