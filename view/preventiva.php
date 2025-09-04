@@ -27,8 +27,6 @@ if ($setor) {
     }
 }
 ?>
-
-?>
 <body>
     <div class="app-container">
         <!-- NAVBAR -->

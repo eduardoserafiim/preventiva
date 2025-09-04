@@ -14,12 +14,6 @@ function navbar($active) {
                 </a>
             </li>
             <li>
-                <a href="#" class="menu-item ' . ($active === 'impressoras' ? 'active' : '') . '" data-page="impressoras">
-                    <i class="fas fa-print"></i>
-                    <span>Impressoras</span>
-                </a>
-            </li>
-            <li>
                 <a href="preventiva.php" class="menu-item ' . ($active === 'preventiva' ? 'active' : '') . '" data-page="preventiva">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Preventiva</span>
@@ -33,5 +27,12 @@ function navbar($active) {
             </li>
         </ul>
     </nav>';
-}
+    }
 ?>
+
+<!-- <li>
+    <a href="#" class="menu-item ' . ($active === 'impressoras' ? 'active' : '') . '" data-page="impressoras">
+        <i class="fas fa-print"></i>
+        <span>Impressoras</span>
+    </a>
+</li> -->

@@ -70,10 +70,10 @@ function imprimirTabelaComputadores(array $computadores) {
         <!-- CAMPOS DE ASSINATURA E LEGENDA -->
         <div style="display: flex; justify-content: space-between; margin-top: 30px;">
             
-            <!-- CAMPOS EM TRÊS COLUNAS -->
+            <!-- CAMPOS EM TRÊS S-->
             <div style="width: 65%;">
                 <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
-                    <!-- COLUNA 1 -->
+                    <!-- TÉCNICO RESPONSÁVEL -->
                     <div style="width: 32%;">
                         <p style="margin: 0; font-size: 12px;">Unidade:</p>
                         <div style="border-bottom: 1px solid #000; height: 20px;"><?= htmlspecialchars($c['unidade'] ?? '---') ?></div>
@@ -82,7 +82,7 @@ function imprimirTabelaComputadores(array $computadores) {
                         <div style="border-bottom: 1px solid #000; height: 20px;"></div>
                     </div>
 
-                    <!-- COLUNA 2 -->
+                    <!-- SETOR -->
                     <div style="width: 32%;">
                         <p style="margin: 0; font-size: 12px;">Setor:</p>
                         <div style="border-bottom: 1px solid #000; height: 20px;"><?= htmlspecialchars($c['setor'] ?? '---') ?></div>
@@ -91,7 +91,7 @@ function imprimirTabelaComputadores(array $computadores) {
                         <div style="border-bottom: 1px solid #000; height: 20px;"></div>
                     </div>
 
-                    <!-- COLUNA 3 -->
+                    <!-- SEMESTRE E ANO -->
                     <div style="width: 32%;">
                         <p style="margin: 0; font-size: 12px;">Semestre:</p>
                         <div style="border-bottom: 1px solid #000; height: 20px;"><?= htmlspecialchars($c['semestre'] ?? '---') ?></div>

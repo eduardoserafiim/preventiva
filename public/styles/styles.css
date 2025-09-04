@@ -499,6 +499,11 @@ select:focus {
 /* Responsive */
 
 @media (max-width: 1920px){
+  .setores
+  {
+    grid-template-columns: repeat(3, 370px);
+  }
+
   .form-flex .texto{
     width: 260px;
   }
@@ -551,6 +556,11 @@ select:focus {
     flex-direction: column;
   }
 
+  .setores
+  {
+    grid-template-rows: repeat(200px);
+    grid-template-columns: repeat(1, 400px);
+  }
 }
 
 @media print {
