@@ -59,16 +59,19 @@ function listarComputadores(array $computadores) {
                                         <span class="info-label"><?= $label ?>:</span>
                                         <span class="info-value" id="<?= $key ?>-<?= $computer["id"] ?>" data-key="<?= $key ?>">
                                             <?php
-                                            
                                             if (preg_match('/^legenda[A-H]$/', $key)) {
                                                 $value = trim($computer[$key]);
                                                 $checked = ($value == '1' || $value === 1) ? 'checked' : '';
                                                 ?>
                                                 <div class="switch-wrapper">
                                                     <input type="checkbox" disabled <?= $checked ?>>
-                                                    <label class="switch"></span>
+                                                    <label class="switch"></label>
                                                 </div>
                                                 <?php
+                                            } elseif ($key === 'status') {
+                                                $statusValue = trim(strtolower($computer[$key]));
+                                                $statusClass = ($statusValue === 'ativo') ? 'status-ativo' : 'status-inativo';
+                                                echo '<span class="status-badge ' . $statusClass . '">' . htmlspecialchars($computer[$key]) . '</span>';
                                             } else {
                                                 echo htmlspecialchars($computer[$key]);
                                             }

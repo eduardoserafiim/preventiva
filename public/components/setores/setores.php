@@ -4,7 +4,7 @@ function criarSetor($icon, $setor){
     return 
     '
     <a href="preventiva.php?setor='.$setor.'">
-        <div class="setor">
+        <div class="setor" data-setor="'.strtolower($setor).'">
             <div class="flex">
                 <i class="fa-solid '.$icon.' fa-2xl anima"></i>
                 <h4>'.$setor.'</h4>

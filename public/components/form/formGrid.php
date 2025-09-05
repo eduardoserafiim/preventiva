@@ -93,7 +93,6 @@ function formGrid(){
                 <option value="">Selecione...</option>
                 <option value="Ativo">Ativo</option>
                 <option value="Inativo">Inativo</option>
-                <option value="Manutenção">Manutenção</option>
             </select>
         </div>
     ';

@@ -1,0 +1,45 @@
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.equipment-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.3s ease;
+}
+
+.equipment-card:hover {
+    transform: translateY(-2px);
+}
+
+.equipment-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.equipment-info {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.equipment-info input,
+.equipment-info select
+{
+    width: 150px;
+}
+
+.equipment-info span
+{
+    display: flex;
+    align-items: center;
+}

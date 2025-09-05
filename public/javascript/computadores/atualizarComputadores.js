@@ -207,7 +207,7 @@
                                 options = ['HD', 'SSD', 'SSD NVME'];
                                 break;
                             case 'status':
-                                options = ['Ativo', 'Inativo', 'Manutenção'];
+                                options = ['Ativo', 'Inativo'];
                                 break;
                         }
 

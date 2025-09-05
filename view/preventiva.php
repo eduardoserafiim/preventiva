@@ -4,21 +4,21 @@ require_once "../models/computadores.php";
 require_once "../public/components/header/header.php";
 require_once "../public/components/navbar/navbar.php";
 
-require_once "../public/components/computadoresListar.php";
-require_once "../public/components/computadoresImprimir.php";
+require_once "../public/components/computadores/computadoresListar.php";
+require_once "../public/components/computadores/computadoresImprimir.php";
 
 require_once "../public/components/setores/setores.php";
 require_once "../public/components/setores/dictionarySetores.php";
 
 ?>
 <?php
+$db = new ComputerModel();
 
 $setor = $_GET['setor'] ?? '';
 $semestre = $_GET['semestre'] ?? '';
 $ano = $_GET['ano'] ?? '';
 $unidade = $_GET['unidade'] ?? '';
 
-$db = new ComputerModel();
 if ($setor) {
     if ($semestre || $ano || $unidade) {
         $computadores = $db->filtrar($setor, $semestre, $ano, $unidade);
@@ -113,8 +113,9 @@ if ($setor) {
                 ?>
         </main>
     </div>
-    <script src="../public/javascript/atualizarComputadores.js"></script>
-    <script src="../public/javascript/excluirComputadores.js"></script>
-    <script src="../public/javascript/imprimirComputadores.js"></script>
+    <script src="../public/javascript/setores/searchSetor.js"></script>
+    <script src="../public/javascript/computadores/atualizarComputadores.js"></script>
+    <script src="../public/javascript/computadores/excluirComputadores.js"></script>
+    <script src="../public/javascript/computadores/imprimirComputadores.js"></script>
 </body>
 </html>

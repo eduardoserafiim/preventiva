@@ -1,0 +1,45 @@
+.switch-wrapper {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.switch-wrapper label
+{
+    color: #374151;
+}
+
+.switch-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 28px;
+    background-color: #ccc;
+    border-radius: 34px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.switch::before {
+    content: "";
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 22px;
+    height: 22px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.switch-wrapper input[type="checkbox"]:checked + .switch {
+    background-color: #4cd964;
+}
+
+.switch-wrapper input[type="checkbox"]:checked + .switch::before {
+    transform: translateX(22px);
+}

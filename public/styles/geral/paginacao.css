@@ -1,0 +1,41 @@
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.flex
+{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 2rem;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.page-header {
+    margin-bottom: 2rem;
+}
+
+.page-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+}
+
+.page-header p {
+    color: #64748b;
+    font-size: 1.1rem;
+}
