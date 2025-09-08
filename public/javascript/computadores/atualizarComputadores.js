@@ -79,8 +79,6 @@
                         console.log(`Campo ${key} - Valor do checkbox: "${value}"`);
                     
                         const checked = value === '1' ? 'checked' : '';
-                    
-                        // Aqui faltava esta linha para pegar o label correto para as legendas
                         const labelText = labelMap[key] || label;
                     
                         row.innerHTML = `
@@ -195,13 +193,13 @@
                                 ];
                                 break;
                             case 'so':
-                                options = ['Windows 10 Pro', 'Windows 10 Home', 'Windows 11 Pro', 'Windows 11 Home', 'Ubuntu'];
+                                options = ['Windows 10 Pro', 'Windows 10 Home', 'Windows 11 Pro', 'Windows 11 Home', 'Windows 8 Pro', 'Windows 8 Home', 'Linux Ubuntu', 'Linux Mint'];
                                 break;
                             case 'office':
-                                options = ['Office', 'Libre Office', 'WPS'];
+                                options = ['Office', 'Libre Office', 'WPS', 'Sem'];
                                 break;
                             case 'memoria':
-                                options = ['2GB', '4GB', '8GB', '16GB', '32GB', '64GB'];
+                                options = ['2GB','3GB', '4GB','6GB', '8GB','12GB', '16GB', '32GB', '64GB'];
                                 break;
                             case 'disco':
                                 options = ['HD', 'SSD', 'SSD NVME'];

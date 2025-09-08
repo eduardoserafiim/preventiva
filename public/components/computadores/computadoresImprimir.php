@@ -60,13 +60,6 @@ function imprimirTabelaComputadores(array $computadores) {
                 <?php endif; ?>
             </tbody>
         </table>
-
-        <!-- OBSERVAÇÕES -->
-        <div style="margin: 20px 0;">
-            <label><strong>Obs:</strong></label><br>
-            <textarea style="width: 100%; height: 80px; border: 1px solid #ccc;"></textarea>
-        </div>
-
         <!-- CAMPOS DE ASSINATURA E LEGENDA -->
         <div style="display: flex; justify-content: space-between; margin-top: 30px;">
             

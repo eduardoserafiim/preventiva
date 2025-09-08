@@ -30,12 +30,15 @@ function formGrid(){
         <div class="form-group">
             <label for="label-so">Sistema Operacional</label>
             <select id="select-so" name="so" required>
-                <option value="">Selecione...</option>
+                <option value="" disabled selected>Selecione...</option>
                 <option value="Windows 10 Pro">Windows 10 Pro</option>
                 <option value="Windows 10 Home">Windows 10 Home</option>
                 <option value="Windows 11 Pro">Windows 11 Pro</option>
                 <option value="Windows 11 Home">Windows 11 Home</option>
-                <option value="Ubuntu">Ubuntu</option>
+                <option value="Windows 8 Pro">Windows 8 Pro</option>
+                <option value="Windows 8 Home">Windows 8 Home</option>
+                <option value="Linux Ubuntu">Linux Ubuntu</option>
+                <option value="Linux Mint">Linux Mint</option>
             </select>
         </div>
         <!-- OFFICE -->
@@ -46,6 +49,7 @@ function formGrid(){
                 <option value="Office">Office</option>
                 <option value="Libre Office">Libre Office</option>
                 <option value="WPS">WPS</option>
+                <option value="Sem">Sem</option>
             </select>
         </div>
         <!-- PROCESSADOR -->
@@ -59,8 +63,11 @@ function formGrid(){
             <select id="select-memoria" name="memoria" required>
                 <option value="" disabled selected>Selecione...</option>
                 <option value="2GB">2GB</option>
+                <option value="3GB">3GB</option>
                 <option value="4GB">4GB</option>
+                <option value="6GB">6GB</option>
                 <option value="8GB">8GB</option>
+                <option value="12GB">12GB</option>
                 <option value="16GB">16GB</option>
                 <option value="32GB">32GB</option>
                 <option value="64GB">64GB</option>
