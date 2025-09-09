@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login.php");
+    exit;
+}
+
 require_once '../models/computadores.php';
 
 require_once '../public/components/header/header.php';
@@ -34,5 +40,7 @@ require_once '../public/components/form/computadores/formActions.php';
         </main>
     </div>
     <script src="../public/javascript/form/limparFormulario.js"></script>
+    <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

@@ -54,3 +54,11 @@
     font-weight: 600;
     color: #6b7280;
 }
+
+.controleForm
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}

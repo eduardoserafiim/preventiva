@@ -1,11 +1,12 @@
 <?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login.php");
+    exit;
+}
 
 require_once "../public/components/header/header.php";
 require_once "../public/components/navbar/navbar.php";
-
-require_once "../public/components/form/impressoras/formFlex.php";
-require_once "../public/components/form/impressoras/formGrid.php";
-require_once "../public/components/form/impressoras/formActions.php";
 
 ?>
 <body>
@@ -13,19 +14,15 @@ require_once "../public/components/form/impressoras/formActions.php";
         <?php echo navbar("impressoras"); ?>
         <main class="main-content">
             <div class="page-header">
-                <h1>Cadastro de Impressoras</h1>
-                <p>Gerencie o inventário de impressoras da empresa</p>
+                <h1>Impressoras</h1>
+                <p>Visualize o inventário de impressoras do Hospital Adventista do Pênfigo</p>
             </div>
-            <div class="form-container">
-                <form method="POST" action="controllers/impressoras/impressorasCriar.php" id="formularioImpressoras" class="equipment-form">
-                    <?php echo formFlex(); ?>    
-                    <?php echo formGrid(); ?>
-                    <?php echo formActions(); ?>
-                </form>
-            </div>
+            
         </main>
     </div>    
     <script src="../public/javascript/form/limparFormulario.js"></script>
+    <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
 

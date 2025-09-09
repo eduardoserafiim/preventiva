@@ -8,11 +8,13 @@
 @import url("components/switch.css");
 @import url("components/status.css");
 @import url("components/equipamento.css");
+@import url("components/warning.css");
 
 /* GERAIS */
 
 @import url("geral/paginacao.css");
 @import url("geral/input.css");
+@import url("geral/login.css");
 @import url("geral/logo.css");
 @import url("geral/info.css");
 @import url("geral/emptystate.css");

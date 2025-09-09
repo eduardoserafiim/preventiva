@@ -1,4 +1,10 @@
 <?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: login.php");
+    exit;
+}
+
 require_once "../models/computadores.php";
 
 require_once "../public/components/header/header.php";
@@ -116,6 +122,8 @@ if ($setor) {
     <script src="../public/javascript/setores/searchSetor.js"></script>
     <script src="../public/javascript/computadores/atualizarComputadores.js"></script>
     <script src="../public/javascript/computadores/excluirComputadores.js"></script>
-    <script src="../public/javascript/computadores/imprimirComputadores.js"></script>
+    <script src="../public/javascript/computadores/excluirComputadores.js"></script>
+    <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

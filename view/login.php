@@ -1,9 +1,4 @@
 <?php
-session_start();
-if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
-    exit;
-}
 
 include_once "../public/components/header/header.php";
 include_once "../public/components/navbar/navbar.php";
@@ -11,11 +6,33 @@ include_once "../public/components/navbar/navbar.php";
 ?>
 <body>
     <div class="app-container">
-        <?php echo navbar("menu"); ?>
+        <?php echo navbar("login"); ?>
     
     <main class="main-content">
         <div class="page-header">
-            <h1>Bem Vindo, <?= ucfirst(htmlspecialchars($_SESSION['usuario'])) ?>!</h1>
+            <h1>Bem vindo ao Suporte TI</h1>
+            <p>Faça Login para Continuar...</p>
+            <div class="controleForm">
+                <div class="form-container">
+                    <form action="../controllers/loginUsuario.php" method="POST" id="formularioUsuario" class="formUser">
+                        <div class="usuario">
+                            <div class="flex">
+                                <i class="fas fa-user fa-xl"></i>
+                                <h4>Usuário</h4>
+                            </div>
+                            <input type="text" name="nome" required>
+                        </div>
+                        <div class="senha">
+                            <div class="flex">
+                                <i class="fas fa-lock fa-xl"></i>
+                                <h4>Senha</h4>
+                            </div>
+                            <input type="password" name="senha" required>
+                        </div>
+                        <button type="submit" class="botao botao-primario" style="width: 300px; text-align: center; justify-content: center;">Entrar</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </main>
     <div class="links">
@@ -41,7 +58,5 @@ include_once "../public/components/navbar/navbar.php";
     </div> -->
     
     </div>
-    <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
