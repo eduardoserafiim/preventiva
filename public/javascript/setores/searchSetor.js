@@ -8,7 +8,7 @@ searchInput.addEventListener('input', function () {
         const nomeSetor = setor.getAttribute('data-setor');
 
         if (nomeSetor.includes(valorBusca)) {
-            setor.parentElement.style.display = 'block'; // Mostra o <a> que envolve
+            setor.parentElement.style.display = 'block';
         } else {
             setor.parentElement.style.display = 'none';
         }

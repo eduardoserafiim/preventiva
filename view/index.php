@@ -10,7 +10,8 @@ include_once "../public/components/navbar/navbar.php";
     
     <main class="main-content">
         <div class="page-header">
-            <h1>Bem vindo!</h1>
+            <h1>Olá, Eduardo</h1>
+            <label>Seja bem vindo ao Suporte TI</label>
         </div>
     </main>
     <div class="links">

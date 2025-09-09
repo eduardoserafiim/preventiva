@@ -6,10 +6,10 @@ require_once '../public/components/navbar/navbar.php';
 
 require_once '../public/components/setores/optionSetores.php';
 
-require_once '../public/components/form/formFlex.php';
-require_once '../public/components/form/formGrid.php';
-require_once '../public/components/form/formLegenda.php';
-require_once '../public/components/form/formActions.php';
+require_once '../public/components/form/computadores/formFlex.php';
+require_once '../public/components/form/computadores/formGrid.php';
+require_once '../public/components/form/computadores/formLegenda.php';
+require_once '../public/components/form/computadores/formActions.php';
 ?>
 
 <body>
@@ -33,5 +33,6 @@ require_once '../public/components/form/formActions.php';
             </div>
         </main>
     </div>
+    <script src="../public/javascript/form/limparFormulario.js"></script>
 </body>
 </html>

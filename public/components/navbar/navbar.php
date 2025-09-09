@@ -20,25 +20,22 @@ function navbar($active) {
                 </a>
             </li>
             <li>
+                <a href="impressoras.php" class="menu-item ' . ($active === 'impressoras' ? 'active' : '') . '" data-page="impressoras">
+                    <i class="fas fa-print"></i>
+                    <span>Impressoras</span>
+                </a>
+            </li>
+            <li>
                 <a href="preventiva.php" class="menu-item ' . ($active === 'preventiva' ? 'active' : '') . '" data-page="preventiva">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Preventiva</span>
                 </a>
             </li>
-            <li>
-                <a href="../../../../index.html" class="menu-item">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Menu Inicial</span>
-                </a>
-            </li>
         </ul>
+        <div class="controleLogo">
+            <img id="logo" src="../public/images/logo.png" alt="Logo">  
+        </div>
     </nav>';
     }
 ?>
 
-<!-- <li>
-    <a href="#" class="menu-item ' . ($active === 'impressoras' ? 'active' : '') . '" data-page="impressoras">
-        <i class="fas fa-print"></i>
-        <span>Impressoras</span>
-    </a>
-</li> -->
