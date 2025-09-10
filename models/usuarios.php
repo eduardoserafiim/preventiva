@@ -22,6 +22,47 @@ class UsuarioModel{
         ]);
     }
 
+    public function listar() {
+        $sql = 'SELECT *
+        FROM usuarios';
+        $stmt = $this->db->prepare($sql);
+        $stmt ->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function atualizar($id, $data) {
+        $sql = "UPDATE usuarios 
+            SET  
+            nome = :nome, 
+            usuario = :usuario,
+            setor = :setor
+            WHERE id = :id";
+
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                ':id' => $id,
+                ':nome' => $data['nome'],
+                ':usuario' => $data['usuario'],
+                ':setor' => $data['setor'],
+            ]);
+            return true;
+
+        } catch (PDOException $e) {
+            error_log("Erro ao atualizar usuario: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function apagar($id) {
+        $sql = "DELETE 
+        FROM usuarios 
+        WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
     public function validar($usuario){
         $sql = 'SELECT *
         FROM usuarios

@@ -148,5 +148,3 @@ class ComputerModel {
     }
 
 }
-// header("Location: ../view/index.php");
-// exit();

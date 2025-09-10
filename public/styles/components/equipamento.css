@@ -4,6 +4,13 @@
     gap: 1.5rem;
 }
 
+.equipment-grid-user 
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
 .equipment-card {
     background: white;
     border-radius: 12px;
