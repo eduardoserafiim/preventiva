@@ -15,7 +15,12 @@ include_once "../public/components/navbar/navbar.php";
     
     <main class="main-content">
         <div class="page-header">
-            <h1>Bem Vindo, <?= ucfirst(htmlspecialchars($_SESSION['usuario'])) ?>!</h1>
+            <h1>Bem vindo, <?= ucfirst(htmlspecialchars($_SESSION['nome'])) ?>!</h1>
+            <p>Visualize as informações gerais</p>
+        </div>
+        <div class="fundo-container">
+            <label>Computadores cadastrados</label>
+            <label></label>
         </div>
     </main>
     <div class="links">

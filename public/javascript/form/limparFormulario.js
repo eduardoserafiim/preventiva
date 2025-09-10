@@ -4,8 +4,8 @@ function limparFormularioComputador(){
     formularioComputador.reset();
 }
 
-function limparFormularioImpressora(){
-    const formularioImpressora = document.querySelector("#formularioImpressoras");
+function limparFormularioUsuario(){
+    const formularioUsuario = document.querySelector("#formularioUsuarios");
 
-    formularioImpressora.reset();
+    formularioUsuario.reset();
 }

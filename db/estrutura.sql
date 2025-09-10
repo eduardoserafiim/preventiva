@@ -32,7 +32,8 @@ CREATE TABLE usuarios(
 	id INT AUTO_INCREMENT,
 	PRIMARY KEY (id),
 	nome VARCHAR(50) NOT NULL,
-	senha VARCHAR(50) NOT NULL,
+    usuario VARCHAR(20) NOT NULL,
+	senha VARCHAR(100) NOT NULL,
 	setor VARCHAR(70)
 
 );

@@ -4,13 +4,13 @@ function formGrid(){
     '
     <div class="form-grid">
         <!-- SETOR -->
-            <div class="form-group">
+        <div class="form-group">
             <label for="label-setor">Setor</label>
             <select id="select-setor" name="setor" required>
                 <option value="" disabled selected>Selecione...</option>
                 '. selectSetores() .'
             </select>
-            </div>
+        </div>
         <!-- NOME -->
         <div class="form-group">
             <label for="label-nome">Nome</label>

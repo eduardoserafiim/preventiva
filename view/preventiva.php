@@ -39,7 +39,7 @@ if ($setor) {
         <?php echo navbar('preventiva'); ?>
         <main class="main-content">
             <div class="page-header">
-                <h1>Relatório Preventiva</h1>
+                <h1>Preventiva</h1>
                 <p>Visualize todos os equipamentos cadastrados</p>
             </div>
             <?php

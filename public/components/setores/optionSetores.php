@@ -64,6 +64,7 @@ function selectSetores(){
     <option value="SESMT">SESMT</option>
     <option value="SND">SND</option>
     <option value="Supervisão de Enfermagem">Supervisão de Enfermagem</option>
+    <option value="TI">TI</option>
     <option value="Totalmedcare">Totalmedcare</option>
     <option value="Transplante">Transplante</option>
     <option value="Transporte">Transporte</option>
