@@ -20,7 +20,7 @@
 
 .botao-primario:hover {
   background-color: #334055;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
 }
 
 .botao-secundario 
@@ -32,11 +32,18 @@
 .botao-secundario:hover 
 {
   background-color: #4b5563;
+  transform: translateY(-2px);
 }
 
 .botao-cancelar
 {
   background-color: #f7662d;
+  
+}
+
+.botao-cancelar:hover
+{
+  transform: translateY(-2px);
 }
 
 .filtragem

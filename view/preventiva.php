@@ -20,10 +20,18 @@ require_once "../public/components/setores/dictionarySetores.php";
 <?php
 $db = new ComputerModel();
 
-$setor = $_GET['setor'] ?? '';
+$setorUsuario = $_SESSION['setor'] ?? '';
+
+if ($setorUsuario === 'TI') {
+    $setor = $_GET['setor'] ?? '';
+} else {
+    $setor = $setorUsuario;
+}
+
 $semestre = $_GET['semestre'] ?? '';
 $ano = $_GET['ano'] ?? '';
 $unidade = $_GET['unidade'] ?? '';
+
 
 if ($setor) {
     if ($semestre || $ano || $unidade) {
@@ -43,7 +51,7 @@ if ($setor) {
                 <p>Visualize todos os equipamentos cadastrados</p>
             </div>
             <?php
-                if (!isset($_GET['setor'])) {
+                if ($setorUsuario === 'TI' && !isset($_GET['setor'])) {
                     echo '
                     <div class="search">
                         <input type="text" name="search-input" id="search-input" placeholder="Digite o setor aqui...">
@@ -51,7 +59,7 @@ if ($setor) {
                 }
             ?>
             <?php
-                if (isset($_GET['setor'])) {
+                if ($setor) {
                     echo '
                         <div class="filtro">
                             <h3 class="filtragem">Adicione filtros</h3>
@@ -61,29 +69,29 @@ if ($setor) {
                                     <div class="form-group">
                                         <label for="label-semestre">Semestre</label>
                                         <select id="select-semestre" name="semestre">
-                                            <option value="" disabled selected>Selecione...</option>
-                                            <option value="1° Semestre">1° Semestre</option>
-                                            <option value="2° Semestre">2° Semestre</option>
+                                            <option value="" disabled ' . (empty($semestre) ? 'selected' : '') . '>Selecione...</option>
+                                            <option value="1° Semestre" ' . ($semestre === "1° Semestre" ? "selected" : "") . '>1° Semestre</option>
+                                            <option value="2° Semestre" ' . ($semestre === "2° Semestre" ? "selected" : "") . '>2° Semestre</option>
                                         </select>
                                     </div>
                                     <!-- ANO -->
                                     <div class="form-group">
                                         <label for="label-ano">Ano</label>
                                         <select id="select-ano" name="ano">
-                                            <option value="" disabled selected>Selecione...</option>
-                                            <option value="2022">2022</option>
-                                            <option value="2023">2023</option>
-                                            <option value="2024">2024</option>
-                                            <option value="2025">2025</option>
+                                            <option value="" disabled ' . (empty($ano) ? 'selected' : '') . '>Selecione...</option>
+                                            <option value="2022" ' . ($ano === "2022" ? "selected" : "") . '>2022</option>
+                                            <option value="2023" ' . ($ano === "2023" ? "selected" : "") . '>2023</option>
+                                            <option value="2024" ' . ($ano === "2024" ? "selected" : "") . '>2024</option>
+                                            <option value="2025" ' . ($ano === "2025" ? "selected" : "") . '>2025</option>
                                         </select>
                                     </div>
                                     <!-- UNIDADE -->
                                     <div class="form-group">
                                         <label for="label-unidade">Unidade</label>
                                         <select id="select-unidaded" name="unidade">
-                                            <option value="" disabled selected>Selecione...</option>
-                                            <option value="HAP - MATRIZ">HAP - Matriz</option>
-                                            <option value="HAP - UC">HAP - Centro</option>
+                                            <option value="" disabled ' . (empty($unidade) ? 'selected' : '') . '>Selecione...</option>
+                                            <option value="HAP - MATRIZ" ' . ($unidade === "HAP - MATRIZ" ? "selected" : "") . '>HAP - Matriz</option>
+                                            <option value="HAP - UC" ' . ($unidade === "HAP - UC" ? "selected" : "") . '>HAP - Centro</option>
                                         </select>
                                     </div>
                                     <input type="hidden" name="setor" value="'.htmlspecialchars($setor).'">
@@ -107,18 +115,20 @@ if ($setor) {
                                 <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
                             </a>
                         </div>';
-                    echo listarComputadores($computadores);
-                    echo imprimirTabelaComputadores($computadores);
-                } else {
+                    var_dump($setor);
+                    listarComputadores($computadores, $setor);
+                    imprimirTabelaComputadores($computadores);
+                } else if ($setorUsuario === 'TI') {
                     echo '<div class="setores">';
                     foreach ($setores as $setor) {
                         echo criarSetor($setor[1], $setor[0]);
                     }
                     echo '</div>';
                 }
-                ?>
+            ?>
         </main>
     </div>
+
     <script src="../public/javascript/setores/searchSetor.js"></script>
     <script src="../public/javascript/computadores/atualizarComputadores.js"></script>
     <script src="../public/javascript/computadores/excluirComputadores.js"></script>

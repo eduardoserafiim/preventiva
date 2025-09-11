@@ -1,11 +1,17 @@
 @media (max-width: 1920px){
   .setores
   {
-    grid-template-columns: repeat(3, 370px);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
+
   .usuarios
   {
-    grid-template-columns: repeat(3, 370px);
+    grid-template-columns: repeat(2, 400px);
+  }
+
+  .equipment-grid-user
+  {
+    grid-template-columns: repeat(auto-fill, minmax(300, 1fr));
   }
 
   .form-flex .texto{
@@ -69,7 +75,7 @@
   }
 
   .form-actions {
-    flex-direction: column;
+    flex-direction: row;
   }
 
   .setores

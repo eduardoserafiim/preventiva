@@ -1,16 +1,19 @@
-const searchInput = document.getElementById('search-input');
-const setores = document.querySelectorAll('.setor');
+document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("search-input");
 
-searchInput.addEventListener('input', function () {
-    const valorBusca = this.value.toLowerCase();
+    if (!searchInput) return;
 
-    setores.forEach(setor => {
-        const nomeSetor = setor.getAttribute('data-setor');
+    searchInput.addEventListener("input", function () {
+        const termo = searchInput.value.toLowerCase();
+        const setores = document.querySelectorAll(".setores .setor");
 
-        if (nomeSetor.includes(valorBusca)) {
-            setor.parentElement.style.display = 'block';
-        } else {
-            setor.parentElement.style.display = 'none';
-        }
+        setores.forEach((setor) => {
+            const nome = setor.getAttribute("data-setor");
+            if (nome.includes(termo)) {
+                setor.style.display = "block";
+            } else {
+                setor.style.display = "none";
+            }
+        });
     });
 });

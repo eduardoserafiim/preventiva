@@ -9,10 +9,10 @@ function confirmarSaida(event) {
         showCancelButton: true,
         confirmButtonText: 'Sim, sair',
         cancelButtonText: 'Cancelar',
-        reverseButtons: true,
+        reverseButtons: false,
         customClass: {
         confirmButton: 'botao botao-primario',
-        cancelButton: 'botao botao-secundario'
+        cancelButton: 'botao botao-cancelar'
     },
     buttonsStyling: false
     }).then((result) => {

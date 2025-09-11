@@ -28,8 +28,6 @@ if($acaoUsuario){
     $usuarios = $db->listar();
 }
 
-
-
 ?>
 <body>
     <div class="app-container">

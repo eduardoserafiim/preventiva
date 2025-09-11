@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   grid-template-rows: repeat(200px);
-  grid-template-columns: repeat(3, 400px);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 .setor
@@ -14,7 +14,6 @@
   height: 160px;
   width: 350px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  padding: 1rem;
   margin: 1rem;
   border-radius: 12px;
   background-color: white;
@@ -41,4 +40,21 @@
 .setor:hover{
   border: 1px solid #3b82f6;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.setor a
+{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.setor i, .setor h4
+{
+  padding: 1rem;
+}
+
+.setor p
+{
+  padding: 0 1rem;
 }

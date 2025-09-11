@@ -1,0 +1,24 @@
+.forgetpassword-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e2e8f0;
+    width: 20rem;
+    gap: 30px;
+}
+
+.forgetpassword-container a
+{
+    color: #0000FF;
+}
+
+.controleContainer
+{
+    display: flex;
+    justify-content: center;
+}

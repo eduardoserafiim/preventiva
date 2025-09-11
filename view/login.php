@@ -3,8 +3,15 @@
 include_once "../public/components/header/header.php";
 include_once "../public/components/navbar/navbar.php";
 
+include_once "../public/components/voltar.php";
+
 include_once "../public/components/form/login/formGrid.php";
 include_once "../public/components/form/login/formActions.php";
+?>
+<?php
+
+$url = $_GET["esqueci_a_senha"] ?? '';
+
 ?>
 <body>
     <div class="app-container">
@@ -12,16 +19,33 @@ include_once "../public/components/form/login/formActions.php";
     
     <main class="main-content">
         <div class="page-header">
-            <h1>Bem vindo ao Suporte TI</h1>
-            <p>Faça Login para Continuar...</p>
-            <div class="controleForm">
-                <div class="form-container">
-                    <form action="../controllers/loginUsuario.php" method="POST" id="formularioUsuario" class="equipment-form">
-                        <?= formGrid() ?>
-                        <?= formActions() ?>
-                    </form>
-                </div>
-            </div>
+            <?php if($url == "suporte"){
+                echo '<h1>Suporte TI</h1>
+                    <p>Esqueci minha senha</p>
+                    <div class="voltar">'
+                        .voltar("login.php").'
+                    </div>
+                    <div class="controleContainer">
+                        <div class="forgetpassword-container">
+                            <h4>Atenção!</h4>
+                            <p>Para alterar sua senha, por favor, crie um chamado para o setor de TI.</p>
+                            <a href="#" target="blank">portal.hap.org.br/suporte</a>
+                        </div>
+                    </div>
+                    ';
+            }else{
+                echo '<h1>Bem vindo ao Suporte TI</h1>
+                <p>Faça Login para Continuar...</p>
+                <div class="controleForm">
+                    <div class="form-container">
+                        <form action="../controllers/loginUsuario.php" method="POST" id="formularioUsuario" class="equipment-form">
+                            '.formGrid().'
+                            '.formActions().'
+                        </form>
+                    </div>
+                </div>';
+            } ?>
+            
         </div>
     </main>
     <div class="links">
