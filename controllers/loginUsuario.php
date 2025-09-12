@@ -16,8 +16,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: ../view/index.php");
         exit;        
     }else{
-        header('Location: ../view/login.php');
-        
+        header('Location: ../view/login.php?url=loginousenha');
+        exit;
     }
 }
 

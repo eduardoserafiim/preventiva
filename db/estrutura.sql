@@ -1,6 +1,6 @@
 USE informatica;
 
-CREATE TABLE computadores(
+CREATE TABLE computadores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     semestre VARCHAR(11),
     ano INT,
@@ -28,7 +28,7 @@ CREATE TABLE computadores(
     dataCadastro DATE
 );
 
-CREATE TABLE usuarios(
+CREATE TABLE usuarios (
 	id INT AUTO_INCREMENT,
 	PRIMARY KEY (id),
 	nome VARCHAR(50) NOT NULL,
@@ -36,4 +36,18 @@ CREATE TABLE usuarios(
 	senha VARCHAR(100) NOT NULL,
 	setor VARCHAR(70)
 
+);
+
+CREATE TABLE setores (
+	id INT auto_increment,
+	PRIMARY KEY (id),
+	nome VARCHAR(70) NOT NULL
+);
+
+CREATE TABLE usuarios_setores (
+    usuario_id INT,
+    setor_id INT,
+    PRIMARY KEY (usuario_id, setor_id),
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
+    FOREIGN KEY (setor_id) REFERENCES setores(id)
 );

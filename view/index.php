@@ -19,8 +19,7 @@ include_once "../public/components/navbar/navbar.php";
             <p>Visualize as informações gerais</p>
         </div>
         <div class="fundo-container">
-            <label>Computadores cadastrados</label>
-            <label></label>
+            <label>Está muito vazio aqui...</label>
         </div>
     </main>
     <div class="links">

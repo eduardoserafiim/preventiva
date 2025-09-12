@@ -10,7 +10,7 @@ include_once "../public/components/form/login/formActions.php";
 ?>
 <?php
 
-$url = $_GET["esqueci_a_senha"] ?? '';
+$url = $_GET["url"] ?? '';
 
 ?>
 <body>
@@ -42,6 +42,9 @@ $url = $_GET["esqueci_a_senha"] ?? '';
                             '.formGrid().'
                             '.formActions().'
                         </form>
+                        <div class="incorrectpasswordoruser">
+                            <h4></h4>
+                        </div>
                     </div>
                 </div>';
             } ?>
