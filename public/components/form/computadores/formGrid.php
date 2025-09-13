@@ -5,7 +5,7 @@ function formGrid(){
     <div class="form-grid">
         <!-- SETOR -->
         <div class="form-group">
-            <label for="label-setor">Setor</label>
+            <label for="select-setor">Setor</label>
             <select id="select-setor" name="setor" required>
                 <option value="" disabled selected>Selecione...</option>
                 '. selectSetores() .'
@@ -13,22 +13,22 @@ function formGrid(){
         </div>
         <!-- NOME -->
         <div class="form-group">
-            <label for="label-nome">Nome</label>
+            <label for="input-nome">Nome</label>
             <input type="text" id="input-nome" name="nome" required>
         </div>
         <!-- MODELO -->
         <div class="form-group">
-            <label for="label-modelo">Modelo</label>
+            <label for="input-modelo">Modelo</label>
             <input type="text" id="input-modelo" name="modelo" required>
         </div>
         <!-- MONITOR -->
         <div class="form-group">
-            <label for="label-monitor">Monitor</label>
+            <label for="input-monitor">Monitor</label>
             <input type="text" id="input-monitor" name="monitor" required>
         </div>
         <!-- S.O -->
         <div class="form-group">
-            <label for="label-so">Sistema Operacional</label>
+            <label for="select-so">Sistema Operacional</label>
             <select id="select-so" name="so" required>
                 <option value="" disabled selected>Selecione...</option>
                 <option value="Windows 10 Pro">Windows 10 Pro</option>
@@ -43,7 +43,7 @@ function formGrid(){
         </div>
         <!-- OFFICE -->
         <div class="form-group">
-            <label for="label-office">Office</label>
+            <label for="select-office">Office</label>
             <select id="select-office" name="office" required>
                 <option value="" disabled selected>Selecione...</option>
                 <option value="Office">Office</option>
@@ -54,12 +54,12 @@ function formGrid(){
         </div>
         <!-- PROCESSADOR -->
         <div class="form-group">
-            <label for="label-processador">Processador</label>
+            <label for="input-processador">Processador</label>
             <input type="text" id="input-processador" name="processador" required>
         </div>
         <!-- MEMORIA -->
         <div class="form-group">
-            <label for="label-memoria">Memória RAM</label>
+            <label for="select-memoria">Memória RAM</label>
             <select id="select-memoria" name="memoria" required>
                 <option value="" disabled selected>Selecione...</option>
                 <option value="2GB">2GB</option>
@@ -75,7 +75,7 @@ function formGrid(){
         </div>
         <!-- DISCO -->
         <div class="form-group">
-            <label for="label-disco">Disco</label>
+            <label for="select-disco">Disco</label>
             <select id="select-disco" name="disco" required>
                 <option value="" disabled selected>Selecione...</option>
                 <option value="HDD">HD</option>
@@ -85,18 +85,18 @@ function formGrid(){
         </div>
         <!-- IP -->
         <div class="form-group">
-            <label for="label-serie">Endereço IP</label>
+            <label for="input-ip">Endereço IP</label>
             <input type="text" id="input-ip" name="ip" required>
         </div>  
         <!-- LACRE -->
         <div class="form-group">
-            <label for="label-lacre">Lacre</label>
+            <label for="input-lacre">Lacre</label>
             <input type="text" id="input-lacre" name="lacre">
         </div>      
         <!-- STATUS -->
         <div class="form-group">
-            <label for="comp-status">Status</label>
-            <select id="comp-status" name="status" required>
+            <label for="select-status">Status</label>
+            <select id="select-status" name="status" required>
                 <option value="">Selecione...</option>
                 <option value="Ativo">Ativo</option>
                 <option value="Inativo">Inativo</option>

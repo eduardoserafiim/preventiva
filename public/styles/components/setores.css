@@ -15,22 +15,13 @@
   width: 350px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   margin: 1rem;
+  padding: 1rem 0.2rem 0.2rem 0.2rem;
   border-radius: 12px;
   background-color: white;
   border: 1px solid #e2e8f0;
   transition: border 0.2s ease-in-out;
   cursor: pointer;
 
-}
-
-.setor i
-{
-  padding: 0px 2rem 0px 0px;
-}
-
-.setor p
-{
-  padding: 0.5rem 0 0 2rem;
 }
 
 .setor:hover i {
@@ -49,7 +40,7 @@
   height: 100%;
 }
 
-.setor i, .setor h4
+.setor i
 {
   padding: 1rem;
 }
@@ -57,4 +48,9 @@
 .setor p
 {
   padding: 0 1rem;
+}
+
+.setor h4
+{
+  padding: 0rem 1rem 0rem 0rem;
 }
