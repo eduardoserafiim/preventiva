@@ -41,10 +41,13 @@ $url = $_GET["url"] ?? '';
                         <form action="../controllers/loginUsuario.php" method="POST" id="formularioUsuario" class="equipment-form">
                             '.formGrid().'
                             '.formActions().'
-                        </form>
-                        <div class="incorrectpasswordoruser">
-                            <h4></h4>
-                        </div>
+                        </form>';
+                        if($url == "loginousenha"){
+                            echo "  <div class='incorrectpasswordoruser'>
+                                        <h4>Login ou senha incorretos.</h4>
+                                    </div>";
+                        } 
+                        '
                     </div>
                 </div>';
             } ?>

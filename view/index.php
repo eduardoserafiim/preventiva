@@ -8,10 +8,13 @@ if (!isset($_SESSION['usuario'])) {
 include_once "../public/components/header/header.php";
 include_once "../public/components/navbar/navbar.php";
 
+include_once "../public/components/botaoSanduiche.php";
+
 ?>
 <body>
     <div class="app-container">
         <?php echo navbar("menu"); ?>
+        <?php echo botaoSanduiche(); ?>
     
     <main class="main-content">
         <div class="page-header">
@@ -45,6 +48,7 @@ include_once "../public/components/navbar/navbar.php";
     </div> -->
     
     </div>
+    <script src="../public/javascript/reponsividade.js"></script>
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>

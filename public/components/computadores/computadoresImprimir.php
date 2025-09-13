@@ -100,14 +100,13 @@ function imprimirTabelaComputadores(array $computadores) {
                 <strong>Legenda:</strong><br>
                 A - Atualização S.O.<br>
                 B - Atualização Antivírus<br>
-                C - Data da última varredura<br>
-                D - Área de trabalho padrão<br>
-                E - Orientação sobre pasta compartilhada<br>
-                F - Verificação de Software não permitido<br>
-                G - Etiqueta de patrimônio<br>
-                H - Limpeza do gabinete<br>
-                I - OEM Windows<br>
-                J - Licença SQL Server
+                C - Área de trabalho padrão<br>
+                D - Orientação sobre pasta compartilhada<br>
+                E - Verificação de Software não permitido<br>
+                F - Limpeza do gabinete<br>
+                G - OEM Windows<br>
+                H - Etiqueta de patrimônio<br>
+                I - Licença SQL Server
             </div>
         </div>
     </div>

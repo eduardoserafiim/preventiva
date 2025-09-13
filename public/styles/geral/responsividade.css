@@ -1,7 +1,12 @@
 @media (max-width: 1920px){
   .setores
   {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(300px);
+  }
+
+  .setor
+  {
+    width: 300px;
   }
 
   .usuarios
@@ -55,38 +60,21 @@
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
+      position: fixed;
+      top: 0;
+      left: -280px;
+      width: 280px;
+      height: 100vh;
+      transition: left 0.3s ease;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
+      z-index: 1050;
   }
 
-  .main-content {
-    margin-left: 0;
-    padding: 1rem;
+  .sidebar.open {
+      left: 0;
   }
 
-  .form-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .equipment-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .form-actions {
-    flex-direction: row;
-  }
-
-  .setores
-  {
-    grid-template-rows: repeat(200px);
-    grid-template-columns: repeat(1, 400px);
-  }
-
-  .usuarios
-  {
-    grid-template-rows: repeat(200px);
-    grid-template-columns: repeat(1, 400px);
+  .btn-menu {
+      display: block;
   }
 }

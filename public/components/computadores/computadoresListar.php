@@ -51,7 +51,8 @@ function listarComputadores(array $computadores, string $usuarioSetor) {
                                 "legendaE" => "Verificação de Software Não permitido",
                                 "legendaF" => "Limpeza do Gabinete",
                                 "legendaG" => "OEM Windows",
-                                "legendaH" => "Licença SQL Server",
+                                "legendaH" => "Etiqueta de patrimônio",
+                                "legendaI" => "Licença SQL Server",
                                 "status" => "Status",
                             ];
 
@@ -61,7 +62,7 @@ function listarComputadores(array $computadores, string $usuarioSetor) {
                                     <span class="info-label"><?= $label ?>:</span>
                                     <span class="info-value" id="<?= $key ?>-<?= $computer["id"] ?>" data-key="<?= $key ?>">
                                         <?php
-                                        if (preg_match('/^legenda[A-H]$/', $key)) {
+                                        if (preg_match('/^legenda[A-I]$/', $key)) {
                                             $value = trim($computer[$key]);
                                             $checked = ($value == '1' || $value === 1) ? 'checked' : '';
                                         ?>

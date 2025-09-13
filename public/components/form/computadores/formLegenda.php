@@ -47,9 +47,15 @@ function formLegenda(){
         </div>
         <!-- LEGENDAH -->
         <div class="form-flex switch-wrapper">
-            <label class="texto" style="color: #374151; font-weight: 600;">Licença SQL Server</label>
+            <label class="texto" style="color: #374151; font-weight: 600;">Etiqueta de patrimônio</label>
             <input type="checkbox" id="input-legendaH" name="legendaH" value="1">
             <label for="input-legendaH" class="switch"></label>
+        </div>
+        <!-- LEGENDAI -->
+        <div class="form-flex switch-wrapper">
+            <label class="texto" style="color: #374151; font-weight: 600;">Licença SQL Server</label>
+            <input type="checkbox" id="input-legendaI" name="legendaI" value="1">
+            <label for="input-legendaI" class="switch"></label>
         </div>
     </div>
     ';

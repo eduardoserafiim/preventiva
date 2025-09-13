@@ -1,4 +1,7 @@
 .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     width: 280px;
     background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
     color: white;
@@ -30,6 +33,7 @@ color: #3b82f6;
 .sidebar-menu {
 list-style: none;
 padding: 1rem 0;
+flex: 1;
 }
 
 .retornar
@@ -72,7 +76,7 @@ width: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1rem;  
+    padding: 2rem;  
 }
 
 .sidebar-footer-controle
@@ -86,17 +90,11 @@ width: 20px;
 {
     display: flex;
     align-items: center;
+    text-align: center;
     gap: 1rem;
 }
 
 .sidebar-setor
 {
     display: flex;
-}
-
-.menu-footer
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }

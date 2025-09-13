@@ -11,8 +11,8 @@ class ComputerModel {
 
     public function criar($data) {
         $sql = "INSERT INTO computadores
-            (semestre, ano, unidade, setor, nome, modelo, monitor, so, office, processador, memoria, disco, ip, lacre, status, legendaA, legendaB, legendaC, legendaD, legendaE, legendaF, legendaG, legendaH, dataCadastro)
-            VALUES (:semestre, :ano, :unidade, :setor, :nome, :modelo, :monitor, :so, :office, :processador, :memoria, :disco, :ip, :lacre, :status, :legendaA, :legendaB, :legendaC, :legendaD, :legendaE, :legendaF, :legendaG, :legendaH,  NOW())";
+            (semestre, ano, unidade, setor, nome, modelo, monitor, so, office, processador, memoria, disco, ip, lacre, status, legendaA, legendaB, legendaC, legendaD, legendaE, legendaF, legendaG, legendaH, legendaI, dataCadastro)
+            VALUES (:semestre, :ano, :unidade, :setor, :nome, :modelo, :monitor, :so, :office, :processador, :memoria, :disco, :ip, :lacre, :status, :legendaA, :legendaB, :legendaC, :legendaD, :legendaE, :legendaF, :legendaG, :legendaH, :legendaI, NOW())";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             ':semestre' => $data['semestre'],
@@ -37,6 +37,7 @@ class ComputerModel {
             ':legendaF' => $data['legendaF'] ? 1 : 0,
             ':legendaG' => $data['legendaG'] ? 1 : 0,
             ':legendaH' => $data['legendaH'] ? 1 : 0,
+            ':legendaI' => $data['legendaI'] ? 1 : 0,
             ':status' => $data['status'],
         ]);
     }
@@ -98,6 +99,7 @@ class ComputerModel {
             legendaF = :legendaF,
             legendaG = :legendaG,
             legendaH = :legendaH,
+            legendaI = :legendaI,
             lacre = :lacre, 
             status = :status
             WHERE id = :id";

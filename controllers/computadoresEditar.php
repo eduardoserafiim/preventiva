@@ -26,6 +26,7 @@ function alterarComputadores(){
         'legendaF' => isset($_POST['legendaF']) ? 1 : 0,
         'legendaG' => isset($_POST['legendaG']) ? 1 : 0,
         'legendaH' => isset($_POST['legendaH']) ? 1 : 0,
+        'legendaI' => isset($_POST['legendaI']) ? 1 : 0,
         'setor' => $_POST['setor'] ?? '',
     ];
 

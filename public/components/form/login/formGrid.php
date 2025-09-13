@@ -21,12 +21,8 @@ function formGrid(){
 
         <div class="form-passwordforget">
             <a href="login.php?url=suporte">
-                <label>Esqueceu sua senha?</label>
+                <h5>Esqueceu sua senha?</h5>
             </a>
-        </div>
-        
-        <div class="form-warning">
-            <label></label>
         </div>
     ';
 }

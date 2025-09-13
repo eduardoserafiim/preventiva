@@ -10,7 +10,6 @@ function navbar($active) {
             <div class="sidebar-header">
                 <h2><i class="fas fa-lock"></i> Suporte TI</h2>
             </div>
-            <div class="menu-footer">
                 <ul class="sidebar-menu">
                     <li>
                         <a href="login.php" class="menu-item ' . ($active === 'login' ? 'active' : '') . '">
@@ -27,7 +26,6 @@ function navbar($active) {
         <div class="sidebar-header">
             <h2><i class="fas fa-cogs"></i> Suporte T.I</h2>
         </div>
-        <div class="menu-footer">
             <ul class="sidebar-menu">
                 <li>
                     <a href="index.php" class="menu-item ' . ($active === 'menu' ? 'active' : '') . '">
@@ -118,7 +116,7 @@ function navbar($active) {
                     </div>
                 </div>
             </div>
-        </div>
+
     </nav>';
 
     return $html;

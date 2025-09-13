@@ -26,15 +26,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'legendaF' => isset($_POST['legendaF']) ? 1 : 0,
         'legendaG' => isset($_POST['legendaG']) ? 1 : 0,
         'legendaH' => isset($_POST['legendaH']) ? 1 : 0,
+        'legendaI' => isset($_POST['legendaI']) ? 1 : 0,
         'status' => $_POST['status'],
     ];
 
     $computerController = new ComputerModel();
     $computerController->criar($data);
-    echo json_encode(['status'=> 'success', 'message' => 'Computador cadastrado com sucesso!']);
-    
+    echo 'sucesso';
 } else {
-    echo json_encode(['success' => false, 'message' => 'Método inválido.']);
+    echo 'sucesso';
 }
 
 header('Location: ../view/computadores.php');
