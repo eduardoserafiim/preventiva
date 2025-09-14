@@ -10,6 +10,9 @@
     border: 1px solid #e2e8f0;
     width: 20rem;
     gap: 30px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .forgetpassword-container a
@@ -21,4 +24,10 @@
 {
     display: flex;
     justify-content: center;
+}
+
+.forgetpassword-container.show
+{
+    opacity: 1;
+    transform: translateY(0);
 }

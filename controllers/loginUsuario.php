@@ -15,8 +15,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['setor'] = $usuario['setor'];
         header("Location: ../view/index.php");
         exit;        
-    }else{
-        header('Location: ../view/login.php?url=loginousenha');
+    }elseif(!$usuario){
+        header('Location: ../view/login.php?url=usuarioerror');
+        exit;
+    }elseif(!password_verify($senha, $usuario['senha'])){
+        header('Location: ../view/login.php?url=senhaerror');
         exit;
     }
 }

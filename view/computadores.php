@@ -40,6 +40,7 @@ require_once '../public/components/form/computadores/formActions.php';
         </main>
     </div>
     <script src="../public/javascript/form/limparFormulario.js"></script>
+    <script src="../public/javascript/animar/login/animarFormulario.js"></script>
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
