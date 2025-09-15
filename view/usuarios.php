@@ -86,7 +86,7 @@ if($acaoUsuario){
     <script src="../public/javascript/animar/usuario/animarUsuarios.js"></script>
 
     <script src="../public/javascript/usuarios/atualizarUsuario.js"></script>
-
+    <script src="../public/javascript/usuarios/cadastrarUsuario.js"></script>
     <script src="../public/javascript/usuarios/searchNomeUsuario.js"></script>
 
     <script src="../public/javascript/form/limparFormulario.js"></script>

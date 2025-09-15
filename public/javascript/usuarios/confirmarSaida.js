@@ -4,7 +4,8 @@ function confirmarSaida(event) {
     const logoutUrl = event.currentTarget.href;
 
     Swal.fire({
-        title: '<i class="fa-solid fa-triangle-exclamation fa-2xl"></i>\nTem certeza que deseja sair?',
+        icon: 'warning',
+        title: 'Tem certeza que deseja sair?',
         text: "Você será desconectado da sua conta.",
         showCancelButton: true,
         confirmButtonText: 'Sim, sair',

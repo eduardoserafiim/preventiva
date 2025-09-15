@@ -2,7 +2,8 @@ function confirmarExclusao(event) {
     event.preventDefault();
 
     Swal.fire({
-        title: '<i class="fa-solid fa-triangle-exclamation fa-2xl"></i><br>Tem certeza desta ação?',
+        icon: 'warning', // ícone animado de alerta
+        title: 'Tem certeza desta ação?',
         text: "Você está EXCLUINDO uma conta",
         showCancelButton: true,
         confirmButtonText: 'Sim, excluir',

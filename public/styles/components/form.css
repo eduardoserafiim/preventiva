@@ -86,7 +86,37 @@
     color: #0000FF;
 }
 
+
+/* login */
 #formularioUsuario h4
 {
     margin-left: 1rem;
+}
+
+/* usuarios */
+#formularioUsuarios select
+{
+    width: 300px;
+}
+
+.step {
+    display: none;
+}
+
+.step.active {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.nome
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.user
+{
+    display: flex;
+    flex-direction: column;
 }

@@ -31,14 +31,111 @@ document.addEventListener('DOMContentLoaded', function () {
                 labelSpan.className = 'info-label';
                 labelSpan.textContent = `${label}:`;
 
-                let input = document.createElement('input');
-                input.type = (key === 'senha') ? 'password' : 'text';
-                input.name = key;
-                input.className = 'info-value-input';
+                let input;
 
-                // Aqui buscamos o span com data-key correspondente
-                const valueSpan = card.querySelector(`[data-key="${key}"]`);
-                input.value = valueSpan ? valueSpan.textContent.trim() : '';
+                if (key === 'setor') {
+                    input = document.createElement('select');
+                    input.name = key;
+                    input.className = 'info-value-input';
+
+                    const opcoesSetor = [
+                        'Administração',
+                        'Almoxarifado',
+                        'Ambulatório',
+                        'Auditoria de Enfermagem',
+                        'Banco de Sangue',
+                        'CAF',
+                        'Capelania',
+                        'Central de Autorizações',
+                        'Central de Consultas',
+                        'Centro Cirúrgico',
+                        'CME',
+                        'Cobrança',
+                        'Compras',
+                        'Comunicação',
+                        'Contabilidade',
+                        'CTI',
+                        'CTI 2',
+                        'CTI 3',
+                        'CTI 4',
+                        'Custos',
+                        'CVS',
+                        'Departamento Comercial',
+                        'Departamento Pessoal',
+                        'Diagnóstico Imagem',
+                        'Farmácia Central',
+                        'Faturamento',
+                        'Financeiro',
+                        'Fisioterapia',
+                        'Gerência de Enfermagem',
+                        'Gestão de Leitos',
+                        'Hemodinâmica',
+                        'Hotelaria',
+                        'Informática',
+                        'Jardinagem',
+                        'Jurídico',
+                        'Laboratório',
+                        'Lavanderia',
+                        'Manutenção',
+                        'Marcenaria',
+                        'NEP',
+                        'NEWENG',
+                        'NIR',
+                        'OPME',
+                        'Ouvidoria',
+                        'Pronto Atendimento',
+                        'Psicologia',
+                        'Qualidade',
+                        'Radiologia',
+                        'Recepção',
+                        'Recepção Ambulatório de Ortopedia',
+                        'Recepção do Centro de Diagnósticos',
+                        'Recepção Internação',
+                        'Recepção Pronto Atendimento',
+                        'Recurso de Glosa',
+                        'Recursos Humanos',
+                        'Repasse Médico',
+                        'SAME',
+                        'SCIH',
+                        'Serviço de Higiene e Limpeza',
+                        'SESMT',
+                        'SND',
+                        'Supervisão de Enfermagem',
+                        'TI',
+                        'Totalmedcare',
+                        'Transplante',
+                        'Transporte',
+                        'Ultrassom',
+                        'Unidade Internação 1° Andar',
+                        'Unidade Internação 2° Andar',
+                        'Unidade Internação Cirúrgica',
+                        'Unidade Internação Clínica',
+                        'Vigilância',
+                        'Enfermaria'
+                    ];
+
+
+                    opcoesSetor.forEach(opcao => {
+                        const option = document.createElement('option');
+                        option.value = opcao;
+                        option.textContent = opcao;
+
+                        const valueSpan = card.querySelector(`[data-key="${key}"]`);
+                        if (valueSpan && valueSpan.textContent.trim() === opcao) {
+                            option.selected = true;
+                        }
+
+                        input.appendChild(option);
+                    });
+                } else {
+                    input = document.createElement('input');
+                    input.type = (key === 'senha') ? 'password' : 'text';
+                    input.name = key;
+                    input.className = 'info-value-input';
+
+                    const valueSpan = card.querySelector(`[data-key="${key}"]`);
+                    input.value = valueSpan ? valueSpan.textContent.trim() : '';
+                }
 
                 row.appendChild(labelSpan);
                 row.appendChild(input);
