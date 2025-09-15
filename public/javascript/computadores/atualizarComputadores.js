@@ -29,8 +29,8 @@
                     legendaE: 'Legenda E',
                     legendaF: 'Legenda F',
                     legendaG: 'Legenda G',
-                    legendaI: 'Legenda I',
                     legendaH: 'Legenda H',
+                    legendaI: 'Legenda I',
                     status: 'Status'
                 };
 
@@ -52,8 +52,8 @@
                     legendaE: 'Verificação de Software Não permitido',
                     legendaF: 'Limpeza do Gabinete',
                     legendaG: 'OEM Windows',
-                    legendaI: 'Etiqueta de patrimônio',
-                    legendaH: 'Licença SQL Server'
+                    legendaH: 'Etiqueta de patrimônio',
+                    legendaI: 'Licença SQL Server'
                 };
 
                 Object.entries(fields).forEach(([key, label]) => {
@@ -67,7 +67,7 @@
                     const selectFields = ['semestre', 'ano', 'unidade', 'setor', 'so', 'office', 'memoria', 'disco', 'status'];
 
                     // SWITCH
-                    const switchFields = ['legendaA', 'legendaB', 'legendaC', 'legendaD', 'legendaE', 'legendaF', 'legendaG', 'legendaI', 'legendaH'];
+                    const switchFields = ['legendaA', 'legendaB', 'legendaC', 'legendaD', 'legendaE', 'legendaF', 'legendaG', 'legendaH', 'legendaI'];
 
                     if (switchFields.includes(key)) {
                         const span = document.getElementById(`${key}-${computerId}`);

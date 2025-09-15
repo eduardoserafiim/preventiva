@@ -22,6 +22,7 @@ function listarComputadores(array $computadores, string $usuarioSetor) {
                                 </button>
                                 <form method="POST" action="../controllers/computadoresApagar.php" style="display:inline-block;">
                                     <input type="hidden" name="apagarComputador" value="<?= $computer['id'] ?>">
+                                    <input type="hidden" name="url" value="<?= $computer['setor'] ?>">
                                     <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
                                         <i class="fas fa-eraser"></i> Apagar
                                     </button>

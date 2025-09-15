@@ -24,8 +24,8 @@ CREATE TABLE computadores (
     legendaE boolean,
     legendaF boolean,
     legendaG boolean,
-    legendaI boolean,
     legendaH boolean,
+    legendaI boolean,
     dataCadastro DATE
 );
 

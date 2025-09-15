@@ -13,9 +13,9 @@ function alterarUsuarios(){
     $atualizar = $model->atualizar($id, $data);
     
     if ($atualizar){
-        echo "Usuário atualizado com sucesso!";
+        return true;
     }else{
-        echo "Erro ao atualizar usuário.";
+        return false;
     }
 
 };

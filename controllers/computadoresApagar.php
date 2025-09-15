@@ -3,16 +3,18 @@ require_once "../models/computadores.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarComputador'])) {
     $id = intval($_POST['apagarComputador']);
-
+    $url = $_POST['url'];
     $model = new ComputerModel();
     $apagar = $model->apagar($id);
 
     if ($apagar) {
-        echo "Computador excluído com sucesso.";
+        header("Location: ../view/preventiva.php?url=".urlencode($url));
+        exit;
     } else {
-        echo "Erro ao excluír o computador.";
+        header("Location: ../view/preventiva.php?url=".urlencode($url));
+        exit;
     }
+
+    
 }
 
-header("Location: ../view/preventiva.php?url=". $_POST['setor']);
-exit();

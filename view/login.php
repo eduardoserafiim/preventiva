@@ -27,9 +27,9 @@ $url = $_GET["url"] ?? '';
                             <div class="controleContainer">
                                 <div class="forgetpassword-container">
                                     <i class="fa-solid fa-triangle-exclamation fa-2xl"></i>
-                                    <h4>Atenção!</h4>
+                                    <h3>Atenção!</h3>
                                     <p>Para visualizar seu usuário ou alterar sua senha, por favor, crie um chamado para o setor de TI.</p>
-                                    <a href="#" target="blank"><h5>portal.hap.org.br/suporte</h5></a>
+                                    <a href="http://portal.hap.org.br/Portal%20-%20HAP/forms/SuporteTI.php" target="blank"><h5>portal.hap.org.br/suporte</h5></a>
                                 </div>
                             </div>
                             ';
