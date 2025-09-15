@@ -1,6 +1,7 @@
 /* COMPONENTES */
 
 @import url("components/navbar.css");
+@import url("components/search.css");
 @import url("components/fundo.css");
 @import url("components/form.css");
 @import url("components/botoes.css");

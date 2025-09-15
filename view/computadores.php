@@ -39,9 +39,13 @@ require_once '../public/components/form/computadores/formActions.php';
             </div>
         </main>
     </div>
-    <script src="../public/javascript/form/limparFormulario.js"></script>
-    <script src="../public/javascript/animar/login/animarFormulario.js"></script>
-    <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
+    <script src="../public/javascript/form/limparFormulario.js"></script>
+
+    <script src="../public/javascript/animar/formulario/animarFormulario.js"></script>
+    <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
+
+    <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>

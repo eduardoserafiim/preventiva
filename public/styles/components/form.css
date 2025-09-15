@@ -4,6 +4,15 @@
     padding: 2rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     border: 1px solid #e2e8f0;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;    
+}
+
+.form-container.show
+{
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .equipment-form {
@@ -77,25 +86,7 @@
     color: #0000FF;
 }
 
-.form-passwordforget label
-{
-    cursor: pointer;
-}
-
 #formularioUsuario h4
 {
     margin-left: 1rem;
-}
-
-.form-container
-{    
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;    
-}
-
-.form-container.show
-{
-    opacity: 1;
-    transform: translateY(0);
 }

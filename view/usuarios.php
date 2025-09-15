@@ -80,12 +80,19 @@ if($acaoUsuario){
         ?>
         
     </main>
+</body>
     <script src="../public/javascript/animar/formulario/animarFormulario.js"></script>
+    <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
+    <script src="../public/javascript/animar/usuario/animarUsuarios.js"></script>
+
     <script src="../public/javascript/usuarios/atualizarUsuario.js"></script>
+
     <script src="../public/javascript/usuarios/searchNomeUsuario.js"></script>
+
     <script src="../public/javascript/form/limparFormulario.js"></script>
+
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
     <script src="../public/javascript/usuarios/confirmarExclusao.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
 </html>

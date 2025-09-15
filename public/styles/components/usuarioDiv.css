@@ -1,10 +1,19 @@
 .usuarios
 {
+  opacity: 0;
   display: grid;
   justify-content: center;
   align-items: center;
   grid-template-rows: repeat(200px);
   grid-template-columns: repeat(2, 400px);
+  transform: translateY(-10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;    
+}
+
+.usuarios.show
+{
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .usuarioDiv

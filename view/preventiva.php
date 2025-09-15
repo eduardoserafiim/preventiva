@@ -131,9 +131,16 @@ if ($setorFiltro) {
 
 </body>
     <script src="../public/javascript/setores/searchSetor.js"></script>
+
     <script src="../public/javascript/computadores/atualizarComputadores.js"></script>
     <script src="../public/javascript/computadores/excluirComputadores.js"></script>
     <script src="../public/javascript/computadores/imprimirComputadores.js"></script>
+    
+    <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
+    <script src="../public/javascript/animar/search/animarSearch.js"></script>
+    <script src="../public/javascript/animar/setores/animarSetores.js"></script>
+    
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>
