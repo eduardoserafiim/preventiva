@@ -14,5 +14,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarUsuario'])) {
     }
 }
 
-header("Location: ../view/usuarios.php");
+header("Location: ../view/usuarios.php?acaoUsuario=listar");
 exit();

@@ -3,10 +3,15 @@ require_once '../db/db.php';
 
 class ComputerModel {
     private $db;
+    private $lastError;
 
     public function __construct() {
         $database = new Database();
         $this->db = $database->getConnection();
+    }
+
+    public function getLastError() {
+        return $this->lastError;
     }
 
     public function criar($data) {
@@ -129,15 +134,18 @@ class ComputerModel {
                 ':legendaF'=> $data['legendaF'],
                 ':legendaG'=> $data['legendaG'],
                 ':legendaH'=> $data['legendaH'],
+                ':legendaI'=> $data['legendaI'],
                 ':lacre' => $data['lacre'],
                 ':status' => $data['status'],
             ]);
             return true;
 
         } catch (PDOException $e) {
+            $this->lastError = $e->getMessage();
             error_log("Erro ao atualizar computador: " . $e->getMessage());
             return false;
         }
+        
     }
 
     public function apagar($id) {

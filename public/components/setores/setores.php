@@ -1,15 +1,15 @@
 <?php
 
-function criarSetor($icon, $setor){
+function criarSetor($icon, $url){
     return 
     '
-    <div class="setor" data-setor="'.strtolower($setor).'">
-        <a href="preventiva.php?setor='.$setor.'">
+    <div class="setor" data-setor="'.strtolower($url).'">
+        <a href="preventiva.php?url='.$url.'">
             <div class="flex">
                 <i class="fa-solid '.$icon.' fa-2xl anima"></i>
-                <h4>'.$setor.'</h4>
+                <h4>'.$url.'</h4>
             </div>
-            <p>Visualize os computadores cadastrados no setor '.$setor.'</p>
+            <p>Visualize os computadores cadastrados no setor '.$url.'</p>
         </a>
     </div>
     ';

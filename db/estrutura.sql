@@ -24,8 +24,8 @@ CREATE TABLE computadores (
     legendaE boolean,
     legendaF boolean,
     legendaG boolean,
-    legendaH boolean,
     legendaI boolean,
+    legendaH boolean,
     dataCadastro DATE
 );
 
@@ -37,18 +37,4 @@ CREATE TABLE usuarios (
 	senha VARCHAR(100) NOT NULL,
 	setor VARCHAR(70)
 
-);
-
-CREATE TABLE setores (
-	id INT auto_increment,
-	PRIMARY KEY (id),
-	nome VARCHAR(70) NOT NULL
-);
-
-CREATE TABLE usuarios_setores (
-    usuario_id INT,
-    setor_id INT,
-    PRIMARY KEY (usuario_id, setor_id),
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id),
-    FOREIGN KEY (setor_id) REFERENCES setores(id)
 );

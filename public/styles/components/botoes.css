@@ -51,9 +51,10 @@
   margin-bottom: 2rem;
 }
 
-.imprimir, .observacao
+.imprimir
 {
   margin-top: 1.4rem;
+  margin-left: 1rem;
 
 }
 

@@ -22,5 +22,5 @@ function alterarUsuarios(){
 
 alterarUsuarios();
 
-header("Location: ../view/usuarios.php");
+header("Location: ../view/usuarios.php?acaoUsuario=listar");
 exit();

@@ -14,5 +14,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarComputador'])) 
     }
 }
 
-header("Location: ../view/preventiva.php");
+header("Location: ../view/preventiva.php?url=". $_POST['setor']);
 exit();

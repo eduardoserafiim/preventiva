@@ -19,7 +19,7 @@ require_once "../public/components/setores/dictionarySetores.php";
 $db = new ComputerModel();
 
 $setorUsuario = $_SESSION['setor'] ?? '';
-$setorFiltro = $_GET['setor'] ?? '';
+$setorFiltro = $_GET['url'] ?? '';
 
 if ($setorUsuario !== 'TI') {
     $setorFiltro = $setorUsuario;
@@ -129,11 +129,11 @@ if ($setorFiltro) {
         </main>
     </div>
 
+</body>
     <script src="../public/javascript/setores/searchSetor.js"></script>
     <script src="../public/javascript/computadores/atualizarComputadores.js"></script>
     <script src="../public/javascript/computadores/excluirComputadores.js"></script>
     <script src="../public/javascript/computadores/imprimirComputadores.js"></script>
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
 </html>

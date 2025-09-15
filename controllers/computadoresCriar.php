@@ -37,5 +37,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo 'sucesso';
 }
 
-header('Location: ../view/computadores.php');
+header("Location: ../view/preventiva.php?url=". $_POST['setor']);
 exit();

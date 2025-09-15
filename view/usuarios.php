@@ -80,7 +80,7 @@ if($acaoUsuario){
         ?>
         
     </main>
-
+    <script src="../public/javascript/animar/formulario/animarFormulario.js"></script>
     <script src="../public/javascript/usuarios/atualizarUsuario.js"></script>
     <script src="../public/javascript/usuarios/searchNomeUsuario.js"></script>
     <script src="../public/javascript/form/limparFormulario.js"></script>

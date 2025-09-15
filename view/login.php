@@ -82,7 +82,7 @@ $url = $_GET["url"] ?? '';
             
         </div>
     </body>
-    <script src="../public/javascript/animar/login/animarAviso.js"></script>
+    <script src="../public/javascript/animar/formulario/animarFormulario.js"></script>
     <script src="../public/javascript/animar/login/animarFormulario.js"></script>
     <script src="../public/javascript/animar/login/animarContainerSenha.js"></script>
 </html>

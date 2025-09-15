@@ -4,6 +4,7 @@ require_once "../models/computadores.php";
 function alterarComputadores(){
     $id = intval($_POST['id']);
     $data = [
+        'setor' => $_POST['setor'] ?? '',
         'nome' => $_POST['nome'] ?? '',
         'modelo' => $_POST['modelo'] ?? '',
         'processador' => $_POST['processador'] ?? '',
@@ -27,21 +28,20 @@ function alterarComputadores(){
         'legendaG' => isset($_POST['legendaG']) ? 1 : 0,
         'legendaH' => isset($_POST['legendaH']) ? 1 : 0,
         'legendaI' => isset($_POST['legendaI']) ? 1 : 0,
-        'setor' => $_POST['setor'] ?? '',
     ];
 
     $model = new ComputerModel();
     $atualizar = $model->atualizar($id, $data);
     
     if ($atualizar){
-        echo "Computador atualizado com sucesso!";
-    }else{
-        echo "Erro ao atualizar computador.";
+    echo "Computador atualizado com sucesso!";
+    } else {
+        echo "Erro ao atualizar computador: " . $model->getLastError();
     }
 
 };
 
 alterarComputadores();
 
-header("Location: ../view/preventiva.php");
+header("Location: ../view/preventiva.php?url=". $_POST['setor']);
 exit();
