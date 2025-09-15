@@ -1,0 +1,13 @@
+.filtro
+{
+    opacity: 0;
+    margin-top: 2.2rem;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.filtro.show
+{
+    opacity: 1;
+    transform: translateY(0);
+}

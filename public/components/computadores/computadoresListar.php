@@ -4,7 +4,7 @@ require_once '../models/computadores.php';
 
 function listarComputadores(array $computadores, string $usuarioSetor) {
     ?>
-    <div id="computers-list" class="tab-content active">
+    <div id="computers-list" class="computadores-listagem tab-content active">
         <div class="equipment-grid" id="computersGrid">
             <?php if (empty($computadores)) : ?>
                 <p class="empty-state">Nenhum computador visível ainda.</p>

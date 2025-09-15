@@ -2,16 +2,16 @@ function confirmarExclusao(event) {
     event.preventDefault();
 
     Swal.fire({
-        icon: 'warning', // ícone animado de alerta
+        icon: 'warning',
         title: 'Tem certeza desta ação?',
         text: "Você está EXCLUINDO uma conta",
         showCancelButton: true,
         confirmButtonText: 'Sim, excluir',
         cancelButtonText: 'Cancelar',
-        reverseButtons: true,
+        reverseButtons: false,
         customClass: {
             confirmButton: 'botao botao-primario',
-            cancelButton: 'botao botao-secundario'
+            cancelButton: 'botao botao-cancelar'
         },
         buttonsStyling: false
     }).then((result) => {

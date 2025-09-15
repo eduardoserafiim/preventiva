@@ -2,11 +2,13 @@
 
 @import url("components/navbar.css");
 @import url("components/search.css");
+@import url("components/filtro.css");
 @import url("components/fundo.css");
 @import url("components/form.css");
 @import url("components/botoes.css");
 @import url("components/icons.css");
 @import url("components/setores.css");
+@import url("components/computadores.css");
 @import url("components/esqueciSenha.css");
 @import url("components/usuarioDiv.css");
 @import url("components/switch.css");

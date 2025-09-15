@@ -42,7 +42,7 @@ if($acaoUsuario){
             if($acaoUsuario == 'criar')
             {
                 echo 
-                '<div clas="voltar" style="padding: 0px;">
+                '<div class="voltar">
                 '.voltar('usuarios.php').'
                 </div>
                 <div class="controleForm" style="margin: 0px;">
@@ -84,6 +84,9 @@ if($acaoUsuario){
     <script src="../public/javascript/animar/formulario/animarFormulario.js"></script>
     <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
     <script src="../public/javascript/animar/usuario/animarUsuarios.js"></script>
+    <script src="../public/javascript/animar/search/animarSearch.js"></script>
+    <script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
+    <script src="../public/javascript/animar/usuario/animarListagemUsuario.js"></script>
 
     <script src="../public/javascript/usuarios/atualizarUsuario.js"></script>
     <script src="../public/javascript/usuarios/cadastrarUsuario.js"></script>
@@ -93,6 +96,7 @@ if($acaoUsuario){
 
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
     <script src="../public/javascript/usuarios/confirmarExclusao.js"></script>
+    <script src="../public/javascript/usuarios/confirmarEdicao.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>

@@ -51,14 +51,12 @@
   margin-bottom: 2rem;
 }
 
-.imprimir
+.botao-imprimir
 {
-  margin-top: 1.4rem;
-  margin-left: 1rem;
-
+  margin: 1.2rem 0 0 1rem;  
 }
 
-.filtro
+.botao-filtro
 {
-  margin-top: 2.2rem;
+  margin-top: 2rem;
 }

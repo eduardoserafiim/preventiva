@@ -4,7 +4,7 @@ require_once '../models/usuarios.php';
 
 function listarUsuarios(array $usuarios) {
     ?>
-    <div id="users-list" class="tab-content active">
+    <div id="users-list" class="usuarios-listagem tab-content active">
         <div class="equipment-grid-user" id="usersGrid">
             <?php if (empty($usuarios)) : ?>
                 <p class="empty-state">Nenhum usuário cadastrado ainda.</p>

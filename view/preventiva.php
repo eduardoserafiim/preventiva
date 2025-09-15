@@ -100,9 +100,9 @@ if ($setorFiltro) {
                                     </select>
                                 </div>
                                 <input type="hidden" name="setor" value="' . htmlspecialchars($setorFiltro) . '">
-                                <button type="submit" class="botao botao-primario filtro">Filtrar</button> 
+                                <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button> 
                             </form>
-                            <button type="button" onclick="imprimirComputadores()" class="botao botao-primario imprimir">Imprimir</button>
+                            <button type="button" onclick="imprimirComputadores()" class="botao botao-primario botao-imprimir">Imprimir</button>
                             <div id="observacoes-form" style="display: none; margin-top: 20px;">
                                 <form method="POST" action="../controllers/computadoresObservar.php">
                                     <div class="form-group">
@@ -139,6 +139,9 @@ if ($setorFiltro) {
     <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
     <script src="../public/javascript/animar/search/animarSearch.js"></script>
     <script src="../public/javascript/animar/setores/animarSetores.js"></script>
+    <script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
+    <script src="../public/javascript/animar/filtro/animarFiltro.js"></script>
+    <script src="../public/javascript/animar/computadores/animarListagemComputadores.js"></script>
     
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
     

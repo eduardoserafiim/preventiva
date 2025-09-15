@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const buttonsRow = document.createElement('div');
             buttonsRow.className = 'form-actions';
             buttonsRow.innerHTML = `
-                <button type="submit" class="botao botao-primario">
+                <button type="submit" class="botao botao-primario" onclick="confirmarEdicao(event)">
                     <i class="fas fa-save"></i> Salvar
                 </button>
                 <button type="button" class="botao botao-cancelar cancelar-edicao" data-id="${usuarioId}">

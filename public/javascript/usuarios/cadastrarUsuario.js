@@ -1,7 +1,5 @@
 let currentStep = 0;
 const etapas = document.querySelectorAll(".step");
-
-// Seleciona apenas dois botões
 const botaoVoltar = document.querySelector(".botao-secundario"); 
 const botaoAvancar = document.querySelector(".botao-primario"); 
 
@@ -44,20 +42,37 @@ function prevStep() {
 }
 
 function salvarFormulario() {
-    Swal.fire({
-        icon: 'success',
-        title: 'Conta criada com sucesso!',
-        confirmButtonText: 'Continuar',
-        customClass: {
-            confirmButton: 'botao botao-primario'
-        },
-        buttonsStyling: false,
-        allowOutsideClick: false, // impede fechar clicando fora
-        allowEscapeKey: false     // impede fechar com ESC
-    }).then(() => {
-        // Redireciona para a página desejada
-        window.location.href = "usuarios.php";
-    });
+    const formulario = document.querySelector("form");
+
+    if (!formulario.checkValidity()) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Conta não criada.',
+            text: 'Algo deu errado e sua conta não foi criada.',
+            confirmButtonText: 'Continuar',
+            customClass: {
+                confirmButton: 'botao botao-primario'
+            },
+            buttonsStyling: false
+        });
+        
+        formulario.reportValidity();
+        return;
+    }else{
+        Swal.fire({
+            icon: 'success',
+            title: 'Conta criada com sucesso!',
+            confirmButtonText: 'Continuar',
+            customClass: {
+                confirmButton: 'botao botao-primario'
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        }).then(() => {
+            formulario.submit();
+        });
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {

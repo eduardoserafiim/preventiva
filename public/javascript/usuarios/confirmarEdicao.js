@@ -1,11 +1,12 @@
-function confirmarExclusao(event) {
+function confirmarEdicao(event) {
     event.preventDefault();
 
     Swal.fire({
-        title: '<i class="fa-solid fa-triangle-exclamation fa-2xl"></i><br>Tem certeza desta ação?',
-        text: "Você está EXCLUINDO uma computador",
+        icon: 'warning',
+        title: 'Tem certeza desta ação?',
+        text: "Você está EDITANDO uma conta",
         showCancelButton: true,
-        confirmButtonText: 'Sim, excluir',
+        confirmButtonText: 'Sim, editar',
         cancelButtonText: 'Cancelar',
         reverseButtons: false,
         customClass: {
