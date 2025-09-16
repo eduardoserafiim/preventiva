@@ -35,10 +35,14 @@ function listarUsuarios(array $usuarios) {
                                 <span class="info-label">Setor:</span>
                                 <span class="info-value" data-key="setor"><?= htmlspecialchars($usuario["setor"]) ?></span>
                             </div>
-                            <!-- <div class="info-row">
+                            <div class="info-row">
+                                <span class="info-label">Privilégio:</span>
+                                <span class="info-value" data-key="setor"><?= htmlspecialchars($usuario["privilegio"]) ?></span>
+                            </div>
+                            <div class="info-row">
                                 <span class="info-label">Senha:</span>
-                                <span class="info-value" data-key="senha"><?= htmlspecialchars($usuario["senha"]) ?></span>
-                            </div> -->
+                                <span class="info-value" data-key="senha">********</span>
+                            </div>
                         </div>
                     </div>
                 <?php endforeach; ?>

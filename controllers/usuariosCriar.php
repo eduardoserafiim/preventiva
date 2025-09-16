@@ -9,7 +9,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $usuarioExistente = $usuarioController->validar($usuario);
     if ($usuarioExistente) {
-        echo json_encode(['status' => 'error', 'message' => 'Usuário já existe.']);
         exit();
     }
 
@@ -18,12 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'usuario' => $usuario,
         'senha' => password_hash($_POST['senha'], PASSWORD_BCRYPT, ['cost' => 10]),
         'setor' => $_POST['setor'],
+        'privilegio' => $_POST['privilegio'],
     ];
 
     $usuarioController->criar($data);
-    echo json_encode(['status'=> 'success', 'message' => 'Usuário cadastrado com sucesso!']);
-} else {
-    echo json_encode(['status' => 'error', 'message' => 'Método inválido.']);
 }
 
 header('Location: ../view/usuarios.php');

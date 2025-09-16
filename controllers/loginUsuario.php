@@ -13,6 +13,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['usuario'] = $usuario['usuario'];
         $_SESSION['nome'] = $usuario['nome'];
         $_SESSION['setor'] = $usuario['setor'];
+        $_SESSION['privilegio'] = $usuario['privilegio'];
         header("Location: ../view/index.php");
         exit;        
     }elseif(!$usuario){

@@ -11,14 +11,15 @@ class UsuarioModel{
 
     public function criar($data) {
         $sql = "INSERT INTO usuarios
-        (nome, usuario, senha, setor)
-            VALUES (:nome, :usuario, :senha, :setor)";
+        (nome, usuario, senha, setor, privilegio)
+            VALUES (:nome, :usuario, :senha, :setor, :privilegio)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             ':nome' => $data['nome'],
             ':usuario' => $data['usuario'],
             ':senha' => $data['senha'],
             ':setor' => $data['setor'],
+            ':privilegio' => $data['privilegio']
         ]);
     }
 
@@ -35,7 +36,8 @@ class UsuarioModel{
             SET  
             nome = :nome, 
             usuario = :usuario,
-            setor = :setor
+            setor = :setor,
+            privilegio = :privilegio
             WHERE id = :id";
 
         try {
@@ -45,6 +47,7 @@ class UsuarioModel{
                 ':nome' => $data['nome'],
                 ':usuario' => $data['usuario'],
                 ':setor' => $data['setor'],
+                ':privilegio' => $data['privilegio'],
             ]);
             return true;
 

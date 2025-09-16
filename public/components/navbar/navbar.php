@@ -34,8 +34,8 @@ function navbar($active) {
                     </a>
                 </li>';
 
-    $isAdmin = ($_SESSION["usuario"] === "administrador");
-    $isTI = ($_SESSION["setor"] === "TI");
+    $isAdmin = ($_SESSION["privilegio"] === "administrador");
+    $isTI = ($_SESSION["privilegio"] === "TI");
 
     if ($isAdmin) {
         $html .= '

@@ -7,6 +7,7 @@ function alterarUsuarios(){
         'nome' => $_POST['nome'] ?? '',
         'usuario' => $_POST['usuario'] ?? '',
         'setor' => $_POST['setor'] ?? '',
+        'privilegio' => $_POST['privilegio'] ?? ''
     ];
 
     $model = new UsuarioModel();

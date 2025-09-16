@@ -6,6 +6,7 @@ if (!isset($_SESSION['usuario'])) {
 }
 
 require_once "../models/computadores.php";
+require_once "../models/setores.php";
 
 require_once "../public/components/header/header.php";
 require_once "../public/components/navbar/navbar.php";
@@ -17,6 +18,9 @@ require_once "../public/components/setores/setores.php";
 require_once "../public/components/setores/dictionarySetores.php";
 
 $db = new ComputerModel();
+$dbsetor = new SetorModel();
+
+$setores = $dbsetor->listar();
 
 $setorUsuario = $_SESSION['setor'] ?? '';
 $setorFiltro = $_GET['url'] ?? '';
@@ -57,7 +61,8 @@ if ($setorFiltro) {
 
                 echo '<div class="setores">';
                 foreach ($setores as $setor) {
-                    echo criarSetor($setor[1], $setor[0]);
+                    // setor['nome'] e setor['icon'], ajusta para a função
+                    echo criarSetor($setor['icon'], $setor['nome']);
                 }
                 echo '</div>';
             }

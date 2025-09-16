@@ -15,6 +15,16 @@ function formGrid() {
         </div>
 
         <div class="form-group step">
+            <label>Privilégio</label>
+            <select id="select-privilegio" name="privilegio" required>
+                <option value="" selected disabled>Selecione...</option>
+                <option value="administrador">Administrativo</option>
+                <option value="TI">TI</option>
+                <option value="usuario">Usuário</option>
+            </select>
+        </div>
+
+        <div class="form-group step">
             <label>Senha</label>
             <input type="password" id="input-senha" name="senha" required>
         </div>
