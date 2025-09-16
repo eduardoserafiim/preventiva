@@ -35,6 +35,14 @@ CREATE TABLE usuarios (
 	nome VARCHAR(50) NOT NULL,
     usuario VARCHAR(20) NOT NULL,
 	senha VARCHAR(100) NOT NULL,
-	setor VARCHAR(70)
+	setor VARCHAR(70) NOT NULL,
+    privilegio VARCHAR(20) NOT NULL
+ 
+);
 
+CREATE TABLE setores (
+    id INT AUTO_INCREMENT,
+    PRIMARY KEY (id),
+    nome VARCHAR(100) NOT NULL,
+    icon VARCHAR(50) NOT NULL
 );
