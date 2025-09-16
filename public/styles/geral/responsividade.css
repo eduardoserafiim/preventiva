@@ -86,3 +86,25 @@
     place-items: center;
   }
 }
+
+@media (max-width: 768px) {
+  .main-content
+  {
+    margin-left: 0;
+  }
+
+  .sidebar
+  {
+    display: none;
+  }
+
+  .sidebar.open
+  {
+      display: flex;
+  }
+
+  .bar
+  {
+    display: flex;
+  }
+}

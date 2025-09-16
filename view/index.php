@@ -7,6 +7,7 @@ if (!isset($_SESSION['usuario'])) {
 
 include_once "../public/components/header/header.php";
 include_once "../public/components/navbar/navbar.php";
+include_once "../public/components/bar/bar.php"
 
 ?>
 <body>
@@ -17,6 +18,7 @@ include_once "../public/components/navbar/navbar.php";
                 <h1>Bem vindo, <?= ucfirst(htmlspecialchars($_SESSION['nome'])) ?>!</h1>
                 <p>Visualize as informações gerais</p>
             </div>
+            <?php echo bar(); ?>
             <div class="fundo-container">
                 <label>Está muito vazio aqui...</label>
             </div>
@@ -47,8 +49,10 @@ include_once "../public/components/navbar/navbar.php";
 </body>
     <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
     <script src="../public/javascript/animar/container/animarContainer.js"></script>
+    <script src="../public/javascript/animar/bar/animarBar.js"></script>
 
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+    <script src="../public/javascript/bar/bar.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>

@@ -26,6 +26,12 @@ function navbar($active) {
         <div class="sidebar-header">
             <h2><i class="fas fa-cogs"></i> Suporte T.I</h2>
         </div>
+            <div class="menu-item">
+                <button type="button" class="menu-voltar">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Esconder Menu</span>
+                </button>
+            </div>
             <ul class="sidebar-menu">
                 <li>
                     <a href="index.php" class="menu-item ' . ($active === 'menu' ? 'active' : '') . '">

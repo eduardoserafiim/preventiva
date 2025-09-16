@@ -21,6 +21,7 @@ $url = $_GET["url"] ?? '';
                     <?php if($url == "suporte"){
                         echo '<h1>Suporte TI</h1>
                             <p>Esqueci minha senha</p>
+                            </div>
                             <div class="voltar">'
                                 .voltar("login.php").'
                             </div>
@@ -36,6 +37,7 @@ $url = $_GET["url"] ?? '';
                     }else{
                         echo '<h1>Bem vindo ao Suporte TI</h1>
                         <p>Faça Login para Continuar...</p>
+                        </div>
                         <div class="controleForm">
                             <div class="form-container">
                                 <form action="../controllers/loginUsuario.php" method="POST" id="formularioUsuario" class="equipment-form">
