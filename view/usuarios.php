@@ -9,6 +9,7 @@ require_once '../models/usuarios.php';
 
 require_once '../public/components/header/header.php';
 require_once '../public/components/navbar/navbar.php';
+require_once '../public/components/bar/bar.php';
 require_once '../public/components/voltar.php';
 
 require_once '../public/components/setores/optionSetores.php';
@@ -38,6 +39,7 @@ if($acaoUsuario){
             <h1>Usuários</h1>
             <p>Gerencie os usuários</p>
         </div>
+        <?php echo bar(); ?>
         <?php 
             if($acaoUsuario == 'criar')
             {
@@ -87,12 +89,14 @@ if($acaoUsuario){
     <script src="../public/javascript/animar/search/animarSearch.js"></script>
     <script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
     <script src="../public/javascript/animar/usuario/animarListagemUsuario.js"></script>
+    <script src="../public/javascript/animar/bar/animarBar.js"></script>
 
     <script src="../public/javascript/usuarios/atualizarUsuario.js"></script>
     <script src="../public/javascript/usuarios/cadastrarUsuario.js"></script>
     <script src="../public/javascript/usuarios/searchNomeUsuario.js"></script>
 
     <script src="../public/javascript/form/limparFormulario.js"></script>
+    <script src="../public/javascript/bar/bar.js"></script>
 
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
     <script src="../public/javascript/usuarios/confirmarExclusao.js"></script>

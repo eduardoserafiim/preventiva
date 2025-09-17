@@ -14,11 +14,11 @@ include_once "../public/components/bar/bar.php"
     <div class="app-container">
         <?php echo navbar("menu"); ?>
         <main class="main-content">
+            <?php echo bar(); ?>
             <div class="page-header">
                 <h1>Bem vindo, <?= ucfirst(htmlspecialchars($_SESSION['nome'])) ?>!</h1>
                 <p>Visualize as informações gerais</p>
             </div>
-            <?php echo bar(); ?>
             <div class="fundo-container">
                 <label>Está muito vazio aqui...</label>
             </div>

@@ -10,6 +10,7 @@ require_once "../models/setores.php";
 
 require_once "../public/components/header/header.php";
 require_once "../public/components/navbar/navbar.php";
+require_once "../public/components/bar/bar.php";
 
 require_once "../public/components/computadores/computadoresListar.php";
 require_once "../public/components/computadores/computadoresImprimir.php";
@@ -51,7 +52,7 @@ if ($setorFiltro) {
                 <h1>Preventiva</h1>
                 <p>Visualize todos os equipamentos cadastrados</p>
             </div>
-
+            <?php echo bar(); ?>
             <?php
             if ($setorUsuario === 'TI' && empty($setorFiltro)) {
                 echo '
@@ -147,8 +148,10 @@ if ($setorFiltro) {
     <script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
     <script src="../public/javascript/animar/filtro/animarFiltro.js"></script>
     <script src="../public/javascript/animar/computadores/animarListagemComputadores.js"></script>
+    <script src="../public/javascript/animar/bar/animarBar.js"></script>
     
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+    <script src="../public/javascript/bar/bar.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>

@@ -93,18 +93,30 @@
     margin-left: 0;
   }
 
-  .sidebar
-  {
-    display: none;
+  .sidebar {
+    transform: translateX(-300px);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.4s ease, visibility 0.4s ease;
   }
 
-  .sidebar.open
-  {
-      display: flex;
+  .sidebar.open {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
   }
 
   .bar
   {
     display: flex;
   }
+
+  .sidebar-voltar
+  {
+    display: flex;
+  }
+}
+
+@media (max-width: 425px) {
+
 }

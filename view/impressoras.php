@@ -7,6 +7,7 @@ if (!isset($_SESSION['usuario'])) {
 
 require_once "../public/components/header/header.php";
 require_once "../public/components/navbar/navbar.php";
+require_once "../public/components/bar/bar.php";
 
 ?>
 <body>
@@ -17,15 +18,17 @@ require_once "../public/components/navbar/navbar.php";
                 <h1>Impressoras</h1>
                 <p>Visualize o inventário de impressoras do Hospital Adventista do Pênfigo</p>
             </div>
-            
+            <?php echo bar(); ?>
         </main>
     </div>    
 </body>
     <script src="../public/javascript/form/limparFormulario.js"></script>
 
     <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
+    <script src="../public/javascript/animar/bar/animarBar.js"></script>
 
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+    <script src="../public/javascript/bar/bar.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>
