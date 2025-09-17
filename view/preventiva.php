@@ -75,7 +75,7 @@ if ($setorFiltro) {
                     <div class="filtro">
                         <h3 class="filtragem">Adicione filtros</h3>
                         <div class="flex"> 
-                            <form method="GET" class="form-flex">
+                            <form method="GET" class="form-flex form-filtro">
                                 <!-- SEMESTRE -->
                                 <div class="form-group">
                                     <label for="label-semestre">Semestre</label>
@@ -105,20 +105,12 @@ if ($setorFiltro) {
                                         <option value="HAP - UC" ' . ($unidade === "HAP - UC" ? "selected" : "") . '>HAP - Centro</option>
                                     </select>
                                 </div>
-                                <input type="hidden" name="setor" value="' . htmlspecialchars($setorFiltro) . '">
-                                <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button> 
+                                <input type="hidden" name="url" value="' . htmlspecialchars($setorFiltro) . '">
+                                <div class="botoes-filtrar">
+                                    <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button> 
+                                    <button type="button" onclick="imprimirComputadores()" class="botao botao-primario botao-imprimir">Imprimir</button>
+                                </div>
                             </form>
-                            <button type="button" onclick="imprimirComputadores()" class="botao botao-primario botao-imprimir">Imprimir</button>
-                            <div id="observacoes-form" style="display: none; margin-top: 20px;">
-                                <form method="POST" action="../controllers/computadoresObservar.php">
-                                    <div class="form-group">
-                                        <label for="observacao">Digite a observação para o setor:</label>
-                                        <textarea name="observacao" id="observacao" rows="4" cols="50" required></textarea>
-                                    </div>
-                                    <input type="hidden" name="setor" value="' . htmlspecialchars($setorFiltro) . '">
-                                    <button type="submit" class="botao botao-primario">Salvar Observação</button>
-                                </form>
-                            </div>
                         </div>
                     </div>
                     <div class="voltar">

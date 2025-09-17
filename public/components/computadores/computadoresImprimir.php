@@ -30,6 +30,7 @@ function imprimirTabelaComputadores(array $computadores) {
                     <th>F</th>
                     <th>G</th>
                     <th>H</th>
+                    <th>I</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,7 +53,7 @@ function imprimirTabelaComputadores(array $computadores) {
                             <td><?= $c['disco'] ?></td>
                             <td><?= $c['ip'] ?></td>
                             <td><?= $c['lacre'] ?></td>
-                            <?php foreach (range('A', 'H') as $letra): ?>
+                            <?php foreach (range('A', 'I') as $letra): ?>
                                 <td><?= isset($c['legenda' . $letra]) && $c['legenda' . $letra] == 1 ? 'Sim' : 'Não' ?></td>
                             <?php endforeach; ?>
                         </tr>

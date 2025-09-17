@@ -86,6 +86,10 @@
     color: #0000FF;
 }
 
+.form-filtro
+{
+    height: 50px;
+}
 
 /* login */
 #formularioUsuario h4
