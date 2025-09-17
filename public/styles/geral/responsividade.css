@@ -118,5 +118,128 @@
 }
 
 @media (max-width: 425px) {
+  .usuarios
+  {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    place-items: center;
+  }
 
+  .search
+  {
+    width: 350px;
+  }
+
+  #search-input
+  {
+    width: 350px;
+  }
+
+  #formularioUsuarios
+  {
+    width: 250px;
+  }
+
+  #formularioUsuarios select
+  {
+      width: 250px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-actions
+  {
+    height: 50px;
+  }
+
+  #botaoVoltar, #botaoAvancar
+  {
+    justify-content: center;
+    width: 120px;
+    padding: 12px 12px 12px 12px;
+  }
+
+  /* computadores */
+  #formularioComputadores
+  {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .form-flex{
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 375px) {
+  .usuarios
+  {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    place-items: center;
+  }
+
+  .search
+  {
+    width: 300px;
+  }
+
+  #search-input, .usuarioDiv
+  {
+    width: 300px;
+  }
+
+  .usuarioDiv p
+  {
+    padding: 8px 16px 0px 16px;
+    text-wrap: wrap;
+  }
+
+  #formularioUsuarios
+  {
+    width: 225px;
+  }
+
+  #formularioUsuarios select
+  {
+      width: 225px;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-actions
+  {
+    height: 50px;
+  }
+
+  .form-actions{
+    height: 42px;
+  }
+
+  .info-label
+  {
+    width: 120px;
+  }
+
+  .form-actions-computadores
+  {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #formularioComputadores
+  {
+    width: 225px;
+    height: 2800px;
+  }
 }
