@@ -306,6 +306,88 @@
 
   #formularioUsuario, #formularioUsuario input, .usuario, .senha
   {
+    width: 190px;
+  }
+
+  .sidebar
+  {
     width: 200px;
+  }
+
+  /* usuarios */
+  .bar
+  {
+    width: 45px;
+    height: 45px;
+  }
+
+  .usuarioDiv
+  {
+    width: 250px;
+  }
+
+  .search, #search-input, .voltar
+  {
+    width: 250px;
+  }
+  
+  .equipment-card, .usuarios-listagem
+  {
+    width: 250px;
+  }
+
+  .form-actions
+  {
+    flex-wrap: wrap;
+    margin-bottom: 5rem;
+  }
+
+  .info-row
+  {
+    width: 200px;
+  }
+
+  /* page-header */
+  .page-header
+  {
+    width: 250px;
+  }
+
+  /* form */
+  .controleForm
+  {
+    width: 250px;
+  }
+
+  #formularioUsuarios, #formularioUsuarios input, #formularioUsuarios select, .form-group
+  {
+    width: 190px;
+  }
+
+  .form-actions-usuarios
+  {
+    justify-content: center;
+  }
+
+  #formularioComputadores
+  {
+    width: 190px;
+    text-wrap: wrap;
+  }
+
+  .form-flex, .form-grid
+  {
+    width: 190px;
+  }
+
+  /* computadores */
+  .botao-bar
+  {
+    width: 250px;
+  }
+
+  .form-actions-computadores
+  {
+    width: 190px;
   }
 }

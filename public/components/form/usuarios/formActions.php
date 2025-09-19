@@ -2,7 +2,7 @@
 
 function formActions() {
     return '
-    <div class="form-actions">
+    <div class="form-actions form-actions-usuarios">
         <button type="button" id="botaoVoltar" class="botao botao-secundario" onclick="prevStep()" style="display:none;">
             <i class="fas fa-arrow-left"></i> Voltar
         </button>
