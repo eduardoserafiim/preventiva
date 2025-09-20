@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'senha' => password_hash($_POST['senha'], PASSWORD_BCRYPT, ['cost' => 10]),
         'setor' => $_POST['setor'],
         'privilegio' => $_POST['privilegio'],
+        'unidade' => $_POST['unidade'],
     ];
 
     $usuarioController->criar($data);

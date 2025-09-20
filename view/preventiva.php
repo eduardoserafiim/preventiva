@@ -74,7 +74,7 @@ if ($setorFiltro) {
                 echo '
                     <div class="filtro">
                         <h3 class="filtragem">Adicione filtros</h3>
-                        <div class="flex"> 
+                        <div class="flex filtro-flex"> 
                             <form method="GET" class="form-flex form-filtro">
                                 <!-- SEMESTRE -->
                                 <div class="form-group">

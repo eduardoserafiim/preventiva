@@ -14,13 +14,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['nome'] = $usuario['nome'];
         $_SESSION['setor'] = $usuario['setor'];
         $_SESSION['privilegio'] = $usuario['privilegio'];
+        $_SESSION['unidade'] = $usuario['unidade'];
         header("Location: ../view/index.php");
         exit;        
-    }elseif(!$usuario){
+    }elseif(!$usuario or !password_verify($senha, $usuario['senha'])){
         header('Location: ../view/login.php?url=usuarioerror');
-        exit;
-    }elseif(!password_verify($senha, $usuario['senha'])){
-        header('Location: ../view/login.php?url=senhaerror');
         exit;
     }
 }

@@ -25,6 +25,16 @@ function formGrid() {
         </div>
 
         <div class="form-group step">
+            <label for="select-unidade">Unidade</label>
+            <select id="select-unidade" name="unidade" required>
+                <option value="" selected disabled>Selecione...</option>
+                <option value="HAP - UC">HAP - CENTRO</option>
+                <option value="HAP - MATRIZ">HAP - MATRIZ</option>
+                <option value="administrador">Ambas</option>
+            </select>
+        </div>
+
+        <div class="form-group step">
             <label for="input-senha">Senha</label>
             <input type="password" id="input-senha" name="senha" required>
         </div>

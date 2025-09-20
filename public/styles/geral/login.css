@@ -1,4 +1,4 @@
-.usuario, .senha
+.usuario, .senha, .confirmarSenha
 {
     display: flex;
     flex-direction: column;

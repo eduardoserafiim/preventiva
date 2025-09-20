@@ -1,0 +1,20 @@
+<?php 
+
+function formGridSenha($id) {
+    return "
+    <div class='form-grid'>
+        <div class='form-group step active'>
+            <input type='hidden' name='id' value='{$id}'>
+            <div class='senha'>
+                <label for='input-senha'>Nova Senha</label>
+                <input type='text' id='input-senha' name='nova_senha' required>
+            </div>
+            <div class='confirmarSenha'>
+                <label for='input-confirmar-senha'>Confirmar Senha</label>
+                <input type='text' id='input-confirmar-senha' name='confirmar_senha' required>
+            </div>
+        </div>
+    </div>
+    ";
+}
+?>

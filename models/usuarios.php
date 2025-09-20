@@ -11,15 +11,16 @@ class UsuarioModel{
 
     public function criar($data) {
         $sql = "INSERT INTO usuarios
-        (nome, usuario, senha, setor, privilegio)
-            VALUES (:nome, :usuario, :senha, :setor, :privilegio)";
+        (nome, usuario, senha, setor, privilegio, unidade)
+            VALUES (:nome, :usuario, :senha, :setor, :privilegio, :unidade)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             ':nome' => $data['nome'],
             ':usuario' => $data['usuario'],
             ':senha' => $data['senha'],
             ':setor' => $data['setor'],
-            ':privilegio' => $data['privilegio']
+            ':privilegio' => $data['privilegio'],
+            ':unidade' => $data['unidade'],
         ]);
     }
 
@@ -37,7 +38,8 @@ class UsuarioModel{
             nome = :nome, 
             usuario = :usuario,
             setor = :setor,
-            privilegio = :privilegio
+            privilegio = :privilegio,
+            unidade = :unidade
             WHERE id = :id";
 
         try {
@@ -48,11 +50,34 @@ class UsuarioModel{
                 ':usuario' => $data['usuario'],
                 ':setor' => $data['setor'],
                 ':privilegio' => $data['privilegio'],
+                ':unidade' => $data['unidade'],
             ]);
             return true;
 
         } catch (PDOException $e) {
             error_log("Erro ao atualizar usuario: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function atualizarSenha($id, $novaSenha) {
+        $sql = "UPDATE usuarios SET senha = :senha WHERE id = :id";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                ':id' => intval($id),
+                ':senha' => password_hash($novaSenha, PASSWORD_BCRYPT, ['cost' => 10])
+            ]);
+
+            if ($stmt->rowCount() === 0) {
+                error_log("Falha ao atualizar senha: ID {$id} não encontrado ou senha igual à anterior");
+                return false;
+            }
+
+            return true;
+
+        } catch (PDOException $e) {
+            error_log("Erro ao atualizar senha do usuário: " . $e->getMessage());
             return false;
         }
     }

@@ -44,13 +44,9 @@ $url = $_GET["url"] ?? '';
                                     '.formGrid().'
                                     '.formActions().'
                                 </form>';
-                                if($url == "senhaerror"){
+                                if($url == "usuarioerror"){
                                     echo "  <div class='incorrectpasswordoruser'>
-                                                <h4>Senha incorreta.</h4>
-                                            </div>";
-                                }elseif($url == "usuarioerror"){
-                                    echo "  <div class='incorrectpasswordoruser'>
-                                                <h4>Usuário desconhecido.</h4>
+                                                <h4>Usuário ou senha incorreto.</h4>
                                             </div>";
                                 }
                                 '

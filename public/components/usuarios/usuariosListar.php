@@ -20,7 +20,7 @@ function listarUsuarios(array $usuarios) {
                                 <i class="fa-solid fa-pencil"></i> Editar
                             </button>
                             <form method="POST" action="../controllers/usuariosApagar.php">
-                                <input type="hidden" name="apagarUsuario" value="<?= $usuario['id'] ?>">
+                                <input type="hidden" name="apagarUsuario" value="<?= $usuario['id'] ?>">    
                                 <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
                                     <i class="fas fa-eraser"></i> Apagar
                                 </button>
@@ -37,7 +37,11 @@ function listarUsuarios(array $usuarios) {
                             </div>
                             <div class="info-row">
                                 <span class="info-label">Privilégio:</span>
-                                <span class="info-value" data-key="setor"><?= htmlspecialchars($usuario["privilegio"]) ?></span>
+                                <span class="info-value" data-key="privilegio"><?= htmlspecialchars($usuario["privilegio"]) ?></span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Unidade:</span>
+                                <span class="info-value" data-key="unidade"><?= htmlspecialchars($usuario["unidade"]) ?></span>
                             </div>
                             <div class="info-row">
                                 <span class="info-label">Senha:</span>

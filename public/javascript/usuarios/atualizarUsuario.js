@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const editButtons = document.querySelectorAll('.editarUsuario');
 
-    const selectFields = ['setor', 'privilegio'];
+    const selectFields = ['setor', 'privilegio', 'unidade'];
 
     editButtons.forEach(button => {
         button.addEventListener('click', function () {
@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 usuario: 'Usuário',
                 setor: 'Setor',
                 privilegio: 'Privilégio',
+                unidade: 'Unidade',
+                senha: 'Senha',
             };
 
             const form = document.createElement('form');
@@ -38,8 +40,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 const value = valueSpan ? valueSpan.textContent.trim() : '';
 
                 let input;
-
-                if (selectFields.includes(key)) {
+                if (key === 'senha') {
+                    // botão no lugar do input
+                    input = document.createElement('button');
+                    input.type = 'button';
+                    input.className = 'botao botao-secundario';
+                    input.textContent = 'Alterar senha';
+                    input.addEventListener('click', function () {
+                        window.location.href = `usuarios.php?acaoUsuario=alterarsenha&id=${usuarioId}`;
+                    });
+                }
+                else if (selectFields.includes(key)) {
                     input = document.createElement('select');
                     input.name = key;
                     input.className = 'info-value-input';
@@ -48,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     switch (key) {
                         case 'privilegio':
-                            options = ['administrador', 'TI', 'usuario'];
+                            options = ['usuario', 'TI', 'administrador'];
                             break;
                         case 'setor':
                             options = [
@@ -71,6 +82,9 @@ document.addEventListener('DOMContentLoaded', function () {
                                 'Unidade Internação 2° Andar', 'Unidade Internação Cirúrgica',
                                 'Unidade Internação Clínica', 'Vigilância', 'Enfermaria'
                             ];
+                            break;
+                        case 'unidade':
+                            options = ['HAP - UC', 'HAP - MATRIZ', 'administrador'];
                             break;
                     }
 

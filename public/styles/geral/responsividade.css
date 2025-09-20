@@ -72,6 +72,16 @@
 
 
 @media (max-width: 1024px) {
+  .main-content
+  {
+    margin-left: 200px;
+  }
+
+  .sidebar
+  {
+    width: 200px;
+  }
+
   /* computadores */
   .form-filtro
   {
@@ -215,6 +225,11 @@
   {
     flex-wrap: wrap;
   }
+
+  .form-actions-computer
+  {
+    height: 45px;
+  }
 }
 
 @media (max-width: 375px) {
@@ -275,8 +290,9 @@
     height: 50px;
   }
 
-  .form-actions{
-    height: 42px;
+  .form-actions-computer{
+    height: 44px;
+    gap: 2px;
   }
 
   .info-label
@@ -295,7 +311,70 @@
     width: 225px;
     height: 2800px;
   }
+
+  /* setores */
+  .setores
+  {
+    width: 300px;
+  }
+
+  .setor-preventiva{
+    width: 250px;
+    height: 250px;
+  }
+
+    .preventiva-flex
+  {
+    justify-content: center;
+    width: 240px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .preventiva-flex h4
+  {
+    padding: 0;
+    text-align: center;
+  }
+
+  .preventiva-flex i
+  {
+    padding: 16px 100px 16px 100px;
+  }
+
+  .setor p
+  {
+    text-align: center;
+  }
+
+  /* filtro */
+  .filtro-flex
+  {
+    width: 200px;
+  }
+
+  .filtro
+  {
+    height: 370px;
+  }
+
+  /* computadores-setor */
+  .computadores-listagem
+  {
+    width: 300px;
+  }
+
+  .equipment-grid-computer
+  {
+    width: 300px;
+  }
+
+  .equipment-card-computer
+  {
+    width: 300px;
+  }
 }
+
 
 @media (max-width: 320px) {
   /* login */
@@ -389,5 +468,62 @@
   .form-actions-computadores
   {
     width: 190px;
+  }
+
+  /* setores */
+  .setores
+  {
+    width: 250px;
+  }
+
+  .setor-preventiva{
+    width: 200px;
+    height: 270px;
+  }
+
+  .preventiva-flex
+  {
+    justify-content: center;
+    width: 190px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .preventiva-flex h4
+  {
+    padding: 0;
+    text-align: center;
+  }
+
+  .preventiva-flex i
+  {
+    padding: 16px 80px 16px 80px;
+  }
+
+  .setor p
+  {
+    text-align: center;
+  }
+
+  /* filtro */
+  .filtro
+  {
+    width: 250px;
+  }
+
+  /* computadores-setor */
+  .computadores-listagem
+  {
+    width: 250px;
+  }
+
+  .equipment-grid-computer
+  {
+    width: 250px;
+  }
+
+  .equipment-card-computer
+  {
+    width: 250px;
   }
 }

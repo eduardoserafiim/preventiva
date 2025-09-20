@@ -37,7 +37,7 @@ CREATE TABLE usuarios (
 	senha VARCHAR(100) NOT NULL,
 	setor VARCHAR(70) NOT NULL,
     privilegio VARCHAR(20) NOT NULL
- 
+    unidade VARCHAR(20) NOT NULL
 );
 
 CREATE TABLE setores (

@@ -5,17 +5,17 @@ require_once '../models/computadores.php';
 function listarComputadores(array $computadores, string $usuarioSetor) {
     ?>
     <div id="computers-list" class="computadores-listagem tab-content active">
-        <div class="equipment-grid" id="computersGrid">
+        <div class="equipment-grid equipment-grid-computer" id="computersGrid">
             <?php if (empty($computadores)) : ?>
                 <p class="empty-state">Nenhum computador visível ainda.</p>
             <?php else : ?>
                 <?php foreach ($computadores as $computer) : ?>
-                    <div class="equipment-card" id="computer-<?= $computer["id"] ?>">
+                    <div class="equipment-card equipment-card-computer" id="computer-<?= $computer["id"] ?>">
                         <h3>
                             <i class="fas fa-desktop"></i>
                             <span id="nome-<?= $computer["id"] ?>"><?= htmlspecialchars($computer["nome"]) ?></span>
                         </h3>
-                        <div class="form-actions">
+                        <div class="form-actions form-actions-computer">
                             <?php if ($usuarioSetor === 'TI'): ?>
                                 <button type="button" class="botao botao-primario editarComputador" data-id="<?= $computer['id'] ?>">
                                     <i class="fa-solid fa-pencil"></i> Editar
