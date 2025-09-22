@@ -5,13 +5,16 @@ function formGridSenha($id) {
     <div class='form-grid'>
         <div class='form-group step active'>
             <input type='hidden' name='id' value='{$id}'>
-            <div class='senha'>
+            <div class='nova-senha'>
                 <label for='input-senha'>Nova Senha</label>
-                <input type='text' id='input-senha' name='nova_senha' required>
+                <input type='password' id='input-senha' name='nova_senha' required>
             </div>
-            <div class='confirmarSenha'>
+            <div class='nova-senha'>
                 <label for='input-confirmar-senha'>Confirmar Senha</label>
-                <input type='text' id='input-confirmar-senha' name='confirmar_senha' required>
+                <input type='password' id='input-confirmar-senha' name='confirmar_senha' required>
+            </div>
+            <div class='uncaughtpassword-container'>
+                <h4>Senhas diferentes.</h4>
             </div>
         </div>
     </div>

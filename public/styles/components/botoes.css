@@ -57,3 +57,12 @@
   margin-top: 2rem;
   gap: 1rem;
 }
+
+.botao-usuario-alterar-senha
+{
+  display: flex;
+  justify-content: center;
+  width: 150px;
+  height: 47px;
+  padding: 0.5rem;
+}

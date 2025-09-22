@@ -37,6 +37,11 @@ function formGrid() {
         <div class="form-group step">
             <label for="input-senha">Senha</label>
             <input type="password" id="input-senha" name="senha" required>
+            <label for="input-confirmar-senha">Confirmar Senha</label>
+            <input type="password" id="input-confirmar-senha" name="confirmar-senha" required>
+            <div class="uncaughtpassword-container">
+                <h4>Senhas diferentes.</h4>
+            </div>
         </div>
 
         <div class="form-group step">

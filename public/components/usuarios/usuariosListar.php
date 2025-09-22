@@ -16,15 +16,17 @@ function listarUsuarios(array $usuarios) {
                             <span id="nome-<?= $usuario["id"] ?>" data-key="nome"><?= htmlspecialchars($usuario["nome"]) ?></span>
                         </h3>
                         <div class="form-actions">
-                            <button type="button" class="botao botao-primario editarUsuario" data-id="<?= $usuario['id'] ?>">
-                                <i class="fa-solid fa-pencil"></i> Editar
-                            </button>
-                            <form method="POST" action="../controllers/usuariosApagar.php">
-                                <input type="hidden" name="apagarUsuario" value="<?= $usuario['id'] ?>">    
-                                <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
-                                    <i class="fas fa-eraser"></i> Apagar
+                            <?php if($usuario["id"] > 1): ?>
+                                <button type="button" class="botao botao-primario editarUsuario" data-id="<?= $usuario['id'] ?>">
+                                    <i class="fa-solid fa-pencil"></i> Editar
                                 </button>
-                            </form>
+                                <form method="POST" action="../controllers/usuariosApagar.php">
+                                    <input type="hidden" name="apagarUsuario" value="<?= $usuario['id'] ?>">    
+                                    <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
+                                        <i class="fas fa-eraser"></i> Apagar
+                                    </button>
+                                </form>
+                            <?php endif ?>
                         </div>
                         <div class="equipment-info">
                             <div class="info-row">

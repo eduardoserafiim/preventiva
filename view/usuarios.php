@@ -19,6 +19,7 @@ require_once '../public/components/usuarios/dictionaryUsuarios.php';
 
 require_once '../public/components/form/usuarios/formGrid.php';
 require_once '../public/components/form/usuarios/formSenha.php';
+require_once '../public/components/form/usuarios/formActionsAlterarSenha.php';
 require_once '../public/components/form/usuarios/formActions.php';
 ?>
 <?php
@@ -76,26 +77,18 @@ if ($acaoUsuario) {
             } elseif ($acaoUsuario == 'alterarsenha') {
                 echo
                 '<div class="voltar">
-                ' . voltar('usuarios.php') . '
+                ' . voltar('usuarios.php?acaoUsuario=listar') . '
                 </div>
                 <div class="controleForm" style="margin: 0px;">
                     <div class="form-container">
                         <form action="../controllers/usuariosAlterarSenha.php" method="POST" id="formularioUsuarios" class="equipment-form">
                             ' .
-                            formGridSenha($id)
+                            formGridSenha( $id)
                             . '
-                            ' .
-                            formActions()
+                                    ' .
+                            formActionsAlterarSenha()
                             . '
                         </form>';
-                        if ($acaoUsuario === 'alterarsenha' && $erro === 'senhas_diferentes') {
-                            echo "
-                            <div class='incorrectpasswordoruser'>
-                                <h4>Senhas diferentes.</h4>
-                            </div>
-                            ";
-                        }
-
                         '
                     </div>
                 </div>';
@@ -114,6 +107,7 @@ if ($acaoUsuario) {
 <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
 <script src="../public/javascript/animar/usuario/animarUsuarios.js"></script>
 <script src="../public/javascript/animar/search/animarSearch.js"></script>
+<script src="../public/javascript/animar/usuario/animarSenhaDiferente.js"></script>
 <script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
 <script src="../public/javascript/animar/usuario/animarListagemUsuario.js"></script>
 <script src="../public/javascript/animar/bar/animarBar.js"></script>
@@ -121,6 +115,8 @@ if ($acaoUsuario) {
 <script src="../public/javascript/usuarios/atualizarUsuario.js"></script>
 <script src="../public/javascript/usuarios/cadastrarUsuario.js"></script>
 <script src="../public/javascript/usuarios/searchNomeUsuario.js"></script>
+<script src="../public/javascript/usuarios/senhasDiferentes.js"></script>
+<script src="../public/javascript/usuarios/senhaAlterada.js"></script>
 
 <script src="../public/javascript/form/limparFormulario.js"></script>
 <script src="../public/javascript/bar/bar.js"></script>

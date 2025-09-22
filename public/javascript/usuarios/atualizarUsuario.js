@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     // botão no lugar do input
                     input = document.createElement('button');
                     input.type = 'button';
-                    input.className = 'botao botao-secundario';
+                    input.className = 'botao botao-secundario botao-usuario-alterar-senha';
                     input.textContent = 'Alterar senha';
                     input.addEventListener('click', function () {
                         window.location.href = `usuarios.php?acaoUsuario=alterarsenha&id=${usuarioId}`;
