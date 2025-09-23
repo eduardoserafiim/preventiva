@@ -8,11 +8,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $novaSenha= $_POST['nova_senha'] ?? null;
     $confirmarSenha = $_POST['confirmar_senha'] ?? null;
 
-    if (!$id || !$novaSenha || $novaSenha !== $confirmarSenha) {
-        header("Location: ../view/usuarios.php?acaoUsuario=alterarsenha&id={$id}&erro=senhas_diferentes");
-        exit;
-    }
-
     $sucesso = $usuarioModel->atualizarSenha($id, $novaSenha);
 
     if ($sucesso) {

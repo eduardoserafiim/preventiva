@@ -1,8 +1,7 @@
 <?php 
 
 function formFlex(){
-    return
-    '
+    ?>
     <div class="form-flex">
         <!-- SEMESTRE -->
         <div class="form-group">
@@ -29,12 +28,18 @@ function formFlex(){
             <label for="select-unidade">Unidade</label>
             <select id="select-unidade" name="unidade" required>
                 <option value="" disabled selected>Selecione...</option>
-                <option value="HAP - MATRIZ">HAP - Matriz</option>
-                <option value="HAP - UC">HAP - Centro</option>
+                <?php if($_SESSION['unidade'] == 'HAP - UC') : ?>  
+                    <option value="HAP - UC" selected>HAP - UC</option>
+                <?php elseif($_SESSION['unidade'] == 'HAP - MATRIZ') : ?>
+                    <option value="HAP - MATRIZ" selected>MATRIZ</option>
+                <?php else : ?>
+                    <option value="HAP - MATRIZ" selected>MATRIZ</option>
+                    <option value="HAP - UC" selected>HAP - UC</option>
+                <?php endif ?>
             </select>
         </div>
     </div>
-    ';
+<?php
 
 }
 ?>
