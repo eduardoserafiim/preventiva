@@ -58,7 +58,7 @@ if ($acaoUsuario) {
                             ' .
                     formGrid()
                     . '
-                            ' .
+                    ' .
                     formActions()
                     . '
                         </form>
@@ -83,9 +83,9 @@ if ($acaoUsuario) {
                     <div class="form-container">
                         <form action="../controllers/usuariosAlterarSenha.php" method="POST" id="formularioUsuarios" class="equipment-form">
                             ' .
-                            formGridSenha( $id)
-                            . '
-                                    ' .
+                            formGridSenha($id)
+                            .'
+                            '.
                             formActionsAlterarSenha()
                             . '
                         </form>';

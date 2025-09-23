@@ -43,6 +43,8 @@ function prevStep() {
 
 function salvarFormulario() {
     const formulario = document.querySelector("form");
+    const senha = document.querySelector('#input-senha').value;
+    const senhaConfirmar = document.querySelector('#input-confirmar-senha').value;
 
     if (!formulario.checkValidity()) {
         Swal.fire({
@@ -58,7 +60,23 @@ function salvarFormulario() {
         
         formulario.reportValidity();
         return;
-    }else{
+
+    } else if (senha != senhaConfirmar) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Senha não confirmada.',
+            text: 'As senhas digitas são diferentes.',
+            confirmButtonText: 'Continuar',
+            customClass: {
+                confirmButton: 'botao botao-primario'
+            },
+            buttonsStyling: false
+        });
+        
+        formulario.reportValidity();
+        return;
+
+    } else{
         Swal.fire({
             icon: 'success',
             title: 'Conta criada com sucesso!',

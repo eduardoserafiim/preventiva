@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (isset($_SESSION['usuario'])) {
+    header("Location: index.php");
+    exit;
+}
 
 include_once "../public/components/header/header.php";
 include_once "../public/components/navbar/navbar.php";
