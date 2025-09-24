@@ -24,6 +24,7 @@ $dbsetor = new SetorModel();
 $setores = $dbsetor->listar();
 
 $setorUsuario = $_SESSION['setor'] ?? '';
+$unidadeUsuario = $_SESSION['unidade'] ?? '';
 $setorFiltro = $_GET['url'] ?? '';
 
 if ($setorUsuario !== 'TI') {
@@ -37,9 +38,9 @@ $unidade = $_GET['unidade'] ?? '';
 $computadores = [];
 if ($setorFiltro) {
     if ($semestre || $ano || $unidade) {
-        $computadores = $db->filtrar($setorFiltro, $semestre, $ano, $unidade);
+        $computadores = $db->filtrar($setorFiltro, $semestre, $ano, $unidadeUsuario);
     } else {
-        $computadores = $db->listar($setorFiltro);
+        $computadores = $db->listar($setorFiltro, $unidadeUsuario);
     }
 }
 ?>
@@ -97,19 +98,31 @@ if ($setorFiltro) {
                                     </select>
                                 </div>
                                 <!-- UNIDADE -->
-                                <div class="form-group">
+                                ';
+
+                                if ($unidadeUsuario == 'ambos') {
+                                    echo  
+                                    '<div class="form-group">
                                     <label for="label-unidade">Unidade</label>
                                     <select id="select-unidaded" name="unidade">
                                         <option value="" disabled ' . (empty($unidade) ? 'selected' : '') . '>Selecione...</option>
                                         <option value="HAP - MATRIZ" ' . ($unidade === "HAP - MATRIZ" ? "selected" : "") . '>HAP - Matriz</option>
                                         <option value="HAP - UC" ' . ($unidade === "HAP - UC" ? "selected" : "") . '>HAP - Centro</option>
                                     </select>
-                                </div>
-                                <input type="hidden" name="url" value="' . htmlspecialchars($setorFiltro) . '">
-                                <div class="botoes-filtrar">
-                                    <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button> 
-                                    <button type="button" onclick="imprimirComputadores()" class="botao botao-primario botao-imprimir">Imprimir</button>
-                                </div>
+                                    </div>  
+                                    ';
+                                } else {
+                                    echo 
+                                    '
+                                    <input type="hidden" name="url" value="' . htmlspecialchars($setorFiltro) . '">
+                                    <div class="botoes-filtrar">
+                                        <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button> 
+                                        <button type="button" onclick="imprimirComputadores()" class="botao botao-primario botao-imprimir">Imprimir</button>
+                                    </div>
+                                    ';
+                                }
+                                
+                                echo '
                             </form>
                         </div>
                     </div>

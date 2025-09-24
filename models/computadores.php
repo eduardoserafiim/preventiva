@@ -47,12 +47,16 @@ class ComputerModel {
         ]);
     }
 
-    public function listar($setor){
+    public function listar($setor, $unidade){
         $sql = 'SELECT *
         FROM computadores 
-        WHERE setor = :setor';
+        WHERE setor = :setor
+        AND unidade = :unidade';
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([':setor' => $setor]);
+        $stmt->execute([
+            ':setor' => $setor,
+            ':unidade' => $unidade
+        ]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
