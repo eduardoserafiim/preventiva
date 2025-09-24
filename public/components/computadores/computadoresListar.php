@@ -2,14 +2,15 @@
 require_once '../db/db.php';
 require_once '../models/computadores.php';
 
-function listarComputadores(array $computadores, string $usuarioSetor, $unidadeUsuario) {
+function listarComputadores(array $computadores, string $usuarioSetor, $unidadeUsuario)
+{
     ?>
     <div id="computers-list" class="computadores-listagem tab-content active">
         <div class="equipment-grid equipment-grid-computer" id="computersGrid">
-            <?php if (empty($computadores)) : ?>
+            <?php if (empty($computadores)): ?>
                 <p class="empty-state">Nenhum computador visível ainda.</p>
-            <?php else : ?>
-                <?php foreach ($computadores as $computer) : ?>
+            <?php else: ?>
+                <?php foreach ($computadores as $computer): ?>
                     <div class="equipment-card equipment-card-computer" id="computer-<?= $computer["id"] ?>">
                         <h3>
                             <i class="fas fa-desktop"></i>
@@ -58,8 +59,8 @@ function listarComputadores(array $computadores, string $usuarioSetor, $unidadeU
                                 "status" => "Status",
                             ];
 
-                            foreach ($fields as $key => $label) :
-                            ?>  
+                            foreach ($fields as $key => $label):
+                                ?>
                                 <div class="info-row">
                                     <span class="info-label"><?= $label ?>:</span>
                                     <span class="info-value" id="<?= $key ?>-<?= $computer["id"] ?>" data-key="<?= $key ?>">
@@ -67,12 +68,12 @@ function listarComputadores(array $computadores, string $usuarioSetor, $unidadeU
                                         if (preg_match('/^legenda[A-I]$/', $key)) {
                                             $value = trim($computer[$key]);
                                             $checked = ($value == '1' || $value === 1) ? 'checked' : '';
-                                        ?>
+                                            ?>
                                             <div class="switch-wrapper">
                                                 <input type="checkbox" disabled <?= $checked ?>>
                                                 <label class="switch"></label>
                                             </div>
-                                        <?php
+                                            <?php
                                         } elseif ($key === 'status') {
                                             $statusValue = trim(strtolower($computer[$key]));
                                             $statusClass = ($statusValue === 'ativo') ? 'status-ativo' : 'status-inativo';
@@ -84,14 +85,14 @@ function listarComputadores(array $computadores, string $usuarioSetor, $unidadeU
                                     </span>
                                 </div>
                             <?php endforeach; ?>
-                            <?php 
-                                $timestp = strtotime($computer['dataCadastro']);
-                                $dataBr = date('d/m/Y', $timestp);
+                            <?php
+                            $timestp = strtotime($computer['dataCadastro']);
+                            $dataBr = date('d/m/Y', $timestp);
                             ?>
                             <div class="info-row">
                                 <span class="info-label">Cadastrado:</span>
                                 <span class="info-value">
-                                <?=  $dataBr ?>
+                                    <?= $dataBr ?>
                                 </span>
                             </div>
                         </div>
