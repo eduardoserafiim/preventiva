@@ -38,7 +38,7 @@ $unidade = $_GET['unidade'] ?? '';
 $computadores = [];
 if ($setorFiltro) {
     if ($semestre || $ano || $unidade) {
-        $computadores = $db->filtrar($setorFiltro, $semestre, $ano, $unidadeUsuario);
+        $computadores = $db->filtrar($setorFiltro, $semestre, $ano, $unidade);
     } else {
         $computadores = $db->listar($setorFiltro, $unidadeUsuario);
     }
@@ -63,7 +63,6 @@ if ($setorFiltro) {
 
                 echo '<div class="setores">';
                 foreach ($setores as $setor) {
-                    // setor['nome'] e setor['icon'], ajusta para a função
                     echo criarSetor($setor['icon'], $setor['nome']);
                 }
                 echo '</div>';
@@ -110,6 +109,11 @@ if ($setorFiltro) {
                                         <option value="HAP - UC" ' . ($unidade === "HAP - UC" ? "selected" : "") . '>HAP - Centro</option>
                                     </select>
                                     </div>  
+                                    <input type="hidden" name="url" value="' . htmlspecialchars($setorFiltro) . '">
+                                    <div class="botoes-filtrar">
+                                        <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button> 
+                                        <button type="button" onclick="imprimirComputadores()" class="botao botao-primario botao-imprimir">Imprimir</button>
+                                    </div>
                                     ';
                                 } else {
                                     echo 
@@ -132,7 +136,7 @@ if ($setorFiltro) {
                         </a>
                     </div>
                 ';
-                listarComputadores($computadores, $setorUsuario);
+                listarComputadores($computadores, $setorUsuario, $unidadeUsuario);
                 imprimirTabelaComputadores($computadores);
             }
             ?>

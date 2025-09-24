@@ -2,7 +2,7 @@
 require_once '../db/db.php';
 require_once '../models/computadores.php';
 
-function listarComputadores(array $computadores, string $usuarioSetor) {
+function listarComputadores(array $computadores, string $usuarioSetor, $unidadeUsuario) {
     ?>
     <div id="computers-list" class="computadores-listagem tab-content active">
         <div class="equipment-grid equipment-grid-computer" id="computersGrid">
@@ -18,6 +18,7 @@ function listarComputadores(array $computadores, string $usuarioSetor) {
                         <div class="form-actions form-actions-computer">
                             <?php if ($usuarioSetor === 'TI'): ?>
                                 <button type="button" class="botao botao-primario editarComputador" data-id="<?= $computer['id'] ?>">
+                                    <input type="hidden" id="unidadeUsuario" value="<?= $unidadeUsuario ?>">
                                     <i class="fa-solid fa-pencil"></i> Editar
                                 </button>
                                 <form method="POST" action="../controllers/computadoresApagar.php" style="display:inline-block;">

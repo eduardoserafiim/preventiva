@@ -98,6 +98,8 @@
                     labelSpan.className = 'info-label';
                     labelSpan.textContent = `${label}:`;
 
+                    const unidadeUsuario = document.getElementById('unidadeUsuario').value;
+
                     let input;
 
                     if (selectFields.includes(key)) {
@@ -116,7 +118,15 @@
                                 options = Array.from({ length: 4 }, (_, i) => (currentYear - i).toString());
                                 break;
                             case 'unidade':
-                                options = ['HAP - MATRIZ', 'HAP - UC'];
+                                if (unidadeUsuario == 'HAP - MATRIZ'){
+                                    options = ['HAP - MATRIZ'];
+                                }
+                                else if (unidadeUsuario == 'HAP - UC'){
+                                    options = ['HAP - UC'];
+                                }
+                                else{
+                                    options = ['HAP - MATRIZ', 'HAP - UC'];
+                                }
                                 break;
                             case 'setor':
                                 options = [

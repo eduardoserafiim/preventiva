@@ -31,9 +31,9 @@ function formFlex(){
                 <?php if($_SESSION['unidade'] == 'HAP - UC') : ?>  
                     <option value="HAP - UC" selected>HAP - UC</option>
                 <?php elseif($_SESSION['unidade'] == 'HAP - MATRIZ') : ?>
-                    <option value="HAP - MATRIZ" selected>MATRIZ</option>
+                    <option value="HAP - MATRIZ" selected>HAP - MATRIZ</option>
                 <?php else : ?>
-                    <option value="HAP - MATRIZ" selected>MATRIZ</option>
+                    <option value="HAP - MATRIZ" selected>HAP - MATRIZ</option>
                     <option value="HAP - UC" selected>HAP - UC</option>
                 <?php endif ?>
             </select>
