@@ -102,5 +102,7 @@ class UsuarioModel{
     }
 };
 
+header("Location: ../view/login.php");
+exit();
 
 ?>

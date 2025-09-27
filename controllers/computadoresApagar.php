@@ -18,3 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarComputador'])) 
     
 }
 
+header("Location: ../view/login.php");
+exit();
+

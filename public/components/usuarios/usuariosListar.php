@@ -19,7 +19,7 @@ function listarUsuarios(array $usuarios) {
                                 <button type="button" class="botao botao-primario editarUsuario" data-id="<?= $usuario['id'] ?>">
                                     <i class="fa-solid fa-pencil"></i> Editar
                                 </button>
-                            <?php if($usuario["id"] > 1): ?>
+                            <?php if($usuario["usuario"] != "administrador" or $usuario['nome'] != "Administrador" or $usuario['id'] > 1) : ?>
                                 <form method="POST" action="../controllers/usuariosApagar.php">
                                     <input type="hidden" name="apagarUsuario" value="<?= $usuario['id'] ?>">    
                                     <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
