@@ -162,6 +162,3 @@ class ComputerModel {
     }
 
 }
-
-header("Location: ../view/login.php");
-exit();

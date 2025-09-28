@@ -101,8 +101,3 @@ class UsuarioModel{
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 };
-
-header("Location: ../view/login.php");
-exit();
-
-?>

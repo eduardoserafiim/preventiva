@@ -20,6 +20,3 @@ class SetorModel{
     }
 
 };
-
-header("Location: ../view/login.php");
-exit();
