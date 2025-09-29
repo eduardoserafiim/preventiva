@@ -4,12 +4,14 @@ require_once "../db/db.php";
 class UsuarioModel{
     private $db;
 
-    public function __construct() {
+    public function __construct() 
+    {
         $database = new Database();
         $this->db = $database->getConnection();
     }
 
-    public function criar($data) {
+    public function criar($data) 
+    {
         $sql = "INSERT INTO usuarios
         (nome, usuario, senha, setor, privilegio, unidade)
             VALUES (:nome, :usuario, :senha, :setor, :privilegio, :unidade)";
@@ -24,7 +26,8 @@ class UsuarioModel{
         ]);
     }
 
-    public function listar() {
+    public function listar() 
+    {
         $sql = 'SELECT *
         FROM usuarios';
         $stmt = $this->db->prepare($sql);
@@ -32,7 +35,8 @@ class UsuarioModel{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function atualizar($id, $data) {
+    public function atualizar($id, $data) 
+    {
         $sql = "UPDATE usuarios 
             SET  
             nome = :nome, 
@@ -60,7 +64,8 @@ class UsuarioModel{
         }
     }
 
-    public function atualizarSenha($id, $novaSenha) {
+    public function atualizarSenha($id, $novaSenha) 
+    {
         $sql = "UPDATE usuarios SET senha = :senha WHERE id = :id";
         try {
             $stmt = $this->db->prepare($sql);
@@ -82,7 +87,8 @@ class UsuarioModel{
         }
     }
 
-    public function apagar($id) {
+    public function apagar($id) 
+    {
         $sql = "DELETE 
         FROM usuarios 
         WHERE id = :id";
@@ -91,7 +97,8 @@ class UsuarioModel{
         return $stmt->execute();
     }
 
-    public function validar($usuario){
+    public function validar($usuario)
+    {
         $sql = 'SELECT *
         FROM usuarios
         WHERE usuario = :usuario 

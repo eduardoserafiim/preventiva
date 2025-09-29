@@ -7,6 +7,7 @@ if (!isset($_SESSION['usuario'])) {
 
 require_once "../models/computadores.php";
 require_once "../models/setores.php";
+require_once "../models/assinaturas.php";
 
 require_once "../public/components/header/header.php";
 require_once "../public/components/navbar/navbar.php";
@@ -20,6 +21,7 @@ require_once "../public/components/setores/dictionarySetores.php";
 
 $db = new ComputerModel();
 $dbsetor = new SetorModel();
+$dbassinatura = new AssinaturaModel();
 
 $setores = $dbsetor->listar();
 
@@ -34,6 +36,8 @@ if ($setorUsuario !== 'TI') {
 $semestre = $_GET['semestre'] ?? '';
 $ano = $_GET['ano'] ?? '';
 $unidade = $_GET['unidade'] ?? '';
+
+$assinaturas = $dbassinatura->listar($setorUsuario, $ano, $semestre);
 
 $computadores = [];
 if ($setorFiltro) {
@@ -129,12 +133,53 @@ if ($setorFiltro) {
                                 echo '
                             </form>
                         </div>
-                    </div>
-                    <div class="voltar">
-                        <a href="preventiva.php">
-                            <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
-                        </a>
-                    </div>
+                    </div>';
+
+                    if ($ano != '' and $semestre != ''){
+                        if (!$assinaturas){
+                            echo 
+                            '
+                            <div class="assinar">
+                                <div class="flex assinar-flex">
+                                    <i class="fa-solid fa-circle-check fa-2xl" style="color: #63E6BE; padding: 0.5rem;"></i>
+                                    <h3>Preventiva já assinada.</h3>
+                                </div>
+                            </div>
+                            ';
+                        }
+                        else
+                        {
+                            echo
+                            '
+                            <div class="assinar">
+                                <div class="flex assinar-flex">
+                                    <form method="POST" action="../controllers/usuariosAssinar.php" class="form-flex form-assinar">
+                                        <input type="hidden" name="assinatura-nome" value="'. htmlspecialchars($_SESSION['nome']) .'">
+                                        <input type="hidden" name="assinatura-ano" value="'. htmlspecialchars($ano) .'">
+                                        <input type="hidden" name="assinatura-setor" value="'. htmlspecialchars($_SESSION['setor']) .'">
+                                        <input type="hidden" name="assinatura-semestre" value="'. htmlspecialchars($semestre) .'">
+                                        <input type="hidden" name="assinatura-unidade" value="'. htmlspecialchars($_SESSION['unidade']) .'">
+                                        <input type="text" name="assinatura" placeholder="Assine com seu nome aqui..." style="width: 350px;"> 
+                                        <button type="submit" class="botao botao-primario">Assinar</button>
+                                    </form>
+                                </div>
+                            </div>
+                            ';
+                        }
+                    }
+                    else
+                    {
+                        echo
+                        '
+                        <div class="voltar">
+                            <a href="preventiva.php">
+                                <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
+                            </a>
+                        </div>
+                        ';
+                    }
+
+                    echo '
                 ';
                 listarComputadores($computadores, $setorUsuario, $unidadeUsuario);
                 imprimirTabelaComputadores($computadores);
@@ -156,6 +201,7 @@ if ($setorFiltro) {
     <script src="../public/javascript/animar/setores/animarSetores.js"></script>
     <script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
     <script src="../public/javascript/animar/filtro/animarFiltro.js"></script>
+    <script src="../public/javascript/animar/assinar/animarAssinar.js"></script>
     <script src="../public/javascript/animar/computadores/animarListagemComputadores.js"></script>
     <script src="../public/javascript/animar/bar/animarBar.js"></script>
     
