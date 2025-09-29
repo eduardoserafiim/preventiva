@@ -145,6 +145,11 @@ if ($setorFiltro) {
                                     <h3>Preventiva já assinada.</h3>
                                 </div>
                             </div>
+                            <div class="voltar">
+                                <a href="preventiva.php">
+                                    <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
+                                </a>
+                            </div>
                             ';
                         }
                         else
@@ -163,6 +168,11 @@ if ($setorFiltro) {
                                         <button type="submit" class="botao botao-primario" onclick="confirmarAssinatura(event)">Assinar</button>
                                     </form>
                                 </div>
+                            </div>
+                            <div class="voltar">
+                                <a href="preventiva.php">
+                                    <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
+                                </a>
                             </div>
                             ';
                         }
