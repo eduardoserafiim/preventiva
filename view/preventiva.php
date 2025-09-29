@@ -136,7 +136,7 @@ if ($setorFiltro) {
                     </div>';
 
                     if ($ano != '' and $semestre != ''){
-                        if (!$assinaturas){
+                        if ($assinaturas){
                             echo 
                             '
                             <div class="assinar">
@@ -160,7 +160,7 @@ if ($setorFiltro) {
                                         <input type="hidden" name="assinatura-semestre" value="'. htmlspecialchars($semestre) .'">
                                         <input type="hidden" name="assinatura-unidade" value="'. htmlspecialchars($_SESSION['unidade']) .'">
                                         <input type="text" name="assinatura" placeholder="Assine com seu nome aqui..." style="width: 350px;"> 
-                                        <button type="submit" class="botao botao-primario">Assinar</button>
+                                        <button type="submit" class="botao botao-primario" onclick="confirmarAssinatura(event)">Assinar</button>
                                     </form>
                                 </div>
                             </div>
@@ -206,6 +206,7 @@ if ($setorFiltro) {
     <script src="../public/javascript/animar/bar/animarBar.js"></script>
     
     <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+    <script src="../public/javascript/assinaturas/confirmarAssinatura.js"></script>
     <script src="../public/javascript/bar/bar.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
