@@ -149,7 +149,7 @@ if ($setorFiltro) {
                                     $dataBr = date('d/m/Y', $timestp);
                                     
                                     echo '
-                                    <p style="padding: 0 0 0 3rem; ">Data: ' . htmlspecialchars($dataBr) . '</p>
+                                    <p style="padding: 0 0 0 3rem; ">Assinada em: ' . htmlspecialchars($dataBr) . '</p>
                                 </div>
                             </div>
                             <div class="voltar">
@@ -171,7 +171,7 @@ if ($setorFiltro) {
                                         <input type="hidden" name="assinatura-setor" value="'. htmlspecialchars($_SESSION['setor']) .'">
                                         <input type="hidden" name="assinatura-semestre" value="'. htmlspecialchars($semestre) .'">
                                         <input type="hidden" name="assinatura-unidade" value="'. htmlspecialchars($_SESSION['unidade']) .'">
-                                        <input type="text" name="assinatura" placeholder="Assine com seu nome aqui..." style="width: 350px;"> 
+                                        <input type="text" name="assinatura" placeholder="Assine com seu nome aqui" value="'. htmlspecialchars($_SESSION['nome']) .'" readonly> 
                                         <button type="submit" class="botao botao-primario" onclick="confirmarAssinatura(event)">Assinar</button>
                                     </form>
                                 </div>
