@@ -34,19 +34,21 @@ class AssinaturaModel{
     }
 
     public function listar($setor, $ano, $semestre)
-    {
-        $sql = "SELECT *
-        FROM assinaturas
-        WHERE ano = :ano 
-        AND setor = :setor
-        AND semestre = :semestre";
+{
+    if ($setor === 'TI') {
+        $sql = "SELECT * FROM assinaturas WHERE ano = :ano AND semestre = :semestre";
         $stmt = $this->db->prepare($sql);
-        
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindParam(":setor", $setor);
         $stmt->bindParam(":ano", $ano);
         $stmt->bindParam(":semestre", $semestre);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        $sql = "SELECT * FROM assinaturas WHERE ano = :ano AND semestre = :semestre AND setor = :setor";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(":ano", $ano);
+        $stmt->bindParam(":semestre", $semestre);
+        $stmt->bindParam(":setor", $setor);
     }
+    
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
 }

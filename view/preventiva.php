@@ -142,7 +142,14 @@ if ($setorFiltro) {
                             <div class="assinar">
                                 <div class="flex assinar-flex">
                                     <i class="fa-solid fa-circle-check fa-2xl" style="color: #63E6BE; padding: 0.5rem;"></i>
-                                    <h3>Preventiva já assinada.</h3>
+                                    <h3>Preventiva já assinada por ' . htmlspecialchars($assinaturas['nome']) . '.</h3>
+                                </div>
+                                <div class="flex assinar-flex" style="padding-top: 1rem;">';
+                                    $timestp = strtotime($assinaturas['data']);
+                                    $dataBr = date('d/m/Y', $timestp);
+                                    
+                                    echo '
+                                    <p style="padding: 0 0 0 3rem; ">Data: ' . htmlspecialchars($dataBr) . '</p>
                                 </div>
                             </div>
                             <div class="voltar">

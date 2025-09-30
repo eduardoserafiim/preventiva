@@ -55,5 +55,6 @@ create table assinaturas(
 	semestre varchar(11) NOT NULL,
 	setor varchar(100) NOT NULL,
 	unidade varchar(20) NOT NULL,
-	assinatura varchar(50) NOT NULL
+	assinatura varchar(50) NOT NULL,
+    data date NOT NULL
 );
