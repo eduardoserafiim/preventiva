@@ -29,17 +29,21 @@ $assinaturas = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome'])
                 <p>Visualize as informações gerais</p>
             </div>
             <div class="fundo-container">
-                <?php if ($_SESSION['setor'] != "TI"): ?>
+                <?php if ($_SESSION['privilegio'] != "TI" and $_SESSION['privilegio'] != 'administrador'): ?>
                     <p>Estamos trabalhando nisso...</p>
                     <p>Que tal dar uma olhada na preventiva?</p>
                 <?php endif ?>    
-                <?php if ($_SESSION['setor'] == 'TI'): ?>
+                <?php if ($_SESSION['privilegio'] == 'TI'): ?>
                     <div>
                         <h2 style="margin-bottom: 1rem;">Preventivas assinadas</h2>
                         <div class="equipment-grid-assinaturas">
                             <?php assinaturasListar($assinaturas); ?>
                         </div>
                     </div>
+                <?php endif ?>
+                <?php if ($_SESSION['privilegio'] == 'administrador'): ?>
+                    <p>Ainda estamos trabalhando nisso...</p>
+                    <p>Se você for o Fernando SAIA AGORA E ENTRE NO SEU USUARIO FERNANDINHO!!!!</p>
                 <?php endif ?>
             </div>
         </main>
