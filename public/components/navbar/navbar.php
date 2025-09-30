@@ -45,24 +45,7 @@ function navbar($active) {
                         <span>Usuários</span>
                     </a>
                 </li>
-                <li>
-                    <a href="computadores.php" class="menu-item ' . ($active === 'computadores' ? 'active' : '') . '">
-                        <i class="fas fa-desktop"></i>
-                        <span>Computadores</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="impressoras.php" class="menu-item ' . ($active === 'impressoras' ? 'active' : '') . '">
-                        <i class="fas fa-print"></i>
-                        <span>Impressoras</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="preventiva.php" class="menu-item ' . ($active === 'preventiva' ? 'active' : '') . '">
-                        <i class="fas fa-clipboard-list"></i>
-                        <span>Preventiva</span>
-                    </a>
-                </li>';
+            ';
     }
 
     else if ($isTI) {

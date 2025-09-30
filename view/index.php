@@ -5,10 +5,19 @@ if (!isset($_SESSION['usuario'])) {
     exit;
 }
 
+include_once "../db/db.php";
+include_once "../models/assinaturas.php";
+
 include_once "../public/components/header/header.php";
 include_once "../public/components/navbar/navbar.php";
-include_once "../public/components/bar/bar.php"
+include_once "../public/components/bar/bar.php";
 
+include_once "../public/components/assinaturas/assinaturasListar.php";
+
+$dbassinatura = new AssinaturaModel();
+
+
+$assinaturas = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome'])
 ?>
 <body>
     <div class="app-container">
@@ -20,7 +29,18 @@ include_once "../public/components/bar/bar.php"
                 <p>Visualize as informações gerais</p>
             </div>
             <div class="fundo-container">
-                <label>Está muito vazio aqui...</label>
+                <?php if ($_SESSION['setor'] != "TI"): ?>
+                    <p>Estamos trabalhando nisso...</p>
+                    <p>Que tal dar uma olhada na preventiva?</p>
+                <?php endif ?>    
+                <?php if ($_SESSION['setor'] == 'TI'): ?>
+                    <div>
+                        <h2 style="margin-bottom: 1rem;">Preventivas assinadas</h2>
+                        <div class="equipment-grid-assinaturas">
+                            <?php assinaturasListar($assinaturas); ?>
+                        </div>
+                    </div>
+                <?php endif ?>
             </div>
         </main>
     </div>

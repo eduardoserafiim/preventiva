@@ -37,7 +37,7 @@ $semestre = $_GET['semestre'] ?? '';
 $ano = $_GET['ano'] ?? '';
 $unidade = $_GET['unidade'] ?? '';
 
-$assinaturasResponsavel = $dbassinatura->listar($setorUsuario, $ano, $semestre);
+$assinaturasResponsavel = $dbassinatura->listarResponsaveis($setorUsuario, $ano, $semestre);
 $assinaturasTecnicos = $dbassinatura->listarTecnicos($setorUsuario, $ano, $semestre);
 
 $computadores = [];
@@ -78,7 +78,7 @@ if ($setorFiltro) {
             if ($setorFiltro) {
                 echo '
                     <div class="filtro">
-                        <h3 class="filtragem">Adicione filtros</h3>
+                        <h3 class="filtragem">Adicione filtros para assinar a preventiva.</h3>
                         <div class="flex filtro-flex"> 
                             <form method="GET" class="form-flex form-filtro">
                                 <!-- SEMESTRE -->
@@ -219,7 +219,7 @@ if ($setorFiltro) {
                                     <form method="POST" action="../controllers/usuariosAssinarTI.php" class="form-flex form-assinar">
                                         <input type="hidden" name="assinatura-nome" value="'. htmlspecialchars($_SESSION['nome']) .'">
                                         <input type="hidden" name="assinatura-ano" value="'. htmlspecialchars($ano) .'">
-                                        <input type="hidden" name="assinatura-setor" value="'. htmlspecialchars($_SESSION['setor']) .'">
+                                        <input type="hidden" name="assinatura-setor" value="'. htmlspecialchars($setorFiltro) .'">
                                         <input type="hidden" name="assinatura-semestre" value="'. htmlspecialchars($semestre) .'">
                                         <input type="hidden" name="assinatura-unidade" value="'. htmlspecialchars($_SESSION['unidade']) .'">
                                         <label>Assinatura do Técnico Responsável: </label>

@@ -25,3 +25,10 @@
     opacity: 1;
     transform: translateY(0);
 }
+
+.icon-assinatura
+{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}

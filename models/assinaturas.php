@@ -8,7 +8,7 @@ class AssinaturaModel{
         $database = new Database();
         $this->db = $database->getConnection();
     }
-    public function criar($data)
+    public function criarResponsaveis($data)
     {
         try{
             $sql = 'INSERT INTO assinaturas 
@@ -31,25 +31,6 @@ class AssinaturaModel{
             error_log("Erro ao assinar: " . $e->getMessage());
             return false;
         }
-    }
-
-    public function listar($setor, $ano, $semestre)
-    {
-        if ($setor === 'TI') {
-            $sql = "SELECT * FROM assinaturas WHERE ano = :ano AND semestre = :semestre";
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(":ano", $ano);
-            $stmt->bindParam(":semestre", $semestre);
-        } else {
-            $sql = "SELECT * FROM assinaturas WHERE ano = :ano AND semestre = :semestre AND setor = :setor";
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(":ano", $ano);
-            $stmt->bindParam(":semestre", $semestre);
-            $stmt->bindParam(":setor", $setor);
-        }
-        
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function criarTecnicos($data)
@@ -77,22 +58,111 @@ class AssinaturaModel{
         }
     }
 
-    public function listarTecnicos($setor, $ano, $semestre)
+    public function listarResponsaveis($setor, $ano, $semestre)
     {
-        if ($setor === 'TI') {
-            $sql = "SELECT * FROM assinaturasTecnicos WHERE ano = :ano AND semestre = :semestre";
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(":ano", $ano);
-            $stmt->bindParam(":semestre", $semestre);
-        } else {
-            $sql = "SELECT * FROM assinaturasTecnicos WHERE ano = :ano AND semestre = :semestre AND setor = :setor";
-            $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(":ano", $ano);
-            $stmt->bindParam(":semestre", $semestre);
-            $stmt->bindParam(":setor", $setor);
+        try 
+        {
+            if ($setor === 'TI')
+            {
+                $sql = "SELECT * 
+                FROM assinaturas 
+                WHERE ano = :ano 
+                AND semestre = :semestre";
+
+                $stmt = $this->db->prepare($sql);
+                
+                $stmt->bindParam(":ano", $ano);
+                $stmt->bindParam(":semestre", $semestre);
+        
+            } 
+            else 
+            {
+                $sql = "SELECT * 
+                FROM assinaturas 
+                WHERE ano = :ano 
+                AND semestre = :semestre 
+                AND setor = :setor";
+
+                $stmt = $this->db->prepare($sql);
+                
+                $stmt->bindParam(":ano", $ano);
+                $stmt->bindParam(":semestre", $semestre);
+                $stmt->bindParam(":setor", $setor);
+            }
+        
+            $stmt->execute();
+        
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } 
+        catch (PDOException $e) 
+        {
+            error_log("Erro ao visualizar a assinatura: " . $e->getMessage());
+            return false;
         }
         
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function listarTecnicos($setor, $ano, $semestre)
+    {
+        try
+        {
+            if ($setor === 'TI') 
+            {
+                $sql = "SELECT *
+                FROM assinaturasTecnicos 
+                WHERE ano = :ano 
+                AND semestre = :semestre";
+                
+                $stmt = $this->db->prepare($sql);
+    
+                $stmt->bindParam(":ano", $ano);
+                $stmt->bindParam(":semestre", $semestre);
+                
+            } 
+            else 
+            {
+                $sql = "SELECT * 
+                FROM assinaturasTecnicos 
+                WHERE ano = :ano 
+                AND semestre = :semestre 
+                AND setor = :setor";
+    
+                $stmt = $this->db->prepare($sql);
+                
+                $stmt->bindParam(":ano", $ano);
+                $stmt->bindParam(":semestre", $semestre);
+                $stmt->bindParam(":setor", $setor);
+            }
+            
+            $stmt->execute();
+    
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e) 
+        {
+            error_log("Erro ao visualizar a assinatura do tecnico responsável por esse setor: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function listarAssinaturasTecnico($nome)
+    {
+        try
+        {
+            $sql = "SELECT * 
+            FROM assinaturasTecnicos
+            WHERE nome = :nome";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":nome", $nome);
+            $stmt->execute();
+    
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e) 
+        {
+            error_log("Erro ao visualizar as assinaturas do técnico: " . $e->getMessage());
+            return false;
+        }
+
     }
 }

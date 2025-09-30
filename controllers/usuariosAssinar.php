@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     ];
 
     $model = new AssinaturaModel();
-    $assinar = $model->criar($data);
+    $assinar = $model->criarResponsaveis($data);
 
     if($assinar)
     {
