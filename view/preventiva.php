@@ -37,7 +37,8 @@ $semestre = $_GET['semestre'] ?? '';
 $ano = $_GET['ano'] ?? '';
 $unidade = $_GET['unidade'] ?? '';
 
-$assinaturas = $dbassinatura->listar($setorUsuario, $ano, $semestre);
+$assinaturasResponsavel = $dbassinatura->listar($setorUsuario, $ano, $semestre);
+$assinaturasTecnicos = $dbassinatura->listarTecnicos($setorUsuario, $ano, $semestre);
 
 $computadores = [];
 if ($setorFiltro) {
@@ -136,16 +137,64 @@ if ($setorFiltro) {
                     </div>';
 
                     if ($ano != '' and $semestre != ''){
-                        if ($assinaturas){
+                        if ($assinaturasResponsavel)
+                        {
                             echo 
                             '
                             <div class="assinar">
                                 <div class="flex assinar-flex">
                                     <i class="fa-solid fa-circle-check fa-2xl" style="color: #63E6BE; padding: 0.5rem;"></i>
-                                    <h3>Preventiva já assinada por ' . htmlspecialchars($assinaturas['nome']) . '.</h3>
+                                    <h3>Preventiva já assinada por ' . htmlspecialchars($assinaturasResponsavel['nome']) . '.</h3>
                                 </div>
-                                <div class="flex assinar-flex" style="padding-top: 1rem;">';
-                                    $timestp = strtotime($assinaturas['data']);
+                                <div class="flex assinar-flex" style="padding-top: 0.5rem;">';
+                                    $timestp = strtotime($assinaturasResponsavel['data']);
+                                    $dataBr = date('d/m/Y', $timestp);
+                                    
+                                    echo '
+                                    <p style="padding: 0 0 0 3rem; ">Assinada em: ' . htmlspecialchars($dataBr) . '</p>
+                                </div>
+                            </div>
+                            ';
+                        }
+                        else
+                        {
+                            if($_SESSION['setor'] != 'TI')
+                            {
+                                echo
+                                '
+                                <div class="assinar">
+                                    <div class="flex assinar-flex">
+                                        <form method="POST" action="../controllers/usuariosAssinar.php" class="form-flex form-assinar">
+                                            <input type="hidden" name="assinatura-nome" value="'. htmlspecialchars($_SESSION['nome']) .'">
+                                            <input type="hidden" name="assinatura-ano" value="'. htmlspecialchars($ano) .'">
+                                            <input type="hidden" name="assinatura-setor" value="'. htmlspecialchars($_SESSION['setor']) .'">
+                                            <input type="hidden" name="assinatura-semestre" value="'. htmlspecialchars($semestre) .'">
+                                            <input type="hidden" name="assinatura-unidade" value="'. htmlspecialchars($_SESSION['unidade']) .'">
+                                            <label for="input-assinatura">Responsável do Setor</label>
+                                            <input type="text" id="input-assinatura" name="assinatura" placeholder="Assine com seu nome aqui" value="'. htmlspecialchars($_SESSION['nome']) .'" readonly> 
+                                            <button type="submit" class="botao botao-primario" onclick="confirmarAssinatura(event)">Assinar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="voltar">
+                                    <a href="preventiva.php">
+                                        <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
+                                    </a>
+                                </div>
+                                ';
+                            }
+                        }
+                        if ($assinaturasTecnicos)
+                        {
+                             echo 
+                            '
+                            <div class="assinarTecnico">
+                                <div class="flex assinar-flex">
+                                    <i class="fa-solid fa-circle-check fa-2xl" style="color: #63E6BE; padding: 0.5rem;"></i>
+                                    <h3>Preventiva já assinada pelo TI ' . htmlspecialchars($assinaturasTecnicos['nome']) . '.</h3>
+                                </div>
+                                <div class="flex assinar-flex" style="padding-top: 0.5rem;">';
+                                    $timestp = strtotime($assinaturasTecnicos['data']);
                                     $dataBr = date('d/m/Y', $timestp);
                                     
                                     echo '
@@ -157,21 +206,24 @@ if ($setorFiltro) {
                                     <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
                                 </a>
                             </div>
-                            ';
+                                ';
                         }
                         else
-                        {
+                        {   
+                            if ($_SESSION['setor'] == 'TI')
+                            {
                             echo
                             '
-                            <div class="assinar">
+                            <div class="assinarTecnico">
                                 <div class="flex assinar-flex">
-                                    <form method="POST" action="../controllers/usuariosAssinar.php" class="form-flex form-assinar">
+                                    <form method="POST" action="../controllers/usuariosAssinarTI.php" class="form-flex form-assinar">
                                         <input type="hidden" name="assinatura-nome" value="'. htmlspecialchars($_SESSION['nome']) .'">
                                         <input type="hidden" name="assinatura-ano" value="'. htmlspecialchars($ano) .'">
                                         <input type="hidden" name="assinatura-setor" value="'. htmlspecialchars($_SESSION['setor']) .'">
                                         <input type="hidden" name="assinatura-semestre" value="'. htmlspecialchars($semestre) .'">
                                         <input type="hidden" name="assinatura-unidade" value="'. htmlspecialchars($_SESSION['unidade']) .'">
-                                        <input type="text" name="assinatura" placeholder="Assine com seu nome aqui" value="'. htmlspecialchars($_SESSION['nome']) .'" readonly> 
+                                        <label>Assinatura do Técnico Responsável: </label>
+                                        <input type="text" id="input-assinatura-responsavel" name="assinatura" placeholder="Assine com seu nome aqui" value="'. htmlspecialchars($_SESSION['nome']) .'" readonly> 
                                         <button type="submit" class="botao botao-primario" onclick="confirmarAssinatura(event)">Assinar</button>
                                     </form>
                                 </div>
@@ -182,19 +234,20 @@ if ($setorFiltro) {
                                 </a>
                             </div>
                             ';
+                            }
                         }
                     }
-                    else
-                    {
-                        echo
-                        '
-                        <div class="voltar">
-                            <a href="preventiva.php">
-                                <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
-                            </a>
-                        </div>
-                        ';
-                    }
+                else
+                {
+                    echo
+                    '
+                    <div class="voltar">
+                        <a href="preventiva.php">
+                            <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
+                        </a>
+                    </div>
+                    ';
+                }
 
                     echo '
                 ';
@@ -219,6 +272,7 @@ if ($setorFiltro) {
     <script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
     <script src="../public/javascript/animar/filtro/animarFiltro.js"></script>
     <script src="../public/javascript/animar/assinar/animarAssinar.js"></script>
+    <script src="../public/javascript/animar/assinar/animarAssinarTecnicos.js"></script>
     <script src="../public/javascript/animar/computadores/animarListagemComputadores.js"></script>
     <script src="../public/javascript/animar/bar/animarBar.js"></script>
     

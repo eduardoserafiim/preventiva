@@ -58,3 +58,15 @@ create table assinaturas(
 	assinatura varchar(50) NOT NULL,
     data date NOT NULL
 );
+
+create table assinaturastecnicos(
+	id int AUTO_INCREMENT,
+	primary key(id),
+	nome varchar(50) NOT NULL,
+	ano year NOT NULL,
+	semestre varchar(11) NOT NULL,
+	setor varchar(100) NOT NULL,
+	unidade varchar(20) NOT NULL,
+	assinatura varchar(50) NOT NULL,
+    data date NOT NULL
+);
