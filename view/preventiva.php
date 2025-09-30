@@ -144,7 +144,7 @@ if ($setorFiltro) {
                             <div class="assinar">
                                 <div class="flex assinar-flex">
                                     <i class="fa-solid fa-circle-check fa-2xl" style="color: #63E6BE; padding: 0.5rem;"></i>
-                                    <h3>Preventiva já assinada por ' . htmlspecialchars($assinaturasResponsavel['nome']) . '.</h3>
+                                    <h3>Assinatura Responsável do Setor: ' . htmlspecialchars($assinaturasResponsavel['nome']) . '.</h3>
                                 </div>
                                 <div class="flex assinar-flex" style="padding-top: 0.5rem;">';
                                     $timestp = strtotime($assinaturasResponsavel['data']);
@@ -191,7 +191,7 @@ if ($setorFiltro) {
                             <div class="assinarTecnico">
                                 <div class="flex assinar-flex">
                                     <i class="fa-solid fa-circle-check fa-2xl" style="color: #63E6BE; padding: 0.5rem;"></i>
-                                    <h3>Preventiva já assinada pelo TI ' . htmlspecialchars($assinaturasTecnicos['nome']) . '.</h3>
+                                    <h3>Assinatura Técnico Responsável: ' . htmlspecialchars($assinaturasTecnicos['nome']) . '.</h3>
                                 </div>
                                 <div class="flex assinar-flex" style="padding-top: 0.5rem;">';
                                     $timestp = strtotime($assinaturasTecnicos['data']);
