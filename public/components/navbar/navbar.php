@@ -45,6 +45,12 @@ function navbar($active) {
                         <span>Usuários</span>
                     </a>
                 </li>
+                <li>
+                    <a href="setores.php" class="menu-item ' . ($active === 'setores' ? 'active' : '') . '">
+                        <i class="fas fa-building"></i>
+                        <span>Setores</span>
+                    </a>
+                </li>
             ';
     }
 

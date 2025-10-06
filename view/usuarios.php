@@ -98,14 +98,14 @@ if ($acaoUsuario)
                 </div>';
             } else {
                 echo  '<div class="usuarios">';
-                foreach ($usuarios as $usuario) {
-                    echo criarUsuarioDiv($usuario[1], $usuario[0], $usuario[2]);
-                }
+                    foreach ($usuarios as $usuario) {
+                        echo criarUsuarioDiv($usuario[1], $usuario[0], $usuario[2]);
+                    }
                 echo '</div>';
             }
             ?>
-
         </main>
+    </div>
 </body>
 <script src="../public/javascript/animar/formulario/animarFormulario.js"></script>
 <script src="../public/javascript/animar/page/animarPageHeader.js"></script>

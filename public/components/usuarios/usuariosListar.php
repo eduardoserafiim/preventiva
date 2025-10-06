@@ -2,8 +2,9 @@
 require_once '../db/db.php';
 require_once '../models/usuarios.php';
 
-function listarUsuarios(array $usuarios) {
-    ?>
+function listarUsuarios(array $usuarios) 
+{
+?>
     <div id="users-list" class="usuarios-listagem tab-content active">
         <div class="equipment-grid-user" id="usersGrid">
             <?php if (empty($usuarios)) : ?>

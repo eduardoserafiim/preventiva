@@ -1,6 +1,7 @@
 <?php
 
-function criarUsuarioDiv($acao, $titulo, $descricao) { 
+function criarUsuarioDiv($acao, $titulo, $descricao) 
+{ 
     return '
     <div class="usuarioDiv" data-usuario="' . strtolower($acao) . '">
         <a href="usuarios.php?acaoUsuario=' . $acao . '">

@@ -119,6 +119,12 @@
     flex-direction: column;
 }
 
+.icone
+{
+    display: flex;
+    flex-direction: column;
+}
+
 .user
 {
     display: flex;

@@ -5,18 +5,56 @@ class SetorModel{
 
     private $db;
 
-    public function __construct() {
+    public function __construct() 
+    {
         $database = new Database();
         $this->db = $database->getConnection();
     }
 
-    public function listar(){
+    public function criar($data)
+    {
+        try {
+            $sql = 'INSERT INTO setores
+                (nome, icon)
+                VALUES (:nome, :icon)';
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                ':nome' => $data['nome'],
+                ':icon' => $data['icon'],
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+
+    public function listar()
+    {
         $sql = 'SELECT * 
         FROM setores';
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function validar($nome)
+    {
+        $sql = 'SELECT *
+        FROM setores
+        WHERE nome = :nome 
+        LIMIT 1';
+
+        try 
+        {
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':nome' => $nome]);
+
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (\Throwable $th) 
+        {
+            //throw $th;
+        }
+        
     }
 
 };
