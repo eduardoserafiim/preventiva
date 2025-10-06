@@ -1,6 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['usuario'])) {
+if (!isset($_SESSION['usuario'])) 
+{
     header("Location: login.php");
     exit;
 }
@@ -21,8 +22,10 @@ require_once '../public/components/form/usuarios/formGrid.php';
 require_once '../public/components/form/usuarios/formSenha.php';
 require_once '../public/components/form/usuarios/formActionsAlterarSenha.php';
 require_once '../public/components/form/usuarios/formActions.php';
+
 ?>
 <?php
+
 $acaoUsuario = $_GET['acaoUsuario'] ?? '';
 $erro = $_GET['erro'] ?? null;
 
@@ -30,7 +33,8 @@ $id = intval($_GET['id'] ?? 0);
 
 $db = new UsuarioModel();
 
-if ($acaoUsuario) {
+if ($acaoUsuario) 
+{
     $usuarios = $db->listar();
 }
 
@@ -38,19 +42,19 @@ if ($acaoUsuario) {
 
 <body>
     <div class="app-container">
-        <?php echo navbar("usuarios"); ?>
-
+        <?= navbar("usuarios") ?>
         <main class="main-content">
             <div class="page-header">
                 <h1>Usuários</h1>
                 <p>Gerencie os usuários</p>
             </div>
-            <?php echo bar(); ?>
+            <?= bar() ?>
             <?php
-            if ($acaoUsuario == 'criar') {
+            if ($acaoUsuario == 'criar') 
+            {
                 echo
                 '<div class="voltar">
-                ' . voltar('usuarios.php') . '
+                    ' . voltar('usuarios.php') . '
                 </div>
                 <div class="controleForm" style="margin: 0px;">
                     <div class="form-container">

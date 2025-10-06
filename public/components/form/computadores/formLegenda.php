@@ -3,6 +3,8 @@
 function formLegenda(){
     return 
     '
+    </div>
+    <div class="form-grid">
         <!-- LEGENDAA -->
         <div class="form-flex switch-wrapper">
             <label for="input-legendaA" class="texto" style="color: #374151; font-weight: 600;">Atualização S.O</label>

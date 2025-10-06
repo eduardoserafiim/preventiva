@@ -17,6 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'memoria' => $_POST['memoria'],
         'disco' => $_POST['disco'],
         'ip' => $_POST['ip'],
+        'mac' => $_POST['mac'],
+        'numserie' => $_POST['numserie'],
         'lacre' => $_POST['lacre'],
         'legendaA' => isset($_POST['legendaA']) ? 1 : 0,
         'legendaB' => isset($_POST['legendaB']) ? 1 : 0,
@@ -28,6 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'legendaH' => isset($_POST['legendaH']) ? 1 : 0,
         'legendaI' => isset($_POST['legendaI']) ? 1 : 0,
         'status' => $_POST['status'],
+        'cadastro' => $_POST['cadastro'],
     ];
 
     $computerController = new ComputerModel();

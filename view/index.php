@@ -21,14 +21,18 @@ $assinaturas = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome'])
 ?>
 <body>
     <div class="app-container">
-        <?php echo navbar("menu"); ?>
+        <!-- NAVBAR -->
+        <?= navbar("menu") ?>
         <main class="main-content">
-            <?php echo bar(); ?>
+            <!-- NAVBAR MOBILE -->
+            <?= bar() ?>
             <div class="page-header">
+                <!-- NOME DO USUARIO LOGADO -->
                 <h1>Bem vindo, <?= ucfirst(htmlspecialchars($_SESSION['nome'])) ?>!</h1>
                 <p>Visualize as informações gerais</p>
             </div>
             <div class="fundo-container">
+                <!-- ESTRUTURA PRIVILEGIO USUARIO -->
                 <?php if ($_SESSION['privilegio'] != "TI" and $_SESSION['privilegio'] != 'administrador'): ?>
                     <p>Estamos trabalhando nisso...</p>
                     <p>Que tal dar uma olhada na preventiva?</p>
@@ -37,7 +41,7 @@ $assinaturas = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome'])
                     <div>
                         <h2 style="margin-bottom: 1rem;">Preventivas assinadas</h2>
                         <div class="equipment-grid-assinaturas">
-                            <?php assinaturasListar($assinaturas); ?>
+                            <?= assinaturasListar($assinaturas) ?>
                         </div>
                     </div>
                 <?php endif ?>

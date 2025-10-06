@@ -47,6 +47,8 @@ function listarComputadores(array $computadores, string $usuarioSetor, $unidadeU
                                 "disco" => "Disco",
                                 "ip" => "Endereço IP",
                                 "lacre" => "Lacre",
+                                "mac" => "MAC",
+                                "numserie" => "Número de Série",
                                 "legendaA" => "Atualização S.O",
                                 "legendaB" => "Atualização Antivírus",
                                 "legendaC" => "Área de Trabalho Padrão",
@@ -57,6 +59,7 @@ function listarComputadores(array $computadores, string $usuarioSetor, $unidadeU
                                 "legendaH" => "Etiqueta de patrimônio",
                                 "legendaI" => "Licença SQL Server",
                                 "status" => "Status",
+                                "cadastro" => "Técnico Responsável",
                             ];
 
                             foreach ($fields as $key => $label):

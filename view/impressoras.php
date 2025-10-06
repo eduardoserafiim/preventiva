@@ -12,13 +12,15 @@ require_once "../public/components/bar/bar.php";
 ?>
 <body>
     <div class="app-container">
-        <?php echo navbar("impressoras"); ?>
+        <!-- NAVBAR -->
+        <?= navbar("impressoras") ?>
         <main class="main-content">
+            <!-- NAVBAR MOBILE -->
+            <?= bar() ?>
             <div class="page-header">
                 <h1>Impressoras</h1>
-                <p>Visualize o inventário de impressoras do Hospital Adventista do Pênfigo</p>
+                <p>Visualize as impressoras cadastradas no GLPI</p>
             </div>
-            <?php echo bar(); ?>
         </main>
     </div>    
 </body>

@@ -12,6 +12,7 @@ require_once "../models/assinaturas.php";
 require_once "../public/components/header/header.php";
 require_once "../public/components/navbar/navbar.php";
 require_once "../public/components/bar/bar.php";
+require_once "../public/components/voltar.php";
 
 require_once "../public/components/computadores/computadoresListar.php";
 require_once "../public/components/computadores/computadoresImprimir.php";
@@ -19,32 +20,49 @@ require_once "../public/components/computadores/computadoresImprimir.php";
 require_once "../public/components/setores/setores.php";
 require_once "../public/components/setores/dictionarySetores.php";
 
+?>
+<?php
+
+// models
 $db = new ComputerModel();
 $dbsetor = new SetorModel();
 $dbassinatura = new AssinaturaModel();
 
-$setores = $dbsetor->listar();
-
+// url e sessions
 $setorUsuario = $_SESSION['setor'] ?? '';
 $unidadeUsuario = $_SESSION['unidade'] ?? '';
 $setorFiltro = $_GET['url'] ?? '';
 
-if ($setorUsuario !== 'TI') {
+// validador se o usuario nao for ti ele recebe o filtro já como o próprio setor
+if ($setorUsuario !== 'TI') 
+{
     $setorFiltro = $setorUsuario;
 }
 
+// url para filtro
 $semestre = $_GET['semestre'] ?? '';
 $ano = $_GET['ano'] ?? '';
 $unidade = $_GET['unidade'] ?? '';
 
+// chamadas das funções para listar os setores e também as assinaturas
+$setores = $dbsetor->listar();
 $assinaturasResponsavel = $dbassinatura->listarResponsaveis($setorUsuario, $ano, $semestre);
 $assinaturasTecnicos = $dbassinatura->listarTecnicos($setorUsuario, $ano, $semestre);
 
+// declaracao array vazia de computadores
 $computadores = [];
-if ($setorFiltro) {
-    if ($semestre || $ano || $unidade) {
+
+// validador se a variavel for verdadeira ou nao nula
+if ($setorFiltro) 
+{
+    // para o TI se todos essas variaveis forem declaradas ou true ele passa a array de computadores para a função de filtro da model
+    if ($semestre || $ano || $unidade) 
+    {
         $computadores = $db->filtrar($setorFiltro, $semestre, $ano, $unidade);
-    } else {
+    }
+    // para o Usuário ele recebe o prório setor e a sua própria unidade
+    else 
+    {
         $computadores = $db->listar($setorFiltro, $unidadeUsuario);
     }
 }
@@ -52,59 +70,77 @@ if ($setorFiltro) {
 <body>
     <div class="app-container">
         <!-- NAVBAR -->
-        <?php echo navbar('preventiva'); ?>
+        <?= navbar('preventiva') ?>
         <main class="main-content">
+            <!-- NAVBAR MOBILE -->
+            <?= bar() ?>
             <div class="page-header">
                 <h1>Preventiva</h1>
                 <p>Visualize todos os equipamentos cadastrados</p>
             </div>
-            <?php echo bar(); ?>
+            <!-- SETORES -->
             <?php
-            if ($setorUsuario === 'TI' && empty($setorFiltro)) {
-                echo '
+            // se o setor do usuario for ti ele cosegue ver os outros setores a serem listados
+            if ($setorUsuario === 'TI' && empty($setorFiltro)) 
+            {
+                echo 
+                '
                 <div class="search">
                     <input type="text" name="search-input" id="search-input" placeholder="Digite o setor aqui...">
-                </div>';
+                </div>
+                ';
 
-                echo '<div class="setores">';
-                foreach ($setores as $setor) {
+                echo 
+                '
+                <div class="setores">
+                ';
+                // percorre no banco todos os setores disponiveis cadastrados
+                foreach ($setores as $setor) 
+                {
                     echo criarSetor($setor['icon'], $setor['nome']);
                 }
-                echo '</div>';
+                echo 
+                '
+                </div>
+                ';
             }
             ?>
 
             <?php
-            if ($setorFiltro) {
-                echo '
-                    <div class="filtro">
-                        <h3 class="filtragem">Adicione filtros para assinar a preventiva.</h3>
-                        <div class="flex filtro-flex"> 
-                            <form method="GET" class="form-flex form-filtro">
-                                <!-- SEMESTRE -->
-                                <div class="form-group">
-                                    <label for="label-semestre">Semestre</label>
-                                    <select id="select-semestre" name="semestre">
-                                        <option value="" disabled ' . (empty($semestre) ? 'selected' : '') . '>Selecione...</option>
-                                        <option value="1° Semestre" ' . ($semestre === "1° Semestre" ? "selected" : "") . '>1° Semestre</option>
-                                        <option value="2° Semestre" ' . ($semestre === "2° Semestre" ? "selected" : "") . '>2° Semestre</option>
-                                    </select>
-                                </div>
-                                <!-- ANO -->
-                                <div class="form-group">
-                                    <label for="label-ano">Ano</label>
-                                    <select id="select-ano" name="ano">
-                                        <option value="" disabled ' . (empty($ano) ? 'selected' : '') . '>Selecione...</option>
-                                        <option value="2022" ' . ($ano === "2022" ? "selected" : "") . '>2022</option>
-                                        <option value="2023" ' . ($ano === "2023" ? "selected" : "") . '>2023</option>
-                                        <option value="2024" ' . ($ano === "2024" ? "selected" : "") . '>2024</option>
-                                        <option value="2025" ' . ($ano === "2025" ? "selected" : "") . '>2025</option>
-                                    </select>
-                                </div>
-                                <!-- UNIDADE -->
-                                ';
-
-                                if ($unidadeUsuario == 'ambos') {
+            // para TI e Usuário, se a variável for verdadeira e não nula, a gente consegue mostrar depois pela URL passada os computadores cadastrados naquele setor
+            if ($setorFiltro) 
+            {
+                echo 
+                '
+                <div class="filtro">
+                    <h3 class="filtragem">Adicione filtros para assinar a preventiva.</h3>
+                    <div class="flex filtro-flex"> 
+                        <form method="GET" class="form-flex form-filtro">
+                            <!-- SEMESTRE -->
+                            <div class="form-group">
+                                <label for="label-semestre">Semestre</label>
+                                <select id="select-semestre" name="semestre">
+                                    <option value="" disabled ' . (empty($semestre) ? 'selected' : '') . '>Selecione...</option>
+                                    <option value="1° Semestre" ' . ($semestre === "1° Semestre" ? "selected" : "") . '>1° Semestre</option>
+                                    <option value="2° Semestre" ' . ($semestre === "2° Semestre" ? "selected" : "") . '>2° Semestre</option>
+                                </select>
+                            </div>
+                            <!-- ANO -->
+                            <div class="form-group">
+                                <label for="label-ano">Ano</label>
+                                <select id="select-ano" name="ano">
+                                    <option value="" disabled ' . (empty($ano) ? 'selected' : '') . '>Selecione...</option>
+                                    <option value="2022" ' . ($ano === "2022" ? "selected" : "") . '>2022</option>
+                                    <option value="2023" ' . ($ano === "2023" ? "selected" : "") . '>2023</option>
+                                    <option value="2024" ' . ($ano === "2024" ? "selected" : "") . '>2024</option>
+                                    <option value="2025" ' . ($ano === "2025" ? "selected" : "") . '>2025</option>
+                                </select>
+                            </div>
+                            <!-- UNIDADE -->
+                            ';
+                                // aqui serve mais para o administrador, mas no caso, o administrador não possui mais a visualização de computadores. Mas é interessante deixar por causa se houver algum usuário que tenha a permissão de ver as duas unidades.
+                                if ($unidadeUsuario == 'administrador') 
+                                {
                                     echo  
                                     '<div class="form-group">
                                     <label for="label-unidade">Unidade</label>
@@ -120,7 +156,10 @@ if ($setorFiltro) {
                                         <button type="button" onclick="imprimirComputadores()" class="botao botao-primario botao-imprimir">Imprimir</button>
                                     </div>
                                     ';
-                                } else {
+                                } 
+                                // caso nao seja ambos a unidade do usuario que é passada pela SESSION, ele apenas consegue apenas ver a própria unidade.
+                                else 
+                                {
                                     echo 
                                     '
                                     <input type="hidden" name="url" value="' . htmlspecialchars($setorFiltro) . '">
@@ -130,13 +169,17 @@ if ($setorFiltro) {
                                     </div>
                                     ';
                                 }
-                                
-                                echo '
+                                echo 
+                                '
                             </form>
                         </div>
-                    </div>';
-
-                    if ($ano != '' and $semestre != ''){
+                    </div>
+                    ';
+                    // Validador para a questão das assinaturas
+                    if ($ano != '' and $semestre != '')
+                    {
+                        // aqui verifica se assinaturas do responsavel existe no banco, se existir ele imprime na tela como validada naquele ano e semestre
+                        // visivel para o TI e Usuário
                         if ($assinaturasResponsavel)
                         {
                             echo 
@@ -156,8 +199,10 @@ if ($setorFiltro) {
                             </div>
                             ';
                         }
+                        // se a assinatura não existir naquele ano e semestre ele tem a necessidade de criar uma assinatura
                         else
                         {
+                            // se o usuario for diferente de TI ele visualiza isso
                             if($_SESSION['setor'] != 'TI')
                             {
                                 echo
@@ -177,16 +222,15 @@ if ($setorFiltro) {
                                     </div>
                                 </div>
                                 <div class="voltar">
-                                    <a href="preventiva.php">
-                                        <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
-                                    </a>
+                                    '. voltar("preventiva.php?url=".$setorFiltro) .'
                                 </div>
                                 ';
                             }
                         }
+                        // se houver a assinatura do TI responsável pela preventiva daquele setor, o TI e o Usuário visualizam isso
                         if ($assinaturasTecnicos)
                         {
-                             echo 
+                            echo 
                             '
                             <div class="assinarTecnico">
                                 <div class="flex assinar-flex">
@@ -194,22 +238,24 @@ if ($setorFiltro) {
                                     <h3>Assinatura Técnico Responsável: ' . htmlspecialchars($assinaturasTecnicos['nome']) . '.</h3>
                                 </div>
                                 <div class="flex assinar-flex" style="padding-top: 0.5rem;">';
+                                    // no banco a data está como Y/M/D, então é feita a conversão para o padrão brasileiro
                                     $timestp = strtotime($assinaturasTecnicos['data']);
                                     $dataBr = date('d/m/Y', $timestp);
                                     
-                                    echo '
+                                    echo 
+                                    '
                                     <p style="padding: 0 0 0 3rem; ">Assinada em: ' . htmlspecialchars($dataBr) . '</p>
                                 </div>
                             </div>
                             <div class="voltar">
-                                <a href="preventiva.php">
-                                    <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
-                                </a>
+                                '. voltar("preventiva.php?url=".$setorFiltro) .'
                             </div>
-                                ';
+                            ';
                         }
+                        // caso não houver a assinatura do tecnico ele precisa assinar
                         else
                         {   
+                            // se o setor do usuario for TI ele, e apenas ele, consegue ver a necessidade de assinar a preventiva, não sendo visivel para o usuário
                             if ($_SESSION['setor'] == 'TI')
                             {
                             echo
@@ -229,36 +275,30 @@ if ($setorFiltro) {
                                 </div>
                             </div>
                             <div class="voltar">
-                                <a href="preventiva.php">
-                                    <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
-                                </a>
+                                '. voltar("preventiva.php?url=".$setorFiltro) .'
                             </div>
                             ';
                             }
                         }
                     }
+                // caso não haja o filtro de ano e semestre, ele apenas retorna o botão de voltar.
                 else
                 {
                     echo
                     '
                     <div class="voltar">
-                        <a href="preventiva.php">
-                            <i class="fa-solid fas fa-arrow-left fa-2xl"></i>
-                        </a>
+                        '. voltar("preventiva.php?url=".$setorFiltro) .'
                     </div>
                     ';
                 }
-
-                    echo '
-                ';
+                // LISTAGEM COMPUTADORES
+                // aqui é listado todos os computadores de todos os semestres e anos, apenas do setor que o usuário esteja visualizando.
                 listarComputadores($computadores, $setorUsuario, $unidadeUsuario);
                 imprimirTabelaComputadores($computadores);
             }
             ?>
-
         </main>
     </div>
-
 </body>
     <script src="../public/javascript/setores/searchSetor.js"></script>
 

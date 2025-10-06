@@ -21,6 +21,8 @@
                     memoria: 'Memória',
                     disco: 'Disco',
                     ip: 'Endereço IP',
+                    mac: 'MAC',
+                    numserie: 'Número de Série',
                     lacre: 'Lacre',
                     legendaA: 'Legenda A',
                     legendaB: 'Legenda B',

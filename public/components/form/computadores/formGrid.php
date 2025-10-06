@@ -87,7 +87,17 @@ function formGrid(){
         <div class="form-group">
             <label for="input-ip">Endereço IP</label>
             <input type="text" id="input-ip" name="ip" required>
-        </div>  
+        </div> 
+        <!-- MAC -->
+        <div class="form-group">
+            <label for="input-mac">MAC</label>
+            <input type="text" id="input-mac" name="mac" required>
+        </div>
+        <!-- N-SERIE -->
+        <div class="form-group">
+            <label for="input-numserie">N° de Série</label>
+            <input type="text" id="input-numserie" name="numserie" required>
+        </div>
         <!-- LACRE -->
         <div class="form-group">
             <label for="input-lacre">Lacre</label>

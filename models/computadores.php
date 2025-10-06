@@ -5,19 +5,22 @@ class ComputerModel {
     private $db;
     private $lastError;
 
-    public function __construct() {
+    public function __construct() 
+    {
         $database = new Database();
         $this->db = $database->getConnection();
     }
 
-    public function getLastError() {
+    public function getLastError() 
+    {
         return $this->lastError;
     }
 
-    public function criar($data) {
+    public function criar($data) 
+    {
         $sql = "INSERT INTO computadores
-            (semestre, ano, unidade, setor, nome, modelo, monitor, so, office, processador, memoria, disco, ip, lacre, status, legendaA, legendaB, legendaC, legendaD, legendaE, legendaF, legendaG, legendaH, legendaI, dataCadastro)
-            VALUES (:semestre, :ano, :unidade, :setor, :nome, :modelo, :monitor, :so, :office, :processador, :memoria, :disco, :ip, :lacre, :status, :legendaA, :legendaB, :legendaC, :legendaD, :legendaE, :legendaF, :legendaG, :legendaH, :legendaI, NOW())";
+            (semestre, ano, unidade, setor, nome, modelo, monitor, so, office, processador, memoria, disco, ip, mac, numserie, lacre, status, legendaA, legendaB, legendaC, legendaD, legendaE, legendaF, legendaG, legendaH, legendaI, dataCadastro, cadastro)
+            VALUES (:semestre, :ano, :unidade, :setor, :nome, :modelo, :monitor, :so, :office, :processador, :memoria, :disco, :ip, :mac, :numserie, :lacre, :status, :legendaA, :legendaB, :legendaC, :legendaD, :legendaE, :legendaF, :legendaG, :legendaH, :legendaI, NOW(), :cadastro)";
         $stmt = $this->db->prepare($sql);
         $stmt->execute([
             ':semestre' => $data['semestre'],
@@ -33,6 +36,8 @@ class ComputerModel {
             ':memoria' => $data['memoria'],
             ':disco' => $data['disco'],
             ':ip' => $data['ip'],
+            ':mac' => $data['mac'],
+            ':numserie' => $data['numserie'],
             ':lacre' => $data['lacre'],
             ':legendaA' => $data['legendaA'] ? 1 : 0,
             ':legendaB' => $data['legendaB'] ? 1 : 0,
@@ -44,23 +49,48 @@ class ComputerModel {
             ':legendaH' => $data['legendaH'] ? 1 : 0,
             ':legendaI' => $data['legendaI'] ? 1 : 0,
             ':status' => $data['status'],
+            ':cadastro' => $data['cadastro'],
         ]);
     }
 
-    public function listar($setor, $unidade){
+    public function listar($setor, $unidade)
+    {
         $sql = 'SELECT *
-        FROM computadores 
-        WHERE setor = :setor
-        AND unidade = :unidade';
+        FROM computadores ';
+        if ($unidade == 'administrador')
+        {
+            $sql .= 
+            '
+            WHERE setor = :setor
+            ';
+        }
+        else
+        {
+            $sql .= 
+            '
+            WHERE setor = :setor
+            AND unidade = :unidade
+            ';
+        }
         $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            ':setor' => $setor,
-            ':unidade' => $unidade
-        ]);
+        if ($unidade == 'administrador')
+        {
+            $stmt->execute([
+                ':setor' => $setor
+            ]);
+        }
+        else
+        {
+            $stmt->execute([
+                ':setor' => $setor,
+                ':unidade' => $unidade
+            ]);
+        }
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function filtrar($setor, $semestre = '', $ano = '', $unidade = '') {
+    public function filtrar($setor, $semestre = '', $ano = '', $unidade = '') 
+    {
         $query = "SELECT * FROM computadores WHERE setor = :setor";
         $params = [':setor' => $setor];
 
@@ -100,6 +130,8 @@ class ComputerModel {
             memoria = :memoria, 
             disco = :disco,
             ip = :ip, 
+            mac = :mac, 
+            numserie = :numserie, 
             legendaA = :legendaA,
             legendaB = :legendaB,
             legendaC = :legendaC,
@@ -130,6 +162,8 @@ class ComputerModel {
                 ':memoria' => $data['memoria'],
                 ':disco' => $data['disco'],
                 ':ip' => $data['ip'],
+                ':mac' => $data['mac'],
+                ':numserie' => $data['numserie'],
                 ':legendaA'=> $data['legendaA'],
                 ':legendaB'=> $data['legendaB'],
                 ':legendaC'=> $data['legendaC'],

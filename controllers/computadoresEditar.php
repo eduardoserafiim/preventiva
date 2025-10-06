@@ -14,6 +14,8 @@ function alterarComputadores(){
         'office' => $_POST['office'] ?? '',
         'monitor' => $_POST['monitor'] ?? '',
         'ip' => $_POST['ip'] ?? '',
+        'mac' => $_POST['mac'] ?? '',
+        'numserie' => $_POST['numserie'] ?? '',
         'lacre' => $_POST['lacre'] ?? '',
         'status' => $_POST['status'] ?? '',
         'ano' => $_POST['ano'] ?? '',
@@ -34,7 +36,7 @@ function alterarComputadores(){
     $atualizar = $model->atualizar($id, $data);
     
     if ($atualizar){
-    echo "Computador atualizado com sucesso!";
+        echo "Computador atualizado com sucesso!";
     } else {
         echo "Erro ao atualizar computador: " . $model->getLastError();
     }

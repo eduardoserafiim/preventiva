@@ -30,7 +30,7 @@ function navbar($active) {
                 <li>
                     <a href="index.php" class="menu-item ' . ($active === 'menu' ? 'active' : '') . '">
                         <i class="fas fa-house"></i>
-                        <span>Menu Principal</span>
+                        <span>Início</span>
                     </a>
                 </li>';
 
