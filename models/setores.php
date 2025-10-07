@@ -37,6 +37,28 @@ class SetorModel{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function atualizar($id, $data)
+    {
+        try {
+            $sql = 'UPDATE setores
+                SET nome = :nome
+                WHERE id: :id;
+                ';
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                ':id' => $id,
+                ':nome' => $data['nome'],
+            ]);
+            return true;
+        } 
+        catch (PDOException $e) 
+        {
+            error_log("Erro ao atualizar usuario: " . $e->getMessage());
+            return false;
+        }
+        
+    }
+
     public function apagar($id)
     {
         $sql = "DELETE

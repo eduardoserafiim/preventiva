@@ -81,6 +81,8 @@ $setoresdb = $dbsetor->listar();
     <script src="../public/javascript/animar/search/animarSearch.js"></script>
 
 
+    <script src="../public/javascript/setores/cadastrarSetor.js"></script>
+    <script src="../public/javascript/setores/atualizarSetor.js"></script>
     <script src="../public/javascript/setores/searchNomeSetor.js"></script>
     <script src="../public/javascript/setores/confirmarExclusao.js"></script>
     <script src="../public/javascript/bar/bar.js"></script>

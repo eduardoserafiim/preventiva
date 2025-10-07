@@ -11,7 +11,7 @@ function formActions()
             </button>
         </a>
 
-        <button type="submit" id="botaoCadastrar" class="botao botao-primario" onclick="">
+        <button type="submit" id="botaoCadastrar" class="botao botao-primario" onclick="salvarFormulario(event)">
             <i class="fas fa-check"></i> Cadastrar
         </button>
     </div>

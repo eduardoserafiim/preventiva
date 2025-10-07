@@ -1,7 +1,8 @@
 <?php
 require_once "../models/usuarios.php";
 
-function alterarUsuarios(){
+function alterarUsuarios()
+{
     $id = intval($_POST['id']);
     $data = [
         'nome' => $_POST['nome'] ?? '',
@@ -14,12 +15,13 @@ function alterarUsuarios(){
     $model = new UsuarioModel();
     $atualizar = $model->atualizar($id, $data);
     
-    if ($atualizar){
-        return true;
-    }else{
-        return false;
+    if ($atualizar)
+    {
+        echo "Usuário atualizado com sucesso";
+    }else
+    {
+        echo "Erro ao atualizar o usuário";
     }
-
 };
 
 alterarUsuarios();
