@@ -37,6 +37,17 @@ class SetorModel{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function apagar($id)
+    {
+        $sql = "DELETE
+        FROM setores
+        WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        
+        return $stmt->execute();
+    }
+
     public function validar($nome)
     {
         $sql = 'SELECT *

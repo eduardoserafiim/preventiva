@@ -54,11 +54,11 @@ $setoresdb = $dbsetor->listar();
                     </div>
                 </div>
             <?php elseif($url == 'listar'): ?> 
-                <div class="voltar">
-                    <?= voltar('setores.php') ?>
-                </div>
                 <div class="search">
                     <input type="text" name="search-input-setor" id="search-input" placeholder="Digite o nome do setor aqui...">
+                </div>
+                <div class="voltar">
+                    <?= voltar('setores.php') ?>
                 </div>
                 <?= listarSetores($setoresdb) ?>
             <?php else: ?>
@@ -77,8 +77,15 @@ $setoresdb = $dbsetor->listar();
     <script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
     <script src="../public/javascript/animar/setores/animarSetoresAdministrador.js"></script>
     <script src="../public/javascript/animar/setores/animarSetores.js"></script>
+    <script src="../public/javascript/animar/setores/animarListagemSetores.js"></script>
     <script src="../public/javascript/animar/search/animarSearch.js"></script>
 
-    <script src="../public/javascript/setores/searchSetor.js"></script>
+
+    <script src="../public/javascript/setores/searchNomeSetor.js"></script>
+    <script src="../public/javascript/setores/confirmarExclusao.js"></script>
     <script src="../public/javascript/bar/bar.js"></script>
+
+    <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>
