@@ -1,38 +1,43 @@
 <?php
+
+// VERIFICAÇÃO LOGIN
 session_start();
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
     exit;
 }
 
+?>
+<?php
+// DATABASE
 include_once "../db/db.php";
+
+// MODELS
 include_once "../models/assinaturas.php";
 
+// COMPONENTS
 include_once "../public/components/header/header.php";
 include_once "../public/components/navbar/navbar.php";
 include_once "../public/components/bar/bar.php";
-
 include_once "../public/components/assinaturas/assinaturasListar.php";
 
+?>
+<?php
+
 $dbassinatura = new AssinaturaModel();
+$assinaturas = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome']);
 
-
-$assinaturas = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome'])
 ?>
 <body>
     <div class="app-container">
-        <!-- NAVBAR -->
         <?= navbar("menu") ?>
         <main class="main-content">
-            <!-- NAVBAR MOBILE -->
             <?= bar() ?>
             <div class="page-header">
-                <!-- NOME DO USUARIO LOGADO -->
                 <h1>Bem vindo, <?= ucfirst(htmlspecialchars($_SESSION['nome'])) ?>!</h1>
                 <p>Visualize as informações gerais</p>
             </div>
             <div class="fundo-container">
-                <!-- ESTRUTURA PRIVILEGIO USUARIO -->
                 <?php if ($_SESSION['privilegio'] != "TI" and $_SESSION['privilegio'] != 'administrador'): ?>
                     <p>Estamos trabalhando nisso...</p>
                     <p>Que tal dar uma olhada na preventiva?</p>
@@ -53,12 +58,10 @@ $assinaturas = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome'])
         </main>
     </div>
 </body>
-    <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
-    <script src="../public/javascript/animar/container/animarContainer.js"></script>
-    <script src="../public/javascript/animar/bar/animarBar.js"></script>
+<?php
 
-    <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
-    <script src="../public/javascript/bar/bar.js"></script>
+require_once "../public/components/scripts/scriptIndex.php";
+require_once "../public/components/scripts/scriptAlert.php";
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+?>
 </html>
