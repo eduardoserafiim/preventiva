@@ -1,13 +1,13 @@
 <?php
 
-function criarUsuarioDiv($acao, $titulo, $descricao) 
-{ 
-    return 
+function criarOpcoesDiv($acao, $titulo, $descricao)
+{
+    return
     '
     <div class="usuarioDiv" data-usuario="' . strtolower($acao) . '">
-        <a href="usuarios.php?url=' . $acao . '">
+        <a href="index.php?url=' . $acao . '">
             <div class="flex">
-                <i class="fa-solid fa-user fa-2xl anima"></i>
+                <i class="fa-solid fa-pen-fancy fa-2xl anima"></i>
                 <h4>' . $titulo . '</h4>
             </div>
             <p>' . $descricao . '</p>
@@ -15,5 +15,3 @@ function criarUsuarioDiv($acao, $titulo, $descricao)
     </div>
     ';
 }
-
-?>

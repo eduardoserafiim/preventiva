@@ -2,6 +2,7 @@
 <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
 <script src="../public/javascript/animar/container/animarContainer.js"></script>
 <script src="../public/javascript/animar/bar/animarBar.js"></script>
+<script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
 
 <!-- COMPONENTS -->
 <script src="../public/javascript/bar/bar.js"></script>
