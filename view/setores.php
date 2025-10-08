@@ -1,4 +1,6 @@
 <?php
+
+// VERIFICAÇÃO LOGIN
 session_start();
 if (!isset($_SESSION['usuario'])) 
 {
@@ -6,19 +8,30 @@ if (!isset($_SESSION['usuario']))
     exit;
 }
 
+// VERIFICAÇÃO PRIVILEGIO
+if ($_SESSION['privilegio'] != 'administrador')
+{
+    header("Location: index.php");
+    exit;
+}
+
+?>
+<?php
+
+// MODELS
 require_once "../models/setores.php";
 
+// COMPONENTS
 require_once "../public/components/header/header.php";
 require_once "../public/components/navbar/navbar.php";
 require_once "../public/components/bar/bar.php";
 require_once '../public/components/voltar.php';
-
 require_once "../public/components/setores/dictionarySetores.php";
 require_once "../public/components/setores/optionsIcons.php";
 require_once "../public/components/setores/setoresAdministrador.php";
-
 require_once "../public/components/setores/setoresListar.php";
 
+// FORM
 require_once "../public/components/form/setores/formGrid.php";
 require_once "../public/components/form/setores/formActions.php";
 
@@ -71,24 +84,10 @@ $setoresdb = $dbsetor->listar();
         </main>
     </div>
 </body>
-    <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
-    <script src="../public/javascript/animar/bar/animarBar.js"></script>
-    <script src="../public/javascript/animar/formulario/animarFormulario.js"></script>
-    <script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
-    <script src="../public/javascript/animar/setores/animarSetoresAdministrador.js"></script>
-    <script src="../public/javascript/animar/setores/animarSetores.js"></script>
-    <script src="../public/javascript/animar/setores/animarListagemSetores.js"></script>
-    <script src="../public/javascript/animar/search/animarSearch.js"></script>
+<?php
 
+require_once '../public/components/scripts/scriptSetores.php';
+require_once '../public/components/scripts/scriptAlert.php';
 
-    <script src="../public/javascript/setores/cadastrarSetor.js"></script>
-    <script src="../public/javascript/setores/atualizarSetor.js"></script>
-    <script src="../public/javascript/setores/searchNomeSetor.js"></script>
-    <script src="../public/javascript/setores/confirmarEdicao.js "></script>
-    <script src="../public/javascript/setores/confirmarExclusao.js"></script>
-    <script src="../public/javascript/bar/bar.js"></script>
-
-    <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+?>
 </html>

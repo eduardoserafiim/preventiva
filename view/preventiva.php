@@ -247,7 +247,6 @@ if ($setorFiltro)
 </body>
 <?php
 
-
 require_once "../public/components/scripts/scriptPreventiva.php";
 require_once "../public/components/scripts/scriptAlert.php";
 
