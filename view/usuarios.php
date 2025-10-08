@@ -6,18 +6,30 @@ if (!isset($_SESSION['usuario']))
     exit;
 }
 
+if ($_SESSION['privilegio'] != 'administrador')
+{
+    header("Location: index.php");
+    exit;
+}
+
+?>
+<?php
+
+// MODELS
 require_once '../models/usuarios.php';
 
+// COMPONENTS
 require_once '../public/components/header/header.php';
 require_once '../public/components/navbar/navbar.php';
 require_once '../public/components/bar/bar.php';
 require_once '../public/components/voltar.php';
-
+require_once '../public/components/search.php';
 require_once '../public/components/setores/optionSetores.php';
 require_once '../public/components/usuarios/usuariosDiv.php';
 require_once '../public/components/usuarios/usuariosListar.php';
 require_once '../public/components/usuarios/dictionaryUsuarios.php';
 
+// FORMS
 require_once '../public/components/form/usuarios/formGrid.php';
 require_once '../public/components/form/usuarios/formSenha.php';
 require_once '../public/components/form/usuarios/formActionsAlterarSenha.php';
@@ -26,20 +38,19 @@ require_once '../public/components/form/usuarios/formActions.php';
 ?>
 <?php
 
-$acaoUsuario = $_GET['acaoUsuario'] ?? '';
+$url = $_GET['url'] ?? '';
 $erro = $_GET['erro'] ?? null;
 
 $id = intval($_GET['id'] ?? 0);
 
 $db = new UsuarioModel();
 
-if ($acaoUsuario) 
+if ($url) 
 {
     $usuarios = $db->listar();
 }
 
 ?>
-
 <body>
     <div class="app-container">
         <?= navbar("usuarios") ?>
@@ -49,86 +60,52 @@ if ($acaoUsuario)
                 <p>Gerencie os usuários</p>
             </div>
             <?= bar() ?>
-            <?php
-            if ($acaoUsuario == 'criar') 
-            {
-                echo
-                '<div class="voltar">
-                    ' . voltar('usuarios.php') . '
+            <?php if ($url == 'criar'): ?>
+                <div class="voltar">
+                    <?= voltar('usuarios.php') ?>
                 </div>
                 <div class="controleForm" style="margin: 0px;">
                     <div class="form-container">
                         <form action="../controllers/usuariosCriar.php" method="POST" id="formularioUsuarios" class="equipment-form">
-                            ' .
-                    formGrid()
-                    . '
-                    ' .
-                    formActions()
-                    . '
+                            <?= formGrid() ?>
+                            <?= formActions() ?>
                         </form>
                     </div>
-                </div>';
-            } elseif ($acaoUsuario == 'listar') {
-                echo '
-                    <div class="search">
-                        <input type="text" name="search-input-usuario" id="search-input" placeholder="Digite o nome ou usuário aqui...">
-                    </div>
-                    <div class="voltar">
-                        ' . voltar('usuarios.php') . '
-                    </div>
-                ';
-                echo listarUsuarios($usuarios);
-            } elseif ($acaoUsuario == 'alterarsenha') {
-                echo
-                '<div class="voltar">
-                ' . voltar('usuarios.php?acaoUsuario=listar') . '
+                </div>
+            <?php elseif ($url == 'listar'): ?>
+                <div class="search">
+                    <?= search('search-input-usuario') ?>
+                </div>
+                <div class="voltar">
+                    <?= voltar('usuarios.php') ?>
+                </div>
+                <?= listarUsuarios($usuarios) ?>
+            <?php elseif ($url == 'alterarsenha'): ?>
+                <div class="voltar">
+                    <?php voltar('usuarios.php?url=listar') ?>
                 </div>
                 <div class="controleForm" style="margin: 0px;">
                     <div class="form-container">
                         <form action="../controllers/usuariosAlterarSenha.php" method="POST" id="formularioUsuarios" class="equipment-form">
-                            ' .
-                            formGridSenha($id)
-                            .'
-                            '.
-                            formActionsAlterarSenha()
-                            . '
-                        </form>';
-                        '
+                            <?= formGridSenha($id) ?>
+                            <?= formActionsAlterarSenha() ?>
+                        </form>
                     </div>
-                </div>';
-            } else {
-                echo  '<div class="usuarios">';
-                    foreach ($usuarios as $usuario) {
-                        echo criarUsuarioDiv($usuario[1], $usuario[0], $usuario[2]);
-                    }
-                echo '</div>';
-            }
-            ?>
+                </div>
+            <?php else: ?>
+                <div class="usuarios">
+                    <?php foreach ($usuarios as $usuario): ?>
+                        <?= criarUsuarioDiv($usuario[1], $usuario[0], $usuario[2]) ?>
+                    <?php endforeach ?>
+                </div>
+            <?php endif ?>
         </main>
     </div>
 </body>
-<script src="../public/javascript/animar/formulario/animarFormulario.js"></script>
-<script src="../public/javascript/animar/page/animarPageHeader.js"></script>
-<script src="../public/javascript/animar/usuario/animarUsuarios.js"></script>
-<script src="../public/javascript/animar/search/animarSearch.js"></script>
-<script src="../public/javascript/animar/usuario/animarSenhaDiferente.js"></script>
-<script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
-<script src="../public/javascript/animar/usuario/animarListagemUsuario.js"></script>
-<script src="../public/javascript/animar/bar/animarBar.js"></script>
+<?php
 
-<script src="../public/javascript/usuarios/atualizarUsuario.js"></script>
-<script src="../public/javascript/usuarios/cadastrarUsuario.js"></script>
-<script src="../public/javascript/usuarios/searchNomeUsuario.js"></script>
-<script src="../public/javascript/usuarios/senhasDiferentes.js"></script>
-<script src="../public/javascript/usuarios/senhaAlterada.js"></script>
+require_once '../public/components/scripts/scriptUsuarios.php';
+require_once '../public/components/scripts/scriptAlert.php';
 
-<script src="../public/javascript/form/limparFormulario.js"></script>
-<script src="../public/javascript/bar/bar.js"></script>
-
-<script src="../public/javascript/usuarios/confirmarSaida.js"></script>
-<script src="../public/javascript/usuarios/confirmarExclusao.js"></script>
-<script src="../public/javascript/usuarios/confirmarEdicao.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+?>
 </html>

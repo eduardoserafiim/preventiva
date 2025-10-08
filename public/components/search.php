@@ -1,10 +1,10 @@
 <?php
 
-function search()
+function search($name)
 {
     return 
     '
-    <input type="text" name="search-input" id="search-input" placeholder="Digite o setor aqui...">
+    <input type="text" name="'. $name .'" id="search-input" placeholder="Digite o setor aqui...">
     ';
 }
 

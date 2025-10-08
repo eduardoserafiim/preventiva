@@ -45,7 +45,7 @@ $url = $_GET["url"] ?? '';
                             <h3>Atenção!</h3>
                             <p style="text-align: start;">Para visualizar seu usuário ou alterar sua senha, por favor, crie um chamado para o setor de TI.</p>
                             <a href="http://portal.hap.org.br/Portal%20-%20HAP/forms/SuporteTI.php" target="_blank">
-                                <h5>portal.hap.org.br/suporte</h5>
+                                <h5>portal.hap.org.br/SuporteTI</h5>
                             </a>
                         </div>
                     </div>

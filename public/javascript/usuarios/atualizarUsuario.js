@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     input.className = 'botao botao-secundario botao-usuario-alterar-senha';
                     input.textContent = 'Alterar senha';
                     input.addEventListener('click', function () {
-                        window.location.href = `usuarios.php?acaoUsuario=alterarsenha&id=${usuarioId}`;
+                        window.location.href = `usuarios.php?url=alterarsenha&id=${usuarioId}`;
                     });
                 }
                 else if (selectFields.includes(key)) {

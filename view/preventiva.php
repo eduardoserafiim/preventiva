@@ -82,7 +82,7 @@ if ($setorFiltro)
             </div>
             <?php if ($setorUsuario === 'TI' && empty($setorFiltro)): ?>
                 <div class="search">
-                    <?= search() ?>
+                    <?= search('search-input') ?>
                 </div>
                 <div class="setores">
                     <?php foreach ($setores as $setor): ?>

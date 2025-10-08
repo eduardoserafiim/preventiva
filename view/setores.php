@@ -26,6 +26,7 @@ require_once "../public/components/header/header.php";
 require_once "../public/components/navbar/navbar.php";
 require_once "../public/components/bar/bar.php";
 require_once '../public/components/voltar.php';
+require_once '../public/components/search.php';
 require_once "../public/components/setores/dictionarySetores.php";
 require_once "../public/components/setores/optionsIcons.php";
 require_once "../public/components/setores/setoresAdministrador.php";
@@ -68,7 +69,7 @@ $setoresdb = $dbsetor->listar();
                 </div>
             <?php elseif($url == 'listar'): ?> 
                 <div class="search">
-                    <input type="text" name="search-input-setor" id="search-input" placeholder="Digite o nome do setor aqui...">
+                    <?= search('search-input-setor') ?>
                 </div>
                 <div class="voltar">
                     <?= voltar('setores.php') ?>
