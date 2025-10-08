@@ -1,34 +1,38 @@
 <?php
+
+// VERIFICAÇÃO LOGIN
 session_start();
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
     exit;
 }
-
+?>
+<?php
+// MODELS
 require_once "../models/computadores.php";
 require_once "../models/setores.php";
 require_once "../models/assinaturas.php";
 
+// COMPONENTS
 require_once "../public/components/header/header.php";
 require_once "../public/components/navbar/navbar.php";
 require_once "../public/components/bar/bar.php";
 require_once "../public/components/voltar.php";
-
+require_once "../public/components/search.php";
 require_once "../public/components/computadores/computadoresListar.php";
 require_once "../public/components/computadores/computadoresImprimir.php";
-
 require_once "../public/components/setores/setores.php";
 require_once "../public/components/setores/dictionarySetores.php";
 
 ?>
 <?php
 
-// models
+// MODELS
 $db = new ComputerModel();
 $dbsetor = new SetorModel();
 $dbassinatura = new AssinaturaModel();
 
-// url e sessions
+// URL E SESSIONS
 $setorUsuario = $_SESSION['setor'] ?? '';
 $unidadeUsuario = $_SESSION['unidade'] ?? '';
 $setorFiltro = $_GET['url'] ?? '';
@@ -69,256 +73,183 @@ if ($setorFiltro)
 ?>
 <body>
     <div class="app-container">
-        <!-- NAVBAR -->
         <?= navbar('preventiva') ?>
         <main class="main-content">
-            <!-- NAVBAR MOBILE -->
             <?= bar() ?>
             <div class="page-header">
                 <h1>Preventiva</h1>
                 <p>Visualize todos os equipamentos cadastrados</p>
             </div>
-            <!-- SETORES -->
-            <?php
-            // se o setor do usuario for ti ele cosegue ver os outros setores a serem listados
-            if ($setorUsuario === 'TI' && empty($setorFiltro)) 
-            {
-                echo 
-                '
+            <?php if ($setorUsuario === 'TI' && empty($setorFiltro)): ?>
                 <div class="search">
-                    <input type="text" name="search-input" id="search-input" placeholder="Digite o setor aqui...">
+                    <?= search() ?>
                 </div>
-                ';
-
-                echo 
-                '
                 <div class="setores">
-                ';
-                // percorre no banco todos os setores disponiveis cadastrados
-                foreach ($setores as $setor) 
-                {
-                    echo criarSetor($setor['icon'], $setor['nome']);
-                }
-                echo 
-                '
+                    <?php foreach ($setores as $setor): ?>
+                        <?= criarSetor($setor['icon'], $setor['nome']) ?>
+                    <?php endforeach ?>
                 </div>
-                ';
-            }
-            ?>
-
-            <?php
-            // para TI e Usuário, se a variável for verdadeira e não nula, a gente consegue mostrar depois pela URL passada os computadores cadastrados naquele setor
-            if ($setorFiltro) 
-            {
-                echo 
-                '
+            <?php endif ?>
+            
+            <?php if ($setorFiltro): ?>
                 <div class="filtro">
                     <h3 class="filtragem">Adicione filtros para assinar a preventiva.</h3>
-                    <div class="flex filtro-flex"> 
-                        <form method="GET" class="form-flex form-filtro">
-                            <!-- SEMESTRE -->
+                    <div class="flex filtro-flex">
+                        <form method="GET"  class="form-flex form-filtro">
                             <div class="form-group">
-                                <label for="label-semestre">Semestre</label>
+                                <label for="select-semestre">Semestre</label>
                                 <select id="select-semestre" name="semestre">
-                                    <option value="" disabled ' . (empty($semestre) ? 'selected' : '') . '>Selecione...</option>
-                                    <option value="1° Semestre" ' . ($semestre === "1° Semestre" ? "selected" : "") . '>1° Semestre</option>
-                                    <option value="2° Semestre" ' . ($semestre === "2° Semestre" ? "selected" : "") . '>2° Semestre</option>
+                                    <option value="" disabled <?= empty($semestre) ? 'selected' : '' ?> >Selecione...</option>
+                                    <option value="1° Semestre" <?= $semestre === '1° Semestre' ? 'selected' : '' ?> >1° Semestre</option>
+                                    <option value="2° Semestre" <?= $semestre === '2° Semestre' ? 'selected' : '' ?> >2° Semestre</option>
                                 </select>
                             </div>
-                            <!-- ANO -->
                             <div class="form-group">
-                                <label for="label-ano">Ano</label>
+                                <label for="select-ano">Ano</label>
                                 <select id="select-ano" name="ano">
-                                    <option value="" disabled ' . (empty($ano) ? 'selected' : '') . '>Selecione...</option>
-                                    <option value="2022" ' . ($ano === "2022" ? "selected" : "") . '>2022</option>
-                                    <option value="2023" ' . ($ano === "2023" ? "selected" : "") . '>2023</option>
-                                    <option value="2024" ' . ($ano === "2024" ? "selected" : "") . '>2024</option>
-                                    <option value="2025" ' . ($ano === "2025" ? "selected" : "") . '>2025</option>
+                                    <option value="" disabled <?= empty($ano) ? 'selected' : '' ?> >Selecione...</option>
+                                    <option value="2022" <?= $ano === '2022' ? 'selected' : '' ?> >2022</option>
+                                    <option value="2023" <?= $ano === '2023' ? 'selected' : '' ?> >2023</option>
+                                    <option value="2024" <?= $ano === '2024' ? 'selected' : '' ?> >2024</option>
+                                    <option value="2025" <?= $ano === '2025' ? 'selected' : '' ?> >2025</option>
                                 </select>
                             </div>
-                            <!-- UNIDADE -->
-                            ';
-                                // aqui serve mais para o administrador, mas no caso, o administrador não possui mais a visualização de computadores. Mas é interessante deixar por causa se houver algum usuário que tenha a permissão de ver as duas unidades.
-                                if ($unidadeUsuario == 'administrador') 
-                                {
-                                    echo  
-                                    '<div class="form-group">
-                                    <label for="label-unidade">Unidade</label>
-                                    <select id="select-unidaded" name="unidade">
-                                        <option value="" disabled ' . (empty($unidade) ? 'selected' : '') . '>Selecione...</option>
-                                        <option value="HAP - MATRIZ" ' . ($unidade === "HAP - MATRIZ" ? "selected" : "") . '>HAP - Matriz</option>
-                                        <option value="HAP - UC" ' . ($unidade === "HAP - UC" ? "selected" : "") . '>HAP - Centro</option>
+                            <?php if ($unidadeUsuario == 'administrador'): ?>
+                                <div class="form-group">
+                                    <label for="select-unidade">Unidade</label>
+                                    <select id="select-unidade" name="unidade">
+                                        <option value="" disabled <?= empty($unidade) ? 'selected' : '' ?>>Selecione...</option>
+                                        <option value="HAP - MATRIZ" <?= $unidade === 'HAP - MATRIZ' ? 'selected' : '' ?> >HAP - MATRIZ</option>
+                                        <option value="HAP - UC" <?= $unidade === 'HAP - UC' ? 'selected' : '' ?>>HAP - UC</option>
                                     </select>
-                                    </div>  
-                                    <input type="hidden" name="url" value="' . htmlspecialchars($setorFiltro) . '">
-                                    <div class="botoes-filtrar">
-                                        <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button> 
-                                        <button type="button" onclick="imprimirComputadores()" class="botao botao-primario botao-imprimir">Imprimir</button>
-                                    </div>
-                                    ';
-                                } 
-                                // caso nao seja ambos a unidade do usuario que é passada pela SESSION, ele apenas consegue apenas ver a própria unidade.
-                                else 
-                                {
-                                    echo 
-                                    '
-                                    <input type="hidden" name="url" value="' . htmlspecialchars($setorFiltro) . '">
-                                    <div class="botoes-filtrar">
-                                        <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button> 
-                                        <button type="button" onclick="imprimirComputadores()" class="botao botao-primario botao-imprimir">Imprimir</button>
-                                    </div>
-                                    ';
-                                }
-                                echo 
-                                '
-                            </form>
-                        </div>
+                                </div>
+                                <input type="hidden" name="url" value="<?= htmlspecialchars($setorFiltro) ?>">
+                                <div class="botoes-filtrar">
+                                    <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button>
+                                    <button type="button" class="botao botao-primario botao-imprimir" onclick="imprimirComputadores()">Imprimir</button>
+                                </div>
+                            <?php else: ?>
+                                <input type="hidden" name="url" value="<?= htmlspecialchars($setorFiltro) ?>">
+                                <div class="botoes-filtrar">
+                                    <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button>
+                                    <button type="button" class="botao botao-primario botao-imprimir" onclick="imprimirComputadores()">Imprimir</button>
+                                </div>
+                            <?php endif ?>
+                        </form>
                     </div>
-                    ';
-                    // Validador para a questão das assinaturas
-                    if ($ano != '' and $semestre != '')
-                    {
-                        // aqui verifica se assinaturas do responsavel existe no banco, se existir ele imprime na tela como validada naquele ano e semestre
-                        // visivel para o TI e Usuário
-                        if ($assinaturasResponsavel)
-                        {
-                            echo 
-                            '
-                            <div class="assinar">
-                                <div class="flex assinar-flex">
-                                    <i class="fa-solid fa-circle-check fa-2xl" style="color: #63E6BE; padding: 0.5rem;"></i>
-                                    <h3>Assinatura Responsável do Setor: ' . htmlspecialchars($assinaturasResponsavel['nome']) . '.</h3>
-                                </div>
-                                <div class="flex assinar-flex" style="padding-top: 0.5rem;">';
-                                    $timestp = strtotime($assinaturasResponsavel['data']);
-                                    $dataBr = date('d/m/Y', $timestp);
-                                    
-                                    echo '
-                                    <p style="padding: 0 0 0 3rem; ">Assinada em: ' . htmlspecialchars($dataBr) . '</p>
-                                </div>
+                </div>
+                <?php if ($ano != '' && $semestre != ''): ?>
+                    <?php if ($assinaturasResponsavel): ?>
+                        <div class="assinar">
+                            <div class="flex assinar-flex">
+                                <i class="fa-solid fa-circle-check fa-2xl" style="color: #63E6BE; padding: 0.5rem;"></i>
+                                <h3>Assinatura do Responsável do Setor: <?= htmlspecialchars($assinaturasResponsavel['nome']) ?> </h3>
                             </div>
-                            ';
-                        }
-                        // se a assinatura não existir naquele ano e semestre ele tem a necessidade de criar uma assinatura
-                        else
-                        {
-                            // se o usuario for diferente de TI ele visualiza isso
-                            if($_SESSION['setor'] != 'TI')
-                            {
-                                echo
-                                '
-                                <div class="assinar">
+                            <div class="flex assinar-flex" style="padding-top: 0.5rem;">
+                                <?php
+                                    $dataBanco = strtotime($assinaturasResponsavel['data']);
+                                    $dataFormatada = date('d/m/Y', $dataBanco);
+                                ?>
+                                <p style="padding: 0 0 0 3rem; ">Assinada em: <?= htmlspecialchars($dataBr) ?></p>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <?php if ($_SESSION['setor'] != 'TI'): ?>
+                            <div class="assinar">
+                                <?php if (count($computadores) == 0): ?>
+                                    <div class="flex assinar-flex">
+                                        <h4 style="color: red;">Você não pode assinar uma preventiva que não possui computadores.</h4>
+                                    </div>
+                                <?php else: ?>
                                     <div class="flex assinar-flex">
                                         <form method="POST" action="../controllers/usuariosAssinar.php" class="form-flex form-assinar">
-                                            <input type="hidden" name="assinatura-nome" value="'. htmlspecialchars($_SESSION['nome']) .'">
-                                            <input type="hidden" name="assinatura-ano" value="'. htmlspecialchars($ano) .'">
-                                            <input type="hidden" name="assinatura-setor" value="'. htmlspecialchars($_SESSION['setor']) .'">
-                                            <input type="hidden" name="assinatura-semestre" value="'. htmlspecialchars($semestre) .'">
-                                            <input type="hidden" name="assinatura-unidade" value="'. htmlspecialchars($_SESSION['unidade']) .'">
+    
+                                            <input type="hidden" name="assinatura-nome" value="<?= htmlspecialchars($_SESSION['nome']) ?>">
+                                            <input type="hidden" name="assinatura-ano" value="<?= htmlspecialchars($ano) ?>">
+                                            <input type="hidden" name="assinatura-setor" valu="<?= htmlspecialchars($_SESSION['setor']) ?>">
+                                            <input type="hidden" name="assinatura-semestre" value="<?= htmlspecialchars($semestre) ?>">
+                                            <input type="hidden" name="assinatura-unidade" value="<?= htmlspecialchars($_SESSION['unidade']) ?>">
+                                            
                                             <label for="input-assinatura">Responsável do Setor</label>
-                                            <input type="text" id="input-assinatura" name="assinatura" placeholder="Assine com seu nome aqui" value="'. htmlspecialchars($_SESSION['nome']) .'" readonly> 
+                                            <input type="text" id="input-assinatura" name="assinatura" placeholder="Assine com seu nome aqui" value="<?= htmlspecialchars($_SESSION['nome']) ?>" readonly> 
                                             <button type="submit" class="botao botao-primario" onclick="confirmarAssinatura(event)">Assinar</button>
                                         </form>
                                     </div>
-                                </div>
-                                <div class="voltar">
-                                    '. voltar("preventiva.php?url=".$setorFiltro) .'
-                                </div>
-                                ';
-                            }
-                        }
-                        // se houver a assinatura do TI responsável pela preventiva daquele setor, o TI e o Usuário visualizam isso
-                        if ($assinaturasTecnicos)
-                        {
-                            echo 
-                            '
+                                    <div class="voltar">
+                                        <?= voltar('preventiva.php?url=' . $setorFiltro) ?>
+                                    </div>
+                                <?php endif ?>
+                            </div>
+                        <?php endif ?>    
+                    <?php endif ?>
+                    
+                    <?php if ($assinaturasTecnicos): ?>
+                        <div class="assinarTecnico">
+                            <div class="flex assinar-flex">
+                                <i class="fa-solid fa-circle-check fa-2xl" style="color: #63E6BE; padding: 0.5rem;"></i>
+                                <h3>Assinatura Técnico Responsável: <?= htmlspecialchars($assinaturasTecnicos['nome']) ?> </h3>
+                            </div>
+                            <div class="flex assinar-flex" style="padding-top: 0.5rem;">
+                                <?php    
+                                    $dataBanco = strtotime($assinaturasTecnicos['data']);
+                                    $dataFormatada = date('d/m/Y', $dataBanco);
+                                ?>
+                                <p style="padding: 0 0 0 3rem; ">Assinada em: <?= htmlspecialchars($dataBr) ?> </p>
+                            </div>
+                        </div>
+                        <div class="voltar">
+                            <?= voltar('preventiva.php?url=' . $setorFiltro) ?>
+                        </div>
+                    <?php else: ?>
+                        <?php if ($_SESSION['setor'] == 'TI'): ?>
                             <div class="assinarTecnico">
-                                <div class="flex assinar-flex">
-                                    <i class="fa-solid fa-circle-check fa-2xl" style="color: #63E6BE; padding: 0.5rem;"></i>
-                                    <h3>Assinatura Técnico Responsável: ' . htmlspecialchars($assinaturasTecnicos['nome']) . '.</h3>
-                                </div>
-                                <div class="flex assinar-flex" style="padding-top: 0.5rem;">';
-                                    // no banco a data está como Y/M/D, então é feita a conversão para o padrão brasileiro
-                                    $timestp = strtotime($assinaturasTecnicos['data']);
-                                    $dataBr = date('d/m/Y', $timestp);
-                                    
-                                    echo 
-                                    '
-                                    <p style="padding: 0 0 0 3rem; ">Assinada em: ' . htmlspecialchars($dataBr) . '</p>
-                                </div>
+                                <?php if (count($computadores) == 0): ?>
+                                    <div class="flex assinar-flex">
+                                        <h4 style="color: red;">Você não pode assinar uma preventiva que não possui computadores.</h4>
+                                    </div>
+                                <?php else: ?>
+                                    <div class="flex assinar-flex">
+                                        <form method="POST" action="../controllers/usuariosAssinarTI.php" class="form-flex form-assinar">
+                                            <input type="hidden" name="assinatura-nome" value="<?= htmlspecialchars($_SESSION['nome']) ?>">
+                                            <input type="hidden" name="assinatura-ano" value="<?= htmlspecialchars($ano) ?>">
+                                            <input type="hidden" name="assinatura-setor" value="<?= htmlspecialchars($setorFiltro) ?>">
+                                            <input type="hidden" name="assinatura-semestre" value="<?= htmlspecialchars($semestre) ?>">
+                                            <input type="hidden" name="assinatura-unidade" value="<?= htmlspecialchars($_SESSION['unidade']) ?>">
+                                            
+                                            <label>Assinatura do Técnico Responsável: </label>
+                                            <input type="text" id="input-assinatura-responsavel" name="assinatura" placeholder="Assine com seu nome aqui" value="<?= htmlspecialchars($_SESSION['nome']) ?>" readonly> 
+                                            <button type="submit" class="botao botao-primario" onclick="confirmarAssinatura(event)">Assinar</button>
+                                        </form>
+                                    </div>
+                                <?php endif ?>
                             </div>
                             <div class="voltar">
-                                '. voltar("preventiva.php?url=".$setorFiltro) .'
+                                <?= voltar('preventiva.php?url=' . $setorFiltro) ?>
                             </div>
-                            ';
-                        }
-                        // caso não houver a assinatura do tecnico ele precisa assinar
-                        else
-                        {   
-                            // se o setor do usuario for TI ele, e apenas ele, consegue ver a necessidade de assinar a preventiva, não sendo visivel para o usuário
-                            if ($_SESSION['setor'] == 'TI')
-                            {
-                            echo
-                            '
-                            <div class="assinarTecnico">
-                                <div class="flex assinar-flex">
-                                    <form method="POST" action="../controllers/usuariosAssinarTI.php" class="form-flex form-assinar">
-                                        <input type="hidden" name="assinatura-nome" value="'. htmlspecialchars($_SESSION['nome']) .'">
-                                        <input type="hidden" name="assinatura-ano" value="'. htmlspecialchars($ano) .'">
-                                        <input type="hidden" name="assinatura-setor" value="'. htmlspecialchars($setorFiltro) .'">
-                                        <input type="hidden" name="assinatura-semestre" value="'. htmlspecialchars($semestre) .'">
-                                        <input type="hidden" name="assinatura-unidade" value="'. htmlspecialchars($_SESSION['unidade']) .'">
-                                        <label>Assinatura do Técnico Responsável: </label>
-                                        <input type="text" id="input-assinatura-responsavel" name="assinatura" placeholder="Assine com seu nome aqui" value="'. htmlspecialchars($_SESSION['nome']) .'" readonly> 
-                                        <button type="submit" class="botao botao-primario" onclick="confirmarAssinatura(event)">Assinar</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="voltar">
-                                '. voltar("preventiva.php?url=".$setorFiltro) .'
-                            </div>
-                            ';
-                            }
-                        }
-                    }
-                // caso não haja o filtro de ano e semestre, ele apenas retorna o botão de voltar.
-                else
-                {
-                    echo
-                    '
-                    <div class="voltar">
-                        '. voltar("preventiva.php?url=".$setorFiltro) .'
-                    </div>
-                    ';
-                }
-                // LISTAGEM COMPUTADORES
-                // aqui é listado todos os computadores de todos os semestres e anos, apenas do setor que o usuário esteja visualizando.
-                listarComputadores($computadores, $setorUsuario, $unidadeUsuario);
-                imprimirTabelaComputadores($computadores);
-            }
-            ?>
+                        <?php endif ?>
+                    <?php endif ?>
+                <?php else: ?>
+                    <?php if ($_SESSION['setor'] == 'TI'): ?>
+                        <div class="voltar">
+                            <?= voltar('preventiva.php') ?>
+                        </div>    
+                    <?php else: ?>
+                        <div class="voltar">
+                            
+                        </div>                    
+                    <?php endif ?>
+                <?php endif ?>
+                <?= listarComputadores($computadores, $setorUsuario, $unidadeUsuario) ?>
+                <?= imprimirTabelaComputadores($computadores) ?>
+            <?php endif ?>
         </main>
     </div>
 </body>
-    <script src="../public/javascript/setores/searchSetor.js"></script>
+<?php
 
-    <script src="../public/javascript/computadores/atualizarComputadores.js"></script>
-    <script src="../public/javascript/computadores/excluirComputadores.js"></script>
-    <script src="../public/javascript/computadores/imprimirComputadores.js"></script>
-    
-    <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
-    <script src="../public/javascript/animar/search/animarSearch.js"></script>
-    <script src="../public/javascript/animar/setores/animarSetores.js"></script>
-    <script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
-    <script src="../public/javascript/animar/filtro/animarFiltro.js"></script>
-    <script src="../public/javascript/animar/assinar/animarAssinar.js"></script>
-    <script src="../public/javascript/animar/assinar/animarAssinarTecnicos.js"></script>
-    <script src="../public/javascript/animar/computadores/animarListagemComputadores.js"></script>
-    <script src="../public/javascript/animar/bar/animarBar.js"></script>
-    
-    <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
-    <script src="../public/javascript/assinaturas/confirmarAssinatura.js"></script>
-    <script src="../public/javascript/bar/bar.js"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+require_once "../public/components/scripts/scriptPreventiva.php";
+require_once "../public/components/scripts/scriptAlert.php";
+
+?>
 </html>

@@ -4,6 +4,6 @@ document.addEventListener("DOMContentLoaded", function(){
     if(animarListagem){
         setTimeout(() => {
             animarListagem.classList.add("show");
-        }, 100)
+        }, 100);
     }
 });
