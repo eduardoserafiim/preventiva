@@ -1,10 +1,16 @@
 <?php
+
+// VERIFICAÇÃO LOGIN
 session_start();
 if (!isset($_SESSION['usuario'])) {
     header("Location: login.php");
     exit;
 }
 
+?>
+<?php
+
+// COMPONENTS
 require_once "../public/components/header/header.php";
 require_once "../public/components/navbar/navbar.php";
 require_once "../public/components/bar/bar.php";
@@ -24,15 +30,12 @@ require_once "../public/components/bar/bar.php";
         </main>
     </div>    
 </body>
-    <script src="../public/javascript/form/limparFormulario.js"></script>
+<?php 
 
-    <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
-    <script src="../public/javascript/animar/bar/animarBar.js"></script>
+require_once "../public/components/scripts/scriptImpressoras.php";
+require_once "../public/components/scripts/scriptAlert.php";
 
-    <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
-    <script src="../public/javascript/bar/bar.js"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+?>
 </html>
 
 

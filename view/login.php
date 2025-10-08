@@ -1,6 +1,6 @@
 <?php
 
-// VERIFICADOR LOGIN
+// VERIFICAÇÃO LOGIN
 session_start();
 if (isset($_SESSION['usuario'])) {
     header("Location: index.php");
