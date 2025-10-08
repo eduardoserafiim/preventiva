@@ -28,6 +28,12 @@ function listarSetores(array $setores)
                                 </button>
                             </form>
                         </div>
+                        <div class="equipment-info">
+                            <div class="info-row" style="display: none;">
+                                <span class="info-label">Nome:</span>
+                                <span class="info-value" data-key="nome"><?= htmlspecialchars($setor['nome']) ?></span>
+                            </div>
+                        </div>
                     </div>
                 <?php endforeach ?>
             <?php endif ?>

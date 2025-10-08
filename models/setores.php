@@ -42,7 +42,7 @@ class SetorModel{
         try {
             $sql = 'UPDATE setores
                 SET nome = :nome
-                WHERE id: :id;
+                WHERE id = :id;
                 ';
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
