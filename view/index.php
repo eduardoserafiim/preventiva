@@ -51,13 +51,24 @@ $url = $_GET['url'] ?? '';
                         <?= assinaturasListar($assinaturas) ?>
                     </div>    
                 </div>
+            <?php elseif ($_SESSION['privilegio'] == 'TI' && $url == 'minhas-preventivas'): ?>
+                <div class="page-header">
+                    <h1>Minhas preventivas</h1>
+                    <p>Visualize as suas preventivas realizadas e à serem realizadas.</p>
+                </div>
+                <div class="voltar">
+                    <?= voltar('index.php') ?>
+                </div>
+                <div class="fundo-container">
+                    
+                </div>
             <?php else: ?>
                 <div class="page-header">
                     <h1>Bem vindo, <?= ucfirst(htmlspecialchars($_SESSION['nome'])) ?>!</h1>
                     <p>Visualize as informações gerais</p>
                 </div>
                 <div class="fundo-container">
-                    <?php if ($_SESSION['privilegio'] != "TI" and $_SESSION['privilegio'] != 'administrador'): ?>
+                    <?php if ($_SESSION['privilegio'] != "TI" && $_SESSION['privilegio'] != 'administrador'): ?>
                         <p>Estamos trabalhando nisso...</p>
                         <p>Que tal dar uma olhada na preventiva?</p>
                     <?php endif ?>    
@@ -66,11 +77,10 @@ $url = $_GET['url'] ?? '';
                             <h2 style="margin-bottom: 1rem;">Menu</h2>
                             <div class="opcoes">
                                 <?php foreach ($opcoes as $opcao): ?>
-                                    <?= criarOpcoesDiv($opcao[1], $opcao[0], $opcao[2]) ?>
+                                    <?= criarOpcoesDiv($opcao[1], $opcao[0], $opcao[2], $opcao[3]) ?>
                                 <?php endforeach ?>
                             </div>
                         </div>
-                        
                     <?php endif ?>
                     <?php if ($_SESSION['privilegio'] == 'administrador'): ?>
                         <p>Ainda estamos trabalhando nisso...</p>

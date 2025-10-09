@@ -1,0 +1,7 @@
+.opcoes
+{
+    display: grid;
+    grid-template-rows: repeat(200px);
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    place-items: center;
+}
