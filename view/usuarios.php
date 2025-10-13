@@ -17,6 +17,7 @@ if ($_SESSION['privilegio'] != 'administrador')
 
 // MODELS
 require_once '../models/usuarios.php';
+require_once '../models/setores.php';
 
 // COMPONENTS
 require_once '../public/components/header/header.php';
@@ -24,7 +25,6 @@ require_once '../public/components/navbar/navbar.php';
 require_once '../public/components/bar/bar.php';
 require_once '../public/components/voltar.php';
 require_once '../public/components/search.php';
-require_once '../public/components/setores/optionSetores.php';
 require_once '../public/components/usuarios/usuariosDiv.php';
 require_once '../public/components/usuarios/usuariosListar.php';
 require_once '../public/components/usuarios/dictionaryUsuarios.php';
@@ -44,6 +44,16 @@ $erro = $_GET['erro'] ?? null;
 $id = intval($_GET['id'] ?? 0);
 
 $db = new UsuarioModel();
+$dbsetores = new SetorModel();
+
+if ($setores === false) 
+{
+    echo json_encode([]);
+} 
+else 
+{
+    echo json_encode($setores);
+}
 
 if ($url) 
 {

@@ -59,7 +59,7 @@ create table assinaturas(
     data date NOT NULL
 );
 
-create table assinaturastecnicos(
+create table assinaturasTecnicos(
 	id int AUTO_INCREMENT,
 	primary key(id),
 	nome varchar(50) NOT NULL,

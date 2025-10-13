@@ -20,7 +20,6 @@ require_once '../models/setores.php';
 require_once '../public/components/header/header.php';
 require_once '../public/components/navbar/navbar.php';
 require_once '../public/components/bar/bar.php';
-require_once '../public/components/setores/optionSetores.php';
 
 // FORMS
 require_once '../public/components/form/computadores/formFlex.php';

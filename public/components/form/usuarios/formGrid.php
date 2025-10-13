@@ -1,7 +1,10 @@
 <?php 
 
 function formGrid() {
-    return '
+    $model = new SetorModel();
+    $setores = $model->listar();
+
+    $html = '
     <div class="form-grid">
         <div class="form-group step active">
             <div class="nome">
@@ -44,11 +47,17 @@ function formGrid() {
         <div class="form-group step">
             <label for="select-setor">Setor</label>
             <select id="select-setor" name="setor" required>
-                <option value="" disabled selected>Selecione...</option>
-                ' . selectSetores() . '
+                <option value="" disabled selected>Selecione...</option>';
+                foreach($setores as $setor)
+                {
+                    $html .= "<option value='{$setor['nome']}'>" . htmlspecialchars($setor['nome']) . "</option>";
+                }  
+
+    $html .= '
             </select>
         </div>
     </div>';
-}
 
+    return $html;
+}
 ?>
