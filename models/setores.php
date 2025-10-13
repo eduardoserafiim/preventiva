@@ -20,20 +20,34 @@ class SetorModel{
                 ':nome' => $data['nome'],
                 ':icon' => $data['icon'],
             ]);
-        } catch (\Throwable $th) {
-            //throw $th;
+        } 
+        catch (PDOException $e) 
+        {
+            error_log("Erro ao criar o setor: " . $e->getMessage());
+
+            return false;
         }
     }
 
     public function listar()
     {
-        $sql = 'SELECT * 
-        FROM setores
-        ORDER BY nome';
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute();
+        try
+        {
+            $sql = 'SELECT * 
+                FROM setores
+                ORDER BY nome';
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute();
+    
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e) 
+        {
+            error_log("Erro ao listar setor: " . $e->getMessage());
+         
+            return false;
+        }
     }
 
     public function atualizar($id, $data)
@@ -52,7 +66,8 @@ class SetorModel{
         } 
         catch (PDOException $e) 
         {
-            error_log("Erro ao atualizar usuario: " . $e->getMessage());
+            error_log("Erro ao atualizar setor: " . $e->getMessage());
+
             return false;
         }
         
@@ -60,33 +75,42 @@ class SetorModel{
 
     public function apagar($id)
     {
-        $sql = "DELETE
-        FROM setores
-        WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        
-        return $stmt->execute();
+        try
+        {
+            $sql = "DELETE
+                FROM setores
+                WHERE id = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            
+            return $stmt->execute();
+        }
+        catch (PDOException $e) 
+        {
+            error_log("Erro ao apagar o setor: " . $e->getMessage());
+         
+            return false;
+        }
     }
 
     public function validar($nome)
     {
-        $sql = 'SELECT *
-        FROM setores
-        WHERE nome = :nome 
-        LIMIT 1';
-
         try 
         {
+            $sql = 'SELECT *
+                FROM setores
+                WHERE nome = :nome 
+                LIMIT 1';
             $stmt = $this->db->prepare($sql);
             $stmt->execute([':nome' => $nome]);
 
             return $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (\Throwable $th) 
+        } 
+        catch (PDOException $e) 
         {
-            //throw $th;
+            error_log("Erro ao validar o setor: " . $e->getMessage());
+         
+            return false;
         }
-        
     }
-
 };
