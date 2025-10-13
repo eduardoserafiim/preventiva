@@ -46,14 +46,6 @@ $id = intval($_GET['id'] ?? 0);
 $db = new UsuarioModel();
 $dbsetores = new SetorModel();
 
-if ($setores === false) 
-{
-    echo json_encode([]);
-} 
-else 
-{
-    echo json_encode($setores);
-}
 
 if ($url) 
 {
