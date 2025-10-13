@@ -36,7 +36,7 @@ require_once '../public/components/form/computadores/formActions.php';
                 <p>Cadastre um computador</p>
             </div>
             <div class="form-container">
-                <form method="POST" action="../controllers/computadoresCriar.php" id="formularioComputadores" class="equipment-form">
+                <form method="POST" action="../controllers/computadores/computadoresCriar.php" id="formularioComputadores" class="equipment-form">
                     <?= formFlex() ?>
                     <?= formGrid() ?>
                     <?= formLegenda() ?>

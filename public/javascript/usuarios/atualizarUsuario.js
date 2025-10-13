@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '../controllers/usuariosEditar.php';
+            form.action = '../controllers/usuarios/usuariosEditar.php';
 
             const inputId = document.createElement('input');
             inputId.type = 'hidden';

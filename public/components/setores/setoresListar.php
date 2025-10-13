@@ -21,7 +21,7 @@ function listarSetores(array $setores)
                             <button type="button" class="botao botao-primario editarSetor" data-id="<?= $setor['id'] ?>">
                                 <i class="fa-solid fa-pencil"></i> Editar
                             </button>
-                            <form method="POST" action="../controllers/setoresApagar.php">
+                            <form method="POST" action="../controllers/setores/setoresApagar.php">
                                 <input type="hidden" name="apagarSetor" value="<?= $setor['id'] ?>">    
                                 <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
                                     <i class="fas fa-eraser"></i> Apagar

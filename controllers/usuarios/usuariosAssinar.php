@@ -1,8 +1,8 @@
 <?php
-require_once "../db/db.php";
-require_once "../models/assinaturas.php";
+require_once '../../db/db.php';
+require_once '../../models/assinaturas.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST")
+if ($_SERVER["REQUEST_METHOD"] === 'POST')
 {
     $setor = $_POST['assinatura-setor'];
 
@@ -16,11 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     ];
 
     $model = new AssinaturaModel();
-    $assinar = $model->criarTecnicos($data);
+    $assinar = $model->criarResponsaveis($data);
 
     if($assinar)
     {
-        header("Location: ../view/preventiva.php?url=".urldecode($setor));
+        header("Location: ../../view/preventiva.php?url=".urldecode($setor));
         exit();
     }
     else

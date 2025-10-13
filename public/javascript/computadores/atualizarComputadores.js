@@ -38,7 +38,7 @@
 
                 const form = document.createElement('form');
                 form.method = 'POST';
-                form.action = '../controllers/computadoresEditar.php';
+                form.action = '../controllers/computadores/computadoresEditar.php';
 
                 const inputId = document.createElement('input');
                 inputId.type = 'hidden';

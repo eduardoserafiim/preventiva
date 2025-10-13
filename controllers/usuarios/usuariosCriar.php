@@ -1,6 +1,6 @@
 <?php
-require_once '../db/db.php';
-require_once '../models/usuarios.php';
+require_once '../../db/db.php';
+require_once '../../models/usuarios.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuarioController = new UsuarioModel();
@@ -32,5 +32,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuarioController->criar($data);
 }
 
-header('Location: ../view/usuarios.php');
+header('Location: ../../view/usuarios.php?url=listar');
 exit();

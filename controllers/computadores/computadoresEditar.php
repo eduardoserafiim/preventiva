@@ -1,7 +1,9 @@
 <?php
-require_once "../models/computadores.php";
+require_once '../../db/db.php';
+require_once '../../models/computadores.php';
 
-function alterarComputadores(){
+if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+{
     $id = intval($_POST['id']);
     $data = [
         'setor' => $_POST['setor'] ?? '',
@@ -35,15 +37,20 @@ function alterarComputadores(){
     $model = new ComputerModel();
     $atualizar = $model->atualizar($id, $data);
     
-    if ($atualizar){
+    if ($atualizar)
+    {
         echo "Computador atualizado com sucesso!";
-    } else {
+    } 
+    else 
+    {
         echo "Erro ao atualizar computador: " . $model->getLastError();
     }
 
+}
+else
+{
+    echo "Erro ao aceitar o metódo.";
 };
 
-alterarComputadores();
-
-header("Location: ../view/preventiva.php?url=". $_POST['setor']);
+header("Location: ../../view/preventiva.php?url=". $_POST['setor']);
 exit();

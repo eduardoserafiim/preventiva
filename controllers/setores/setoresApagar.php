@@ -1,7 +1,8 @@
 <?php
-require_once "../models/setores.php";
+require_once '../../db/db.php';
+require_once '../../models/setores.php';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apagarSetor']))
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarSetor']))
 {
     $id = intval($_POST['apagarSetor']);
 
@@ -18,5 +19,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['apagarSetor']))
     }
 }
 
-header("Location: ../view/setores.php?url=listar");
+header("Location: ../../view/setores.php?url=listar");
 exit();

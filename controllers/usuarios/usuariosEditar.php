@@ -1,9 +1,11 @@
 <?php
-require_once "../models/usuarios.php";
+require_once '../../db/db.php';
+require_once '../../models/usuarios.php';
 
-function alterarUsuarios()
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     $id = intval($_POST['id']);
+
     $data = [
         'nome' => $_POST['nome'] ?? '',
         'usuario' => $_POST['usuario'] ?? '',
@@ -18,13 +20,16 @@ function alterarUsuarios()
     if ($atualizar)
     {
         echo "Usuário atualizado com sucesso";
-    }else
+    }
+    else
     {
         echo "Erro ao atualizar o usuário";
     }
+}
+else
+{
+    echo 'Erro ao aceitar o metódo.';
 };
 
-alterarUsuarios();
-
-header("Location: ../view/usuarios.php?acaoUsuario=listar");
+header("Location: ../../view/usuarios.php?url=listar");
 exit();

@@ -1,8 +1,9 @@
 <?php
-require_once '../db/db.php';
-require_once '../models/computadores.php';
+require_once '../../db/db.php';
+require_once '../../models/computadores.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+{
     $data = [
         'semestre' => $_POST['semestre'],
         'ano' => $_POST['ano'],
@@ -36,9 +37,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $computerController = new ComputerModel();
     $computerController->criar($data);
     echo 'sucesso';
-} else {
-    echo 'sucesso';
+} 
+else {
+    echo 'erro';
 }
 
-header("Location: ../view/preventiva.php?url=". $_POST['setor']);
+header("Location: ../../view/preventiva.php?url=". $_POST['setor']);
 exit();

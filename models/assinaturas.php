@@ -1,6 +1,4 @@
 <?php
-require_once "../db/db.php";
-
 class AssinaturaModel{
     private $db;
     public function __construct() 

@@ -61,7 +61,7 @@ $setoresdb = $dbsetor->listar();
                 </div>
                 <div class="controleForm" style="margin: 0px">
                     <div class="form-container">
-                        <form action="../controllers/setoresCriar.php" method="POST" id="formularioSetores" class="equipment-form">
+                        <form action="../controllers/setores/setoresCriar.php" method="POST" id="formularioSetores" class="equipment-form">
                             <?= formGrid() ?>
                             <?= formActions() ?>
                         </form>

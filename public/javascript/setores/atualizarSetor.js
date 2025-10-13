@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function ()
     
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '../controllers/setoresEditar.php';
+            form.action = '../controllers/setores/setoresEditar.php';
             
             const id_input = document.createElement('input');
             id_input.type = 'hidden';

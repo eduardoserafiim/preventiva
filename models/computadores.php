@@ -1,7 +1,6 @@
 <?php
-require_once '../db/db.php';
-
-class ComputerModel {
+class ComputerModel 
+{
     private $db;
     private $lastError;
 

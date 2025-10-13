@@ -1,5 +1,6 @@
 <?php
-require_once "../models/usuarios.php";
+require_once '../../db/db.php';
+require_once "../../models/usuarios.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarUsuario'])) 
 {
@@ -16,5 +17,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarUsuario']))
     }
 }
 
-header("Location: ../view/usuarios.php?acaoUsuario=listar");
+header("Location: ../../view/usuarios.php?url=listar");
 exit();

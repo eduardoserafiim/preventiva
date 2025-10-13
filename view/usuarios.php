@@ -66,7 +66,7 @@ if ($url)
                 </div>
                 <div class="controleForm" style="margin: 0px;">
                     <div class="form-container">
-                        <form action="../controllers/usuariosCriar.php" method="POST" id="formularioUsuarios" class="equipment-form">
+                        <form action="../controllers/usuarios/usuariosCriar.php" method="POST" id="formularioUsuarios" class="equipment-form">
                             <?= formGrid() ?>
                             <?= formActions() ?>
                         </form>
@@ -86,7 +86,7 @@ if ($url)
                 </div>
                 <div class="controleForm" style="margin: 0px;">
                     <div class="form-container">
-                        <form action="../controllers/usuariosAlterarSenha.php" method="POST" id="formularioUsuarios" class="equipment-form">
+                        <form action="../controllers/usuarios/usuariosAlterarSenha.php" method="POST" id="formularioUsuarios" class="equipment-form">
                             <?= formGridSenha($id) ?>
                             <?= formActionsAlterarSenha() ?>
                         </form>

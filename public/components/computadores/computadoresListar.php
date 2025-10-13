@@ -22,7 +22,7 @@ function listarComputadores(array $computadores, string $usuarioSetor, $unidadeU
                                     <input type="hidden" id="unidadeUsuario" value="<?= $unidadeUsuario ?>">
                                     <i class="fa-solid fa-pencil"></i> Editar
                                 </button>
-                                <form method="POST" action="../controllers/computadoresApagar.php" style="display:inline-block;">
+                                <form method="POST" action="../controllers/computadores/computadoresApagar.php" style="display:inline-block;">
                                     <input type="hidden" name="apagarComputador" value="<?= $computer['id'] ?>">
                                     <input type="hidden" name="url" value="<?= $computer['setor'] ?>">
                                     <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">

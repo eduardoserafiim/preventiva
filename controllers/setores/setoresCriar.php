@@ -1,8 +1,8 @@
 <?php
-require_once "../db/db.php";
-require_once "../models/setores.php";
+require_once '../../db/db.php';
+require_once "../../models/setores.php";
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     $model = new SetorModel();
 
@@ -23,5 +23,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     $model->criar($data);
 }
 
-header("Location: ../view/setores.php");
+header("Location: ../../view/setores.php?url=listar");
 exit();
