@@ -28,7 +28,8 @@ class SetorModel{
     public function listar()
     {
         $sql = 'SELECT * 
-        FROM setores';
+        FROM setores
+        ORDER BY nome';
         $stmt = $this->db->prepare($sql);
         $stmt->execute();
 
