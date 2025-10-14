@@ -150,7 +150,7 @@ if ($setorFiltro)
                                     $dataBanco = strtotime($assinaturasResponsavel['data']);
                                     $dataFormatada = date('d/m/Y', $dataBanco);
                                 ?>
-                                <p style="padding: 0 0 0 3rem; ">Assinada em: <?= htmlspecialchars($dataBr) ?></p>
+                                <p style="padding: 0 0 0 3rem; ">Assinada em: <?= htmlspecialchars($dataFormatada) ?></p>
                             </div>
                         </div>
                     <?php else: ?>
@@ -162,7 +162,7 @@ if ($setorFiltro)
                                     </div>
                                 <?php else: ?>
                                     <div class="flex assinar-flex">
-                                        <form method="POST" action="../controllers/usuariosAssinar.php" class="form-flex form-assinar">
+                                        <form method="POST" action="../controllers/usuarios/usuariosAssinar.php" class="form-flex form-assinar">
     
                                             <input type="hidden" name="assinatura-nome" value="<?= htmlspecialchars($_SESSION['nome']) ?>">
                                             <input type="hidden" name="assinatura-ano" value="<?= htmlspecialchars($ano) ?>">
@@ -194,7 +194,7 @@ if ($setorFiltro)
                                     $dataBanco = strtotime($assinaturasTecnicos['data']);
                                     $dataFormatada = date('d/m/Y', $dataBanco);
                                 ?>
-                                <p style="padding: 0 0 0 3rem; ">Assinada em: <?= htmlspecialchars($dataBr) ?> </p>
+                                <p style="padding: 0 0 0 3rem; ">Assinada em: <?= htmlspecialchars($dataFormatada) ?> </p>
                             </div>
                         </div>
                         <div class="voltar">
@@ -207,9 +207,13 @@ if ($setorFiltro)
                                     <div class="flex assinar-flex">
                                         <h4 style="color: red;">Você não pode assinar uma preventiva que não possui computadores.</h4>
                                     </div>
+                                <?php elseif ($_SESSION['usuario'] === 'administrador' or $_SESSION['nome'] === 'Administrador'): ?>
+                                    <div class="flex assinar-flex">
+                                    <h4 style="color: red;">Usuário Administrador não tem permissão para assinar uma preventiva.</h4>
+                                    </div>
                                 <?php else: ?>
                                     <div class="flex assinar-flex">
-                                        <form method="POST" action="../controllers/usuariosAssinarTI.php" class="form-flex form-assinar">
+                                        <form method="POST" action="../controllers/usuarios/usuariosAssinarTI.php" class="form-flex form-assinar">
                                             <input type="hidden" name="assinatura-nome" value="<?= htmlspecialchars($_SESSION['nome']) ?>">
                                             <input type="hidden" name="assinatura-ano" value="<?= htmlspecialchars($ano) ?>">
                                             <input type="hidden" name="assinatura-setor" value="<?= htmlspecialchars($setorFiltro) ?>">

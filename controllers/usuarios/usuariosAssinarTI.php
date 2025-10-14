@@ -4,28 +4,33 @@ require_once "../../models/assinaturas.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
-    $setor = $_POST['assinatura-setor'];
-
-    $data = [
-        'nome' => $_POST['assinatura-nome'],
-        'ano' => $_POST['assinatura-ano'],
-        'semestre' => $_POST['assinatura-semestre'],
-        'setor' => $setor,
-        'unidade' => $_POST['assinatura-unidade'],
-        'assinatura' => $_POST['assinatura'],
-    ];
-
-    $model = new AssinaturaModel();
-    $assinar = $model->criarTecnicos($data);
-
-    if($assinar)
+    if ($_SESSION['usuario'] == 'administrador' or $_SESSION['nome'] == 'Administrador')
     {
-        header("Location: ../../view/preventiva.php?url=".urldecode($setor));
-        exit();
+        return false;
     }
     else
-    {   
-
-        echo "Erro: ". $e->getMessage();
+    {
+        try {
+            $setor = $_POST['assinatura-setor'];
+        
+            $data = [
+                'nome' => $_POST['assinatura-nome'],
+                'ano' => $_POST['assinatura-ano'],
+                'semestre' => $_POST['assinatura-semestre'],
+                'setor' => $setor,
+                'unidade' => $_POST['assinatura-unidade'],
+                'assinatura' => $_POST['assinatura'],
+            ];
+        
+            $model = new AssinaturaModel();
+            $assinar = $model->criarTecnicos($data);
+                    
+        } catch (Exception $e) {
+            echo 'Um erro ocorreu durante a assinatura do usuário: ', $e;
+        }
     }
 }
+
+header("Location: ../../view/preventiva.php?url=".urldecode($setor));
+exit();
+         
