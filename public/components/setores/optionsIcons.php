@@ -27,5 +27,6 @@ function optionIcons()
     <option value="fa-download">Download</option>
     <option value="fa-wifi">Wifi</option>
     <option value="fa-battery-full">Bateria Cheia</option>
+    <option value="fa-hospital">Hospital</option>
     ';
 }

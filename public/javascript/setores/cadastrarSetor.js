@@ -3,41 +3,25 @@ const botao = document.querySelector(".botao-primario");
 function salvarFormulario(event) {
     event.preventDefault();
 
-    const formulario = document.querySelector("form");
-
-    if (!formulario.checkValidity()) 
-    {
-        Swal.fire({
-            icon: 'error',
-            title: 'Setor não criado.',
-            text: 'Algo deu errado e o setor não foi criado.',
-            confirmButtonText: 'Continuar',
-            customClass: 
-            {
-                confirmButton: 'botao botao-primario'
-            },
-            buttonsStyling: false
-        });
-        
-        formulario.reportValidity();
-        return;
-
-    } 
-    else
-    {
-        Swal.fire({
-            icon: 'success',
-            title: 'Setor criado com sucesso!',
-            confirmButtonText: 'Continuar',
-            customClass: 
-            {
-                confirmButton: 'botao botao-primario'
-            },
-            buttonsStyling: false,
-            allowOutsideClick: false,
-            allowEscapeKey: false
-        }).then(() => {
-            formulario.submit();
-        });
-    }
+    Swal.fire({
+        icon: 'warning',
+        title: 'Tem certeza desta ação?',
+        text: "Você está CRIANDO um setor",
+        showCancelButton: true,
+        confirmButtonText: 'Sim, criar',
+        cancelButtonText: 'Cancelar',
+        reverseButtons: false,
+        customClass: {
+            confirmButton: 'botao botao-primario',
+            cancelButton: 'botao botao-cancelar'
+        },
+        buttonsStyling: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const form = event.target.closest('form');
+            if (form) {
+                form.submit();
+            }
+        }
+    });
 }

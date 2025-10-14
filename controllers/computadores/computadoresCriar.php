@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 } 
 else 
 {
-    echo 'Tipo de requisição não aceitavel para a criação do computador.';
+    echo 'Tipo de requisição não aceitável para a criação do computador.';
 
     $_SESSION['mensagem'] = 
     [
