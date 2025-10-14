@@ -25,6 +25,23 @@ include_once "../public/components/form/login/formActions.php";
 $url = $_GET["url"] ?? '';
 
 ?>
+<?php if (isset($_SESSION['mensagem'])): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            Swal.fire({
+                icon: '<?= htmlspecialchars($_SESSION["mensagem"]["tipo"]) ?>',
+                title: '<?= htmlspecialchars($_SESSION["mensagem"]["titulo"]) ?>',
+                text: '<?= htmlspecialchars($_SESSION["mensagem"]["texto"]) ?>',
+                confirmButtonText: 'Continuar',
+                customClass: {
+                    confirmButton: 'botao botao-primario'
+                },
+                buttonsStyling: false
+            });
+        });
+    </script>
+    <?php unset($_SESSION['mensagem']); ?>
+<?php endif; ?>
 <body>
     <div class="app-container">
         <!-- NAVBAR -->
@@ -71,5 +88,10 @@ $url = $_GET["url"] ?? '';
         </main>
     </div>
 </body>
-<?php include_once "../public/components/scripts/scriptLogin.php"; ?>
+<?php 
+    
+    include_once "../public/components/scripts/scriptLogin.php"; 
+    include_once "../public/components/scripts/scriptAlert.php";
+
+?>
 </html>
