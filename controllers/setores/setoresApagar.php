@@ -2,22 +2,53 @@
 require_once '../../db/db.php';
 require_once '../../models/setores.php';
 
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarSetor']))
 {
-    $id = intval($_POST['apagarSetor']);
-
-    $model = new SetorModel();
-    $apagar = $model->apagar($id);
-
-    if ($apagar)
+    try
     {
-        echo "Setor excluído com sucesso.";
+        $id = intval($_POST['apagarSetor']);
+    
+        $model = new SetorModel();
+        $model->apagar($id);
+
+        $_SESSION['mensagem'] =
+        [
+            'tipo' => 'success',
+            'titulo' => 'Sucesso ao excluir o setor!',
+            'texto' => 'O setor foi excluido do sistema.'
+        ];
+
+        header("Location: ../../view/setores.php?url=listar");
+        exit();
     }
-    else
+    catch (Exception $e)
     {
-        echo "Erro ao excluir o setor.";
+        echo 'Ocorreu algum erro durante a exclusão do setor: ', $e;
+
+        $_SESSION['mensagem'] =
+        [
+            'tipo' => 'warning',
+            'titulo' => 'Erro ao excluir o setor!',
+            'texto' => 'O setor não foi excluido do sistema.'
+        ];
+
+        header("Location: ../../view/setores.php?url=listar");
+        exit();
     }
 }
+else
+{
+    echo 'Tipo de requisição não aceitável para a exclusão do setor.';
 
-header("Location: ../../view/setores.php?url=listar");
-exit();
+    $_SESSION['mensagem'] =
+        [
+            'tipo' => 'error',
+            'titulo' => 'Erro ao excluir o setor!',
+            'texto' => 'O metódo solicitado não foi aceito.'
+        ];
+
+    header("Location: ../../view/setores.php?url=listar");
+    exit();
+}

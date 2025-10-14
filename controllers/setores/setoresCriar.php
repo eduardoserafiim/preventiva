@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
                 'texto' => 'O setor não foi cadastrado no sistema.'
             ];
 
-            header("Location ../../view/setores.php?url=criar");
+            header("Location: ../../view/setores.php?url=criar");
             exit();
         }
         else
