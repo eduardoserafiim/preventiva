@@ -36,7 +36,7 @@ function listarUsuarios(array $usuarios)
                             </div>
                             <div class="info-row">
                                 <span class="info-label">Setor:</span>
-                                <span class="info-value" data-key="setor"><?= htmlspecialchars($usuario["setor"]) ?></span>
+                               <span class="info-value" data-key="setor" data-value="<?= htmlspecialchars($usuario['setor']) ?>"><?= htmlspecialchars($usuario["setor"]) ?></span>
                             </div>
                             <div class="info-row">
                                 <span class="info-label">Privilégio:</span>

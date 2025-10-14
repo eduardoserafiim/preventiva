@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 let input;
                 if (key === 'senha') {
-                    // botão no lugar do input
                     input = document.createElement('button');
                     input.type = 'button';
                     input.className = 'botao botao-secundario botao-usuario-alterar-senha';
@@ -62,26 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             options = ['usuario', 'TI', 'administrador'];
                             break;
                         case 'setor':
-                            options = [
-                                'Administração', 'Almoxarifado', 'Ambulatório', 'Auditoria de Enfermagem',
-                                'Banco de Sangue', 'CAF', 'Capelania', 'Central de Autorizações',
-                                'Central de Consultas', 'Centro Cirúrgico', 'CME', 'Cobrança',
-                                'Compras', 'Comunicação', 'Contabilidade', 'CTI', 'CTI 2', 'CTI 3',
-                                'CTI 4', 'Custos', 'CVS', 'Departamento Comercial', 'Departamento Pessoal',
-                                'Diagnóstico Imagem', 'Farmácia Central', 'Faturamento', 'Financeiro',
-                                'Fisioterapia', 'Gerência de Enfermagem', 'Gestão de Leitos',
-                                'Hemodinâmica', 'Hotelaria', 'Jardinagem', 'Jurídico',
-                                'Laboratório', 'Lavanderia', 'Manutenção', 'Marcenaria', 'NEP', 'NEWENG',
-                                'NIR', 'OPME', 'Ouvidoria', 'Pronto Atendimento', 'Psicologia',
-                                'Qualidade', 'Radiologia', 'Recepção', 'Recepção Ambulatório de Ortopedia',
-                                'Recepção do Centro de Diagnósticos', 'Recepção Internação',
-                                'Recepção Pronto Atendimento', 'Recurso de Glosa', 'Recursos Humanos',
-                                'Repasse Médico', 'SAME', 'SCIH', 'Serviço de Higiene e Limpeza',
-                                'SESMT', 'SND', 'Supervisão de Enfermagem', 'TI', 'Totalmedcare', 'Transplante',
-                                'Transporte', 'Ultrassom', 'Unidade Internação 1° Andar',
-                                'Unidade Internação 2° Andar', 'Unidade Internação Cirúrgica',
-                                'Unidade Internação Clínica', 'Vigilância', 'Enfermaria'
-                            ];
+                            options = window.setores.map(setor => setor.nome); 
                             break;
                         case 'unidade':
                             options = ['HAP - UC', 'HAP - MATRIZ', 'administrador'];
@@ -90,12 +70,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
                     options.forEach(optValue => {
                         const option = document.createElement('option');
-                        option.value = optValue;
+                        option.value = optValue; 
                         option.textContent = optValue;
+
                         if (optValue === value) option.selected = true;
+
                         input.appendChild(option);
                     });
-
                 } else {
                     input = document.createElement('input');
                     input.type = (key === 'senha') ? 'password' : 'text';

@@ -245,6 +245,9 @@ if ($setorFiltro)
         </main>
     </div>
 </body>
+<script>
+    window.setores = <?php echo json_encode($setores); ?>;
+</script>
 <?php
 
 require_once "../public/components/scripts/scriptPreventiva.php";

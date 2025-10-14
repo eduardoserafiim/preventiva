@@ -66,7 +66,7 @@ function listarComputadores(array $computadores, string $usuarioSetor, $unidadeU
                                 ?>
                                 <div class="info-row">
                                     <span class="info-label"><?= $label ?>:</span>
-                                    <span class="info-value" id="<?= $key ?>-<?= $computer["id"] ?>" data-key="<?= $key ?>">
+                                    <span class="info-value" id="<?= $key ?>-<?= $computer["id"] ?>" data-key="<?= $key ?>" data-value="<?= htmlspecialchars($computer['setor']) ?>">
                                         <?php
                                         if (preg_match('/^legenda[A-I]$/', $key)) {
                                             $value = trim($computer[$key]);

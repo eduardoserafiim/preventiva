@@ -46,6 +46,8 @@ $id = intval($_GET['id'] ?? 0);
 $db = new UsuarioModel();
 $dbsetores = new SetorModel();
 
+$setores = $dbsetores->listar();
+
 
 if ($url) 
 {
@@ -104,6 +106,9 @@ if ($url)
         </main>
     </div>
 </body>
+<script>
+    window.setores = <?php echo json_encode($setores); ?>;
+</script>
 <?php
 
 require_once '../public/components/scripts/scriptUsuarios.php';
