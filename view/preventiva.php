@@ -19,6 +19,7 @@ require_once "../public/components/navbar/navbar.php";
 require_once "../public/components/bar/bar.php";
 require_once "../public/components/voltar.php";
 require_once "../public/components/search.php";
+require_once "../public/components/warning.php";
 require_once "../public/components/computadores/computadoresListar.php";
 require_once "../public/components/computadores/computadoresImprimir.php";
 require_once "../public/components/setores/setores.php";
@@ -71,23 +72,6 @@ if ($setorFiltro)
     }
 }
 ?>
-<?php if (isset($_SESSION['mensagem'])): ?>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            Swal.fire({
-                icon: '<?= htmlspecialchars($_SESSION["mensagem"]["tipo"]) ?>',
-                title: '<?= htmlspecialchars($_SESSION["mensagem"]["titulo"]) ?>',
-                text: '<?= htmlspecialchars($_SESSION["mensagem"]["texto"]) ?>',
-                confirmButtonText: 'Continuar',
-                customClass: {
-                    confirmButton: 'botao botao-primario'
-                },
-                buttonsStyling: false
-            });
-        });
-    </script>
-    <?php unset($_SESSION['mensagem']); ?>
-<?php endif; ?>
 <body>
     <div class="app-container">
         <?= navbar('preventiva') ?>

@@ -1,5 +1,3 @@
-const botao = document.querySelector(".botao-primario"); 
-
 function salvarFormulario(event) {
     event.preventDefault();
 

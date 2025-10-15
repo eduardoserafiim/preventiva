@@ -11,7 +11,7 @@ function formActions() {
             <i class="fas fa-arrow-right"></i> Avançar
         </button>
 
-        <button type="submit" id="botaoSalvar" class="botao botao-primario" style="display:none;">
+        <button type="submit" id="botaoSalvar" class="botao botao-primario" style="display:none;" onclick="salvarFormulario(event)">
             <i class="fas fa-save"></i> Salvar Usuário
         </button>
 
