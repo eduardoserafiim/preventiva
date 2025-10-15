@@ -12,10 +12,12 @@ function listarUsuarios(array $usuarios)
             <?php else : ?>
                 <?php foreach ($usuarios as $usuario) : ?>
                     <div class="equipment-card" id="usuario-<?= $usuario["id"] ?>" data-nome="<?= strtolower($usuario["nome"]) ?>" data-usuario="<?= strtolower($usuario["usuario"]) ?>">
-                        <h3>
-                            <i class="fas fa-user"></i>
-                            <span id="nome-<?= $usuario["id"] ?>" data-key="nome"><?= htmlspecialchars($usuario["nome"]) ?></span>
-                        </h3>
+                        <div class="span-icon-control">   
+                            <h3>
+                                <i class="fas fa-user"></i>
+                                <span id="nome-<?= $usuario["id"] ?>" data-key="nome"><?= htmlspecialchars($usuario["nome"]) ?></span>
+                            </h3>
+                        </div>
                         <div class="form-actions">
                                 <button type="button" class="botao botao-primario editarUsuario" data-id="<?= $usuario['id'] ?>">
                                     <i class="fa-solid fa-pencil"></i> Editar

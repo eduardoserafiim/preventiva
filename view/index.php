@@ -85,7 +85,6 @@ $url = $_GET['url'] ?? '';
                     <?php endif ?>
                     <?php if ($_SESSION['privilegio'] == 'administrador'): ?>
                         <p>Ainda estamos trabalhando nisso...</p>
-                        <p>Se você for o Fernando SAIA AGORA E ENTRE NO SEU USUARIO FERNANDINHO!!!!</p>
                     <?php endif ?>
                 <?php endif ?>
             </div>

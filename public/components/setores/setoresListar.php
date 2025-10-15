@@ -12,10 +12,12 @@ function listarSetores(array $setores)
             <?php else: ?>
                 <?php foreach ($setores as $setor) : ?>
                     <div class="equipment-card" id="setor-<?= $setor["id"] ?>" data-nome="<?= strtolower($setor["nome"]) ?>">
-                        <h3>
-                            <i class="fas fa-user"></i>
-                            <span id="nome-<?= $setor["id"] ?>" data-key="nome"><?= htmlspecialchars($setor["nome"]) ?></span>
-                        </h3>
+                        <div class="span-icon-control">
+                            <h3>
+                                <i class="fas <?= $setor['icon'] ?>"></i>
+                                <span id="nome-<?= $setor["id"] ?>" data-key="nome"><?= htmlspecialchars($setor["nome"]) ?></span>
+                            </h3>
+                        </div>    
                         <p style="padding-bottom: 30px">Faça alterações ou exclua esse setor.</p>
                         <div class="form-actions">
                             <button type="button" class="botao botao-primario editarSetor" data-id="<?= $setor['id'] ?>">

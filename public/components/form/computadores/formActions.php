@@ -3,7 +3,7 @@
 function formActions(){
     return
     '
-    <div class="form-actions form-actions-computadores">
+    <div class="form-actions form-actions-computadores" style="justify-content: start;">
         <button type="submit" class="botao botao-primario">
             <i class="fas fa-save"></i>Salvar Computador
         </button>
