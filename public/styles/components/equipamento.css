@@ -80,6 +80,26 @@
     width: 150px;
 }
 
+.equipment-card-setor .icon-anima
+{
+    padding: 1rem;
+}
+
+.equipment-card-setor:hover .icon-anima
+{
+    animation: fa-bounce 1s infinite;
+}
+
+.equipment-card-usuario .icon-anima
+{
+    padding: 1rem;
+}
+
+.equipment-card-usuario:hover .icon-anima
+{
+    animation: fa-bounce 1s infinite;
+}
+
 .span-icon-control
 {
     display: block;
@@ -88,4 +108,10 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.actions-control
+{
+    padding: 1rem 1rem 1rem 1rem;
+    text-align: start;
 }

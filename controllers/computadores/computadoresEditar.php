@@ -4,12 +4,13 @@ require_once '../../models/computadores.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+$url = $_POST['setor'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['privilegio'] == 'TI' && $_SESSION['setor'] === 'TI') 
 {
     try
     {        
         $id = intval($_POST['id']);
-        $url = $_POST['setor'];
 
         $data = [
             'setor' => $_POST['setor'] ?? '',
@@ -78,7 +79,7 @@ else
     [
         'tipo' => 'error',
         'titulo' => 'Erro ao atualizar o computador!',
-        'texto' => 'O metódo solicitado não foi aceito.'
+        'texto' => 'O metódo solicitado não foi aceito ou você não tem permissão para atualizar esse computador.'
     ];
 
     header("Location: ../../view/preventiva.php?url=".urlencode($url));

@@ -4,14 +4,14 @@ require_once '../../models/computadores.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarComputador'])) 
+$url = $_POST['url'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarComputador']) && $_SESSION['privilegio'] === 'TI' && $_SESSION['setor'] === 'TI') 
 {
     try
     {
         $id = intval($_POST['apagarComputador']);
-        
-        $url = $_POST['url'];
-        
+                
         $model = new ComputerModel();
         $model->apagar($id);
 
@@ -48,7 +48,7 @@ else
     [
         'tipo' => 'error',
         'titulo' => 'Erro ao excluir o computador!',
-        'texto' => 'O metódo solicitado não foi aceito.'
+        'texto' => 'O metódo solicitado não foi aceito ou você não tem permissão para excluir esse computador.'
     ];
 
     header("Location: ../../view/preventiva.php?url=".urlencode($url));

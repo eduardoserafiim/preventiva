@@ -11,24 +11,32 @@ function listarSetores(array $setores)
                 <p class="empty-state">Nenhum setor cadastrado ainda...</p>
             <?php else: ?>
                 <?php foreach ($setores as $setor) : ?>
-                    <div class="equipment-card" id="setor-<?= $setor["id"] ?>" data-nome="<?= strtolower($setor["nome"]) ?>">
-                        <div class="span-icon-control">
-                            <h3>
-                                <i class="fas <?= $setor['icon'] ?>"></i>
-                                <span id="nome-<?= $setor["id"] ?>" data-key="nome"><?= htmlspecialchars($setor["nome"]) ?></span>
-                            </h3>
-                        </div>    
-                        <p style="padding-bottom: 30px">Faça alterações ou exclua esse setor.</p>
+                    <div class="equipment-card-setor equipment-card " id="setor-<?= $setor["id"] ?>" data-nome="<?= strtolower($setor["nome"]) ?>">
+                        <div class="flex">
+                            <i class="fa-solid fas <?= $setor['icon'] ?> fa-2xl icon-anima"></i>
+                            <div class="span-icon-control">
+                                <h4 id="nome-<?= $setor["id"] ?>" data-key="nome"><?= htmlspecialchars($setor["nome"]) ?></h4>
+                            </div>    
+                        </div>
+                        <div class="actions-control">
+                            <?php if ($setor['nome'] === 'TI'): ?>
+                                <p>O setor TI não pode ser alterado nem excluido pois afeta na funcionalidade do site.</p>
+                            <?php else: ?>
+                                <p>Faça alterações ou exclua esse setor.</p>
+                            <?php endif ?>
+                        </div>
                         <div class="form-actions">
-                            <button type="button" class="botao botao-primario editarSetor" data-id="<?= $setor['id'] ?>">
-                                <i class="fa-solid fa-pencil"></i> Editar
-                            </button>
-                            <form method="POST" action="../controllers/setores/setoresApagar.php">
-                                <input type="hidden" name="apagarSetor" value="<?= $setor['id'] ?>">    
-                                <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
-                                    <i class="fas fa-eraser"></i> Apagar
+                            <?php if ($setor['nome'] != 'TI'): ?>
+                                <button type="button" class="botao botao-primario editarSetor" data-id="<?= $setor['id'] ?>">
+                                    <i class="fa-solid fa-pencil"></i> Editar
                                 </button>
-                            </form>
+                                <form method="POST" action="../controllers/setores/setoresApagar.php">
+                                    <input type="hidden" name="apagarSetor" value="<?= $setor['id'] ?>">    
+                                    <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
+                                        <i class="fas fa-eraser"></i> Apagar
+                                    </button>
+                                </form>
+                            <?php endif ?>
                         </div>
                         <div class="equipment-info">
                             <div class="info-row" style="display: none;">

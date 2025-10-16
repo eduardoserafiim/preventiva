@@ -4,13 +4,12 @@ require_once '../../models/computadores.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') 
-{
+$url = $_POST['setor'];
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['privilegio'] === 'TI' && $_SESSION['setor'] === 'TI') 
+{
     try 
     {
-        $url = $_POST['setor'];
-
         $data = 
         [
             'semestre' => $_POST['semestre'],
@@ -78,7 +77,7 @@ else
     [
         'tipo' => 'error',
         'titulo' => 'Erro ao cadastrar o computador!',
-        'texto' => 'O metódo solicitado não foi aceito.'
+        'texto' => 'O metódo solicitado não foi aceito ou você não tem permissão para criar computadores.'
     ];
     
     header("Location: ../../view/computadores.php");

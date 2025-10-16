@@ -11,25 +11,27 @@ function listarUsuarios(array $usuarios)
                 <p class="empty-state">Nenhum usuário cadastrado ainda.</p>
             <?php else : ?>
                 <?php foreach ($usuarios as $usuario) : ?>
-                    <div class="equipment-card" id="usuario-<?= $usuario["id"] ?>" data-nome="<?= strtolower($usuario["nome"]) ?>" data-usuario="<?= strtolower($usuario["usuario"]) ?>">
-                        <div class="span-icon-control">   
-                            <h3>
-                                <i class="fas fa-user"></i>
-                                <span id="nome-<?= $usuario["id"] ?>" data-key="nome"><?= htmlspecialchars($usuario["nome"]) ?></span>
-                            </h3>
+                    <div class="equipment-card-usuario equipment-card" id="usuario-<?= $usuario["id"] ?>" data-nome="<?= strtolower($usuario["nome"]) ?>" data-usuario="<?= strtolower($usuario["usuario"]) ?>">
+                        <div class="flex">
+                            <i class="fas fa-user fa-2xl icon-anima"></i>
+                            <div class="span-icon-control">   
+                                <h4 id="nome-<?= $usuario["id"] ?>" data-key="nome"><?= htmlspecialchars($usuario["nome"]) ?></h4>
+                            </div>
                         </div>
-                        <div class="form-actions">
-                                <button type="button" class="botao botao-primario editarUsuario" data-id="<?= $usuario['id'] ?>">
-                                    <i class="fa-solid fa-pencil"></i> Editar
-                                </button>
-                            <?php if($usuario["usuario"] != "administrador" or $usuario['nome'] != "Administrador" or $usuario['id'] > 1) : ?>
-                                <form method="POST" action="../controllers/usuarios/usuariosApagar.php">
-                                    <input type="hidden" name="apagarUsuario" value="<?= $usuario['id'] ?>">    
-                                    <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
-                                        <i class="fas fa-eraser"></i> Apagar
+                        <div class="actions-control">
+                            <div class="form-actions">
+                                    <button type="button" class="botao botao-primario editarUsuario" data-id="<?= $usuario['id'] ?>">
+                                        <i class="fa-solid fa-pencil"></i> Editar
                                     </button>
-                                </form>
-                            <?php endif ?>
+                                <?php if($usuario["usuario"] != "administrador" or $usuario['nome'] != "Administrador" or $usuario['id'] > 1) : ?>
+                                    <form method="POST" action="../controllers/usuarios/usuariosApagar.php">
+                                        <input type="hidden" name="apagarUsuario" value="<?= $usuario['id'] ?>">    
+                                        <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
+                                            <i class="fas fa-eraser"></i> Apagar
+                                        </button>
+                                    </form>
+                                <?php endif ?>
+                            </div>
                         </div>
                         <div class="equipment-info">
                             <div class="info-row">
