@@ -52,7 +52,20 @@ $url = $_GET['url'] ?? '';
                         <?= assinaturasListar($assinaturas) ?>
                     </div>    
                 </div>
-            <?php elseif ($_SESSION['privilegio'] == 'TI' && $url == 'minhas-preventivas'): ?>
+            <?php elseif ($_SESSION['privilegio'] === 'usuario' && $url === 'minhas-assinaturas'): ?>
+                <div class="page-header">
+                    <h1>Minhas assinaturas</h1>
+                    <p>Visualize as suas assinaturas dos setores disponíveis</p>
+                </div>
+                <div class="voltar">
+                    <?= voltar('index.php') ?>
+                </div>
+                <div class="fundo-container">
+                    <div class="equipment-grid-assinaturas">
+                        <?= assinaturasListar($assinaturas) ?>
+                    </div>    
+                </div>
+            <?php elseif ($_SESSION['privilegio'] === 'TI' && $url === 'minhas-preventivas'): ?>
                 <div class="page-header">
                     <h1>Minhas preventivas</h1>
                     <p>Visualize as suas preventivas realizadas e à serem realizadas.</p>
@@ -70,10 +83,13 @@ $url = $_GET['url'] ?? '';
                 </div>
                 <div class="fundo-container">
                     <?php if ($_SESSION['privilegio'] != "TI" && $_SESSION['privilegio'] != 'administrador'): ?>
-                        <p>Estamos trabalhando nisso...</p>
-                        <p>Que tal dar uma olhada na preventiva?</p>
+                        <div class="opcoes">
+                            <?php foreach ($opcoes as $opcao): ?>
+                                <?= criarOpcoesDiv($opcao[1], $opcao[0], $opcao[2] , $opcao[3]) ?>
+                            <?php endforeach ?>
+                        </div>
                     <?php endif ?>    
-                    <?php if ($_SESSION['privilegio'] == 'TI'): ?>
+                    <?php if ($_SESSION['privilegio'] === 'TI'): ?>
                         <div>
                             <h2 style="margin-bottom: 1rem;">Menu</h2>
                             <div class="opcoes">
@@ -83,7 +99,7 @@ $url = $_GET['url'] ?? '';
                             </div>
                         </div>
                     <?php endif ?>
-                    <?php if ($_SESSION['privilegio'] == 'administrador'): ?>
+                    <?php if ($_SESSION['privilegio'] === 'administrador'): ?>
                         <p>Ainda estamos trabalhando nisso...</p>
                     <?php endif ?>
                 <?php endif ?>

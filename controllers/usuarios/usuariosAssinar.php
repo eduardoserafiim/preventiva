@@ -6,47 +6,77 @@ session_start();
 
 $url = $_POST['assinatura-setor'];
 
+$setor = $_POST['assinatura-setor'];
+$semestre = $_POST['assinatura-semestre'];
+$unidade = $_POST['assinatura-unidade'];
+$ano = $_POST['assinatura-ano'];
+
 if ($_SERVER["REQUEST_METHOD"] === 'POST')
 {
-    try
+    if ($_SESSION['setor'] != $setor)
     {
-
-    }
-    catch (Exception $e)
-    {
-        echo 'Ocorreu um erro ao tentar assinar a preventiva: ', $e;
-
         $_SESSION['mensagem'] =
         [
             'tipo' => 'warning',
             'titulo' => 'Erro ao assinar a preventiva!',
-            'texto' => 'Houve um erro ao assinar a preventiva.'
+            'texto' => 'você não pode assinar uma preventiva de outro setor.'
         ];
 
         header("Location: ../../view/preventiva.php?url=".urlencode($url));
         exit();
     }
-    $data = [
-        'nome' => $_POST['assinatura-nome'],
-        'ano' => $_POST['assinatura-ano'],
-        'semestre' => $_POST['assinatura-semestre'],
-        'setor' => $setor,
-        'unidade' => $_POST['assinatura-unidade'],
-        'assinatura' => $_POST['assinatura'],
-    ];
-
-    $model = new AssinaturaModel();
-    $assinar = $model->criarResponsaveis($data);
-
-    if($assinar)
+    elseif ($_SESSION['unidade'] != $unidade)
     {
-        header("Location: ../../view/preventiva.php?url=".urldecode($url));
+        $_SESSION['mensagem'] =
+        [
+            'tipo' => 'warning',
+            'titulo' => 'Erro ao assinar a preventiva!',
+            'texto' => 'você não pode assinar uma preventiva de outra unidade.'
+        ];
+
+        header("Location: ../../view/preventiva.php?url=".urlencode($url));
         exit();
     }
     else
-    {   
+    {
+        try
+        {
+            $data = [
+                'nome' => $_POST['assinatura-nome'],
+                'ano' => $ano,
+                'semestre' => $semestre,
+                'setor' => $setor,
+                'unidade' => $unidade,
+                'assinatura' => $_POST['assinatura'],
+            ];
+        
+            // $model = new AssinaturaModel();
+            // $assinar = $model->criarResponsaveis($data);
 
-        echo "Erro: ". $e->getMessage();
+            $_SESSION['mensagem'] =
+            [
+                'tipo' => 'success',
+                'titulo' => 'Sucesso ao assinar a preventiva!',
+                'texto' => 'obrigado por assinar, você pode verificar sua assinatura no Início.'
+            ];
+            
+            header("Location: ../../view/preventiva.php?semestre=".urlencode($semestre)."&ano=".urlencode($ano)."&url=".urlencode($setor));
+            exit();
+        }
+        catch (Exception $e)
+        {
+            echo 'Ocorreu um erro ao tentar assinar a preventiva: ', $e;
+    
+            $_SESSION['mensagem'] =
+            [
+                'tipo' => 'warning',
+                'titulo' => 'Erro ao assinar a preventiva!',
+                'texto' => 'Houve um erro ao assinar a preventiva.'
+            ];
+    
+            header("Location: ../../view/preventiva.php?url=".urlencode($url));
+            exit();
+        }
     }
 }
 else

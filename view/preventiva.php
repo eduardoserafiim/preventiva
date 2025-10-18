@@ -39,7 +39,7 @@ $unidadeUsuario = $_SESSION['unidade'] ?? '';
 $setorFiltro = $_GET['url'] ?? '';
 
 // validador se o usuario nao for ti ele recebe o filtro já como o próprio setor
-if ($setorUsuario !== 'TI') 
+if ($setorUsuario != 'TI') 
 {
     $setorFiltro = $setorUsuario;
 }
@@ -154,6 +154,9 @@ if ($setorFiltro)
                                 <p style="padding: 0 0 0 3rem; ">Assinada em: <?= htmlspecialchars($dataFormatada) ?></p>
                             </div>
                         </div>
+                        <div class="voltar">
+                            <?= voltar('preventiva.php?url=' . $setorFiltro) ?>
+                        </div>
                     <?php else: ?>
                         <?php if ($_SESSION['setor'] != 'TI'): ?>
                             <div class="assinar">
@@ -167,7 +170,7 @@ if ($setorFiltro)
     
                                             <input type="hidden" name="assinatura-nome" value="<?= htmlspecialchars($_SESSION['nome']) ?>">
                                             <input type="hidden" name="assinatura-ano" value="<?= htmlspecialchars($ano) ?>">
-                                            <input type="hidden" name="assinatura-setor" valu="<?= htmlspecialchars($_SESSION['setor']) ?>">
+                                            <input type="hidden" name="assinatura-setor" value="<?= htmlspecialchars($_SESSION['setor']) ?>">
                                             <input type="hidden" name="assinatura-semestre" value="<?= htmlspecialchars($semestre) ?>">
                                             <input type="hidden" name="assinatura-unidade" value="<?= htmlspecialchars($_SESSION['unidade']) ?>">
                                             
