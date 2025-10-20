@@ -143,6 +143,26 @@ class AssinaturaModel{
         }
     }
 
+    public function listarAssinaturas($nome)
+    {
+        try
+        {
+            $sql = "SELECT *
+            FROM assinaturas
+            WHERE nome = :nome";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(":nome", $nome);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch (Exception $e)
+        {
+            error_log("Erro ao visualizar as assinaturas do usuário: ". $e->getMessage());
+            return false;
+        }
+    }
+
     public function listarAssinaturasTecnico($nome)
     {
         try

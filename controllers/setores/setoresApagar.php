@@ -4,7 +4,7 @@ require_once '../../models/setores.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarSetor']))
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarSetor']) && $_SESSION['privilegio'] === 'administrador')
 {
     try
     {
@@ -46,7 +46,7 @@ else
         [
             'tipo' => 'error',
             'titulo' => 'Erro ao excluir o setor!',
-            'texto' => 'O metódo solicitado não foi aceito.'
+            'texto' => 'O metódo solicitado não foi aceito ou você não tem permissão para excluir um setor.'
         ];
 
     header("Location: ../../view/setores.php?url=listar");

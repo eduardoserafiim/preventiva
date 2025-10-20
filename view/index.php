@@ -29,7 +29,8 @@ include_once "../public/components/opcoes/dictionaryOpcoes.php";
 <?php
 
 $dbassinatura = new AssinaturaModel();
-$assinaturas = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome']);
+$assinaturasTecnicos = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome']);
+$assinaturas =  $dbassinatura->listarAssinaturas($_SESSION['nome']);
 
 $url = $_GET['url'] ?? '';
 
@@ -49,7 +50,7 @@ $url = $_GET['url'] ?? '';
                 </div>
                 <div class="fundo-container">
                     <div class="equipment-grid-assinaturas">
-                        <?= assinaturasListar($assinaturas) ?>
+                        <?= assinaturasListar($assinaturasTecnicos) ?>
                     </div>    
                 </div>
             <?php elseif ($_SESSION['privilegio'] === 'usuario' && $url === 'minhas-assinaturas'): ?>
@@ -74,7 +75,7 @@ $url = $_GET['url'] ?? '';
                     <?= voltar('index.php') ?>
                 </div>
                 <div class="fundo-container">
-                    
+                    <p>Ainda estamos trabalhando nisso...</p>
                 </div>
             <?php else: ?>
                 <div class="page-header">
@@ -83,6 +84,7 @@ $url = $_GET['url'] ?? '';
                 </div>
                 <div class="fundo-container">
                     <?php if ($_SESSION['privilegio'] != "TI" && $_SESSION['privilegio'] != 'administrador'): ?>
+                        <h2 style="margin-bottom: 1rem;">Menu</h2>
                         <div class="opcoes">
                             <?php foreach ($opcoes as $opcao): ?>
                                 <?= criarOpcoesDiv($opcao[1], $opcao[0], $opcao[2] , $opcao[3]) ?>

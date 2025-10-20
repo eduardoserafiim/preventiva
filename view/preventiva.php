@@ -129,12 +129,13 @@ if ($setorFiltro)
                                     <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button>
                                     <button type="button" class="botao botao-primario botao-imprimir" onclick="imprimirComputadores()">Imprimir</button>
                                 </div>
-                            <?php else: ?>
-                                <input type="hidden" name="url" value="<?= htmlspecialchars($setorFiltro) ?>">
-                                <div class="botoes-filtrar">
-                                    <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button>
-                                    <button type="button" class="botao botao-primario botao-imprimir" onclick="imprimirComputadores()">Imprimir</button>
-                                </div>
+                                <?php else: ?>
+                                    <input type="hidden" name="unidade" value="<?= htmlspecialchars($_SESSION['unidade']) ?>">
+                                    <input type="hidden" name="url" value="<?= htmlspecialchars($setorFiltro) ?>">
+                                    <div class="botoes-filtrar">
+                                        <button type="submit" class="botao botao-primario botao-filtro">Filtrar</button>
+                                        <button type="button" class="botao botao-primario botao-imprimir" onclick="imprimirComputadores()">Imprimir</button>
+                                    </div>
                             <?php endif ?>
                         </form>
                     </div>

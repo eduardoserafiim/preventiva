@@ -118,19 +118,37 @@ class ComputerModel
             $query = "SELECT * FROM computadores WHERE setor = :setor";
             $params = [':setor' => $setor];
     
-            if ($semestre) {
+            if ($semestre) 
+            {
                 $query .= " AND semestre = :semestre";
                 $params[':semestre'] = $semestre;
             }
     
-            if ($ano) {
+            if ($ano) 
+            {
                 $query .= " AND ano = :ano";
                 $params[':ano'] = $ano;
             }
     
-            if ($unidade) {
-                $query .= " AND unidade = :unidade";
-                $params[':unidade'] = $unidade;
+            if ($unidade) 
+            {
+                if ($unidade != $_SESSION['unidade'])
+                {
+                    if ($_SESSION['unidade'] === 'administrador')
+                    {
+                        $query .= " AND unidade = :unidade";
+                        $params[':unidade'] = $unidade;    
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    $query .= " AND unidade = :unidade";
+                    $params[':unidade'] = $unidade;
+                }
             }
     
             $stmt = $this->db->prepare($query);

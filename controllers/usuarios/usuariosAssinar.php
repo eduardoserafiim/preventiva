@@ -50,8 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST')
                 'assinatura' => $_POST['assinatura'],
             ];
         
-            // $model = new AssinaturaModel();
-            // $assinar = $model->criarResponsaveis($data);
+            $model = new AssinaturaModel();
+            $assinar = $model->criarResponsaveis($data);
 
             $_SESSION['mensagem'] =
             [
