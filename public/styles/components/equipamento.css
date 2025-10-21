@@ -115,3 +115,8 @@
     padding: 1rem 1rem 1rem 1rem;
     text-align: start;
 }
+
+.equipment-card-computer .switch-wrapper label
+{
+    color: #6b7280;
+}

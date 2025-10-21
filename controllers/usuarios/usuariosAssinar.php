@@ -11,7 +11,7 @@ $semestre = $_POST['assinatura-semestre'];
 $unidade = $_POST['assinatura-unidade'];
 $ano = $_POST['assinatura-ano'];
 
-if ($_SERVER["REQUEST_METHOD"] === 'POST')
+if ($_SERVER["REQUEST_METHOD"] === 'POST' && $_SESSION['privilegio'] === 'usuario')
 {
     if ($_SESSION['setor'] != $setor)
     {
@@ -87,7 +87,7 @@ else
     [
         'tipo' => 'error',
         'titulo' => 'Erro ao assinar a preventiva!',
-        'texto' => 'Tipo de metódo não aceito para assinar.'
+        'texto' => 'Tipo de metódo não aceito para assinar ou você não tem permissão para assinar.'
     ];
     
     header("Location: ../../view/preventiva.php?url=".urldecode($url));

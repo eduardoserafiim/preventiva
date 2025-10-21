@@ -4,7 +4,7 @@ require_once '../../models/usuarios.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['privilegio'] === 'administrador') {
     try
     {
         $usuarioController = new UsuarioModel();
@@ -87,7 +87,7 @@ else
     [
         'tipo' => 'error',
         'titulo' => 'Erro ao criar o usuário!',
-        'texto' => 'O metódo solicitado não foi aceito.'
+        'texto' => 'O metódo solicitado não foi aceito ou você não tem permissão para criar um usuário.'
     ];
 
     header("Location: ../../view/usuarios.php?url=criar");

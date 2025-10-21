@@ -4,7 +4,7 @@ require_once "../../models/usuarios.php";
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarUsuario'])) 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarUsuario']) && $_SESSION['privilegio'] === 'administrador' ) 
 {
     try
     {
@@ -46,7 +46,7 @@ else
     [
         'tipo' => 'error',
         'titulo' => 'Erro ao excluir o usuário!',
-        'texto' => 'O metódo solicitado não foi aceito.'
+        'texto' => 'O metódo solicitado não foi aceito ou você não tem permissão para apagar o usuário.'
     ];
 
     header("Location: ../../view/usuarios.php?url=listar");

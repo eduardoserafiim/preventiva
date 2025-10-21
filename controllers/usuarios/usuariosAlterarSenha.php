@@ -4,7 +4,7 @@ require_once '../../models/usuarios.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['privilegio'] == 'administrador') {
     try
     {
         $model = new UsuarioModel();
@@ -65,9 +65,9 @@ else
 
     $_SESSION['mensagem'] = 
     [
-        'tipo' => 'warning',
+        'tipo' => 'error',
         'titulo' => 'Erro ao atualizar a senha!',
-        'texto' => 'O método solicitado não foi aceito.'
+        'texto' => 'O método solicitado não foi aceito ou vccê não tem permissão para alterar a senha do usuário.'
     ];
 
     header("Location: ../../view/usuarios.php?url=alterarsenha&id={$id}");

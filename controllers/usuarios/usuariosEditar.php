@@ -4,7 +4,7 @@ require_once '../../models/usuarios.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST')
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['privilegio'] === 'administrador')
 {
     try
     {
@@ -54,7 +54,7 @@ else
     [
         'tipo' => 'error',
         'titulo' => 'Erro ao editar o usuário!',
-        'texto' => 'O metódo solicitado não foi aceito.'
+        'texto' => 'O metódo solicitado não foi aceito ou você não tem permissão para editar um usuário.'
     ];
 
     header("Location: ../../view/usuarios.php?url=listar");
