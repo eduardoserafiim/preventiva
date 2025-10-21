@@ -141,7 +141,7 @@ class ComputerModel
                     }
                     else
                     {
-                        return false;
+                       return header("Location: ../view/preventiva.php");
                     }
                 }
                 else
