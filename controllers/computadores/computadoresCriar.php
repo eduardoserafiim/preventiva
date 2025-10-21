@@ -5,7 +5,16 @@ require_once '../../models/computadores.php';
 session_start();
 
 $url = $_POST['setor'];
-$unidade = $_SESSION['unidade'];
+
+if ($_SESSION['unidade'] === 'administrador')
+{
+    $unidade = $_POST['unidade'];
+}
+else
+{
+    $unidade = $_SESSION['unidade'];
+}
+
 $responsavel = $_SESSION['usuario'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['privilegio'] === 'TI' && $_SESSION['setor'] === 'TI') 
