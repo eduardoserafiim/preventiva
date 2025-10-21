@@ -5,6 +5,8 @@ require_once '../../models/computadores.php';
 session_start();
 
 $url = $_POST['setor'];
+$unidade = $_SESSION['unidade'];
+$responsavel = $_SESSION['usuario'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['privilegio'] === 'TI' && $_SESSION['setor'] === 'TI') 
 {
@@ -14,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['privilegio'] === 'TI' &&
         [
             'semestre' => $_POST['semestre'],
             'ano' => $_POST['ano'],
-            'unidade' => $_POST['unidade'],
+            'unidade' => $unidade,
             'setor' => $_POST['setor'],
             'nome' => $_POST['nome'],
             'modelo' => $_POST['modelo'],
@@ -38,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['privilegio'] === 'TI' &&
             'legendaH' => isset($_POST['legendaH']) ? 1 : 0,
             'legendaI' => isset($_POST['legendaI']) ? 1 : 0,
             'status' => $_POST['status'],
-            'cadastro' => $_POST['cadastro'],
+            'cadastro' => $responsavel,
         ];
 
         $model = new ComputerModel();

@@ -30,14 +30,16 @@
 }
 
 .page-header {
+    display: flex; 
+    justify-content: space-between;    
     opacity: 0;
-    margin-bottom: 2rem;
     transform: translateY(-10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;    
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .page-header.show
 {
+    margin-bottom: 2rem;
     opacity: 1;
     transform: translateY(0);
 }
@@ -52,4 +54,10 @@
 .page-header p {
     color: #64748b;
     font-size: 1.1rem;
+}
+
+.page-configuracoes
+{
+    display: flex;
+    align-items: center;
 }

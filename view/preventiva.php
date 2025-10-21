@@ -78,8 +78,10 @@ if ($setorFiltro)
         <main class="main-content">
             <?= bar() ?>
             <div class="page-header">
-                <h1>Preventiva</h1>
-                <p>Visualize todos os equipamentos cadastrados</p>
+                <div class="page-descricao">
+                    <h1>Preventiva</h1>
+                    <p>Visualize todos os equipamentos cadastrados</p>
+                </div>
             </div>
             <?php if ($setorUsuario === 'TI' && empty($setorFiltro)): ?>
                 <div class="search">

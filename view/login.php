@@ -32,10 +32,12 @@ $url = $_GET["url"] ?? '';
         <?= navbar('login') ?>
         <main class="main-content">
             <div class="page-header">
-                <!-- PAGE -->
-                <?php if ($url == 'suporte'): ?>
-                        <h1>Suporte TI</h1>
-                        <p>Esqueci minha senha</p>
+                <div class="page-descricao">
+                    <!-- PAGE -->
+                    <?php if ($url == 'suporte'): ?>
+                            <h1>Suporte TI</h1>
+                            <p>Esqueci minha senha</p>
+                        </div>
                     </div>
                     <div class="voltar">
                         <?= voltar('login.php') ?>
@@ -51,8 +53,9 @@ $url = $_GET["url"] ?? '';
                         </div>
                     </div>
                 <?php else: ?>
-                        <h1>Bem vindo ao Suporte TI</h1>
-                        <p>Faça <strong>Login</strong> para continuar...</p>
+                            <h1>Bem vindo ao Suporte TI</h1>
+                            <p>Faça <strong>Login</strong> para continuar...</p>
+                        </div>
                     </div>
                     <div class="controleForm">
                         <div class="form-container">

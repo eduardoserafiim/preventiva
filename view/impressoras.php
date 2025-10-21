@@ -25,8 +25,10 @@ require_once "../public/components/warning.php";
             <!-- NAVBAR MOBILE -->
             <?= bar() ?>
             <div class="page-header">
-                <h1>Impressoras</h1>
-                <p>Visualize as impressoras cadastradas no GLPI</p>
+                <div class="page-descricao">
+                    <h1>Impressoras</h1>
+                    <p>Visualize as impressoras cadastradas no GLPI</p>
+                </div>
             </div>
         </main>
     </div>    

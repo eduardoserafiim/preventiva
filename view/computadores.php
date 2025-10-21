@@ -35,8 +35,10 @@ require_once '../public/components/form/computadores/formActions.php';
         <main class="main-content">
             <?= bar() ?>
             <div class="page-header">
-                <h1>Computadores</h1>
-                <p>Cadastre um computador</p>
+                <div class="page-descricao">
+                    <h1>Computadores</h1>
+                    <p>Cadastre um computador</p>
+                </div>
             </div>
             <div class="form-container">
                 <form method="POST" action="../controllers/computadores/computadoresCriar.php" id="formularioComputadores" class="equipment-form">

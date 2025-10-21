@@ -1,0 +1,9 @@
+.engrenagem
+{
+    cursor: pointer;
+}
+
+.engrenagem:hover .anima-engrenagem
+{
+    animation: fa-spin 1s normal;
+}

@@ -42,8 +42,15 @@ $url = $_GET['url'] ?? '';
             <?= bar() ?>
             <?php if ($_SESSION['privilegio'] == 'TI' && $url == 'minhas-assinaturas'): ?>
                 <div class="page-header">
-                    <h1>Minhas assinaturas</h1>
-                    <p>Visualize as suas assinaturas dos setores disponíveis</p>
+                    <div class="page-bem-vindo">
+                        <h1>Minhas assinaturas</h1>
+                        <p>Visualize as suas assinaturas dos setores disponíveis</p>
+                    </div>
+                    <div class="page-configuracoes">
+                        <div class="engrenagem">
+                            <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                        </div>
+                    </div>
                 </div>
                 <div class="voltar">
                     <?= voltar('index.php') ?>
@@ -55,8 +62,13 @@ $url = $_GET['url'] ?? '';
                 </div>
             <?php elseif ($_SESSION['privilegio'] === 'usuario' && $url === 'minhas-assinaturas'): ?>
                 <div class="page-header">
-                    <h1>Minhas assinaturas</h1>
-                    <p>Visualize as suas assinaturas dos setores disponíveis</p>
+                    <div class="page-bem-vindo">
+                        <h1>Minhas assinaturas</h1>
+                        <p>Visualize as suas assinaturas dos setores disponíveis</p>
+                    </div>
+                    <div class="page-configuracoes">
+                        <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                    </div>
                 </div>
                 <div class="voltar">
                     <?= voltar('index.php') ?>
@@ -68,8 +80,13 @@ $url = $_GET['url'] ?? '';
                 </div>
             <?php elseif ($_SESSION['privilegio'] === 'TI' && $url === 'minhas-preventivas'): ?>
                 <div class="page-header">
-                    <h1>Minhas preventivas</h1>
-                    <p>Visualize as suas preventivas realizadas e à serem realizadas.</p>
+                    <div class="page-bem-vindo">
+                        <h1>Minhas preventivas</h1>
+                        <p>Visualize as suas preventivas realizadas e à serem realizadas.</p>
+                    </div>
+                    <div class="page-configuracoes">
+                        <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                    </div>
                 </div>
                 <div class="voltar">
                     <?= voltar('index.php') ?>
@@ -79,8 +96,15 @@ $url = $_GET['url'] ?? '';
                 </div>
             <?php else: ?>
                 <div class="page-header">
-                    <h1>Bem vindo, <?= ucfirst(htmlspecialchars($_SESSION['nome'])) ?>!</h1>
-                    <p>Visualize as informações gerais</p>
+                    <div class="page-bem-vindo">
+                        <h1>Bem vindo, <?= ucfirst(htmlspecialchars($_SESSION['nome'])) ?>!</h1>
+                        <p>Visualize as informações gerais</p>
+                    </div>
+                    <div class="page-configuracoes">
+                        <div class="engrenagem">
+                            <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                        </div>
+                    </div>
                 </div>
                 <div class="fundo-container">
                     <?php if ($_SESSION['privilegio'] != "TI" && $_SESSION['privilegio'] != 'administrador'): ?>
