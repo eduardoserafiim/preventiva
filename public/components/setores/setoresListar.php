@@ -14,7 +14,7 @@ function listarSetores(array $setores)
                     <div class="equipment-card-setor equipment-card " id="setor-<?= $setor["id"] ?>" data-nome="<?= strtolower($setor["nome"]) ?>">
                         <div class="flex">
                             <i class="fa-solid fas <?= $setor['icon'] ?> fa-2xl icon-anima"></i>
-                            <div class="span-icon-control">
+                            <div class="span-icon-control" style="max-width: 250px">
                                 <h4 id="nome-<?= $setor["id"] ?>" data-key="nome"><?= htmlspecialchars($setor["nome"]) ?></h4>
                             </div>    
                         </div>

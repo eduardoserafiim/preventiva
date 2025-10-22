@@ -152,6 +152,26 @@
     height: 300px;
   }
 
+  #formularioComputadores
+  {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+
+  .form-flex{
+    flex-wrap: wrap;
+  }
+
+  .flex
+  {
+    flex-wrap: wrap;
+  }
+
+  .form-actions-computer
+  {
+    height: 45px;
+  }
+
   /* login */
   .controleForm
   {
@@ -164,6 +184,11 @@
   }
 
   /* usuarios */
+  .usuarios-listagem
+  {
+    place-items: center;
+  }
+
   .usuarios
   {
     display: grid;
@@ -171,14 +196,52 @@
     place-items: center;
   }
 
+  .usuarioDiv
+  {
+    width: 300px;
+  }
+
+  .usuarioDiv p
+  {
+    padding: 1rem;
+  }
+
+  .equipment-grid-user
+  {
+    width: 300px;
+  }
+
+  .equipment-grid-user .info-label
+  {
+    width: 100px;
+  }
+
+  .equipment-grid-user .flex
+  {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .equipment-grid-user .botao-cancelar
+  {
+    height: 50px;
+  }
+
+  .equipment-grid-user .botao i
+  {
+    margin: 0;
+  }
+
   .search
   {
-    width: 350px;
+    display: flex;
+    justify-content: center;
+    width: auto;
   }
 
   #search-input
   {
-    width: 350px;
+    width: 300px;
   }
 
   #formularioUsuarios
@@ -210,25 +273,55 @@
     padding: 12px 12px 12px 12px;
   }
 
-  /* computadores */
-  #formularioComputadores
+  /* setores */
+  .setoresAdministrador
   {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    display: flex;
+    flex-direction: column;
   }
 
-  .form-flex{
-    flex-wrap: wrap;
+  .setores .flex
+  {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
   }
 
-  .flex
+  .setorDiv
   {
-    flex-wrap: wrap;
+    width: 300px;
   }
 
-  .form-actions-computer
+  .setorDiv p
   {
-    height: 45px;
+    padding: 1rem;
+  }
+
+  .equipment-grid-setor
+  {
+    place-items: center;
+  }
+
+  .equipment-card-setor
+  {
+    width: 300px;
+  }
+
+  .equipment-card-setor .flex
+  {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .equipment-card-setor .botao
+  {
+    height: 50px;
+  }
+  .equipment-card-setor .botao i
+  {
+    margin: 0;
   }
 }
 
@@ -415,6 +508,11 @@
     width: 250px;
   }
 
+  .equipment-grid-user
+  {
+    width: 250px;
+  }
+
   .form-actions
   {
     flex-wrap: wrap;
@@ -481,6 +579,11 @@
     height: 270px;
   }
 
+  .setores-listagem
+  {
+    width: 250px;
+  }
+
   .preventiva-flex
   {
     justify-content: center;
@@ -503,6 +606,32 @@
   .setor p
   {
     text-align: center;
+  }
+
+  .span-icon-control
+  {
+    text-align: center;
+  }
+
+  .equipment-grid-setor
+  {
+    justify-content: center;
+    width: 250px;
+  }
+
+  .equipment-card-setor
+  {
+    width: 200px;
+  }
+
+  .equipment-card-setor .span-icon-control
+  {
+    width: 150px;
+  }
+
+  .equipment-card-setor .botao
+  {
+    width: 120px;
   }
 
   /* filtro */

@@ -52,8 +52,10 @@ $setoresdb = $dbsetor->listar();
         <?= navbar('setores') ?>
         <main class="main-content">
             <div class="page-header">
-                <h1>Setores</h1>
-                <p>Gerencie os setores</p>
+                <div class="page-descricao">
+                    <h1>Setores</h1>
+                    <p>Gerencie os setores</p>
+                </div>
             </div>
             <?= bar() ?>
             <?php if($url == 'criar'): ?>

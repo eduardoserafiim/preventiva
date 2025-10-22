@@ -61,8 +61,10 @@ if ($url)
         <?= navbar("usuarios") ?>
         <main class="main-content">
             <div class="page-header">
-                <h1>Usuários</h1>
-                <p>Gerencie os usuários</p>
+                <div class="page-descricao">
+                    <h1>Usuários</h1>
+                    <p>Gerencie os usuários</p>
+                </div>
             </div>
             <?= bar() ?>
             <?php if ($url == 'criar'): ?>
