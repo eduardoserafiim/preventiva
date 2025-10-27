@@ -9,7 +9,7 @@ if (empty($_SESSION['privilegio']))
 {
     error_log('Usuário sem privilégio detectado.');
 
-    getMensagemSession('error', 'Erro ao criar o usuário', 'Falta de permissão ao ciar o usuário', 'login.php');
+    getMensagemSession('error', 'Erro ao criar o usuário!', 'Falta de permissão ao ciar o usuário.', 'login.php');
 }
 else
 {
