@@ -16,11 +16,13 @@ if($_SERVER['REQUEST_METHOD'] === 'POST')
     
         if ($usuario && password_verify($senha, $usuario['senha'])) 
         {
+            $_SESSION['id'] = $usuario['id'];
             $_SESSION['usuario'] = $usuario['usuario'];
             $_SESSION['nome'] = $usuario['nome'];
             $_SESSION['setor'] = $usuario['setor'];
             $_SESSION['privilegio'] = $usuario['privilegio'];
             $_SESSION['unidade'] = $usuario['unidade'];
+            $_SESSION['token'] = bin2hex(random_bytes(32));
 
             $_SESSION['mensagem'] =
             [

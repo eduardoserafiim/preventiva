@@ -28,6 +28,12 @@ document.addEventListener('DOMContentLoaded', function () {
             inputId.value = usuarioId;
             form.appendChild(inputId);
 
+            const token = document.createElement('input');
+            token.type = 'hidden';
+            token.name = 'token';
+            token.value = window.token;
+            form.appendChild(token);
+
             Object.entries(fields).forEach(([key, label]) => {
                 const row = document.createElement('div');
                 row.className = 'info-row';

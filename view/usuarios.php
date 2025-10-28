@@ -111,6 +111,7 @@ if ($url)
 </body>
 <script>
     window.setores = <?php echo json_encode($setores); ?>;
+    window.token = <?php echo json_encode($_SESSION['token']); ?>;
 </script>
 <?php
 

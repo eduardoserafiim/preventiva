@@ -176,6 +176,7 @@ if ($setorFiltro)
                                             <input type="hidden" name="assinatura-setor" value="<?= htmlspecialchars($_SESSION['setor']) ?>">
                                             <input type="hidden" name="assinatura-semestre" value="<?= htmlspecialchars($semestre) ?>">
                                             <input type="hidden" name="assinatura-unidade" value="<?= htmlspecialchars($_SESSION['unidade']) ?>">
+                                            <input type="hidden" name="assinatura-token" value="<?= htmlspecialchars($_SESSION['token']) ?>">
                                             
                                             <label for="input-assinatura">Responsável do Setor</label>
                                             <input type="text" id="input-assinatura" name="assinatura" placeholder="Assine com seu nome aqui" value="<?= htmlspecialchars($_SESSION['nome']) ?>" readonly> 
@@ -226,6 +227,7 @@ if ($setorFiltro)
                                             <input type="hidden" name="assinatura-setor" value="<?= htmlspecialchars($setorFiltro) ?>">
                                             <input type="hidden" name="assinatura-semestre" value="<?= htmlspecialchars($semestre) ?>">
                                             <input type="hidden" name="assinatura-unidade" value="<?= htmlspecialchars($_SESSION['unidade']) ?>">
+                                            <input type="hidden" name="assinatura-token" value="<?= htmlspecialchars($_SESSION['token']) ?>">
                                             
                                             <label>Assinatura do Técnico Responsável: </label>
                                             <input type="text" id="input-assinatura-responsavel" name="assinatura" placeholder="Assine com seu nome aqui" value="<?= htmlspecialchars($_SESSION['nome']) ?>" readonly> 

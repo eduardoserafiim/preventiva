@@ -5,11 +5,24 @@ require_once '../../public/components/session/mensagem.php';
 
 session_start();
 
+$nome       = trim($_POST['nome']);
+$usuario    = trim($_POST['usuario']);
+$setor      = trim($_POST['setor']);
+$privilegio = trim($_POST['privilegio']);
+$unidade    = trim($_POST['unidade']);
+$token      = trim($_POST['token']);
+
 if (empty($_SESSION['privilegio']))
 {
     error_log('Usuário sem privilégio detectado.');
 
     getMensagemSession('error', 'Erro ao criar o usuário!', 'Falta de permissão ao criar o usuário.', 'login.php');
+}
+elseif (empty($_SESSION['token'] || $_SESSION['token'] != $token))
+{
+    error_log('Erro ao validar o token.');
+
+    getMensagemSession('error', 'Erro ao criar o usuário!', 'Falta de validação do token.', 'login.php');
 }
 else
 {
@@ -17,12 +30,6 @@ else
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
-            $nome = trim(filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-            $usuario = trim(filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-            $setor = trim(filter_input(INPUT_POST, 'setor', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-            $privilegio = trim(filter_input(INPUT_POST, 'privilegio', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-            $unidade = trim(filter_input(INPUT_POST, 'unidade', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-
             try
             {
                 $id = intval($_POST['id']);

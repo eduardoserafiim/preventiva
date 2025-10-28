@@ -5,6 +5,14 @@ require_once '../../public/components/session/mensagem.php';
 
 session_start();
 
+$usuario        = trim($_POST['usuario']);
+$nome           = trim($_POST['nome']);
+$senha          = trim($_POST['senha']);
+$senhaConfirmar = trim($_POST['confirmar-senha']);
+$setor          = trim($_POST['setor']);
+$privilegio     = trim($_POST['privilegio']);
+$unidade        = trim($_POST['unidade']);
+
 if (empty($_SESSION['privilegio']))
 {
     error_log('Usuário sem privilégio detectado.');
@@ -15,21 +23,11 @@ else
 {
     if ($_SESSION['privilegio'] === 'administrador')
     {
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') 
         {
             try
             {
                 $model = new UsuarioModel();
-            
-                $usuario = trim(filter_input(INPUT_POST, 'usuario', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-                $nome = trim(filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-                $senha = trim(filter_input(INPUT_POST, 'senha', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-                $senhaConfirmar = trim(filter_input(INPUT_POST, 'confirmar-senha', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-                $setor = trim(filter_input(INPUT_POST, 'setor', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-                $privilegio = trim(filter_input(INPUT_POST, 'privilegio', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-                $unidade = trim(filter_input(INPUT_POST, 'unidade', FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-            
                 
                 if (empty($usuario) || empty($senha) || empty($senhaConfirmar) || empty($setor) || empty($privilegio) || empty($unidade))
                 {
