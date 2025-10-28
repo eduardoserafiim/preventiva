@@ -121,10 +121,10 @@ function navbar($active) {
                 <div class="sidebar-footer-controle">
                     <div class="sidebar-user">
                         <i class="fas fa-user"></i>
-                        <h4>'.$_SESSION['nome'].'</h4>
+                        <h4>'. htmlspecialchars($_SESSION['nome']) .'</h4>
                     </div>
                     <div class="sidebar-setor">
-                        <p>'.$_SESSION['setor'].'</p>
+                        <p>'. htmlspecialchars($_SESSION['setor']) .'</p>
                     </div>
                 </div>
             </div>

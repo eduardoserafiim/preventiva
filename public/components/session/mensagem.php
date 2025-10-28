@@ -9,6 +9,6 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $url='')
         'texto' => $texto
     ];
 
-    header("Location: ../../view/".$view. "?url=" . urlencode($url));
+    header("Location: ../../view/".$view. "?url=" . rawurlencode($url));
     exit();
 }

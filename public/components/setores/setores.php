@@ -4,7 +4,7 @@ function criarSetor($icon, $url){
     return 
     '
     <div class="setor setor-preventiva" data-setor="'.strtolower($url).'">
-        <a href="preventiva.php?url='.$url.'">
+        <a href="preventiva.php?url='. urldecode($url) .'">
             <div class="flex">
                 <i class="fa-solid '.$icon.' fa-2xl anima"></i>
                 <div class="span-icon-control" style="max-width: 280px">
