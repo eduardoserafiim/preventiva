@@ -37,45 +37,21 @@ else
             
                 $model = new UsuarioModel();
                 $model->atualizar($id, $data);
-                
-                $_SESSION['mensagem'] =
-                    [
-                        'tipo' => 'success',
-                        'titulo' => 'Sucesso ao editar o usuário!',
-                        'texto' => 'Usuário editado no sistema.'
-                    ];
-            
-                header("Location: ../../view/usuarios.php?url=listar");
-                exit();
+
+                getMensagemSession('success', 'Sucesso ao editar o usuário!', 'Usuário editado no sistema.', 'usuarios.php', 'listar');
             }
             catch (Exception $e)
             {
-                echo 'Ocorreu um erro ao editar o usuário: ', $e;
+                error_log('Ocorreu um erro ao editar o usuário: '. $e);
                 
-                $_SESSION['mensagem'] =
-                [
-                    'tipo' => 'warning',
-                    'titulo' => 'Erro ao editar o usuário!',
-                    'texto' => 'Usuário não editado no sistema.'
-                ];
-                
-                header("Location: ../../view/usuarios.php?url=listar");
-                exit();
+                getMensagemSession('warning', 'Erro ao editar o usuário!', 'Usuário não editado no sistema.', 'usuarios.php', 'listar');
             }
         }
         else
         {
-            echo 'Tipo de requisição não aceitável para a edição do usuário.';
+            error_log('Tipo de requisição não aceitável para a edição do usuário.');
         
-            $_SESSION['mensagem'] =
-            [
-                'tipo' => 'error',
-                'titulo' => 'Erro ao editar o usuário!',
-                'texto' => 'O metódo solicitado não foi aceito ou você não tem permissão para editar um usuário.'
-            ];
-        
-            header("Location: ../../view/usuarios.php?url=listar");
-            exit();
+            getMensagemSession('error', 'Erro ao editar o usuário!', 'O metódo solicitado não foi aceito.', 'usuarios.php', 'listar');
         };
     }
     else
