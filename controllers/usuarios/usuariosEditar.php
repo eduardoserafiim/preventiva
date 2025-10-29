@@ -18,11 +18,17 @@ if (empty($_SESSION['privilegio']))
 
     getMensagemSession('error', 'Erro ao criar o usuário!', 'Falta de permissão ao criar o usuário.', 'login.php');
 }
-elseif (empty($_SESSION['token'] || $_SESSION['token'] != $token))
+elseif (empty($_SESSION['usuario']))
+{
+    error_log('Erro ao validar o privilégio.');
+
+    getMensagemSession('error', 'Erro ao criar o usuário!', 'Falta de verificação do usuário.', 'login.php');
+}
+elseif (empty($_SESSION['token']) || empty($token) || $_SESSION['token'] != $token)
 {
     error_log('Erro ao validar o token.');
 
-    getMensagemSession('error', 'Erro ao criar o usuário!', 'Falta de validação do token.', 'login.php');
+    getMensagemSession('error', 'Erro ao criar o usuário!', 'Falta de validação do token.', 'usuarios.php');
 }
 else
 {
