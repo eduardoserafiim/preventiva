@@ -4,51 +4,62 @@ require_once "../../models/usuarios.php";
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['apagarUsuario']) && $_SESSION['privilegio'] === 'administrador' ) 
+$url = ['criar', 'listar'];
+
+$id = intval(trim($_POST['id']));
+$token = trim($_POST['token']);
+
+if (empty($_SESSION['token']) || empty($token) || $_SESSION['token'] != $token)
 {
-    try
+    error_log('Falta de verificação do token');
+
+    getMensagemSession('error', 'Erro ao apagar!', 'Erro ao verificar o token.', 'usuarios.php', $url[1]);
+}
+if ($_SESSION['privilegio'] === 'administrador')
+{
+    if(isset($id))
     {
-        $id = intval($_POST['apagarUsuario']);
-    
         $model = new UsuarioModel();
-        $apagar = $model->apagar($id);
 
-        $_SESSION['mensagem'] =
-        [
-            'tipo' => 'success',
-            'titulo' => 'Sucesso ao excluir o usuário',
-            'texto' => 'O usuário foi excluido do sistema.'
-        ];
+        $validar = $model->validar($id);
 
-        header("Location: ../../view/usuarios.php?url=listar");
-        exit();
+        var_dump($validar);
+
+        
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+        {
+            try
+            {  
+                // $apagar = $model->apagar($id);
+
+                getMensagemSession('success', 'Sucesso ao apagar!', 'O usuário foi apagado no sistema.', 'usuarios.php', $url[1]);
+            }
+            catch (Exception $e)
+            {
+                error_log('Ocorreu algum erro durante a exclusão do usuário.'. $e->getMessage());
+
+                getMensagemSession('error', 'Erro ao apagar!', 'O usuário não pode ser excluído.', 'usuarios.php', $url[1]);
+            }
+        }
+        else
+        {
+            error_log('Tipo de requisição não aceitável para a exclusão do usuário');
+
+
+            getMensagemSession('error', 'Erro ao apagar!', 'Metódo não aceito.', 'usuarios.php', $url[1]);
+        }
     }
-    catch (Exception $e)
+    else
     {
-        echo 'Ocorreu algum erro durante a exclusão do usuário.';
+        error_log('Valores diferentes no ID.');
 
-        $_SESSION['mensagem'] =
-        [
-            'tipo' => 'warning',
-            'titulo' => 'Erro ao excluir o usuário!',
-            'texto' => 'O usuário não foi excluido no sistema.'
-        ];
-
-        header("Location: ../../view/usuarios.php?url=listar");
-        exit();
+        getMensagemSession('error', 'Erro ao apagar!', 'Erro na verificação do ID.', 'usuarios.php', $url[1]);
     }
 }
 else
 {
-    echo 'Tipo de requisição não aceitável para a exclusão do usuário';
+    error_log('Privilégio não aceito.');
 
-    $_SESSION['mensagem'] =
-    [
-        'tipo' => 'error',
-        'titulo' => 'Erro ao excluir o usuário!',
-        'texto' => 'O metódo solicitado não foi aceito ou você não tem permissão para apagar o usuário.'
-    ];
-
-    header("Location: ../../view/usuarios.php?url=listar");
-    exit();
+    getMensagemSession('error', 'Erro ao apagar!', 'Erro na verificação do privilégio.', 'usuarios.php', $url[1]);
 }
