@@ -28,7 +28,7 @@ elseif (empty($_SESSION['usuario']))
 
     getMensagemSession('error', 'Erro ao criar o usuário!', 'Falta de verificação ao criar o usuário.', 'login.php');
 }
-elseif (empty($_SESSION['token']) || empty($token) || $SESSION['token'] != $token)
+elseif (empty($_SESSION['token']) || empty($token) || $_SESSION['token'] != $token)
 {
     error_log('Token não verificado.');
 
@@ -47,24 +47,25 @@ else
                 {
                     error_log('Variáveis indefinidas.');
 
-                    getMensagemSession('error', 'Erro ao criar o usuário!', 'Ausência de dados.', 'usuarios.php', 'criar');
+                    getMensagemSession('error', 'Erro ao criar o usuário!', 'Ausência de dados.', 'usuarios.php', $url[0]);
                     
                 }
                 else
                 {
                     $model = new UsuarioModel();
 
+
                     $usuarioExistente = $model->validar($usuario);
 
                     if ($usuarioExistente) 
                     {
                         error_log('Usuário já existente.');
-                        getMensagemSession('warning', 'Erro ao criar o usuário!', 'Usuário já existente no sistema.', 'usuarios.php', 'criar');
+                        getMensagemSession('warning', 'Erro ao criar o usuário!', 'Usuário já existente no sistema.', 'usuarios.php', $url[0]);
                     }
                     elseif ($senha != $senhaConfirmar)
                     {
                         error_log('Senhas diferentes.');
-                        getMensagemSession('warning', 'Erro ao criar o usuário!', 'Senhas não coincidem.', 'usuarios.php', 'criar');
+                        getMensagemSession('warning', 'Erro ao criar o usuário!', 'Senhas não coincidem.', 'usuarios.php', $url[0]);
                     }
                     else
                     {
@@ -82,7 +83,7 @@ else
             
                         $model->criar($data);
 
-                        getMensagemSession('success', 'Sucesso ao criar o usuário!', 'Usuário cadastrado no sistema.', 'usuarios.php', 'listar');
+                        getMensagemSession('success', 'Sucesso ao criar o usuário!', 'Usuário cadastrado no sistema.', 'usuarios.php', $url[1]);
                     }
                 }
             }
@@ -90,20 +91,20 @@ else
             {
                 error_log('Ocorreu um erro ao cadastrar o usuário: ' . $e->getMessage());
 
-                getMensagemSession('warning', 'Erro ao criar o usuário!', 'Usuário não foi cadastrado no sistema.', 'usuarios.php', 'criar');
+                getMensagemSession('warning', 'Erro ao criar o usuário!', 'Usuário não foi cadastrado no sistema.', 'usuarios.php', $url[0]);
             }
         }
         else
         {
             error_log('Tipo de requisição não aceitável para a criação do usuário.');
         
-            getMensagemSession('error', 'Erro ao criar o usuário!', 'O metódo solicitado não foi aceito.', 'usuarios.php', 'criar');
+            getMensagemSession('error', 'Erro ao criar o usuário!', 'O metódo solicitado não foi aceito.', 'usuarios.php', $url[0]);
         }
     }
     else
     {
         error_log('Falta de permissão');
 
-        getMensagemSession('error', 'Erro ao criar o usuário!', 'Ausência de privilégio ao criar o usuário.', 'usuarios.php', 'criar');
+        getMensagemSession('error', 'Erro ao criar o usuário!', 'Ausência de privilégio ao criar o usuário.', 'usuarios.php', $url[0]);
     }
 }
