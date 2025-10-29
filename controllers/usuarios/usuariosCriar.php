@@ -5,6 +5,8 @@ require_once '../../public/components/session/mensagem.php';
 
 session_start();
 
+$url = ['criar', 'listar'];
+
 $usuario        = trim($_POST['usuario']);
 $nome           = trim($_POST['nome']);
 $senha          = trim($_POST['senha']);
@@ -12,12 +14,25 @@ $senhaConfirmar = trim($_POST['confirmar-senha']);
 $setor          = trim($_POST['setor']);
 $privilegio     = trim($_POST['privilegio']);
 $unidade        = trim($_POST['unidade']);
+$token          = trim($_POST['token']);
 
 if (empty($_SESSION['privilegio']))
 {
     error_log('Usuário sem privilégio detectado.');
 
     getMensagemSession('error', 'Erro ao criar o usuário!', 'Falta de permissão ao ciar o usuário.', 'login.php');
+}
+elseif (empty($_SESSION['usuario']))
+{
+    error_log('Usuário não verificado.');
+
+    getMensagemSession('error', 'Erro ao criar o usuário!', 'Falta de verificação ao criar o usuário.', 'login.php');
+}
+elseif (empty($_SESSION['token']) || empty($token) || $SESSION['token'] != $token)
+{
+    error_log('Token não verificado.');
+
+    getMensagemSession('error', 'Erro ao criar o usuário!', 'Falta de verificação do token.', 'usuarios.php', $url[0]);
 }
 else
 {
@@ -27,7 +42,6 @@ else
         {
             try
             {
-                $model = new UsuarioModel();
                 
                 if (empty($usuario) || empty($senha) || empty($senhaConfirmar) || empty($setor) || empty($privilegio) || empty($unidade))
                 {
@@ -38,6 +52,8 @@ else
                 }
                 else
                 {
+                    $model = new UsuarioModel();
+
                     $usuarioExistente = $model->validar($usuario);
 
                     if ($usuarioExistente) 
@@ -53,7 +69,7 @@ else
                     else
                     {
                         $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-                        
+
                         $data = 
                         [
                             'nome' => $nome,

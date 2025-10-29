@@ -6,6 +6,8 @@ function formGrid() {
 
     $html = '
     <div class="form-grid">
+        <input type="hidden" id="input-token" value="'. $_SESSION['token'] .'" required>
+
         <div class="form-group step active">
             <div class="nome">
                 <label for="input-nome">Nome</label>
