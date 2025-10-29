@@ -5,26 +5,19 @@ require_once '../../public/components/session/mensagem.php';
 
 session_start();
 
-$url = trim(filter_input(INPUT_POST, 'assinatura-setor', FILTER_UNSAFE_RAW));
+$url = trim($_POST['assinatura-setor']);
 $url = preg_replace("/[^[:alnum:]À-ÿ\s]/u", '', $url);
 
 $nome       = trim($_POST['assinatura-nome']);
-$ano        = trim(filter_input(INPUT_POST, 'assinatura-ano', FILTER_VALIDATE_INT));
-$semestre   = trim(filter_input(INPUT_POST, 'assinatura-semestre', FILTER_SANITIZE_STRING));
-$setor      = trim(filter_input(INPUT_POST, 'assinatura-setor', FILTER_UNSAFE_RAW));
-$unidade    = trim(filter_input(INPUT_POST, 'assinatura-unidade', FILTER_SANITIZE_STRING));
-$token      = trim(filter_input(INPUT_POST, 'assinatura-token', FILTER_SANITIZE_STRING));
-$assinatura = trim(filter_input(INPUT_POST, 'assinatura', FILTER_SANITIZE_STRING));
+$ano        = trim($_POST['assinatura-ano']);
+$semestre   = trim($_POST['assinatura-semestre']);
+$setor      = trim($_POST['assinatura-setor']);
+$unidade    = trim($_POST['assinatura-unidade']);
+$token      = trim($_POST['assinatura-token']);
+$assinatura = trim($_POST['assinatura']);
 
-if (empty($_SESSION['id']))
+if (empty($_SESSION['usuario']))
 {
-    error_log('Falta de validação do id do usuário.');
-
-    getMensagemSession('error', 'Erro ao assinar!', 'Não foi possível validar o usuário.', 'login.php');
-}
-elseif (empty($_SESSION['usuario']))
-{
-    
     error_log('Falta de validação do usuário.');
 
     getMensagemSession('error', 'Erro ao assinar!', 'Não foi possível validar o usuário.', 'login.php');
@@ -35,7 +28,7 @@ elseif (empty($_SESSION['privilegio']))
 
     getMensagemSession('error', 'Erro ao assinar!', 'Não foi possível validar o privilégio do usuário.', 'preventiva.php'); 
 }
-elseif (empty($_SESSION['token'] or empty($token)))
+elseif (empty($_SESSION['token'] || empty($token) || $_SESSION['token'] != $token))
 {
     error_log('Falta de validação do token.');
 
@@ -68,7 +61,7 @@ else
                 else
                 {
                     try
-                    {                                    
+                    {                                   
                         $data = [
                             'nome' => $nome,
                             'ano' => $ano,
