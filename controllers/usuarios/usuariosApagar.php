@@ -1,6 +1,7 @@
 <?php
 require_once '../../db/db.php';
-require_once "../../models/usuarios.php";
+require_once '../../models/usuarios.php';
+require_once '../../public/components/session/mensagem.php';
 
 session_start();
 
@@ -17,7 +18,7 @@ if (empty($_SESSION['token']) || empty($token) || $_SESSION['token'] != $token)
 }
 if ($_SESSION['privilegio'] === 'administrador')
 {
-    if(isset($id))
+    if($id != 1)
     {
         $model = new UsuarioModel();
 
@@ -25,13 +26,11 @@ if ($_SESSION['privilegio'] === 'administrador')
 
         var_dump($validar);
 
-        
-
         if ($_SERVER['REQUEST_METHOD'] === 'POST') 
         {
             try
             {  
-                // $apagar = $model->apagar($id);
+                $apagar = $model->apagar($id);
 
                 getMensagemSession('success', 'Sucesso ao apagar!', 'O usuário foi apagado no sistema.', 'usuarios.php', $url[1]);
             }

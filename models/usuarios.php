@@ -132,29 +132,12 @@ class UsuarioModel{
     {
         try
         {
-            if(is_int($usuario))
-            {
-                $sql = 'SELECT id, nome
-                    FROM usuarios
-                    WHERE usuario = :id
-                    LIMIT 1';
-            }
-            else
-            {
-                $sql = 'SELECT *
-                    FROM usuarios
-                    WHERE usuario = :usuario 
-                    LIMIT 1';
-            }
+            $sql = 'SELECT *
+                FROM usuarios
+                WHERE usuario = :usuario 
+                LIMIT 1';
             $stmt = $this->db->prepare($sql);
-            if(is_int($usuario))
-            {
-                $stmt->execute([':usuario' => $usuario]);
-            }
-            else
-            {
-                $stmt->execute([':id' => $usuario]);
-            }
+            $stmt->execute([':usuario' => $usuario]);
 
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }

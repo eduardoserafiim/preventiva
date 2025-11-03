@@ -1,75 +1,52 @@
 <?php
 require_once '../../db/db.php';
 require_once '../../models/usuarios.php';
+require_once '../../public/components/session/mensagem.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['privilegio'] == 'administrador') {
-    try
+$id = intval($_POST['id']);
+
+$novaSenha = trim($_POST['nova_senha']);
+$confirmarSenha = trim($_POST['confirmar_senha']);
+
+if ($_SESSION['privilegio'] === 'administrador')
+{
+    if ($novaSenha != $confirmarSenha)
     {
-        $model = new UsuarioModel();
+        error_log('Senhas diferentes.');
     
-        $id = intval($_POST['id']);
-        
-        $novaSenha= $_POST['nova_senha'] ?? '';
-        $confirmarSenha = $_POST['confirmar_senha'] ?? '';
-    
-    
-        if($novaSenha != $confirmarSenha)
-        {
-            echo 'Senhas diferentes.';
+        getMensagemSession('warning', 'Erro ao alterar senha!', 'Senhas diferentes.', 'usuarios.php',$id);
+    }
+    else
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try
+            {
+                $model = new UsuarioModel();
 
-            $_SESSION['mensagem'] = 
-            [
-                'tipo' => 'warning',
-                'titulo' => 'Erro ao atualizar a senha!',
-                'texto' => 'As senhas não coincidem.'
-            ];
+                    $model->atualizarSenha($id, $novaSenha);
 
-            header("Location: ../../view/usuarios.php?url=alterarsenha&id={$id}");
-            exit();
+                    getMensagemSession('success', 'Sucesso ao atualizar a senha!', 'A senha foi alterada com sucesso.', 'usuarios.php');
+            }
+            catch (Exception $e)
+            {
+                error_log('Ocorreu algum erro na altreação da senha.');
+
+                getMensagemSession('error', 'Erro ao alterar senha!', 'Houve algum problema e a senha não foi alterada.', 'usuarios.php',$id);
+            }
         }
         else
         {
-            $model->atualizarSenha($id, $novaSenha);
+            error_log('Tipo de requisição não aceitável para a alteração da senha.');
 
-            $_SESSION['mensagem'] = 
-            [
-                'tipo' => 'success',
-                'titulo' => 'Sucesso ao atualizar a senha!',
-                'texto' => 'A senha foi alterada no sistema.'
-            ];
-
-            header("Location: ../../view/usuarios.php");
-            exit();
+            getMensagemSession('error', 'Erro ao alterar senha!', 'O metódo solicitado não foi aceito.', 'usuarios.php');
         }
-    }
-    catch (Exception $e)
-    {
-        echo 'Ocorreu algum erro na altreação da senha.';
-
-        $_SESSION['mensagem'] = 
-        [
-            'tipo' => 'warning',
-            'titulo' => 'Erro ao atualizar a senha!',
-            'texto' => 'A senha não foi alterada no sistema.'
-        ];
-
-        header("Location: ../../view/usuarios.php?url=alterarsenha&id={$id}");
-        exit();
     }
 }
 else
 {
-    echo 'Tipo de requisição não aceitável para a alteração da senha.';
+    error_log('Erro ao validar o privilégio.');
 
-    $_SESSION['mensagem'] = 
-    [
-        'tipo' => 'error',
-        'titulo' => 'Erro ao atualizar a senha!',
-        'texto' => 'O método solicitado não foi aceito ou vccê não tem permissão para alterar a senha do usuário.'
-    ];
-
-    header("Location: ../../view/usuarios.php?url=alterarsenha&id={$id}");
-    exit();
+    getMensagemSession('error', 'Erro ao alterar senha!', 'Erro na verificação do privilégio.', 'usuarios.php', 'listar');
 }
