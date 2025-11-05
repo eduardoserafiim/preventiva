@@ -9,7 +9,13 @@ $id = intval($_POST['id']);
 
 $novaSenha = trim($_POST['nova_senha']);
 $confirmarSenha = trim($_POST['confirmar_senha']);
+$token = trim($_POST['token']);
+if($_SESSION['usuario'] != 'administrador')
+{
+    error_log('Erro na verificação do usuário!');
 
+    getMensagemSession('error', 'Erro ao alterar a senha!', 'Erro na verificação do usuário.', 'usuarios.php', 'listar');
+}
 if ($_SESSION['privilegio'] === 'administrador')
 {
     if ($novaSenha != $confirmarSenha)
@@ -25,13 +31,13 @@ if ($_SESSION['privilegio'] === 'administrador')
             {
                 $model = new UsuarioModel();
 
-                    $model->atualizarSenha($id, $novaSenha);
+                $model->atualizarSenha($id, $novaSenha);
 
-                    getMensagemSession('success', 'Sucesso ao atualizar a senha!', 'A senha foi alterada com sucesso.', 'usuarios.php');
+                getMensagemSession('success', 'Sucesso ao atualizar a senha!', 'A senha foi alterada com sucesso.', 'usuarios.php');
             }
             catch (Exception $e)
             {
-                error_log('Ocorreu algum erro na altreação da senha.');
+                error_log('Ocorreu algum erro na altreação da senha.'. $e->getMessage());
 
                 getMensagemSession('error', 'Erro ao alterar senha!', 'Houve algum problema e a senha não foi alterada.', 'usuarios.php',$id);
             }

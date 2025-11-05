@@ -1,4 +1,6 @@
 <?php 
+require __DIR__ . '/../db/db.php';
+
 class SetorModel{
 
     private $db;

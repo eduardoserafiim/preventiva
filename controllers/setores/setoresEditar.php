@@ -1,59 +1,46 @@
 <?php
 require_once '../../db/db.php';
 require_once "../../models/setores.php";
+require_once '../../public/components/session/mensagem.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SESSION['privilegio'] === 'administrador')
+$id = intval($_POST['id']);
+$nome = trim($_POST['nome']);
+
+if ($_SESSION['privilegio'] === 'administrador')
 {
-    try
+    if ($_SERVER['REQUEST_METHOD'] === 'POST')
     {
-        $id = intval($_POST['id']);
-
-        $data = 
-        [
-            'nome' => $_POST['nome'] ?? '',
-        ];
-     
-        $model = new SetorModel();
-        $model->atualizar($id, $data);
-
-        $_SESSION['mensagem'] = 
-        [
-            'tipo' => 'success',
-            'titulo' => 'Sucesso ao editar o setor!',
-            'texto' => 'O setor foi editado no sistema.'
-        ];
-
-        header("Location: ../../view/setores.php?url=listar");
-        exit();
-    }
-    catch (Exception $e)
-    {
-        echo 'Ocorreu algum erro na edição do setor: ', $e;
-
-        $_SESSION['mensagem'] = 
-        [
-            'tipo' => 'warning',
-            'titulo' => 'Erro ao editar o setor!',
-            'texto' => 'O setor não foi editado no sistema.'
-        ];
+        try
+        {
+            $data = 
+            [
+                'nome' => $nome,
+            ];
         
-        header("Location: ../../view/setores.php?url=listar");
-        exit();
+            $model = new SetorModel();
+            $model->atualizar($id, $data);
+
+            getMensagemSession('success', 'Sucesso ao editar o setor!', 'Setor editado com sucesso.', 'setores.php', 'listar');
+        }
+        catch (Exception $e)
+        {
+            error_log('Ocorreu algum erro na edição do setor: '. $e->getMessage());
+
+            getMensagemSession('error', 'Erro ao editar o setor!', 'Houve algum erro e o setor não foi editado.', 'setores.php', 'listar');
+        }
+    }
+    else
+    {
+        error_log('Tipo de requisição não aceitável para a edição do setor.');
+
+        getMensagemSession('error', 'Erro ao editar o setor!', 'O metódo solicitado não foi aceito.', 'setores.php');
     }
 }
 else
 {
-    echo 'Tipo de requisição não aceitável para a edição do setor.';
+    error_log('Erro na verificação do privilégio.');
 
-    $_SESSION['mensagem'] = 
-    [
-        'tipo' => 'error',
-        'titulo' => 'Erro ao atualizar o setor!',
-        'texto' => 'O metódo solicitado não foi aceito.'
-    ];
-    
-    header("Location: ../../view/setores.php?url=listar");
-    exit();
+    getMensagemSession('error', 'Erro ao editar o setor!', 'Falta de privilégio do setor.', 'setores.php', 'listar');
 }

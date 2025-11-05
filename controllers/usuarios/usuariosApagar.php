@@ -10,21 +10,26 @@ $url = ['criar', 'listar'];
 $id = intval(trim($_POST['id']));
 $token = trim($_POST['token']);
 
-if (empty($_SESSION['token']) || empty($token) || $_SESSION['token'] != $token)
+
+if ($_SESSION['usuario'] != 'administrador')
 {
-    error_log('Falta de verificação do token');
+    error_log('Falta de verificação do usuário!');
+
+    getMensagemSession('error', 'Erro ao apagar!', 'Erro ao verificar o usuário.', 'usuarios.php', $url[1]);
+}
+if ($_SESSION['privilegio'] === 'administrador')
+{
+    error_log('Falta de verificação do privilégio!');
 
     getMensagemSession('error', 'Erro ao apagar!', 'Erro ao verificar o token.', 'usuarios.php', $url[1]);
 }
-if ($_SESSION['privilegio'] === 'administrador')
+if (empty($_SESSION['token']) || empty($token) || $_SESSION['token'] != $token)
 {
     if($id != 1)
     {
         $model = new UsuarioModel();
 
         $validar = $model->validar($id);
-
-        var_dump($validar);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') 
         {
@@ -60,5 +65,5 @@ else
 {
     error_log('Privilégio não aceito.');
 
-    getMensagemSession('error', 'Erro ao apagar!', 'Erro na verificação do privilégio.', 'usuarios.php', $url[1]);
+    getMensagemSession('error', 'Erro ao apagar!', 'Erro na verificação do token.', 'usuarios.php', $url[1]);
 }

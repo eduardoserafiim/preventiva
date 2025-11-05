@@ -49,7 +49,6 @@ $dbsetores = new SetorModel();
 
 $setores = $dbsetores->listar();
 
-
 if ($url) 
 {
     $usuarios = $db->listar();
@@ -73,7 +72,7 @@ if ($url)
                 </div>
                 <div class="controleForm" style="margin: 0px;">
                     <div class="form-container">
-                        <form action="../controllers/usuarios/usuariosCriar.php" method="POST" id="formularioUsuarios" class="equipment-form">
+                        <form action="../controllers/UsuariosController.php" method="POST" id="formularioUsuarios" class="equipment-form">
                             <?= formGrid() ?>
                             <?= formActions() ?>
                         </form>

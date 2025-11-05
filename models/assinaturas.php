@@ -1,4 +1,6 @@
 <?php
+require __DIR__ . '/../db/db.php';
+
 class AssinaturaModel{
     private $db;
     public function __construct() 
