@@ -9,9 +9,6 @@ if (!isset($_SESSION['usuario'])) {
 
 ?>
 <?php
-// DATABASE
-include_once "../db/db.php";
-
 // MODELS
 include_once "../models/assinaturas.php";
 

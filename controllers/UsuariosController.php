@@ -75,14 +75,52 @@ class UsuariosController
             {
                 error_log ('Houve um erro ao executar a criação do usuário: '. $e->getMessage());
 
-                getMensagemSession('error', 'Erro ao cadastrar o usuário!', 'Houve algum problema e o não foi cadastrado o usuário.', 'usuarios.php', $this->url[0]);
+                getMensagemSession('error', 'Erro ao cadastrar o usuário!', 'Houve algum problema e o usuário não foi cadastrado.', 'usuarios.php', $this->url[0]);
             }
         }
     }
 
     public function alterarUsuarios()
     {
+        $id         = intval($_POST['id']);
+        $usuario    = trim($_POST['usuario']);
+        $nome       = trim($_POST['nome']);
+        $setor      = trim($_POST['setor']);
+        $privilegio = trim($_POST['privilegio']);
+        $unidade    = trim($_POST['unidade']);
 
+        if (!$usuario || !$nome || !$setor || !$privilegio || !$unidade)
+        {
+            error_log('Variáveis não definidas.');
+
+            getMensagemSession('error', 'Erro no preenchimento dos dados!', 'Você precisa preencher todos os campos.', 'usuarios.php', $this->url[0]);
+        }
+        else
+        {
+            try
+            {
+                $model = new UsuarioModel();
+
+                $data =
+                [
+                    'nome' => $nome,
+                    'usuario' => $usuario,
+                    'setor' => $setor,
+                    'privilegio' => $privilegio,
+                    'unidade' => $unidade
+                ];
+
+                $model->atualizar($id, $data);
+
+                getMensagemSession('success', 'Sucesso ao editar o usuário!', 'Usuário editado no sistema.', 'usuarios.php', $this->url[1]);
+            }
+            catch (Exception $e)
+            {
+                error_log ('Houve um erro ao executar a edição do usuário: '. $e->getMessage());
+    
+                getMensagemSession('error', 'Erro ao editar o usuário!', 'Houve algum problema e o usuário não foi editado.', 'usuarios.php', $this->url[0]);
+            }
+        }
     }
 
     public function apagarUsuarios()

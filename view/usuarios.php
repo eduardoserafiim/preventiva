@@ -44,14 +44,14 @@ $erro = $_GET['erro'] ?? null;
 
 $id = intval($_GET['id'] ?? 0);
 
-$db = new UsuarioModel();
-$dbsetores = new SetorModel();
+$usuariosModel = new UsuarioModel();
+$setoresModel = new SetorModel();
 
-$setores = $dbsetores->listar();
+$setores = $setoresModel->listar();
 
 if ($url) 
 {
-    $usuarios = $db->listar();
+    $usuarios = $usuariosModel->listar();
 }
 
 ?>
