@@ -1,0 +1,96 @@
+<?php
+require_once '../db/db.php';
+
+require_once '../models/usuarios.php';
+
+require_once '../public/components/session/mensagem.php';
+
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST')
+{
+    $acao = $_POST['acao'];
+}
+
+class EntrarController
+{
+    public function entrar()
+    {   
+        $nome = trim($_POST['usuario']);
+        $senha = trim($_POST['senha']);
+
+        if (!$nome || !$senha)
+        {
+            echo 'Variáveis não definidas.';
+
+            getMensagemSession('error', 'Erro ao entrar!', 'Preencha todos os campos!', 'login.php');
+        }
+        else
+        {
+            try
+            {
+                $model = new UsuarioModel();
+                $usuario = $model->validar($nome);
+
+                if ($usuario && password_verify($senha, $usuario['senha']))
+                {
+                    $_SESSION['id'] = $usuario['id'];
+                    $_SESSION['usuario'] = $usuario['usuario'];
+                    $_SESSION['nome'] = $usuario['nome'];
+                    $_SESSION['setor'] = $usuario['setor'];
+                    $_SESSION['privilegio'] = $usuario['privilegio'];
+                    $_SESSION['unidade'] = $usuario['unidade'];
+                    $_SESSION['token'] = bin2hex(random_bytes(32));
+                
+                    getMensagemSession('success', 'Bem vindo!', 'Você já pode navegar no sistema.', 'index.php');
+                }
+                else
+                {
+                    getMensagemSession('error', 'Erro ao entrar!', 'Usuário ou Senha incorretos.', 'login.php');
+                }
+            }
+            catch (Exception $e)
+            {
+                echo 'Houve algum erro: '. $e->getMessage();
+
+                getMensagemSession('error', 'Erro ao entrar!', 'Preencha todos os campos!', 'login.php');
+            }
+        }
+    }
+
+    public function sair()
+    {
+        try
+        {
+            session_unset();            
+            session_destroy();
+            
+            session_start();  
+
+            getMensagemSession('success', 'Sucesso ao sair!', 'Você foi deslogado.', 'login.php');
+        }
+        catch (Exception $e)
+        {
+            echo 'Houve algum problema e não foi possivel fazer o logout: '.$e->getMessage();
+
+            if (session_status() !== PHP_SESSION_ACTIVE) {
+                session_start();
+            }
+
+            getMensagemSession('error', 'Erro ao sair!', 'Você não foi deslogado.', 'index.php');
+        }
+    }
+}
+
+switch ($acao)
+{
+    case 'entrar':
+        $controller = new EntrarController();
+        $controller->entrar();
+        break;
+
+    case 'sair':
+        $controller = new EntrarController();
+        $controller->sair();
+        break;
+}

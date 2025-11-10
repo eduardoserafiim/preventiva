@@ -40,11 +40,11 @@ require_once "../public/components/form/setores/formActions.php";
 ?>
 <?php
 
-$dbsetor = new SetorModel();
+$modelSetor = new SetorModel();
 
 $url = $_GET['url'] ?? '';
 
-$setoresdb = $dbsetor->listar();
+$setores = $modelSetor->listar();
 
 ?>
 <body>
@@ -64,7 +64,7 @@ $setoresdb = $dbsetor->listar();
                 </div>
                 <div class="controleForm" style="margin: 0px">
                     <div class="form-container">
-                        <form action="../controllers/setores/setoresCriar.php" method="POST" id="formularioSetores" class="equipment-form">
+                        <form action="../controllers/SetoresController.php" method="POST" id="formularioSetores" class="equipment-form">
                             <?= formGrid() ?>
                             <?= formActions() ?>
                         </form>
@@ -77,10 +77,10 @@ $setoresdb = $dbsetor->listar();
                 <div class="voltar">
                     <?= voltar('setores.php') ?>
                 </div>
-                <?= listarSetores($setoresdb) ?>
+                <?= listarSetores($setores) ?>
             <?php else: ?>
                 <div class="setoresAdministrador">
-                    <?php foreach ($setores as $setor): ?>
+                    <?php foreach ($setoresDiv as $setor): ?>
                         <?= criarSetorDiv($setor[1], $setor[0], $setor[2]) ?>
                     <?php endforeach ?>
                 </div>
@@ -88,6 +88,9 @@ $setoresdb = $dbsetor->listar();
         </main>
     </div>
 </body>
+<script>
+    window.token = <?php echo json_encode($_SESSION['token']); ?>;
+</script>
 <?php
 
 require_once '../public/components/scripts/scriptSetores.php';

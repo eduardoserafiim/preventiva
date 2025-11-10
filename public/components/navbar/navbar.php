@@ -106,7 +106,10 @@ function navbar($active) {
 
     $html .= '
                 <li>
-                    <a href="../controllers/login/logoutUsuario.php" class="menu-item" onclick="confirmarSaida(event)">
+                    <a href="" class="menu-item" onclick="confirmarSaida(event)">
+                        <form action="../controllers/EntrarController.php" method="POST">
+                            <input type="hidden" name="acao" value="sair">
+                        </form>
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Sair</span>
                     </a>

@@ -59,7 +59,7 @@ $url = $_GET["url"] ?? '';
                     </div>
                     <div class="controleForm">
                         <div class="form-container">
-                            <form action="../controllers/login/loginUsuario.php" method="POST" id="formularioUsuario" class="equipment-form">
+                            <form action="../controllers/EntrarController.php" method="POST" id="formularioUsuario" class="equipment-form">
                                 <?= formGrid() ?>
                                 <?= formActions() ?>
                             </form>

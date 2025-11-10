@@ -4,8 +4,8 @@ document.addEventListener('DOMContentLoaded', function ()
 
     botao.forEach(button => {
         button.addEventListener('click', function () {
-            const id_setor = this.dataset.id;
-            const card = document.getElementById(`setor-${id_setor}`);
+            const idSetor = this.dataset.id;
+            const card = document.getElementById(`setor-${idSetor}`);
             const div = card.querySelector('.equipment-info');
             
             const fields = {
@@ -14,14 +14,25 @@ document.addEventListener('DOMContentLoaded', function ()
     
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '../controllers/setores/setoresEditar.php';
+            form.action = '../controllers/SetoresController.php';
             
-            const id_input = document.createElement('input');
-            id_input.type = 'hidden';
-            id_input.name = 'id',
-            id_input.value = id_setor;
-    
-            form.appendChild(id_input);
+            const idInput = document.createElement('input');
+            idInput.type = 'hidden';
+            idInput.name = 'id',
+            idInput.value = idSetor;
+            form.appendChild(idInput);
+
+            const acao = document.createElement('input');
+            acao.type = 'hidden';
+            acao.name = 'acao';
+            acao.value = 'editar';
+            form.appendChild(acao);
+            
+            const token = document.createElement('input');
+            token.type = 'hidden';
+            token.name = 'token';
+            token.value = window.token;
+            form.appendChild(token);
     
             Object.entries(fields).forEach(([key, label]) => {
                 const row = document.createElement('div');
@@ -57,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function ()
                 <button type="submit" class="botao botao-primario" onclick="confirmarEdicao(event)">
                     <i class="fas fa-save"></i> Salvar
                 </button>
-                <button type="button" class="botao botao-cancelar cancelar-edicao" data-id="${id_setor}">
+                <button type="button" class="botao botao-cancelar cancelar-edicao" data-id="${idSetor}">
                     <i class="fas fa-times"></i> Cancelar
                 </button>
             `;

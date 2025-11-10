@@ -1,5 +1,4 @@
 <?php
-
 // VERIFICAÇÃO LOGIN
 session_start();
 if (!isset($_SESSION['usuario'])) {
@@ -29,9 +28,9 @@ require_once "../public/components/setores/dictionarySetores.php";
 <?php
 
 // MODELS
-$db = new ComputerModel();
-$dbsetor = new SetorModel();
-$dbassinatura = new AssinaturaModel();
+$modelComputador = new ComputerModel();
+$modelSetor = new SetorModel();
+$modelAssinatura = new AssinaturaModel();
 
 // URL E SESSIONS
 $setorUsuario = $_SESSION['setor'] ?? '';
@@ -50,9 +49,9 @@ $ano = $_GET['ano'] ?? '';
 $unidade = $_GET['unidade'] ?? '';
 
 // chamadas das funções para listar os setores e também as assinaturas
-$setores = $dbsetor->listar();
-$assinaturasResponsavel = $dbassinatura->listarResponsaveis($setorUsuario, $ano, $semestre);
-$assinaturasTecnicos = $dbassinatura->listarTecnicos($setorUsuario, $ano, $semestre);
+$setores = $modelSetor->listar();
+$assinaturasResponsavel = $modelAssinatura->listarResponsaveis($setorUsuario, $ano, $semestre);
+$assinaturasTecnicos = $modelAssinatura->listarTecnicos($setorUsuario, $ano, $semestre);
 
 // declaracao array vazia de computadores
 $computadores = [];
@@ -63,12 +62,12 @@ if ($setorFiltro)
     // para o TI se todos essas variaveis forem declaradas ou true ele passa a array de computadores para a função de filtro da model
     if ($semestre || $ano || $unidade) 
     {
-        $computadores = $db->filtrar($setorFiltro, $semestre, $ano, $unidade);
+        $computadores = $modelComputador->filtrar($setorFiltro, $semestre, $ano, $unidade);
     }
     // para o Usuário ele recebe o prório setor e a sua própria unidade
     else 
     {
-        $computadores = $db->listar($setorFiltro, $unidadeUsuario);
+        $computadores = $modelComputador->listar($setorFiltro, $unidadeUsuario);
     }
 }
 ?>
@@ -169,14 +168,15 @@ if ($setorFiltro)
                                     </div>
                                 <?php else: ?>
                                     <div class="flex assinar-flex">
-                                        <form method="POST" action="../controllers/usuarios/usuariosAssinar.php" class="form-flex form-assinar">
+                                        <form method="POST" action="../controllers/UsuariosController.php" class="form-flex form-assinar">
     
                                             <input type="hidden" name="assinatura-nome" value="<?= htmlspecialchars($_SESSION['nome']) ?>">
                                             <input type="hidden" name="assinatura-ano" value="<?= htmlspecialchars($ano) ?>">
                                             <input type="hidden" name="assinatura-setor" value="<?= htmlspecialchars($_SESSION['setor']) ?>">
                                             <input type="hidden" name="assinatura-semestre" value="<?= htmlspecialchars($semestre) ?>">
                                             <input type="hidden" name="assinatura-unidade" value="<?= htmlspecialchars($_SESSION['unidade']) ?>">
-                                            <input type="hidden" name="assinatura-token" value="<?= htmlspecialchars($_SESSION['token']) ?>">
+                                            <input type="hidden" name="acao" value="assinar">
+                                            <input type="hidden" name="token" value="<?= htmlspecialchars($_SESSION['token']) ?>">
                                             
                                             <label for="input-assinatura">Responsável do Setor</label>
                                             <input type="text" id="input-assinatura" name="assinatura" placeholder="Assine com seu nome aqui" value="<?= htmlspecialchars($_SESSION['nome']) ?>" readonly> 
@@ -221,13 +221,14 @@ if ($setorFiltro)
                                     </div>
                                 <?php else: ?>
                                     <div class="flex assinar-flex">
-                                        <form method="POST" action="../controllers/usuarios/usuariosAssinarTI.php" class="form-flex form-assinar">
+                                        <form method="POST" action="../controllers/UsuariosController.php" class="form-flex form-assinar">
                                             <input type="hidden" name="assinatura-nome" value="<?= htmlspecialchars($_SESSION['nome']) ?>">
                                             <input type="hidden" name="assinatura-ano" value="<?= htmlspecialchars($ano) ?>">
                                             <input type="hidden" name="assinatura-setor" value="<?= htmlspecialchars($setorFiltro) ?>">
                                             <input type="hidden" name="assinatura-semestre" value="<?= htmlspecialchars($semestre) ?>">
                                             <input type="hidden" name="assinatura-unidade" value="<?= htmlspecialchars($_SESSION['unidade']) ?>">
-                                            <input type="hidden" name="assinatura-token" value="<?= htmlspecialchars($_SESSION['token']) ?>">
+                                            <input type="hidden" name="acao" value="assinar">
+                                            <input type="hidden" name="token" value="<?= htmlspecialchars($_SESSION['token']) ?>">
                                             
                                             <label>Assinatura do Técnico Responsável: </label>
                                             <input type="text" id="input-assinatura-responsavel" name="assinatura" placeholder="Assine com seu nome aqui" value="<?= htmlspecialchars($_SESSION['nome']) ?>" readonly> 

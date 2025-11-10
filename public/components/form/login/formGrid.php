@@ -2,7 +2,9 @@
 
 function formGrid(){
     return
-    '                  
+    '               
+        <input type="hidden" name="acao" value="entrar">
+           
         <div class="usuario">
             <div class="flex">
                 <i class="fas fa-user fa-xl"></i>

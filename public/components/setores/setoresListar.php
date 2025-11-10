@@ -1,7 +1,4 @@
 <?php
-require_once '../db/db.php';
-require_once '../models/usuarios.php';
-
 function listarSetores(array $setores)
 {
 ?>
@@ -30,8 +27,10 @@ function listarSetores(array $setores)
                                 <button type="button" class="botao botao-primario editarSetor" data-id="<?= $setor['id'] ?>">
                                     <i class="fa-solid fa-pencil"></i> Editar
                                 </button>
-                                <form method="POST" action="../controllers/setores/setoresApagar.php">
-                                    <input type="hidden" name="apagarSetor" value="<?= $setor['id'] ?>">    
+                                <form method="POST" action="../controllers/SetoresController.php">
+                                    <input type="hidden" name="id" value="<?= $setor['id'] ?>">    
+                                    <input type="hidden" name="acao" value="apagar">    
+                                    <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">    
                                     <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
                                         <i class="fas fa-eraser"></i> Apagar
                                     </button>

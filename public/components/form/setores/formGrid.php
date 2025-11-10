@@ -1,11 +1,12 @@
 <?php
-
 function formGrid()
 {
     return 
     '
     <div class="form-grid">
         <div class="form-group" style="gap: 20px">
+            <input type="hidden" name="acao" value="criar">
+            <input type="hidden" name="token" value="'. $_SESSION["token"] .'">
             <div class="nome">
                 <label for="input-nome">Nome</label>
                 <input type="text" id="input-nome" name="nome" required>
@@ -19,5 +20,3 @@ function formGrid()
         </div> 
     </div>';
 }
-
-?>

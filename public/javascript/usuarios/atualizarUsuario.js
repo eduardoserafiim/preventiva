@@ -20,13 +20,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '../controllers/usuarios/usuariosEditar.php';
+            form.action = '../controllers/UsuariosController.php';
 
             const inputId = document.createElement('input');
             inputId.type = 'hidden';
             inputId.name = 'id';
             inputId.value = usuarioId;
             form.appendChild(inputId);
+
+            const acao = document.createElement('input');
+            acao.type = 'hidden';
+            acao.name = 'acao';
+            acao.value = 'editar';
+            form.appendChild(acao);
 
             const token = document.createElement('input');
             token.type = 'hidden';

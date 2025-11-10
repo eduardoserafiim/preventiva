@@ -1,9 +1,9 @@
 <?php
 class Database {
-    private $host = "localhost";
-    private $db = "informatica";
-    private $user = "root";
-    private $pass = "";
+    private $host = "10.141.121.67:3306";
+    private $database = "informatica";
+    private $user = "info";
+    private $pass = "fefeco123@";
     private $pdo;
 
     public function __construct() {
@@ -13,7 +13,7 @@ class Database {
     private function connect() {
         try {
             $this->pdo = new PDO(
-                "mysql:host={$this->host};dbname={$this->db};charset=utf8",
+                "mysql:host={$this->host};dbname={$this->database};charset=utf8",
                 $this->user,
                 $this->pass
             );

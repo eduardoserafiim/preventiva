@@ -1,5 +1,4 @@
 <?php
-
 // VERIFICAÇÃO LOGIN
 session_start();
 if (!isset($_SESSION['usuario'])) {
@@ -9,9 +8,6 @@ if (!isset($_SESSION['usuario'])) {
 
 ?>
 <?php
-// DB
-require_once '../db/db.php';
-
 // MODELS
 require_once '../models/computadores.php';
 require_once '../models/setores.php';

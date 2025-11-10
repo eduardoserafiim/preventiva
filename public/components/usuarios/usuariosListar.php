@@ -21,8 +21,9 @@ function listarUsuarios(array $usuarios)
                                         <i class="fa-solid fa-pencil"></i> Editar
                                     </button>
                                 <?php if($usuario["usuario"] != "administrador" or $usuario['nome'] != "Administrador" or $usuario['id'] > 1) : ?>
-                                    <form method="POST" action="../controllers/usuarios/usuariosApagar.php">
+                                    <form method="POST" action="../controllers/UsuariosController.php">
                                         <input type="hidden" name="id" value="<?= $usuario['id'] ?>">    
+                                        <input type="hidden" name="acao"value="apagar">
                                         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">    
                                         <button type="submit" class="botao botao-cancelar" onclick="confirmarExclusao(event)">
                                             <i class="fas fa-eraser"></i> Apagar

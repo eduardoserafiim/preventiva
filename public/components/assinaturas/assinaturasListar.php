@@ -1,7 +1,4 @@
 <?php
-require_once "../db/db.php";
-require_once "../models/assinaturas.php";
-
 function assinaturasListar(array $assinaturas)
 {
     ?>
