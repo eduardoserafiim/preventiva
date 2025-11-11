@@ -1,11 +1,11 @@
 <?php 
-function formGrid(){
-    $model = new SetorModel();
-    $setores = $model->listar();
-
+function formGrid($setores){
     $html = 
     '
     <div class="form-grid">
+        <input type="hidden" name="acao" value="criar"> 
+        <input type="hidden" name="token" value="'.$_SESSION['token'].'"> 
+        
         <!-- SETOR -->
         <div class="form-group">
             <label for="select-setor">Setor</label>
@@ -18,6 +18,11 @@ function formGrid(){
     
     $html .= '
             </select>
+        </div>
+        <!-- RESPONSAVEL PELO COMPUTADOR -->
+        <div class="form-group">
+            <label for="input-responsavel">Responsável</label>
+            <input type="text" id="input-responsavel" name="responsavel" required>
         </div>
         <!-- NOME -->
         <div class="form-group">
@@ -37,7 +42,7 @@ function formGrid(){
         <!-- S.O -->
         <div class="form-group">
             <label for="select-so">Sistema Operacional</label>
-            <select id="select-so" name="so" required>
+            <select id="select-so" name="sistemaOperacional" required>
                 <option value="" disabled selected>Selecione...</option>
                 <option value="Windows 10 Pro">Windows 10 Pro</option>
                 <option value="Windows 10 Home">Windows 10 Home</option>
@@ -104,7 +109,7 @@ function formGrid(){
         <!-- N-SERIE -->
         <div class="form-group">
             <label for="input-numserie">N° de Série</label>
-            <input type="text" id="input-numserie" name="numserie" required>
+            <input type="text" id="input-numserie" name="numeroSerie" required>
         </div>
         <!-- LACRE -->
         <div class="form-group">

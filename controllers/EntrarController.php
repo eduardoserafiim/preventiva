@@ -12,6 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     $acao = $_POST['acao'];
 }
 
+else
+{
+    $acao = 'sair';
+}
+
 class EntrarController
 {
     public function entrar()

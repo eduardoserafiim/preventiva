@@ -15,14 +15,15 @@
                     setor: 'Setor',
                     modelo: 'Modelo',
                     monitor: 'Monitor',
-                    so: 'Sistema Operacional',
+                    responsavel: 'Usuário Responsável',
+                    sistemaOperacional: 'Sistema Operacional',
                     office: 'Office',
                     processador: 'Processador',
                     memoria: 'Memória',
                     disco: 'Disco',
                     ip: 'Endereço IP',
                     mac: 'MAC',
-                    numserie: 'Número de Série',
+                    numeroSerie: 'Número de Série',
                     lacre: 'Lacre',
                     legendaA: 'Legenda A',
                     legendaB: 'Legenda B',
@@ -38,13 +39,25 @@
 
                 const form = document.createElement('form');
                 form.method = 'POST';
-                form.action = '../controllers/computadores/computadoresEditar.php';
+                form.action = '../controllers/ComputadorController.php';
 
                 const inputId = document.createElement('input');
                 inputId.type = 'hidden';
                 inputId.name = 'id';
                 inputId.value = computerId;
                 form.appendChild(inputId);
+
+                const acao = document.createElement('input');
+                acao.type = 'hidden';
+                acao.name = 'acao';
+                acao.value = 'alterar';
+                form.appendChild(acao);
+
+                const token = document.createElement('input');
+                token.type = 'hidden';
+                token.name = 'token';
+                token.value = window.token;
+                form.appendChild(token);
 
                 const labelMap = {
                     legendaA: 'Atualização S.O',

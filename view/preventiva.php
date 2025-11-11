@@ -28,7 +28,7 @@ require_once "../public/components/setores/dictionarySetores.php";
 <?php
 
 // MODELS
-$modelComputador = new ComputerModel();
+$modelComputador = new ComputadorModel();
 $modelSetor = new SetorModel();
 $modelAssinatura = new AssinaturaModel();
 
@@ -261,6 +261,7 @@ if ($setorFiltro)
 </body>
 <script>
     window.setores = <?php echo json_encode($setores); ?>;
+    window.token = <?php echo json_encode($_SESSION['token']); ?>;
 </script>
 <?php
 

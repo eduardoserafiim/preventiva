@@ -1,10 +1,9 @@
 <?php
 require_once __DIR__ . '/../db/db.php';
 
-class ComputerModel 
+class ComputadorModel 
 {
     private $db;
-    private $lastError;
 
     public function __construct() 
     {
@@ -12,54 +11,50 @@ class ComputerModel
         $this->db = $database->getConnection();
     }
 
-    public function getLastError() 
-    {
-        return $this->lastError;
-    }
-
     public function criar($data) 
     {
         try
         {
             $sql = "INSERT INTO computadores
-                (semestre, ano, unidade, setor, nome, modelo, monitor, so, office, processador, memoria, disco, ip, mac, numserie, lacre, status, legendaA, legendaB, legendaC, legendaD, legendaE, legendaF, legendaG, legendaH, legendaI, dataCadastro, cadastro)
-                VALUES (:semestre, :ano, :unidade, :setor, :nome, :modelo, :monitor, :so, :office, :processador, :memoria, :disco, :ip, :mac, :numserie, :lacre, :status, :legendaA, :legendaB, :legendaC, :legendaD, :legendaE, :legendaF, :legendaG, :legendaH, :legendaI, NOW(), :cadastro)";
+                (semestre, ano, unidade, setor, nome, modelo, monitor, sistemaOperacional, office, processador, memoria, disco, ip, mac, numeroSerie, lacre, status, legendaA, legendaB, legendaC, legendaD, legendaE, legendaF, legendaG, legendaH, legendaI, dataCadastro, responsavelCadastroTI, responsavel)
+                VALUES (:semestre, :ano, :unidade, :setor, :nome, :modelo, :monitor, :sistemaOperacional, :office, :processador, :memoria, :disco, :ip, :mac, :numeroSerie, :lacre, :status, :legendaA, :legendaB, :legendaC, :legendaD, :legendaE, :legendaF, :legendaG, :legendaH, :legendaI, NOW(), :responsavelCadastroTI, :responsavel)";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
-                ':semestre' => $data['semestre'],
-                ':ano' => $data['ano'],
-                ':unidade' => $data['unidade'],
-                ':setor' => $data['setor'],
-                ':nome' => $data['nome'],
-                ':modelo' => $data['modelo'],
-                ':monitor' => $data['monitor'],
-                ':so' => $data['so'],
-                ':office' => $data['office'],
-                ':processador' => $data['processador'],
-                ':memoria' => $data['memoria'],
-                ':disco' => $data['disco'],
-                ':ip' => $data['ip'],
-                ':mac' => $data['mac'],
-                ':numserie' => $data['numserie'],
-                ':lacre' => $data['lacre'],
-                ':legendaA' => $data['legendaA'] ? 1 : 0,
-                ':legendaB' => $data['legendaB'] ? 1 : 0,
-                ':legendaC' => $data['legendaC'] ? 1 : 0,
-                ':legendaD' => $data['legendaD'] ? 1 : 0,
-                ':legendaE' => $data['legendaE'] ? 1 : 0,
-                ':legendaF' => $data['legendaF'] ? 1 : 0,
-                ':legendaG' => $data['legendaG'] ? 1 : 0,
-                ':legendaH' => $data['legendaH'] ? 1 : 0,
-                ':legendaI' => $data['legendaI'] ? 1 : 0,
-                ':status' => $data['status'],
-                ':cadastro' => $data['cadastro'],
+                ':semestre'                 => $data['semestre'],
+                ':ano'                      => $data['ano'],
+                ':unidade'                  => $data['unidade'],
+                ':setor'                    => $data['setor'],
+                ':nome'                     => $data['nome'],
+                ':modelo'                   => $data['modelo'],
+                ':monitor'                  => $data['monitor'],
+                ':sistemaOperacional'       => $data['sistemaOperacional'],
+                ':office'                   => $data['office'],
+                ':processador'              => $data['processador'],
+                ':memoria'                  => $data['memoria'],
+                ':disco'                    => $data['disco'],
+                ':ip'                       => $data['ip'],
+                ':mac'                      => $data['mac'],
+                ':numeroSerie'              => $data['numeroSerie'],
+                ':lacre'                    => $data['lacre'],
+                ':legendaA'                 => $data['legendaA'] ? 1 : 0,
+                ':legendaB'                 => $data['legendaB'] ? 1 : 0,
+                ':legendaC'                 => $data['legendaC'] ? 1 : 0,
+                ':legendaD'                 => $data['legendaD'] ? 1 : 0,
+                ':legendaE'                 => $data['legendaE'] ? 1 : 0,
+                ':legendaF'                 => $data['legendaF'] ? 1 : 0,
+                ':legendaG'                 => $data['legendaG'] ? 1 : 0,
+                ':legendaH'                 => $data['legendaH'] ? 1 : 0,
+                ':legendaI'                 => $data['legendaI'] ? 1 : 0,
+                ':status'                   => $data['status'],
+                ':responsavelCadastroTI'    => $data['responsavelCadastroTI'],
+                ':responsavel'              => $data['responsavel'],
             ]);
 
             return true;
         }
         catch (PDOException $e) 
         {
-            $this->lastError = $e->getMessage();
+            echo 'Erro na criação: '.$e->getMessage();
             error_log("Erro ao criar um computador: " . $e->getMessage());
         
             return false;
@@ -106,7 +101,7 @@ class ComputerModel
         }
         catch (PDOException $e) 
         {
-            $this->lastError = $e->getMessage();
+            echo 'Erro na listagem: '. $e->getMessage();
             error_log("Erro ao atualizar computador: " . $e->getMessage());
          
             return false;
@@ -160,7 +155,7 @@ class ComputerModel
         }
         catch (PDOException $e) 
         {
-            $this->lastError = $e->getMessage();
+            echo 'Erro no filtro: '. $e->getMessage();
             error_log("Erro ao filtar os computadores: " . $e->getMessage());
 
             return false;
@@ -180,14 +175,15 @@ class ComputerModel
                 nome = :nome, 
                 modelo = :modelo,
                 monitor = :monitor, 
-                so = :so, 
+                responsavel = :responsavel,
+                sistemaOperacional = :sistemaOperacional, 
                 office = :office, 
                 processador = :processador, 
                 memoria = :memoria, 
                 disco = :disco,
                 ip = :ip, 
                 mac = :mac, 
-                numserie = :numserie, 
+                numeroSerie = :numeroSerie, 
                 legendaA = :legendaA,
                 legendaB = :legendaB,
                 legendaC = :legendaC,
@@ -211,14 +207,15 @@ class ComputerModel
                 ':nome' => $data['nome'],
                 ':modelo' => $data['modelo'],
                 ':monitor' => $data['monitor'],
-                ':so' => $data['so'],
+                ':responsavel' => $data['responsavel'],
+                ':sistemaOperacional' => $data['sistemaOperacional'],
                 ':office' => $data['office'],
                 ':processador' => $data['processador'],
                 ':memoria' => $data['memoria'],
                 ':disco' => $data['disco'],
                 ':ip' => $data['ip'],
                 ':mac' => $data['mac'],
-                ':numserie' => $data['numserie'],
+                ':numeroSerie' => $data['numeroSerie'],
                 ':legendaA'=> $data['legendaA'],
                 ':legendaB'=> $data['legendaB'],
                 ':legendaC'=> $data['legendaC'],
@@ -235,7 +232,7 @@ class ComputerModel
             return true;
         } 
         catch (PDOException $e) {
-            $this->lastError = $e->getMessage();
+            echo 'Erro na edição: '. $e->getMessage();
             error_log("Erro ao atualizar computador: " . $e->getMessage());
 
             return false;
@@ -256,7 +253,7 @@ class ComputerModel
             return $stmt->execute();
         }
         catch (PDOException $e) {
-            $this->lastError = $e->getMessage();
+            echo 'Erro na exclusão: '. $e->getMessage();
             error_log("Erro ao excluir o computador: " . $e->getMessage());
             
             return false;

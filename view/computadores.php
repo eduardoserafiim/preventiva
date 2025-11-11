@@ -25,6 +25,12 @@ require_once '../public/components/form/computadores/formLegenda.php';
 require_once '../public/components/form/computadores/formActions.php';
 
 ?>
+<?php
+
+$modelSetor = new SetorModel();
+$setores = $modelSetor->listar();
+
+?>
 <body>
     <div class="app-container">
         <?= navbar('computadores') ?>
@@ -37,9 +43,9 @@ require_once '../public/components/form/computadores/formActions.php';
                 </div>
             </div>
             <div class="form-container">
-                <form method="POST" action="../controllers/computadores/computadoresCriar.php" id="formularioComputadores" class="equipment-form">
+                <form method="POST" action="../controllers/ComputadoresController.php" id="formularioComputadores" class="equipment-form">
                     <?= formFlex() ?>
-                    <?= formGrid() ?>
+                    <?= formGrid($setores) ?>
                     <?= formLegenda() ?>
                     <?= formActions() ?>
                 </form>

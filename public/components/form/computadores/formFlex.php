@@ -38,8 +38,6 @@ function formFlex(){
                 <?php endif ?>
             </select>
         </div>
-        <!-- CADASTRADOPOR -->
-        <input type="hidden" name="cadastro" value="<?= $_SESSION['usuario'] ?>">
     </div>
 <?php
 
