@@ -99,3 +99,4 @@ switch ($acao)
         $controller->sair();
         break;
 }
+exit();

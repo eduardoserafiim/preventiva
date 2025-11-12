@@ -292,3 +292,4 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
         getMensagemSession('error', 'Token não aceito.', 'Falha na verificação do token.', 'usuarios.php');
     }
 }
+exit();
