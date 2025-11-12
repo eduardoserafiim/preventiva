@@ -39,7 +39,7 @@
 
                 const form = document.createElement('form');
                 form.method = 'POST';
-                form.action = '../controllers/ComputadorController.php';
+                form.action = '../controllers/ComputadoresController.php';
 
                 const inputId = document.createElement('input');
                 inputId.type = 'hidden';
@@ -50,7 +50,7 @@
                 const acao = document.createElement('input');
                 acao.type = 'hidden';
                 acao.name = 'acao';
-                acao.value = 'alterar';
+                acao.value = 'editar';
                 form.appendChild(acao);
 
                 const token = document.createElement('input');
@@ -79,7 +79,7 @@
                     row.className = 'info-row';
 
                     // SELECT
-                    const selectFields = ['semestre', 'ano', 'unidade', 'setor', 'so', 'office', 'memoria', 'disco', 'status'];
+                    const selectFields = ['semestre', 'ano', 'unidade', 'setor', 'sistemaOperacional', 'office', 'memoria', 'disco', 'status'];
 
                     // SWITCH
                     const switchFields = ['legendaA', 'legendaB', 'legendaC', 'legendaD', 'legendaE', 'legendaF', 'legendaG', 'legendaH', 'legendaI'];
@@ -146,7 +146,7 @@
                             case 'setor':
                                 options = window.setores.map(setor => setor.nome);
                                 break;
-                            case 'so':
+                            case 'sistemaOperacional':
                                 options = ['Windows 10 Pro', 'Windows 10 Home', 'Windows 11 Pro', 'Windows 11 Home', 'Windows 8 Pro', 'Windows 8 Home', 'Linux Ubuntu', 'Linux Mint'];
                                 break;
                             case 'office':

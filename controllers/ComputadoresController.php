@@ -195,7 +195,33 @@ class ComputadorController
 
     public function apagarComputadores()
     {
+        
+        $id    = intval($_POST['id']);
+        $setor = trim($_POST['setor']);
 
+        try
+        {
+            $model = new ComputadorModel();
+
+            if(!$id || !$setor)
+            {
+                echo 'Varíavel não definida.';
+                
+                getMensagemSession('error', 'Erro ao apagar o computador!', 'Computador não encontrado.', 'preventiva.php', $setor);
+            }
+            else
+            {
+                $model->apagar($id);
+    
+                getMensagemSession('success', 'Sucesso ao apagar o computador!', 'Computador apagado com sucesso.', 'preventiva.php', $setor);
+            }
+        }
+        catch (Exception $e)
+        {
+            echo 'Erro ao executar: '.$e->getMessage();
+
+            getMensagemSession('error', 'Erro ao apagar o computador', 'Houve um problema ao apagar.', 'preventiva.php', $setor);
+        }
     }
 }
 
