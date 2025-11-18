@@ -52,7 +52,7 @@ $url = $_GET["url"] ?? '';
                             </a>
                         </div>
                     </div>
-                <?php else: ?>
+                    <?php else: ?>
                             <h1>Bem vindo ao Suporte TI</h1>
                             <p>Faça <strong>Login</strong> para continuar...</p>
                         </div>

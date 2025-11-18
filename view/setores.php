@@ -72,7 +72,7 @@ $setores = $modelSetor->listar();
                 </div>
             <?php elseif($url == 'listar'): ?> 
                 <div class="search">
-                    <?= search('search-input-setor') ?>
+                    <?= search('search-input-setor', 'setor') ?>
                 </div>
                 <div class="voltar">
                     <?= voltar('setores.php') ?>

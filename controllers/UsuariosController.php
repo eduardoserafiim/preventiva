@@ -328,6 +328,10 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                     $controller = new UsuarioController();
                     $controller->assinarUsuarios();
                     break;
+                case 'alterarSenha':
+                    $controller = new UsuarioController();
+                    $controller->alterarSenhaUsuarios();
+                    break;        
             }
         }
         else

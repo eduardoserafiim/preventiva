@@ -1,0 +1,9 @@
+.editarUsuario
+{
+    cursor: pointer;
+}
+
+.editarUsuario:hover .anima-editarUsuario
+{
+    animation: fa-bounce 1s normal;
+}
