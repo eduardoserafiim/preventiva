@@ -80,7 +80,7 @@ if ($url)
                 </div>
             <?php elseif ($url == 'listar'): ?>
                 <div class="search">
-                    <?= search('search-input-usuario') ?>
+                    <?= search('search-input-usuario', 'nome') ?>
                 </div>
                 <div class="voltar">
                     <?= voltar('usuarios.php') ?>

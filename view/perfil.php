@@ -28,7 +28,7 @@ require_once '../public/components/form/usuarios/formActionsAlterarSenha.php';
 
 $modelUsuario = new UsuarioModel();
 
-$usuario = $modelUsuario->listar();
+$usuario = $modelUsuario->validar($_SESSION['usuario']);
 
 $url = $_GET['url'] ?? '';
 $id = $_SESSION['id'];
@@ -40,8 +40,14 @@ $id = $_SESSION['id'];
         <main class="main-content">
             <?= bar() ?>
             <?php if ($url === 'alterarsenha'): ?>
+            <div class="page-header">
+                <div class="page-bem-vindo">
+                    <h1>Alterar minha senha</h1>
+                    <p>altere sua senha, prometemos mantê-la em sigilo...</p>
+                </div>
+            </div>
             <div class="voltar">
-                <?php voltar('perfil.php') ?>
+                <?= voltar('perfil.php') ?>
             </div>
             <div class="controleForm" style="margin: 0px;">
                 <div class="form-container">
@@ -58,21 +64,34 @@ $id = $_SESSION['id'];
                     <p>visualize suas informações</p>
                 </div>
             </div>
-            <div class="fundo-container">
-                <div class="container-perfil">
-                    <h4>Nome</h4>
-                    <input type="text" value="<?= $_SESSION['nome'] ?>" readonly>
-                    <h4>Usuário</h4>
-                    <input type="text" value="<?= $_SESSION['usuario'] ?>" readonly>
-                    <h4>Setor</h4>
-                    <input type="text" value="<?= $_SESSION['setor'] ?>" readonly>
-                    <h4>Unidade</h4>
-                    <input type="text" value="<?= $_SESSION['unidade'] ?>" readonly>
-                </div>
-                <div class="container-perfil-senha">
-                    <a href="perfil.php?url=alterarsenha">
-                        Alterar minha senha
-                    </a>
+            <div class="voltar">
+                <?=  voltar( '../index.php') ?>
+            </div>
+            <div class="page-perfil">
+                <div class="fundo-container fundo-perfil">
+                    <div class="container-perfil">
+                        <div class="perfil-informacao">
+                            <h4>Nome</h4>
+                            <input type="text" value="<?= $usuario['nome'] ?>" readonly>
+
+                            <h4>Usuário</h4>
+                            <input type="text" value="<?= $usuario['usuario'] ?>" readonly>
+                        
+                            <h4>Setor</h4>
+                            <input type="text" value="<?= $usuario['setor'] ?>" readonly>
+
+                            <h4>Unidade</h4>
+                            <input type="text" value="<?= $usuario['unidade'] ?>" readonly>
+                        </div>
+                        <div class="perfil-imagem">
+                            <img src="../public/images/icon.jpg" alt="imagemUsuario">
+                        </div>
+                    </div>
+                    <div class="container-perfil-senha">
+                        <a href="perfil.php?url=alterarsenha">
+                            <h5>Alterar minha senha</h5>
+                        </a>
+                    </div>
                 </div>
             </div>
             <?php endif ?>
@@ -82,6 +101,7 @@ $id = $_SESSION['id'];
 <?php
 
 require_once '../public/components/scripts/scriptPerfil.php';
+require_once "../public/components/scripts/scriptAlert.php";
 
 ?>
 </html>
