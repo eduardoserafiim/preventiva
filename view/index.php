@@ -45,7 +45,9 @@ $url = $_GET['url'] ?? '';
                     </div>
                     <div class="page-configuracoes">
                         <div class="engrenagem">
-                            <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                            <a href="perfil.php">
+                                <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -64,7 +66,9 @@ $url = $_GET['url'] ?? '';
                         <p>Visualize as suas assinaturas dos setores disponíveis</p>
                     </div>
                     <div class="page-configuracoes">
-                        <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                        <a href="perfil">
+                            <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="voltar">
@@ -82,7 +86,9 @@ $url = $_GET['url'] ?? '';
                         <p>Visualize as suas preventivas realizadas e à serem realizadas.</p>
                     </div>
                     <div class="page-configuracoes">
-                        <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                        <a href="perfil.php">
+                            <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="voltar">
@@ -99,7 +105,9 @@ $url = $_GET['url'] ?? '';
                     </div>
                     <div class="page-configuracoes">
                         <div class="engrenagem">
-                            <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                            <a href="perfil.php">
+                                <i class="fa-solid fa-gear fa-2xl anima-engrenagem"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
