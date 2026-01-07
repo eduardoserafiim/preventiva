@@ -6,7 +6,7 @@ function formGrid(){
         <!-- NOME -->
         <div class="form-group">
             <label for="select-semestre">Nome</label>
-            <input type="text" id="input-nome" name="nome">
+            <input type="text" id="input-nome" name="nome" required>
         </div>
         <!-- UNIDADE -->
         <div class="form-group">
@@ -33,15 +33,25 @@ function formGrid(){
                 <?php endfor ?>
             </select>
         </div>
+        <!-- ANO -->
+        <div class="form-group">
+            <label for="input-ano">Ano</label>
+            <input type="text" id="input-ano" name="ano" required>
+        </div>
+        <!-- LOCALIZACAO -->
+        <div class="form-group">
+            <label for="input-localizacao">Localização</label>
+            <input type="text" id="input-localizacao" name="localizacao" required>
+        </div>
         <!-- IP -->
         <div class="form-group">
             <label for="input-ip">IP</label>
-            <input type="text" id="input-ip" name="ip">
+            <input type="text" id="input-ip" name="ip" required>
         </div>
         <!-- MAC -->
         <div class="form-group">
             <label for="input-mac">MAC</label>
-            <input type="text" id="input-mac" name="mac">
+            <input type="text" id="input-mac" name="mac" required>
         </div>
     </div>
 <?php

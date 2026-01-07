@@ -31,7 +31,9 @@ require_once "../public/components/form/cameras/formGrid.php";
 ?>
 <?php
 
-$url = $_GET['url'] ?? '';
+$url    = $_GET['url'] ?? '';
+$tipo   = $_GET['tipo'] ?? '';
+$id     = $_GET['id'] ?? '';
 
 ?>
 <body>
@@ -48,7 +50,7 @@ $url = $_GET['url'] ?? '';
                         <p>Criar DVR</p>
                     </div>
                 </div>
-                <div class="voltar">
+                <div class="voltar" style="padding: 0;">
                     <?= voltar('cameras.php') ?>
                 </div>
                 <div class="controleForm">
@@ -69,8 +71,83 @@ $url = $_GET['url'] ?? '';
                         <?= criarCamera('Registar DVR', 'cameras.php?url=criar') ?>
                     </div>
                 </div>
+                <div class="informacoesLegenda">
+                    <button type="button" onclick="mostrarLegenda()">
+                        <div class="flex">
+                            <i class="fas fa-icon fa-info fa-lg"></i>
+                        </div>
+                        <h4>Legenda</h4>
+                    </button>
+                </div>
+                <div id="overlay"></div>
+
+                <div id="legenda">
+                    <h2>Legenda para CÂMERAS</h2>
+                    <div class="legenda-destacada">
+                        <p class="tituloLegenda"><strong>OK</strong></p>
+                        <p>Representa IMAGEM OK.</p>
+                    </div>
+                    <div class="legenda-destacada">
+                        <p class="tituloLegenda"><strong>S</strong></p>
+                        <p>Representa IMAGEM SEM QUALIDADE.</p>
+                    </div>
+                    <div class="legenda-destacada">
+                        <p class="tituloLegenda"><strong>I</strong></p>
+                        <p>Representa IMAGEM INDISPONÍVEL.</p>
+                    </div>
+                    <div class="legenda-destacada">
+                        <div class="canalDisponivel verde"></div>
+                        <p>Representa PORTA LIVRE.</p>
+                    </div>
+                    <h2>Legenda para DVRs</h2>
+                    <div class="legenda-destacada">
+                        <p class="tituloLegenda"><strong>*</strong></p>
+                        <p>Representa CONFERIR HORÁRIO NO PAINEL.</p>
+                    </div>
+                    <div class="legenda-destacada"> 
+                        <p class="tituloLegenda"><strong>OK</strong></p>
+                        <p>Representa HORÁRIO CORRETO.</p>
+                    </div>
+                    <div class="legenda-destacada">
+                        <p class="tituloLegenda"><strong>P</strong></p>
+                        <p>Representa AJUSTAR HORÁRIO.</p>
+                    </div>
+                    <div class="botao-sair">
+                        <button type="button" class="botao botao-cancelar" onclick="fecharLegenda()">Fechar</button>
+                    </div>
+                </div>
                 <div class="cameras">
-                    
+                    <div class="card cardDVR">
+                        <div class="topoInformacoesDVR">
+                            <div class="tituloDVR">
+                                <div class="flex">
+                                    <i class="fas fa-icon fa-solid fa-video fa-lg"></i>
+                                    <h4 class="nomeDVR">DVR 01</h4>
+                                </div>
+                            </div>
+                            <div class="configuracoesDVR">
+                                <a href="cameras.php?url=editar&tipo=dvr&id=">
+                                    <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="canaisDisponiveis">
+                            <p>Canais</p>
+                            <div class="flex">
+                                <?php 
+                                    $x = 16;
+
+                                    for ($i = 1; $i <= 32; $i++): 
+                                ?>
+                                    <?php if ($i <= $x): ?>
+                                        <a href="cameras.php?url=criar&tipo=camera&id=<?= $i ?>" class="canalDisponivel verde"></a>
+                                    <?php else: ?>
+                                        <div class="canalDisponivel"></div>
+                                    <?php endif; ?>
+                                <?php endfor; ?>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             <?php endif ?>
         </main>

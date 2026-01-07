@@ -1,9 +1,8 @@
 .cameras
 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    gap: 2rem;
 }
 
 .cameraDiv
@@ -54,7 +53,107 @@
     width: 100%;
 }
 
-.camera-content .flex
+.camera-content .flex, .tituloDVR .flex
 {
     gap: 1rem;
+}
+
+.cardDVR
+{
+    display: flex;
+    background-color: white;
+    flex-direction: column;
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.canalDisponivel
+{
+    width: 35px;
+    height: 35px;
+    border: 1px solid black;
+}
+
+.canalDisponivel.verde
+{
+    background-color: greenyellow;
+    cursor: pointer;
+}
+
+.topoInformacoesDVR
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.configuracoesDVR i {
+    animation: fa-spin 2s linear infinite;
+    animation-play-state: paused;
+    cursor: pointer;
+}
+
+.configuracoesDVR:hover i {
+    animation-play-state: running;
+}
+
+.informacoesLegenda
+{
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.informacoesLegenda button
+{
+    display: flex;
+    align-items: baseline;
+    background-color: inherit;
+    border: none;
+    font-size: medium;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 10;
+}
+
+#legenda {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    display: none;
+    z-index: 20;
+    padding: 1rem;
+    max-height: 80vh;
+    overflow-y: auto; 
+    width: 90%;        
+    max-width: 500px;
+    box-sizing: border-box;
+}
+
+.legenda-destacada
+{
+    display: flex;
+    align-items: center;
+    height: 20px;
+    gap: 1rem;
+    margin: 1rem 0 1rem 0;
+}
+
+.tituloLegenda
+{
+    width: 35px;
 }

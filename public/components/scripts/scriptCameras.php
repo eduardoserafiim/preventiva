@@ -6,6 +6,7 @@
 <script src="../public/javascript/animar/formulario/animarFormulario.js"></script>
 
 <!-- COMPONENTS -->
+<script src="../public/javascript//legenda/legenda.js"></script>
 <script src="../public/javascript/bar/bar.js"></script>
 
 <!-- CONFIRMAÇÕES -->
