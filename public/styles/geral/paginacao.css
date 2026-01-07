@@ -61,3 +61,10 @@
     display: flex;
     align-items: center;
 }
+
+.page-criar-dvr
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

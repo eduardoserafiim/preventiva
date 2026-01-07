@@ -1,0 +1,60 @@
+.cameras
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cameraDiv
+{
+    display: flex;
+    width: 200px;
+    height: 50px;
+    background-color: white;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.cameraLink
+{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.cameraDiv:hover .color-content
+{
+    width: 100%;
+    border-radius: 12px;
+}
+
+.cameraDiv:hover .camera-content
+{
+    display: none;
+}
+
+.color-content
+{
+    width: 20px;
+    min-width: 20px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    background-color: #334155;
+    transition: all 0.3s ease;
+}
+
+.camera-content
+{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.camera-content .flex
+{
+    gap: 1rem;
+}

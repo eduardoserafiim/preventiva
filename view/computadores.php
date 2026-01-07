@@ -8,6 +8,13 @@ if (!isset($_SESSION['usuario'])) {
 
 ?>
 <?php
+if ($_SESSION['privilegio'] != 'administrador' && $_SESSION['privilegio'] != 'TI')
+{
+    header("Location: index.php");
+    exit;
+}
+?>
+<?php
 // MODELS
 require_once '../models/computadores.php';
 require_once '../models/setores.php';
