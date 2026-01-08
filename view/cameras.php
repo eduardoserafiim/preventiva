@@ -24,7 +24,8 @@ require_once "../public/components/navbar/navbar.php";
 require_once "../public/components/bar/bar.php";
 require_once "../public/components/warning.php";
 require_once "../public/components/voltar.php";
-require_once "../public/components/cameras/cameraDiv.php";
+require_once "../public/components/cameras/dvrRegistrar.php";
+require_once "../public/components/cameras/dvrCard.php";
 require_once "../public/components/form/cameras/formActions.php";
 require_once "../public/components/form/cameras/formGrid.php";
 
@@ -35,6 +36,8 @@ $url    = $_GET['url'] ?? '';
 $tipo   = $_GET['tipo'] ?? '';
 $id     = $_GET['id'] ?? '';
 
+$x = 16;
+
 ?>
 <body>
     <div class="app-container">
@@ -43,7 +46,7 @@ $id     = $_GET['id'] ?? '';
         <main class="main-content">
             <!-- NAVBAR MOBILE -->
             <?= bar() ?>
-            <?php if ($url === 'criar'): ?>
+            <?php if ($url === 'criar' && $tipo  === 'dvr'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>CFTV</h1>
@@ -68,11 +71,11 @@ $id     = $_GET['id'] ?? '';
                         <p>Sistema e Monitoramento de Câmeras</p>
                     </div>
                     <div class="page-criar-dvr">
-                        <?= criarCamera('Registar DVR', 'cameras.php?url=criar') ?>
+                        <?= criarDVR('Registar DVR', 'cameras.php?url=criar&tipo=dvr') ?>
                     </div>
                 </div>
                 <div class="informacoesLegenda">
-                    <button type="button" onclick="mostrarLegenda()">
+                    <button type="button" onclick="abrirLegenda()">
                         <div class="flex">
                             <i class="fas fa-icon fa-info fa-lg"></i>
                         </div>
@@ -80,7 +83,6 @@ $id     = $_GET['id'] ?? '';
                     </button>
                 </div>
                 <div id="overlay"></div>
-
                 <div id="legenda">
                     <h2>Legenda para CÂMERAS</h2>
                     <div class="legenda-destacada">
@@ -117,37 +119,8 @@ $id     = $_GET['id'] ?? '';
                     </div>
                 </div>
                 <div class="cameras">
-                    <div class="card cardDVR">
-                        <div class="topoInformacoesDVR">
-                            <div class="tituloDVR">
-                                <div class="flex">
-                                    <i class="fas fa-icon fa-solid fa-video fa-lg"></i>
-                                    <h4 class="nomeDVR">DVR 01</h4>
-                                </div>
-                            </div>
-                            <div class="configuracoesDVR">
-                                <a href="cameras.php?url=editar&tipo=dvr&id=">
-                                    <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="canaisDisponiveis">
-                            <p>Canais</p>
-                            <div class="flex">
-                                <?php 
-                                    $x = 16;
-
-                                    for ($i = 1; $i <= 32; $i++): 
-                                ?>
-                                    <?php if ($i <= $x): ?>
-                                        <a href="cameras.php?url=criar&tipo=camera&id=<?= $i ?>" class="canalDisponivel verde"></a>
-                                    <?php else: ?>
-                                        <div class="canalDisponivel"></div>
-                                    <?php endif; ?>
-                                <?php endfor; ?>
-                            </div>
-                        </div>
-                    </div>
+                    <?= criarCardDVR('dvr01.png', 'DVR 01', '16', '1') ?>
+                    <?= criarCardDVR('dvr01.png', 'DVR 02', '12', '2') ?>
                 </div>
             <?php endif ?>
         </main>

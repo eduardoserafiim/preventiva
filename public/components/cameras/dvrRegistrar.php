@@ -1,6 +1,6 @@
 <?php
 
-function criarCamera($nome, $caminho)
+function criarDVR($nome, $caminho)
 { ?>
     <div class="cameraDiv">
         <a href="<?= $caminho ?>" class="cameraLink">

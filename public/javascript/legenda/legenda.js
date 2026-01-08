@@ -1,4 +1,4 @@
-function mostrarLegenda() {
+function abrirLegenda() {
   document.getElementById("overlay").style.display = "block";
   document.getElementById("legenda").style.display = "block";
 }
