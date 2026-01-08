@@ -1,9 +1,9 @@
 function abrirLegenda() {
-  document.getElementById("overlay").style.display = "block";
-  document.getElementById("legenda").style.display = "block";
+  document.getElementById("overlay").classList.add("ativo");
+  document.getElementById("legenda").classList.add("ativo");
 }
 
 function fecharLegenda() {
-  document.getElementById("overlay").style.display = "none";
-  document.getElementById("legenda").style.display = "none";
+  document.getElementById("overlay").classList.remove("ativo");
+  document.getElementById("legenda").classList.remove("ativo");
 }
