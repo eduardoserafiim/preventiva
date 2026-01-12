@@ -3,6 +3,8 @@
 function formGrid(){
     ?>
     <div class="form-grid">
+        <!-- IMAGEM -->
+        <?= dragAreaImagem() ?>
         <!-- NOME -->
         <div class="form-group">
             <label for="select-semestre">Nome</label>

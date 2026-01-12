@@ -26,6 +26,7 @@ require_once "../public/components/warning.php";
 require_once "../public/components/voltar.php";
 require_once "../public/components/cameras/dvrRegistrar.php";
 require_once "../public/components/cameras/dvrCard.php";
+require_once "../public/components/dragAreaImagens/dragArea.php";
 require_once "../public/components/form/cameras/formActions.php";
 require_once "../public/components/form/cameras/formGrid.php";
 
