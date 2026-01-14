@@ -53,6 +53,11 @@
     width: 100%;
 }
 
+.tituloDVR
+{
+    width: 100%;
+}
+
 .camera-content .flex, .tituloDVR .flex
 {
     gap: 1rem;
@@ -106,7 +111,7 @@
     animation-play-state: running;
 }
 
-.conteudoDVR
+.conteudoDVR, .conteudoDVREspecifico
 {
     width: 100%;
 }
@@ -126,4 +131,52 @@
 .visualizacaoDVR:hover i {
     animation: fa-bounce 1s linear infinite;
     cursor: pointer;
+}
+
+.conteudoDVREspecifico
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.horarioDisponivel
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border: 1px solid black;
+}
+
+.tituloDetalhes
+{
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+}
+
+.manutencaoDVR, .localizacaoDVR, .horarioDVR
+{
+    width: 50%;
+}
+
+.inferiorInformacoesDVR
+{
+    display: flex;
+    width: 100%;
+}
+
+.informacoesGerais
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 500px;
+}
+
+.informacoesAssinaturas
+{
+    width: 500px;
 }

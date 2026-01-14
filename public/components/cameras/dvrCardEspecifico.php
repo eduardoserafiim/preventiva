@@ -1,10 +1,10 @@
 <?php 
-function criarCardDVR($imagemDVR, $informacoesDVR, $canaisDisponiveis, $id){ ?>
+function criarCardDVRDetalhado($imagemDVR, $informacoesDVR, $canaisDisponiveis, $id){ ?>
     <div class="cardDVR">
         <div class="imagemDVR">
             <img src="../upload/dvrs/<?= $imagemDVR ?>" alt="Algo está errado.">
         </div>
-        <div class="conteudoDVR">
+        <div class="conteudoDVREspecifico">
             <div class="topoInformacoesDVR">
                 <div class="tituloDVR">
                     <div class="flex">
@@ -34,27 +34,6 @@ function criarCardDVR($imagemDVR, $informacoesDVR, $canaisDisponiveis, $id){ ?>
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
-                    <div class="visualizacaoDVR">
-                        <a href="cameras.php?url=visualizar&tipo=dvr&id=<?= $id ?>">
-                            <i class="fas fa-icon fa-solid fa-eye fa-xl"></i>
-                        </a>
-                    </div>
-                    <div class="copiaecolaDVR">
-                        <form action="../controllers/CamerasController.php" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" value="" name="id">
-                            <input type="hidden" value="criar" name="acao">
-                            <input type="hidden" value="" name="imagem">
-                            <input type="hidden" value="" name="nome">
-                            <input type="hidden" value="" name="marca">
-                            <input type="hidden" value="" name="modelo">
-                            <input type="hidden" value="" name="ano">
-                            <input type="hidden" value="" name="canais">
-                            <input type="hidden" value="" name="localizacao">
-                            <button style="background-color: inherit; border: none; color: inherit;" type="submit">
-                                <i class="fas fa-icon fa-solid fa-copy fa-xl"></i>
-                            </button>
-                        </form>
-                    </div>
                 </div>
             </div>
             <div class="canaisDisponiveis">
@@ -69,6 +48,31 @@ function criarCardDVR($imagemDVR, $informacoesDVR, $canaisDisponiveis, $id){ ?>
                             <div class="canalDisponivel"></div>
                         <?php endif; ?>
                     <?php endfor; ?>
+                </div>
+            </div>
+            <div class="inferiorInformacoesDVR">
+                <div class="informacoesGerais">
+                    <div class="horarioDVR">
+                        <p>Horário Definidio <strong>15:00</strong></p>
+                        <div class="horarioDisponivel"></div>
+                    </div>
+                    <div class="manutencaoDVR">
+                        <p>O.S de Manutenção</p>
+                        <h4 class="chamadoManutencao">0010231</h4>
+                        <hr>
+                    </div>
+                    <div class="localizacaoDVR">
+                        <p>Localização</p>
+                        <h4 class="localizacao">Informática</h4>
+                        <hr>
+                    </div>
+                </div>
+                <div class="informacoesAssinaturas">
+                    <div class="assinaturas">
+                        <p>Assinatura técnico responsável</p>
+                        <h4><?= $informacoesDVR['assinatura'] ?? 'Sem assinatura.' ?></h4>
+                        <hr>
+                    </div>
                 </div>
             </div>
         </div>

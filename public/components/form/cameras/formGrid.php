@@ -5,11 +5,6 @@ function formGrid(){
     <div class="form-grid">
         <!-- IMAGEM -->
         <?= dragAreaImagem() ?>
-        <!-- NOME -->
-        <div class="form-group">
-            <label for="select-semestre">Nome</label>
-            <input type="text" id="input-nome" name="nome" required>
-        </div>
         <!-- UNIDADE -->
         <div class="form-group">
             <label for="select-unidade">Unidade</label>
@@ -34,6 +29,21 @@ function formGrid(){
                     <option value="<?= $i ?>"><?= htmlspecialchars($i) ?></option>
                 <?php endfor ?>
             </select>
+        </div>
+        <!-- NOME -->
+        <div class="form-group">
+            <label for="select-semestre">Nome</label>
+            <input type="text" id="input-nome" name="nome" required>
+        </div>
+        <!-- MARCA -->
+        <div class="form-group">
+            <label for="input-marca">Marca</label>
+            <input type="text" id="input-marca" name="marca" required>
+        </div>
+        <!-- ANO -->
+        <div class="form-group">
+            <label for="input-modelo">Modelo</label>
+            <input type="text" id="input-modelo" name="modelo" required>
         </div>
         <!-- ANO -->
         <div class="form-group">

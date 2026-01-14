@@ -1,3 +1,4 @@
+create database informatica;
 USE informatica;
 
 CREATE TABLE computadores (
@@ -36,7 +37,7 @@ CREATE TABLE usuarios (
     usuario VARCHAR(20) NOT NULL,
 	senha VARCHAR(100) NOT NULL,
 	setor VARCHAR(70) NOT NULL,
-    privilegio VARCHAR(20) NOT NULL
+    privilegio VARCHAR(20) NOT null,
     unidade VARCHAR(20) NOT NULL
 );
 
