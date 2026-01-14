@@ -17,11 +17,13 @@ function formFlex(){
             <label for="select-ano">Ano</label>
             <select id="select-ano" name="ano" required>
                 <option value="" disabled selected>Selecione...</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-                <option value="2026">2026</option>
+                <?php
+                    $anoAtual = date('Y');
+                    for ($i = 0; $i < 4; $i++) {
+                        $ano = $anoAtual - $i;
+                        echo "<option value=\"$ano\">$ano</option>";
+                    }
+                ?>
             </select>
         </div>
         <!-- UNIDADE -->
