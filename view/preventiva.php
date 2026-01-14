@@ -109,11 +109,15 @@ if ($setorFiltro)
                             <div class="form-group">
                                 <label for="select-ano">Ano</label>
                                 <select id="select-ano" name="ano">
-                                    <option value="" disabled <?= empty($ano) ? 'selected' : '' ?> >Selecione...</option>
-                                    <option value="2022" <?= $ano === '2022' ? 'selected' : '' ?> >2022</option>
-                                    <option value="2023" <?= $ano === '2023' ? 'selected' : '' ?> >2023</option>
-                                    <option value="2024" <?= $ano === '2024' ? 'selected' : '' ?> >2024</option>
-                                    <option value="2025" <?= $ano === '2025' ? 'selected' : '' ?> >2025</option>
+                                    <option value="" disabled <?= empty($ano) ? 'selected' : '' ?>>Selecione...</option>
+                                        <?php
+                                            $anoAtual = date('Y');
+                                            for ($i = 0; $i < 4; $i++) {
+                                                $valorAno = $anoAtual - $i;
+                                                $selected = ($ano === (string)$valorAno) ? 'selected' : '';
+                                                echo "<option value=\"$valorAno\" $selected>$valorAno</option>";
+                                            }
+                                        ?>
                                 </select>
                             </div>
                             <?php if ($unidadeUsuario == 'administrador'): ?>
