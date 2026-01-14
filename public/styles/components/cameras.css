@@ -128,7 +128,8 @@
     gap: 1rem;
 }
 
-.visualizacaoDVR:hover i {
+.visualizacaoDVR:hover i, .copiaecolaDVR:hover i, .deletarDVR:hover i 
+{
     animation: fa-bounce 1s linear infinite;
     cursor: pointer;
 }

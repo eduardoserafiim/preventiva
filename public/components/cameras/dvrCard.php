@@ -55,6 +55,15 @@ function criarCardDVR($imagemDVR, $informacoesDVR, $canaisDisponiveis, $id){ ?>
                             </button>
                         </form>
                     </div>
+                    <div class="deletarDVR">
+                        <form action="../controllers/CamerasController.php" method="POST">
+                            <input type="hidden" value="" name="id">
+                            <input type="hidden" value="excluir" name="acao">
+                            <button style="background-color: inherit; border: none; color: red;" type="submit">
+                                <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="canaisDisponiveis">
