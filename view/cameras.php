@@ -32,6 +32,9 @@ require_once "../public/components/dragAreaImagens/dragArea.php";
 require_once "../public/components/form/cameras/formActions.php";
 require_once "../public/components/form/cameras/formGrid.php";
 
+// MODELS
+require_once "../models/setores.php";
+
 ?>
 <?php
 
@@ -43,6 +46,8 @@ $x = 16;
 $informacoesDVR = 
 ['nome' => 'DVR', 'marca' => 'Intelbras', 'modelo' => 'HB3210', 'ano' => '2025'];
 
+$modelSetor = new SetorModel();
+$setores = $modelSetor->listar();
 ?>
 <body>
     <div class="app-container">
@@ -75,8 +80,8 @@ $informacoesDVR =
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
-                        <form action="../controllers/CamerasController.php" method="POST" id="formularioCameras" class="equipment-form">
-                            <?= formGrid() ?>
+                        <form action="../controllers/CamerasController.php" method="POST" id="formularioDVRs" class="equipment-form">
+                            <?= formGrid($setores) ?>
                             <?= formActions() ?>
                         </form>
                     </div>

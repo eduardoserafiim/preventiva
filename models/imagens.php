@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../db/db.php';
 
-class UsuarioModel{
+class ImagemModel{
     private $db;
 
     public function __construct() 
@@ -10,7 +10,7 @@ class UsuarioModel{
         $this->db = $database->getConnection();
     }
 
-    public function salvarImagem($data)
+    public function criar($data)
     {
         try
         {
@@ -21,9 +21,11 @@ class UsuarioModel{
                 [
                     $data['path_imagem'],
                     $data['nome_imagem'],
-                    $data['nome_salvo'],
+                    $data['nome_salvo']
                 ]
             );
+
+            return $this->db->lastInsertId();
         }
         catch (PDOException $e)
         {

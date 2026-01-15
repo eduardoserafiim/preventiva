@@ -1,8 +1,10 @@
 <?php 
 
-function formGrid(){
+function formGrid($setores){
     ?>
     <div class="form-grid">
+        <input type="hidden" name="acao" value="criar">
+        <input type="hidden" name="token" value="">
         <!-- IMAGEM -->
         <?= dragAreaImagem() ?>
         <!-- UNIDADE -->
@@ -11,12 +13,12 @@ function formGrid(){
             <select id="select-unidade" name="unidade" required>
                 <option value="" disabled selected>Selecione...</option>
                 <?php if($_SESSION['unidade'] == 'HAP - UC') : ?>  
-                    <option value="HAP - UC" selected>HAP - UC</option>
+                    <option value="1" selected>HAP - UC</option>
                 <?php elseif($_SESSION['unidade'] == 'HAP - MATRIZ') : ?>
-                    <option value="HAP - MATRIZ" selected>HAP - MATRIZ</option>
+                    <option value="2" selected>HAP - MATRIZ</option>
                 <?php else : ?>
-                    <option value="HAP - MATRIZ" selected>HAP - MATRIZ</option>
-                    <option value="HAP - UC" selected>HAP - UC</option>
+                    <option value="2" selected>HAP - MATRIZ</option>
+                    <option value="1" selected>HAP - UC</option>
                 <?php endif ?>
             </select>
         </div>
@@ -40,20 +42,20 @@ function formGrid(){
             <label for="input-marca">Marca</label>
             <input type="text" id="input-marca" name="marca" required>
         </div>
-        <!-- ANO -->
+        <!-- MODELO -->
         <div class="form-group">
             <label for="input-modelo">Modelo</label>
             <input type="text" id="input-modelo" name="modelo" required>
         </div>
-        <!-- ANO -->
-        <div class="form-group">
-            <label for="input-ano">Ano</label>
-            <input type="text" id="input-ano" name="ano" required>
-        </div>
         <!-- LOCALIZACAO -->
         <div class="form-group">
-            <label for="input-localizacao">Localização</label>
-            <input type="text" id="input-localizacao" name="localizacao" required>
+            <label for="select-localizacao">Localização</label>
+            <select name="localizacao" id="select-localizacao">
+                <option value="" required selected>Selecione...</option>
+                <?php foreach ($setores as $setor): ?> 
+                    <option value='<?= $setor['id'] ?>'><?= htmlspecialchars($setor['nome']) ?></option>
+                <?php endforeach ?>
+            </select>
         </div>
         <!-- IP -->
         <div class="form-group">

@@ -50,7 +50,7 @@ class SetorController
                         'icon' => $icon  
                     ];
 
-                    $criar = $model->criar($data);
+                    $model->criar($data);
 
                     getMensagemSession('success', 'Sucesso ao criar setor!', 'Setor criado com sucesso.', 'setores.php', $this->url[1]);
                 }
