@@ -1,6 +1,6 @@
 <?php 
 
-function formGrid($setores){
+function formGrid(){
     ?>
     <div class="form-grid">
         <input type="hidden" name="acao" value="criarDVR">
@@ -46,16 +46,6 @@ function formGrid($setores){
         <div class="form-group">
             <label for="input-modelo">Modelo</label>
             <input type="text" id="input-modelo" name="modelo" required>
-        </div>
-        <!-- LOCALIZACAO -->
-        <div class="form-group">
-            <label for="select-localizacao">Localização</label>
-            <select name="localizacao" id="select-localizacao">
-                <option value="" required selected>Selecione...</option>
-                <?php foreach ($setores as $setor): ?> 
-                    <option value='<?= $setor['id'] ?>'><?= htmlspecialchars($setor['nome']) ?></option>
-                <?php endforeach ?>
-            </select>
         </div>
         <!-- IP -->
         <div class="form-group">

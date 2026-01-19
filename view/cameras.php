@@ -82,7 +82,7 @@ $dvrEspecifico  = $modelDVRs->listar($id);
                 <div class="controleForm">
                     <div class="form-container">
                         <form action="../controllers/CamerasController.php" method="POST" id="formularioDVRs" class="equipment-form" enctype="multipart/form-data">
-                            <?= formGrid($setores) ?>
+                            <?= formGrid() ?>
                             <?= formActions() ?>
                         </form>
                     </div>
@@ -99,9 +99,13 @@ $dvrEspecifico  = $modelDVRs->listar($id);
                 </div>
                 <?= criarLegenda() ?>
                 <div class="cameras">
-                    <?php foreach ($dvrs as $dvr): ?>
-                        <?= criarCardDVR($dvr) ?>
-                    <?php endforeach ?>
+                    <?php if(empty($dvrs)): ?>
+                        <p class="informarDVRsDisponiveis">Nenhum DVR cadastrado.</p>
+                    <?php else: ?>        
+                            <?php foreach ($dvrs as $dvr): ?>
+                                <?= criarCardDVR($dvr) ?>
+                            <?php endforeach ?>
+                    <?php endif ?>
                 </div>
             <?php endif ?>
         </main>

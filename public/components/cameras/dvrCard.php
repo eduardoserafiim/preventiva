@@ -50,7 +50,6 @@ function criarCardDVR($dvr){ ?>
                             <input type="hidden" value="<?= $dvr['modelo'] ?>" name="modelo">
                             <input type="hidden" value="<?= $dvr['ano'] ?>" name="ano">
                             <input type="hidden" value="<?= $dvr['canais'] ?>" name="canais">
-                            <input type="hidden" value="<?= $dvr['nome_setor'] ?>" name="localizacao">
                             <button style="background-color: inherit; border: none; color: inherit;" type="submit">
                                 <i class="fas fa-icon fa-solid fa-copy fa-xl"></i>
                             </button>

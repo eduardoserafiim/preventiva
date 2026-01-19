@@ -33,7 +33,6 @@ class DVRController
                 $nome           = $_POST['nome'];
                 $marca          = $_POST['marca'];
                 $modelo         = $_POST['modelo'];
-                $localizacao    = $_POST['localizacao'];
                 $ip             = $_POST['ip'];
                 $mac            = $_POST['mac'];
 
@@ -48,7 +47,6 @@ class DVRController
                     'nome'           => $nome,
                     'marca'          => $marca,
                     'modelo'         => $modelo,
-                    'id_localizacao' => $localizacao,
                     'ip'             => $ip,
                     'mac'            => $mac
                 ];

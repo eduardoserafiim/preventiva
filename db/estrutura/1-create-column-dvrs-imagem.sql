@@ -30,12 +30,9 @@ create table dispositivos_dvrs
 	canais int(2) not null,
 	horario time,
 	chamado_manutencao varchar(30),
-	id_localizacao int not null,
 	id_assinatura int,
 	id_imagem int,
 	id_unidade int not null,
-	foreign key (id_localizacao)
-		references setores(id),
 	foreign key (id_assinatura)
 		references assinaturastecnicos(id),
 	foreign key (id_imagem)

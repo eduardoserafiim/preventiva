@@ -15,8 +15,8 @@ class DVRModel
     {
         try
         {
-            $sql = 'INSERT INTO dispositivos_dvrs(nome,marca,modelo,ano,ip,mac,canais,id_localizacao,id_imagem,id_unidade)
-            VALUES (?,?,?,YEAR(NOW()),?,?,?,?,?,?)';
+            $sql = 'INSERT INTO dispositivos_dvrs(nome,marca,modelo,ano,ip,mac,canais,id_imagem,id_unidade)
+            VALUES (?,?,?,YEAR(NOW()),?,?,?,?,?)';
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
@@ -26,7 +26,6 @@ class DVRModel
                     $data['ip'], 
                     $data['mac'], 
                     $data['canais'], 
-                    $data['id_localizacao'], 
                     $data['id_imagem'] ?? null,         
                     $data['id_unidade'],         
                 ]
@@ -46,15 +45,12 @@ class DVRModel
             u.nome AS nome_unidade,
             i.nome_salvo AS nome_imagem,
             i.nome_imagem AS nome_imagem_registrado,
-            s.nome AS nome_setor,
             a.assinatura AS assinatura_dvr  
             FROM dispositivos_dvrs d
             LEFT JOIN unidade u
                 ON d.id_unidade = u.id
             LEFT JOIN imagem i
                 ON d.id_imagem = i.id
-            LEFT JOIN setores s
-                ON d.id_localizacao = s.id
             LEFT JOIN assinaturastecnicos a
                 ON d.id_assinatura = a.id
             ';

@@ -5,6 +5,12 @@
     gap: 2rem;
 }
 
+.informarDVRsDisponiveis
+{
+    font-size: larger;
+    text-align: center;
+}
+
 .cameraDiv
 {
     display: flex;
