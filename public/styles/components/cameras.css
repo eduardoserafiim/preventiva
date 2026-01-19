@@ -125,6 +125,9 @@
 .imagemDVR, .imagemDVR img
 {
     height: 100px;
+    width: 100px;
+    max-height: 100px;
+    max-width: 100px;
 }
 
 .opcoesDVR
@@ -164,7 +167,7 @@
     justify-content: space-between;
 }
 
-.manutencaoDVR, .localizacaoDVR, .horarioDVR
+.manutencaoDVR, .horarioDVR
 {
     width: 50%;
 }

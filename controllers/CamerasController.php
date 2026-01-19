@@ -25,6 +25,7 @@ class DVRController
             $modelCameras = new DVRModel();
 
             $acao = trim($_POST['acao']);
+            $copiarDVR = trim($_POST['copiar']);
 
             if ($acao === 'criarDVR')
             {
@@ -35,14 +36,15 @@ class DVRController
                 $modelo         = $_POST['modelo'];
                 $ip             = $_POST['ip'];
                 $mac            = $_POST['mac'];
-
+                
                 $idImagemNovo = null;
+                $idImagemAntiga = $_POST['imagem_antiga'];
 
                 $pasta = '../upload/dvrs/';
 
                 $data =
                 [
-                    'id_unidade'        => $unidade,
+                    'id_unidade'     => $unidade,
                     'canais'         => $canais,
                     'nome'           => $nome,
                     'marca'          => $marca,
@@ -51,7 +53,17 @@ class DVRController
                     'mac'            => $mac
                 ];
 
-                $idImagemNovo = imagemRegras($pasta);
+                if($copiarDVR === 'copiarDVR')
+                {
+                    $ano = $_POST['ano'];
+                    $data['ano'] = $ano+1;
+
+                    $idImagemNovo = imagemRegras($pasta, $idImagemAntiga);
+                }
+                else
+                {
+                    $idImagemNovo = imagemRegras($pasta);
+                }
 
                 if ($idImagemNovo !== null) 
                 {

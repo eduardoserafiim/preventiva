@@ -15,21 +15,43 @@ class DVRModel
     {
         try
         {
-            $sql = 'INSERT INTO dispositivos_dvrs(nome,marca,modelo,ano,ip,mac,canais,id_imagem,id_unidade)
-            VALUES (?,?,?,YEAR(NOW()),?,?,?,?,?)';
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute(
-                [
-                    $data['nome'], 
-                    $data['marca'], 
-                    $data['modelo'],
-                    $data['ip'], 
-                    $data['mac'], 
-                    $data['canais'], 
-                    $data['id_imagem'] ?? null,         
-                    $data['id_unidade'],         
-                ]
-            );
+            if($data['ano'])
+            {
+                $sql = 'INSERT INTO dispositivos_dvrs(nome,marca,modelo,ano,ip,mac,canais,id_imagem,id_unidade)
+                VALUES (?,?,?,?,?,?,?,?,?)';
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(
+                    [
+                        $data['nome'], 
+                        $data['marca'], 
+                        $data['modelo'],
+                        $data['ano'],
+                        $data['ip'], 
+                        $data['mac'], 
+                        $data['canais'], 
+                        $data['id_imagem'] ?? null,         
+                        $data['id_unidade'],         
+                    ]
+                );
+            }
+            else
+            {
+                $sql = 'INSERT INTO dispositivos_dvrs(nome,marca,modelo,ano,ip,mac,canais,id_imagem,id_unidade)
+                VALUES (?,?,?,YEAR(NOW()),?,?,?,?,?)';
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(
+                    [
+                        $data['nome'], 
+                        $data['marca'], 
+                        $data['modelo'],
+                        $data['ip'], 
+                        $data['mac'], 
+                        $data['canais'], 
+                        $data['id_imagem'] ?? null,         
+                        $data['id_unidade'],         
+                    ]
+                );
+            }
         }
         catch(PDOException $e)
         {
@@ -44,7 +66,7 @@ class DVRModel
             $sql = 'SELECT d.*,
             u.nome AS nome_unidade,
             i.nome_salvo AS nome_imagem,
-            i.nome_imagem AS nome_imagem_registrado,
+            i.id AS id_imagem_antiga,
             a.assinatura AS assinatura_dvr  
             FROM dispositivos_dvrs d
             LEFT JOIN unidade u

@@ -41,15 +41,18 @@ function criarCardDVR($dvr){ ?>
                     </div>
                     <div class="copiaecolaDVR">
                         <form action="../controllers/CamerasController.php" method="POST" enctype="multipart/form-data">
-                            <input type="hidden" value="<?= $dvr['id'] ?>" name="id">
                             <input type="hidden" value="criarDVR" name="acao">
+                            <input type="hidden" value="copiarDVR" name="copiar">
                             <input type="hidden" value="<?= $_SESSION['token'] ?>" name="token">
-                            <input type="hidden" value="<?= $dvr['nome_imagem_registrado'] ?>" name="imagem">
+                            <input type="hidden" name="imagem_antiga" value="<?= $dvr['id_imagem_antiga'] ?>">
+                            <input type="hidden" value="<?= $dvr['id_unidade'] ?>" name="id_unidade">
                             <input type="hidden" value="<?= $dvr['nome'] ?>" name="nome">
                             <input type="hidden" value="<?= $dvr['marca'] ?>" name="marca">
                             <input type="hidden" value="<?= $dvr['modelo'] ?>" name="modelo">
                             <input type="hidden" value="<?= $dvr['ano'] ?>" name="ano">
                             <input type="hidden" value="<?= $dvr['canais'] ?>" name="canais">
+                            <input type="hidden" value="<?= $dvr['ip'] ?>" name="ip">
+                            <input type="hidden" value="<?= $dvr['mac'] ?>" name="mac">
                             <button style="background-color: inherit; border: none; color: inherit;" type="submit">
                                 <i class="fas fa-icon fa-solid fa-copy fa-xl"></i>
                             </button>

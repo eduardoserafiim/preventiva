@@ -53,17 +53,12 @@ function criarCardDVRDetalhado($dvrEspecifico){ ?>
             <div class="inferiorInformacoesDVR">
                 <div class="informacoesGerais">
                     <div class="horarioDVR">
-                        <p>Horário Definidio <strong>15:00</strong></p>
+                        <p>Horário Definidio</p>
                         <div class="horarioDisponivel"><?= $dvrEspecifico['horario'] ?></div>
                     </div>
                     <div class="manutencaoDVR">
                         <p>O.S de Manutenção</p>
                         <h4 class="chamadoManutencao"><?= $dvrEspecifico['chamado_manutencao'] ?? 'Sem chamado.' ?></h4>
-                        <hr>
-                    </div>
-                    <div class="localizacaoDVR">
-                        <p>Localização</p>
-                        <h4 class="localizacao"><?= $dvrEspecifico['nome_setor'] ?></h4>
                         <hr>
                     </div>
                 </div>
