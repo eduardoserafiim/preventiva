@@ -34,6 +34,7 @@ require_once "../public/components/form/cameras/formGrid.php";
 
 // MODELS
 require_once "../models/setores.php";
+require_once "../models/cameras.php";
 
 ?>
 <?php
@@ -42,12 +43,12 @@ $url    = $_GET['url'] ?? '';
 $tipo   = $_GET['tipo'] ?? '';
 $id     = $_GET['id'] ?? '';
 
-$x = 16;
-$informacoesDVR = 
-['nome' => 'DVR', 'marca' => 'Intelbras', 'modelo' => 'HB3210', 'ano' => '2025'];
+$modelSetor     = new SetorModel();
+$modelDVRs      = new DVRModel();
+$setores        = $modelSetor->listar();
+$dvrs           = $modelDVRs->listar();
+$dvrEspecifico  = $modelDVRs->listar($id);
 
-$modelSetor = new SetorModel();
-$setores = $modelSetor->listar();
 ?>
 <body>
     <div class="app-container">
@@ -67,7 +68,7 @@ $setores = $modelSetor->listar();
                     <?= voltar('cameras.php') ?>
                 </div>
                 <?= criarLegenda() ?>
-                <?= criarCardDVRDetalhado('dvr.png', $informacoesDVR, 16, 1) ?>
+                <?= criarCardDVRDetalhado($dvrEspecifico) ?>
             <?php elseif ($url === 'criar' && $tipo  === 'dvr'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
@@ -80,7 +81,7 @@ $setores = $modelSetor->listar();
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
-                        <form action="../controllers/CamerasController.php" method="POST" id="formularioDVRs" class="equipment-form">
+                        <form action="../controllers/CamerasController.php" method="POST" id="formularioDVRs" class="equipment-form" enctype="multipart/form-data">
                             <?= formGrid($setores) ?>
                             <?= formActions() ?>
                         </form>
@@ -98,8 +99,9 @@ $setores = $modelSetor->listar();
                 </div>
                 <?= criarLegenda() ?>
                 <div class="cameras">
-                    <?= criarCardDVR('dvr.png', $informacoesDVR, '16', '1') ?>
-                    <?= criarCardDVR('dvr.png', $informacoesDVR, '12', '2') ?>
+                    <?php foreach ($dvrs as $dvr): ?>
+                        <?= criarCardDVR($dvr) ?>
+                    <?php endforeach ?>
                 </div>
             <?php endif ?>
         </main>

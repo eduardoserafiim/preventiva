@@ -1,8 +1,8 @@
 <?php 
-function criarCardDVRDetalhado($imagemDVR, $informacoesDVR, $canaisDisponiveis, $id){ ?>
+function criarCardDVRDetalhado($dvrEspecifico){ ?>
     <div class="cardDVR">
         <div class="imagemDVR">
-            <img src="../upload/dvrs/<?= $imagemDVR ?>" alt="Algo está errado.">
+            <img src="../upload/dvrs/<?= $dvrEspecifico['nome_imagem'] ?>" alt="Algo está errado.">
         </div>
         <div class="conteudoDVREspecifico">
             <div class="topoInformacoesDVR">
@@ -11,38 +11,38 @@ function criarCardDVRDetalhado($imagemDVR, $informacoesDVR, $canaisDisponiveis, 
                         <div class="tituloDetalhes">
                             <div class="nomeDVRDetalhado">
                                 <p>Nome</p>
-                                <h4 class="nomeDVR"><?= $informacoesDVR['nome'] ?></h4>
+                                <h4 class="nomeDVR"><?= $dvrEspecifico['nome'] ?></h4>
                             </div>
                             <div class="modeloDVRDetalhado">
                                 <p>Modelo</p>
-                                <h4 class="modeloDVR"><?= $informacoesDVR['modelo'] ?></h4>
+                                <h4 class="modeloDVR"><?= $dvrEspecifico['modelo'] ?></h4>
                             </div>
                             <div class="marcaDVRDetalhado">
                                 <p>Marca</p>
-                                <h4 class="marcaDVR"><?= $informacoesDVR['marca'] ?></h4>
+                                <h4 class="marcaDVR"><?= $dvrEspecifico['marca'] ?></h4>
                             </div>
                             <div class="anoDVRDetalhado">
                                 <p>Ano</p>
-                                <h4 class="marcaDVR"><?= $informacoesDVR['ano'] ?></h4>
+                                <h4 class="marcaDVR"><?= $dvrEspecifico['ano'] ?></h4>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="opcoesDVR">
                     <div class="configuracoesDVR">
-                        <a href="cameras.php?url=editar&tipo=dvr&id=<?= $id ?>">
+                        <a href="cameras.php?url=editar&tipo=dvr&id=<?= $dvrEspecifico['id'] ?>">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
                 </div>
             </div>
             <div class="canaisDisponiveis">
-                <p>Canais Disponíveis <strong><?= $canaisDisponiveis ?></strong></p>
+                <p>Canais Disponíveis <strong><?= $dvrEspecifico['canais'] ?></strong></p>
                 <div class="flex">
                     <?php 
-                        for ($quantidadeCanais = 1; $quantidadeCanais <= 32; $quantidadeCanais++): 
+                        for ($quantidadeCanais = 0; $quantidadeCanais <= 32; $quantidadeCanais++): 
                     ?>
-                        <?php if ($quantidadeCanais <= $canaisDisponiveis): ?>
+                        <?php if ($quantidadeCanais <= $dvrEspecifico['canais']): ?>
                             <a href="cameras.php?url=criar&tipo=camera&id=<?= $quantidadeCanais ?>" class="canalDisponivel verde"></a>
                         <?php else: ?>
                             <div class="canalDisponivel"></div>
@@ -54,23 +54,23 @@ function criarCardDVRDetalhado($imagemDVR, $informacoesDVR, $canaisDisponiveis, 
                 <div class="informacoesGerais">
                     <div class="horarioDVR">
                         <p>Horário Definidio <strong>15:00</strong></p>
-                        <div class="horarioDisponivel"></div>
+                        <div class="horarioDisponivel"><?= $dvrEspecifico['horario'] ?></div>
                     </div>
                     <div class="manutencaoDVR">
                         <p>O.S de Manutenção</p>
-                        <h4 class="chamadoManutencao">0010231</h4>
+                        <h4 class="chamadoManutencao"><?= $dvrEspecifico['chamado_manutencao'] ?? 'Sem chamado.' ?></h4>
                         <hr>
                     </div>
                     <div class="localizacaoDVR">
                         <p>Localização</p>
-                        <h4 class="localizacao">Informática</h4>
+                        <h4 class="localizacao"><?= $dvrEspecifico['nome_setor'] ?></h4>
                         <hr>
                     </div>
                 </div>
                 <div class="informacoesAssinaturas">
                     <div class="assinaturas">
                         <p>Assinatura técnico responsável</p>
-                        <h4><?= $informacoesDVR['assinatura'] ?? 'Sem assinatura.' ?></h4>
+                        <h4><?= $dvrEspecifico['assinatura_dvr'] ?? 'Sem assinatura.' ?></h4>
                         <hr>
                     </div>
                 </div>

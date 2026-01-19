@@ -16,17 +16,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
     $token = trim($_POST['token']);
 }
 
-class CamerasController
+class DVRController
 {
-    public function criar($data)
+    public function criarDVR()
     {
         try
         {
-            $modelCameras = new CamerasModel();
+            $modelCameras = new DVRModel();
 
             $acao = trim($_POST['acao']);
 
-            if ($acao === 'criar')
+            if ($acao === 'criarDVR')
             {
                 $unidade        = $_POST['id_unidade'];
                 $canais         = $_POST['canais'];
@@ -41,11 +41,9 @@ class CamerasController
 
                 $pasta = '../upload/dvrs/';
 
-                imagemRegras($pasta);
-
                 $data =
                 [
-                    'unidade'        => $unidade,
+                    'id_unidade'        => $unidade,
                     'canais'         => $canais,
                     'nome'           => $nome,
                     'marca'          => $marca,
@@ -55,12 +53,16 @@ class CamerasController
                     'mac'            => $mac
                 ];
 
-                if ($idImagemNovo) {
+                $idImagemNovo = imagemRegras($pasta);
+
+                if ($idImagemNovo !== null) 
+                {
                     $data['id_imagem'] = $idImagemNovo;
                 }
 
                 $modelCameras->criar($data);
-                
+
+                getMensagemSession('success', 'Sucesso ao cadastrar!', 'DVR cadastrado com sucesso.', 'cameras.php');
             }
             else
             {
@@ -69,9 +71,109 @@ class CamerasController
                 getMensagemSession('error', 'Erro na verificação', 'Não foi possivel verificar a ação.', 'cameras.php?url=criar&tipo=dvr');
             }
         }
-        catch (PDOException $e)
+        catch (Error $e)
         {
             return $e->getMessage();
         }
     }
+
+    public function editarDVR()
+    {
+
+    }
+    public function apagarDVR()
+    {
+        try
+        {
+            $acao = $_POST['acao'];
+
+            if($acao === 'excluirDVR')
+            {
+                $modelDVR = new DVRModel();
+                    
+                $id = $_POST['id'];
+
+                $modelDVR->apagar($id);
+
+                getMensagemSession('success','Sucesso ao excluir!', 'DVR excluido com sucesso.', 'cameras.php'); 
+            }
+            else
+            {
+                getMensagemSession('error', 'Erro ao excluir!', 'Não foi possivel validar. Tente novamente.', 'cameras.php');
+            }
+        }
+        catch (Error $e)
+        {
+            getMensagemSession('error','Erro ao excluir!', 'Não foi possivel excluir. Tente novamente.' , 'cameras.php');
+        }
+    }
 }
+
+if (empty($_SESSION['privilegio']))
+{
+    echo 'Erro ao validar o privilégio.';
+
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do privilégio.', 'login.php');
+}
+elseif (empty($_SESSION['usuario']))
+{
+    echo 'Erro ao validar o usuário.';
+
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do usuário.', 'login.php');
+}
+elseif (empty($_SESSION['token']))
+{
+    echo 'Falha na verificação do token da session.';
+
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token da sessão.', 'login.php');
+}
+elseif (empty($acao))
+{
+    echo 'Nenhuma ação foi instanciada.';
+
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação da ação.', 'index.php');
+}
+elseif (empty($token))
+{
+    echo 'Erro ao validar o token.';
+
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token.', 'index.php');
+}
+elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
+{
+    if ($_SESSION['token'] === $token)
+    {
+        if ($_SESSION['privilegio'] === 'TI')
+        {
+            switch ($acao)
+            {
+                case 'criarDVR':
+                    $controller = new DVRController();
+                    $controller->criarDVR();
+                    break;
+    
+                case 'editarDVR':
+                    $controller = new DVRController();
+                    $controller->editarDVR();
+                    break;
+                case 'excluirDVR':
+                    $controller = new DVRController();
+                    $controller->apagarDVR();
+                    break;
+            }
+        }
+        else
+        {
+            error_log('Falha na verificação do privilégio.');
+
+            getMensagemSession('error', 'Privilégio não aceito.', 'Você não tem permissão para essa ação.', 'usuarios.php');
+        }
+    }
+    else
+    {
+        error_log('Falha na verificação do token.');
+
+        getMensagemSession('error', 'Token não aceito.', 'Falha na verificação do token.', 'usuarios.php');
+    }
+}
+exit();

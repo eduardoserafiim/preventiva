@@ -23,7 +23,7 @@ function imagemRegras($pasta){
         }
     
         $extensao   = pathinfo($imagem['name'], PATHINFO_EXTENSION);
-        $nomeSalvo = uniqid('perfil_') . '.' . $extensao;
+        $nomeSalvo = uniqid('dvr_') . '.' . $extensao;
         $caminhoArquivo = $pasta . $nomeSalvo;
     
         if (!move_uploaded_file($imagem['tmp_name'], $caminhoArquivo)) 
@@ -33,14 +33,14 @@ function imagemRegras($pasta){
     
         $dataSalvarImagem = 
         [
-            'caminhoArquivo' => $caminhoArquivo,
-            'imagemNomeOriginal' => $imagem['name'],
-            'imagemNomeSalvo' => $nomeSalvo
+            'path_imagem' => $caminhoArquivo,
+            'nome_imagem' => $imagem['name'],
+            'nome_salvo' => $nomeSalvo
         ];
     
         $modelImagem = new ImagemModel();
         $idImagemNovo = $modelImagem->criar($dataSalvarImagem);
     
-        $data['id_imagem'] = $idImagemNovo;
+        return $idImagemNovo;
     };
 }

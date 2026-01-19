@@ -29,7 +29,7 @@ create table dispositivos_dvrs
 	mac varchar(17) not null,
 	canais int(2) not null,
 	horario time,
-	chamadoManutencao varchar(30),
+	chamado_manutencao varchar(30),
 	id_localizacao int not null,
 	id_assinatura int,
 	id_imagem int,

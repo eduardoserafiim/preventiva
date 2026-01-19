@@ -3,14 +3,14 @@
 function formGrid($setores){
     ?>
     <div class="form-grid">
-        <input type="hidden" name="acao" value="criar">
-        <input type="hidden" name="token" value="">
+        <input type="hidden" name="acao" value="criarDVR">
+        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
         <!-- IMAGEM -->
         <?= dragAreaImagem() ?>
         <!-- UNIDADE -->
         <div class="form-group">
             <label for="select-unidade">Unidade</label>
-            <select id="select-unidade" name="unidade" required>
+            <select id="select-unidade" name="id_unidade" required>
                 <option value="" disabled selected>Selecione...</option>
                 <?php if($_SESSION['unidade'] == 'HAP - UC') : ?>  
                     <option value="1" selected>HAP - UC</option>
