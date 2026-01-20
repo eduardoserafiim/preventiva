@@ -23,6 +23,7 @@ function criarCardDVRDetalhado($dvrEspecifico){ ?>
                             </div>
                             <div class="anoDVRDetalhado">
                                 <p>Ano</p>
+                                <h4 class="anoDVR"><?= $dvrEspecifico['ano'] ?></h4>
                             </div>
                         </div>
                     </div>
@@ -60,6 +61,9 @@ function criarCardDVRDetalhado($dvrEspecifico){ ?>
                         <h4 class="chamadoManutencao"><?= $dvrEspecifico['chamado_manutencao'] ?? 'Sem chamado.' ?></h4>
                         <hr>
                     </div>
+                    <div class="semestreDVR">
+                        <p>Semestre</p>
+                        <h4 class="semestre"><?= $dvrEspecifico['semestre'] ?? 'Semestre não informado.' ?></h4>
                         <hr>
                     </div>
                 </div>
