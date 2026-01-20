@@ -105,6 +105,36 @@ class DVRModel
         }
     }
 
+    public function editarDVR($data)
+    {
+        $sql = 'UPDATE dispositivos_dvrs
+        SET 
+            nome        = :nome,
+            marca       = :marca,
+            modelo      = :modelo,
+            ip          = :ip,
+            mac         = :mac,
+            canais      = :canais,
+            id_imagem   = :id_imagem,
+            id_unidade  = :id_unidade
+        WHERE id = :id';
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(
+            [
+                ':nome'         => $data['nome'],
+                ':marca'        => $data['marca'],
+                ':modelo'       => $data['modelo'],
+                ':ip'           => $data['ip'],
+                ':mac'          => $data['mac'],
+                ':canais'       => $data['canais'],
+                ':id_imagem'    => $data['id_imagem'],
+                ':id_unidade'   => $data['id_unidade'],
+                ':id'           => $data['id']
+            ]
+        );
+    }
+
     public function apagar($id)
     {
         try

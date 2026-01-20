@@ -89,7 +89,59 @@ class DVRController
 
     public function editarDVR()
     {
+        try
+        {
+            $acao = $_POST['acao'];
+            $id = $_POST['id'];
+    
+            if($acao === 'editarDVR')
+            {
+                $modelCameras = new DVRModel();
 
+                $unidade        = $_POST['id_unidade'];
+                $canais         = $_POST['canais'];
+                $nome           = $_POST['nome'];
+                $marca          = $_POST['marca'];
+                $modelo         = $_POST['modelo'];
+                $ip             = $_POST['ip'];
+                $mac            = $_POST['mac'];
+                
+                $idImagemNovo = null;
+
+                $pasta = '../upload/dvrs/';
+
+                $data =
+                [
+                    'id_unidade'     => $unidade,
+                    'canais'         => $canais,
+                    'nome'           => $nome,
+                    'marca'          => $marca,
+                    'modelo'         => $modelo,
+                    'ip'             => $ip,
+                    'mac'            => $mac
+                ];
+
+                
+                $idImagemNovo = imagemRegras($pasta);
+                
+                if ($idImagemNovo !== null) 
+                {
+                    $data['id_imagem'] = $idImagemNovo;
+                }
+
+                $modelCameras->editarDVR($data);
+
+                getMensagemSession('success', 'Sucesso ao editar!', 'DVR editado com sucesso.', 'cameras.php');
+            }
+            else
+            {
+                getMensagemSession('error', 'Erro ao editar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php', );
+            }
+        }
+        catch (Error $e)
+        {
+            getMensagemSession('error', 'Erro ao editar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php');
+        }
     }
     public function apagarDVR()
     {

@@ -167,7 +167,7 @@
     justify-content: space-between;
 }
 
-.manutencaoDVR, .horarioDVR
+.manutencaoDVR, .semestreDVR
 {
     width: 50%;
 }
@@ -189,4 +189,14 @@
 .informacoesAssinaturas
 {
     width: 500px;
+}
+
+.assinaturaDVREditar
+{
+    justify-content: space-between;
+}
+
+.assinaturaDVREditar i
+{
+    cursor: pointer;
 }

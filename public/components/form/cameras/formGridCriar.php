@@ -1,6 +1,6 @@
 <?php 
 
-function formGrid(){
+function formGridCriarDVR(){
     ?>
     <div class="form-grid">
         <input type="hidden" name="acao" value="criarDVR">

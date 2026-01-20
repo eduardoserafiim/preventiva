@@ -29,8 +29,10 @@ require_once "../public/components/cameras/dvrCard.php";
 require_once "../public/components/cameras/dvrCardEspecifico.php";
 require_once "../public/components/cameras/legendas.php";
 require_once "../public/components/dragAreaImagens/dragArea.php";
-require_once "../public/components/form/cameras/formActions.php";
-require_once "../public/components/form/cameras/formGrid.php";
+require_once "../public/components/form/cameras/formActionsCriar.php";
+require_once "../public/components/form/cameras/formGridCriar.php";
+require_once "../public/components/form/cameras/formActionsEditar.php";
+require_once "../public/components/form/cameras/formGridEditar.php";
 
 // MODELS
 require_once "../models/setores.php";
@@ -57,7 +59,25 @@ $dvrEspecifico  = $modelDVRs->listar($id);
         <main class="main-content">
             <!-- NAVBAR MOBILE -->
             <?= bar() ?>
-            <?php if ($url === 'visualizar' && $tipo === 'dvr'): ?>
+            <?php if ($url === 'editar' && $tipo === 'dvr'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>CFTV</h1>
+                        <p>Editar DVR</p>
+                    </div>
+                </div>
+                <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
+                    <?= voltar('cameras.php') ?>
+                </div>
+                <div class="controleForm">
+                    <div class="form-container">
+                        <form action="../controllers/CamerasController.php" method="POST" id="formularioDVRs" class="equipment-form" enctype="multipart/form-data">
+                            <?= formGridEditarDVR($dvrEspecifico) ?>
+                            <?= formActionsEditarDVR() ?>
+                        </form>
+                    </div>
+                </div>
+            <?php elseif ($url === 'visualizar' && $tipo === 'dvr'): ?>
                  <div class="page-header">
                     <div class="page-descricao">
                         <h1>CFTV</h1>
@@ -82,8 +102,8 @@ $dvrEspecifico  = $modelDVRs->listar($id);
                 <div class="controleForm">
                     <div class="form-container">
                         <form action="../controllers/CamerasController.php" method="POST" id="formularioDVRs" class="equipment-form" enctype="multipart/form-data">
-                            <?= formGrid() ?>
-                            <?= formActions() ?>
+                            <?= formGridCriarDVR() ?>
+                            <?= formActionsCriarDVR() ?>
                         </form>
                     </div>
                 </div>  

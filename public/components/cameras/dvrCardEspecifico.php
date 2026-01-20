@@ -23,7 +23,6 @@ function criarCardDVRDetalhado($dvrEspecifico){ ?>
                             </div>
                             <div class="anoDVRDetalhado">
                                 <p>Ano</p>
-                                <h4 class="marcaDVR"><?= $dvrEspecifico['ano'] ?></h4>
                             </div>
                         </div>
                     </div>
@@ -61,11 +60,28 @@ function criarCardDVRDetalhado($dvrEspecifico){ ?>
                         <h4 class="chamadoManutencao"><?= $dvrEspecifico['chamado_manutencao'] ?? 'Sem chamado.' ?></h4>
                         <hr>
                     </div>
+                        <hr>
+                    </div>
                 </div>
                 <div class="informacoesAssinaturas">
                     <div class="assinaturas">
                         <p>Assinatura técnico responsável</p>
-                        <h4><?= $dvrEspecifico['assinatura_dvr'] ?? 'Sem assinatura.' ?></h4>
+                        <div class="flex assinaturaDVREditar">
+                            <h4><?= $dvrEspecifico['assinatura_dvr'] ?? 'Sem assinatura.' ?></h4>
+                            <form action="../controllers/UsuariosController.php" method="POST" id="formularioAssinaturas" class="equipment-form">
+                                <input type="hidden" value="assinar" name="acao">
+                                <input type="hidden" value="<?= $_SESSION['token'] ?>" name="token">
+                                <input type="hidden" value="<?= $_SESSION['usuario'] ?>" name="assinatura-nome">
+                                <input type="hidden" value="<?= $dvrEspecifico['ano'] ?>" name="assinatura-ano">
+                                <input type="hidden" value="<?= $dvrEspecifico['semestre'] ?>" name="assinatura-semestre">
+                                <input type="hidden" value="TI" name="assinatura-setor">
+                                <input type="hidden" value="<?= $_SESSION['unidade'] ?>" name="assinatura-unidade">
+                                <input type="hidden" value="<?= $_SESSION['nome'] ?>" name="assinatura">
+                                <button type="submit" style="border: none; background-color: inherit;">
+                                    <i class="fas fa-icon fa-solid fa-pen"></i>
+                                </button>
+                            </form>
+                        </div>
                         <hr>
                     </div>
                 </div>
