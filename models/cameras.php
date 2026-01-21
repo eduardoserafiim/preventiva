@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../db/db.php';
 
-class DVRModel
+class CameraModel
 {
     private $db;
 
@@ -15,113 +15,33 @@ class DVRModel
     {
         try
         {
-            if($data['ano'])
-            {
-                $sql = 'INSERT INTO dispositivos_dvrs(nome,marca,modelo,ano,ip,mac,canais,id_imagem,id_unidade)
-                VALUES (?,?,?,?,?,?,?,?,?)';
-                $stmt = $this->db->prepare($sql);
-                $stmt->execute(
-                    [
-                        $data['nome'], 
-                        $data['marca'], 
-                        $data['modelo'],
-                        $data['ano'],
-                        $data['ip'], 
-                        $data['mac'], 
-                        $data['canais'], 
-                        $data['id_imagem'] ?? null,         
-                        $data['id_unidade'],         
-                    ]
-                );
-            }
-            else
-            {
-                $sql = 'INSERT INTO dispositivos_dvrs(nome,marca,modelo,ano,ip,mac,canais,id_imagem,id_unidade)
-                VALUES (?,?,?,YEAR(NOW()),?,?,?,?,?)';
-                $stmt = $this->db->prepare($sql);
-                $stmt->execute(
-                    [
-                        $data['nome'], 
-                        $data['marca'], 
-                        $data['modelo'],
-                        $data['ip'], 
-                        $data['mac'], 
-                        $data['canais'], 
-                        $data['id_imagem'] ?? null,         
-                        $data['id_unidade'],         
-                    ]
-                );
-            }
+            $sql = 'INSERT INTO dispositivos_cameras(id_unidade, id_setor, canal, nome, marca, modelo, ip, mac, porta, status, data_criada, id_responsavel_cadastro)
+            VALUES (?,?,?,?,?,?,?,?,?,?,NOW(),?)
+            ';
+            $stmt = $this->db->prepare($sql);
+            
+            $stmt->execute
+            (
+                [
+                    $data['id_unidade'],
+                    $data['id_setor'],
+                    $data['canal'],
+                    $data['nome'],
+                    $data['marca'],
+                    $data['modelo'],
+                    $data['ip'],
+                    $data['mac'],
+                    $data['porta'],
+                    $data['status'],
+                    $data['id_responsavel_cadastro']
+                ]
+            );
         }
         catch(PDOException $e)
         {
             return $e->getMessage();
         }
     } 
-
-    public function criarHorario($data)
-    {
-        try
-        {
-            $sql = 'UPDATE dispositivos_dvrs
-            SET horario = ?
-            WHERE id = ?';
-            
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute(
-                [
-                    $data['horario'],
-                    $data['id']
-                ]
-            );    
-        }
-        catch (PDOException $e)
-        {
-            return $e->getMessage();
-        }
-    }
-
-    public function criarManutencao($data)
-    {
-        try
-        {
-            $sql = 'UPDATE dispositivos_dvrs
-            SET chamado_manutencao = ?
-            WHERE id = ?';
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute(
-                [
-                    $data['manutencao'],
-                    $data['id']
-                ]
-            );
-        }
-        catch (PDOException $e)
-        {
-            return $e->getMessage();
-        }
-    }
-
-    public function criarSemestre($data)
-    {
-        try
-        {
-            $sql = 'UPDATE dispositivos_dvrs
-            SET semestre = ?
-            WHERE id = ?';
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute(
-                [
-                    $data['semestre'],
-                    $data['id']
-                ]
-            );
-        }
-        catch (PDOException $e)
-        {
-            return $e->getMessage();
-        }
-    }
 
     public function listar($id = '')
     {

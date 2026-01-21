@@ -70,7 +70,7 @@ class DVRController
                     $data['id_imagem'] = $idImagemNovo;
                 }
 
-                $modelDVR->criarDVR($data);
+                $modelDVR->criarCamera($data);
 
                 getMensagemSession('success', 'Sucesso ao cadastrar!', 'DVR cadastrado com sucesso.', 'cameras.php');
             }

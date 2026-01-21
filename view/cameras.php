@@ -29,10 +29,15 @@ require_once "../public/components/cameras/dvrCard.php";
 require_once "../public/components/cameras/dvrCardEspecifico.php";
 require_once "../public/components/cameras/legendas.php";
 require_once "../public/components/dragAreaImagens/dragArea.php";
+require_once "../public/components/form/dvrs/formActionsCriar.php";
+require_once "../public/components/form/dvrs/formActionsEditar.php";
+require_once "../public/components/form/dvrs/formGridCriar.php";
+require_once "../public/components/form/dvrs/formGridEditar.php";
 require_once "../public/components/form/cameras/formActionsCriar.php";
-require_once "../public/components/form/cameras/formGridCriar.php";
 require_once "../public/components/form/cameras/formActionsEditar.php";
+require_once "../public/components/form/cameras/formGridCriar.php";
 require_once "../public/components/form/cameras/formGridEditar.php";
+
 
 // MODELS
 require_once "../models/setores.php";
@@ -59,7 +64,25 @@ $dvrEspecifico  = $modelDVRs->listar($id);
         <main class="main-content">
             <!-- NAVBAR MOBILE -->
             <?= bar() ?>
-            <?php if ($url === 'editar' && $tipo === 'dvr'): ?>
+            <?php if($url === 'criar' && $tipo === 'camera'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>CFTV</h1>
+                        <p>Criar câmera</p>
+                    </div>
+                </div>
+                <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
+                    <?= voltar('cameras.php') ?>
+                </div>
+                <div class="controleForm">
+                    <div class="form-container">
+                        <form action="../controllers/CameraController.php" method="POST" id="formularioCameras" class="equipment-form">
+                            <?= formGridCriarCameras($id, $setores) ?>
+                            <?= formActionsCriarCameras() ?>
+                        </form>
+                    </div>
+                </div>
+            <?php elseif ($url === 'editar' && $tipo === 'dvr'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>CFTV</h1>

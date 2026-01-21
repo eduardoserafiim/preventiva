@@ -86,7 +86,7 @@ function criarCardDVR($dvr){ ?>
                 <p>Canais Disponíveis <strong><?= $dvr['canais'] ?></strong></p>
                 <div class="flex">
                     <?php 
-                        for ($quantidadeCanais = 0; $quantidadeCanais <= 32; $quantidadeCanais++): 
+                        for ($quantidadeCanais = 1; $quantidadeCanais <= 32; $quantidadeCanais++): 
                     ?>
                         <?php if ($quantidadeCanais <= $dvr['canais']): ?>
                             <a href="cameras.php?url=criar&tipo=camera&id=<?= $quantidadeCanais ?>" class="canalDisponivel verde"></a>

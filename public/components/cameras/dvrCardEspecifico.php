@@ -65,7 +65,7 @@ function criarCardDVRDetalhado($dvrEspecifico){ ?>
                             <div class="horarioInformacoes">
                                 <p>Horário Definidio</p>
                                 <div class="flex horarioDVREditar">
-                                    <div class="horarioDisponivel"><?= $dvrEspecifico['horario'] ?></div>
+                                    <div class="horarioDisponivel"><strong><?= $dvrEspecifico['horario'] ?></strong></div>
                                     <button type="button" style="border:none; background-color: inherit;" onclick="abrirEditarHorario()">
                                         <i class="fas fa-icon fa-solid fa-pen"></i>
                                     </button>

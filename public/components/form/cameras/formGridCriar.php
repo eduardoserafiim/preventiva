@@ -1,12 +1,12 @@
 <?php 
 
-function formGridCriarDVR(){
+function formGridCriarCameras($id, $setores){
     ?>
     <div class="form-grid">
-        <input type="hidden" name="acao" value="criarDVR">
+        <input type="hidden" name="acao" value="criarCamera">
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-        <!-- IMAGEM -->
-        <?= dragAreaImagem() ?>
+        <input type="hidden" name="id" value="<?= $id ?>">
+        <input type="hidden" name="responsavelCadastro" value="<?= $_SESSION['id'] ?>">
         <!-- UNIDADE -->
         <div class="form-group">
             <label for="select-unidade">Unidade</label>
@@ -22,40 +22,60 @@ function formGridCriarDVR(){
                 <?php endif ?>
             </select>
         </div>
+        <!-- LOCALIZACAO -->
+        <div class="form-group">
+            <label for="select-localizacao">Localização</label>
+            <select name="localizacao" id="select-localizacao">
+                <option value="" selected required>Selecione...</option>
+                <?php foreach($setores as $setor): ?>
+                    <option value="<?= $setor['id'] ?>"><?= $setor['nome'] ?></option>
+                <?php endforeach ?>
+            </select>
+        </div>
         <!-- CANAIS -->
         <div class="form-group">
-            <label for="select-ano">Canais</label>
-            <select id="select-ano" name="canais" required>
-                <option value="" disabled selected>Selecione...</option>
-                <?php for ($i = 1; $i <= 32; $i++): ?>
-                    <option value="<?= $i ?>"><?= htmlspecialchars($i) ?></option>
-                <?php endfor ?>
-            </select>
+            <label for="input-canal">Canal</label>
+            <input type="text" id="input-canal" name="canal" value="<?= $id ?>" required readonly>
         </div>
         <!-- NOME -->
         <div class="form-group">
-            <label for="select-semestre">Nome</label>
-            <input type="text" id="input-nome" name="nome" required>
+            <label for="input-nome">Nome</label>
+            <input type="text" id="input-nome" name="nome" placeholder="Obrigatório" required>
         </div>
         <!-- MARCA -->
         <div class="form-group">
             <label for="input-marca">Marca</label>
-            <input type="text" id="input-marca" name="marca" required>
+            <input type="text" id="input-marca" name="marca" placeholder="Obrigatório" required>
         </div>
         <!-- MODELO -->
         <div class="form-group">
             <label for="input-modelo">Modelo</label>
-            <input type="text" id="input-modelo" name="modelo" required>
+            <input type="text" id="input-modelo" name="modelo" placeholder="Obrigatório" required>
         </div>
         <!-- IP -->
         <div class="form-group">
             <label for="input-ip">IP</label>
-            <input type="text" id="input-ip" name="ip" required>
+            <input type="text" id="input-ip" name="ip" placeholder="Opcional">
         </div>
         <!-- MAC -->
         <div class="form-group">
             <label for="input-mac">MAC</label>
-            <input type="text" id="input-mac" name="mac" required>
+            <input type="text" id="input-mac" name="mac" placeholder="Obrigatório" required>
+        </div>
+        <!-- PORTA -->
+        <div class="form-group">
+            <label for="input-porta">Porta</label>
+            <input type="text" id="input-porta" name="porta" placeholder="Obrigatório" required>
+        </div>
+        <!-- STATUS -->
+        <div class="form-group">
+            <label for="input-status">Status</label>
+            <select name="status" id="select-status" required>
+                <option value="" selected disabled>Selecione...</option>
+                <option value="OK">Imagem OK</option>
+                <option value="i">Imagem Indisponível</option>
+                <option value="s">Imagem Sem Qualidade</option>
+            </select>
         </div>
     </div>
 <?php
