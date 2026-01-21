@@ -35,7 +35,7 @@ create table dispositivos_dvrs
 	id_imagem int,
 	id_unidade int not null,
 	foreign key (id_assinatura)
-		references assinaturastecnicos(id),
+		references assinaturas(id),
 	foreign key (id_imagem)
 		references imagem(id),
 	foreign key (id_unidade)

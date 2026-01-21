@@ -36,7 +36,7 @@ require_once "../public/components/form/cameras/formGridEditar.php";
 
 // MODELS
 require_once "../models/setores.php";
-require_once "../models/cameras.php";
+require_once "../models/dvrs.php";
 
 ?>
 <?php
@@ -71,7 +71,7 @@ $dvrEspecifico  = $modelDVRs->listar($id);
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
-                        <form action="../controllers/CamerasController.php" method="POST" id="formularioDVRs" class="equipment-form" enctype="multipart/form-data">
+                        <form action="../controllers/DVRController.php" method="POST" id="formularioDVRs" class="equipment-form" enctype="multipart/form-data">
                             <?= formGridEditarDVR($dvrEspecifico) ?>
                             <?= formActionsEditarDVR() ?>
                         </form>
@@ -101,7 +101,7 @@ $dvrEspecifico  = $modelDVRs->listar($id);
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
-                        <form action="../controllers/CamerasController.php" method="POST" id="formularioDVRs" class="equipment-form" enctype="multipart/form-data">
+                        <form action="../controllers/DVRController.php" method="POST" id="formularioDVRs" class="equipment-form" enctype="multipart/form-data">
                             <?= formGridCriarDVR() ?>
                             <?= formActionsCriarDVR() ?>
                         </form>

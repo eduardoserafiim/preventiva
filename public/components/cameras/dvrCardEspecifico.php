@@ -61,18 +61,108 @@ function criarCardDVRDetalhado($dvrEspecifico){ ?>
             <div class="inferiorInformacoesDVR">
                 <div class="informacoesGerais">
                     <div class="horarioDVR">
-                        <p>Horário Definidio</p>
-                        <div class="horarioDisponivel"><?= $dvrEspecifico['horario'] ?></div>
+                        <div class="flex">
+                            <div class="horarioInformacoes">
+                                <p>Horário Definidio</p>
+                                <div class="flex horarioDVREditar">
+                                    <div class="horarioDisponivel"><?= $dvrEspecifico['horario'] ?></div>
+                                    <button type="button" style="border:none; background-color: inherit;" onclick="abrirEditarHorario()">
+                                        <i class="fas fa-icon fa-solid fa-pen"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="miniMenuDVR miniMenuHorario">
+                                <form action="../controllers/DVRController.php" method="POST">
+                                    <div class="flex">
+                                        <input type="hidden" name="acao" value="criarHorario">
+                                        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                        <input type="hidden" name="id" value="<?= $dvrEspecifico['id'] ?>">
+                                        <select name="horario" id="select-horario">
+                                            <option value="" disabled selected>Selecione...</option>
+                                            <option value="*">*</option>
+                                            <option value="OK">OK</option>
+                                            <option value="P">P</option>
+                                        </select>
+                                        <div class="opcoesMiniMenu">
+                                            <button type="submit" style="border: none; background-color: inherit">
+                                                <i class="fas fa-icon fa-solid fa-check fa-xl" style="color: green;"></i>
+                                            </button>
+                                            <button type="button" style="border: none; background-color: inherit" onclick="abrirEditarHorario()">
+                                                <i class="fas fa-icon fa-solid fa-x fa-lg" style="color: red;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div class="manutencaoDVR">
-                        <p>O.S de Manutenção</p>
-                        <h4 class="chamadoManutencao"><?= $dvrEspecifico['chamado_manutencao'] ?? 'Sem chamado.' ?></h4>
-                        <hr>
+                        <div class="flex">
+                            <div class="manutencaoInformacoes">
+                                <p>O.S de Manutenção</p>
+                                <div class="flex manutencaoDVREditar">
+                                    <h4 class="chamadoManutencao"><?= $dvrEspecifico['chamado_manutencao'] ?? 'Sem chamado.' ?></h4>
+                                    <button type="button" style="border:none; background-color: inherit;" onclick="abrirEditarManutencao()">
+                                        <i class="fas fa-icon fa-solid fa-pen"></i>
+                                    </button>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="miniMenuDVR miniMenuManutencao">
+                                <form action="../controllers/DVRController.php" method="POST">
+                                    <div class="flex">
+                                        <input type="hidden" name="acao" value="criarManutencao">
+                                        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                        <input type="hidden" name="id" value="<?= $dvrEspecifico['id'] ?>">
+                                        <input type="text" name="manutencao" placeholder="Digite...">
+                                        <div class="opcoesMiniMenu">
+                                            <button type="submit" style="border: none; background-color: inherit">
+                                                <i class="fas fa-icon fa-solid fa-check fa-xl" style="color: green;"></i>
+                                            </button>
+                                            <button type="button" style="border: none; background-color: inherit" onclick="abrirEditarManutencao()">
+                                                <i class="fas fa-icon fa-solid fa-x fa-lg" style="color: red;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div class="semestreDVR">
-                        <p>Semestre</p>
-                        <h4 class="semestre"><?= $dvrEspecifico['semestre'] ?? 'Semestre não informado.' ?></h4>
-                        <hr>
+                        <div class="flex">
+                            <div class="semestreInformacoes">
+                                <p>Semestre</p>
+                                <div class="flex semestreDVREditar">
+                                    <h4 class="semestre"><?= $dvrEspecifico['semestre'] ?? 'Semestre não informado.' ?></h4>
+                                    <button type="button" style="border:none; background-color: inherit;" onclick="abrirEditarSemestre()">
+                                        <i class="fas fa-icon fa-solid fa-pen"></i>
+                                    </button>
+                                </div>
+                                <hr>
+                            </div>
+                            <div class="miniMenuDVR miniMenuSemestre">
+                                <form action="../controllers/DVRController.php" method="POST">
+                                    <div class="flex">
+                                        <input type="hidden" name="acao" value="criarSemestre">
+                                        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                        <input type="hidden" name="id" value="<?= $dvrEspecifico['id'] ?>">
+                                        <select name="semestre" id="select-semestre">
+                                            <option value="" disabled selected>Selecione...</option>
+                                            <option value="1° Semestre">1° Semestre</option>
+                                            <option value="2° Semestre">2° Semestre</option>
+                                        </select>
+                                        <div class="opcoesMiniMenu">
+                                            <button type="submit" style="border: none; background-color: inherit">
+                                                <i class="fas fa-icon fa-solid fa-check fa-xl" style="color: green;"></i>
+                                            </button>
+                                            <button type="button" style="border: none; background-color: inherit" onclick="abrirEditarSemestre()">
+                                                <i class="fas fa-icon fa-solid fa-x fa-lg" style="color: red;"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="informacoesAssinaturas">

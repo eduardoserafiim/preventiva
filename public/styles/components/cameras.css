@@ -170,9 +170,14 @@
     margin-bottom: 1rem;
 }
 
-.manutencaoDVR, .semestreDVR
+.manutencaoDVR, .semestreDVR, .horarioDVR
 {
-    width: 50%;
+    width: 100%;
+}
+
+.manutencaoDVR .flex, .semestreDVR .flex, .horarioDVR .flex
+{
+    justify-content: space-between;
 }
 
 .inferiorInformacoesDVR
@@ -199,7 +204,22 @@
     justify-content: space-between;
 }
 
-.assinaturaDVREditar i
+.assinaturaDVREditar i, .miniMenu i
 {
     cursor: pointer;
+}
+
+.manutencaoDVREditar, .semestreDVREditar, .horarioDVREditar
+{
+    justify-content: space-between;
+}
+
+.manutencaoDVREditar button, .semestreDVREditar button, .horarioDVREditar button
+{
+    cursor: pointer;
+}
+
+.manutencaoInformacoes, .horarioInformacoes, .semestreInformacoes
+{
+    width: 50%;
 }

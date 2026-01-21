@@ -52,7 +52,7 @@ function criarCardDVR($dvr){ ?>
                         </a>
                     </div>
                     <div class="copiaecolaDVR">
-                        <form action="../controllers/CamerasController.php" method="POST" enctype="multipart/form-data">
+                        <form action="../controllers/DVRController.php" method="POST" enctype="multipart/form-data">
                             <input type="hidden" value="criarDVR" name="acao">
                             <input type="hidden" value="copiarDVR" name="copiar">
                             <input type="hidden" value="<?= $_SESSION['token'] ?>" name="token">
@@ -71,7 +71,7 @@ function criarCardDVR($dvr){ ?>
                         </form>
                     </div>
                     <div class="deletarDVR">
-                        <form action="../controllers/CamerasController.php" method="POST">
+                        <form action="../controllers/DVRController.php" method="POST">
                             <input type="hidden" value="<?= $dvr['id'] ?>" name="id">
                             <input type="hidden" value="excluirDVR" name="acao">
                             <input type="hidden" value="<?= $_SESSION['token'] ?>" name="token">

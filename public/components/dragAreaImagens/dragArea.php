@@ -4,7 +4,6 @@ function dragAreaImagem($imagem = '')
 { ?>
     <div class="formulario-imagem" id="formulario-imagem-receber">
         <?php if ($imagem): ?>
-            <!-- ID da imagem antiga -->
             <input type="hidden" name="id_imagem_antiga" value="<?= $imagem['id_imagem_antiga'] ?>">
 
             <input type="file" name="imagem" accept="image/*" id="input-imagem" hidden>

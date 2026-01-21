@@ -1,7 +1,7 @@
 <?php
 require_once '../db/db.php';
 
-require_once '../models/cameras.php';
+require_once '../models/dvrs.php';
 require_once '../models/imagens.php';
 
 require_once '../public/components/session/mensagem.php';
@@ -22,7 +22,7 @@ class DVRController
     {
         try
         {
-            $modelCameras = new DVRModel();
+            $modelDVR = new DVRModel();
 
             $acao = trim($_POST['acao']);
             $copiarDVR = trim($_POST['copiar']);
@@ -70,7 +70,7 @@ class DVRController
                     $data['id_imagem'] = $idImagemNovo;
                 }
 
-                $modelCameras->criar($data);
+                $modelDVR->criarDVR($data);
 
                 getMensagemSession('success', 'Sucesso ao cadastrar!', 'DVR cadastrado com sucesso.', 'cameras.php');
             }
@@ -87,6 +87,108 @@ class DVRController
         }
     }
 
+    public function criarHorarioDVR()
+    {
+        try
+        {
+            $acao = trim($_POST['acao']);
+            $id = intval($_POST['id']);
+    
+            if($acao === 'criarHorario')
+            {
+                $horario = trim($_POST['horario']);
+    
+                $data = 
+                [
+                    'horario' => $horario,
+                    'id'       => $id
+                ];
+    
+                $modelDVR = new DVRModel();
+
+                $modelDVR->criarHorario($data);
+
+                getMensagemSession('success', 'Sucesso ao criar!', 'Horário criado com sucesso.', 'cameras.php', 'visualizar', 'dvr', $id);
+            }
+            else
+            {
+                getMensagemSession('error', 'Erro ao criar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php', 'visualizar', 'dvr', $id);
+            }
+        }
+        catch (Error $e)
+        {
+            return $e->getMessage();
+        }
+    }
+
+    public function criarManutencaoDVR()
+    {
+        try
+        {
+            $acao = trim($_POST['acao']);
+            $id = intval($_POST['id']);
+
+            if($acao === 'criarManutencao')
+            {
+                $manutencao = trim($_POST['manutencao']);
+
+                $data =
+                [
+                    'manutencao' => $manutencao,
+                    'id'         => $id
+                ];  
+
+                $modelDVR = new DVRModel();
+
+                $modelDVR->criarManutencao($data);
+
+                getMensagemSession('success', 'Sucesso ao criar!', 'Manutenção criada com sucesso.', 'cameras.php', 'visualizar', 'dvr', $id);
+            }
+            else
+            {
+                getMensagemSession('error', 'Erro ao criar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php', 'visualizar', 'dvr', $id);
+            }
+        }
+        catch (Error $e)
+        {
+            return $e->getMessage();
+        }
+    }
+
+    public function criarSemestreDVR()
+    {
+        try
+        {
+            $acao = trim($_POST['acao']);
+            $id = intval($_POST['id']);
+    
+            if($acao === 'criarSemestre')
+            {
+                $semestre = trim($_POST['semestre']);
+
+                $data =
+                [
+                    'semestre' => $semestre,
+                    'id'       => $id
+                ];
+
+                $modelDVR = new DVRModel();
+
+                $modelDVR->criarSemestre($data);
+
+                getMensagemSession('success', 'Sucesso ao criar!', 'Semestre criado com sucesso.', 'cameras.php', 'visualizar', 'dvr', $id);
+            }
+            else
+            {
+                getMensagemSession('error', 'Erro ao criar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php', 'visualizar', 'dvr', $id);
+            }
+        }
+        catch (Error $e)
+        {
+            return $e->getMessage();
+        }
+    }
+
     public function editarDVRPrincipais()
     {
         try
@@ -95,7 +197,7 @@ class DVRController
     
             if($acao === 'editarDVRPrincipais')
             {
-                $modelCameras = new DVRModel();
+                $modelDVR = new DVRModel();
 
                 $unidade        = trim($_POST['id_unidade']);
                 $canais         = trim($_POST['canais']);
@@ -135,7 +237,7 @@ class DVRController
                     $data['id_imagem'] = $idImagemAntiga;
                 }
 
-                $modelCameras->editarDVR($data);
+                $modelDVR->editarDVR($data);
 
                 getMensagemSession('success', 'Sucesso ao editar!', 'DVR editado com sucesso.', 'cameras.php');
             }
@@ -149,6 +251,7 @@ class DVRController
             getMensagemSession('error', 'Erro ao editar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php');
         }
     }
+
     public function apagarDVR()
     {
         try
@@ -219,7 +322,18 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                     $controller = new DVRController();
                     $controller->criarDVR();
                     break;
-    
+                case 'criarHorario':
+                    $controller = new DVRController();
+                    $controller->criarHorarioDVR();
+                    break;
+                case 'criarManutencao':
+                    $controller = new DVRController();
+                    $controller->criarManutencaoDVR();
+                    break;
+                case 'criarSemestre':
+                    $controller = new DVRController();
+                    $controller->criarSemestreDVR();
+                    break;
                 case 'editarDVRPrincipais':
                     $controller = new DVRController();
                     $controller->editarDVRPrincipais();

@@ -11,7 +11,7 @@ class DVRModel
         $this->db = $database->getConnection();
     }
 
-    public function criar($data)
+    public function criarDVR($data)
     {
         try
         {
@@ -59,6 +59,70 @@ class DVRModel
         }
     } 
 
+    public function criarHorario($data)
+    {
+        try
+        {
+            $sql = 'UPDATE dispositivos_dvrs
+            SET horario = ?
+            WHERE id = ?';
+            
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(
+                [
+                    $data['horario'],
+                    $data['id']
+                ]
+            );    
+        }
+        catch (PDOException $e)
+        {
+            return $e->getMessage();
+        }
+    }
+
+    public function criarManutencao($data)
+    {
+        try
+        {
+            $sql = 'UPDATE dispositivos_dvrs
+            SET chamado_manutencao = ?
+            WHERE id = ?';
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(
+                [
+                    $data['manutencao'],
+                    $data['id']
+                ]
+            );
+        }
+        catch (PDOException $e)
+        {
+            return $e->getMessage();
+        }
+    }
+
+    public function criarSemestre($data)
+    {
+        try
+        {
+            $sql = 'UPDATE dispositivos_dvrs
+            SET semestre = ?
+            WHERE id = ?';
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(
+                [
+                    $data['semestre'],
+                    $data['id']
+                ]
+            );
+        }
+        catch (PDOException $e)
+        {
+            return $e->getMessage();
+        }
+    }
+
     public function listar($id = '')
     {
         try
@@ -73,7 +137,7 @@ class DVRModel
                 ON d.id_unidade = u.id
             LEFT JOIN imagem i
                 ON d.id_imagem = i.id
-            LEFT JOIN assinaturastecnicos a
+            LEFT JOIN assinaturas a
                 ON d.id_assinatura = a.id
             ';
             if($id)
