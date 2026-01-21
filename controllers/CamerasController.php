@@ -87,26 +87,27 @@ class DVRController
         }
     }
 
-    public function editarDVR()
+    public function editarDVRPrincipais()
     {
         try
         {
-            $acao = $_POST['acao'];
-            $id = $_POST['id'];
+            $acao = trim($_POST['acao']);
     
-            if($acao === 'editarDVR')
+            if($acao === 'editarDVRPrincipais')
             {
                 $modelCameras = new DVRModel();
 
-                $unidade        = $_POST['id_unidade'];
-                $canais         = $_POST['canais'];
-                $nome           = $_POST['nome'];
-                $marca          = $_POST['marca'];
-                $modelo         = $_POST['modelo'];
-                $ip             = $_POST['ip'];
-                $mac            = $_POST['mac'];
+                $unidade        = trim($_POST['id_unidade']);
+                $canais         = trim($_POST['canais']);
+                $nome           = trim($_POST['nome']);
+                $marca          = trim($_POST['marca']);
+                $modelo         = trim($_POST['modelo']);
+                $ip             = trim($_POST['ip']);
+                $mac            = trim($_POST['mac']);
+                $id             = intval($_POST['id']);
                 
                 $idImagemNovo = null;
+                $idImagemAntiga = $_POST['id_imagem_antiga'];
 
                 $pasta = '../upload/dvrs/';
 
@@ -118,15 +119,20 @@ class DVRController
                     'marca'          => $marca,
                     'modelo'         => $modelo,
                     'ip'             => $ip,
-                    'mac'            => $mac
+                    'mac'            => $mac,
+                    'id'             => $id
                 ];
-
                 
                 $idImagemNovo = imagemRegras($pasta);
                 
                 if ($idImagemNovo !== null) 
                 {
                     $data['id_imagem'] = $idImagemNovo;
+                } 
+
+                elseif (!empty($_POST['id_imagem_antiga'])) 
+                {
+                    $data['id_imagem'] = $idImagemAntiga;
                 }
 
                 $modelCameras->editarDVR($data);
@@ -214,9 +220,9 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                     $controller->criarDVR();
                     break;
     
-                case 'editarDVR':
+                case 'editarDVRPrincipais':
                     $controller = new DVRController();
-                    $controller->editarDVR();
+                    $controller->editarDVRPrincipais();
                     break;
                 case 'excluirDVR':
                     $controller = new DVRController();

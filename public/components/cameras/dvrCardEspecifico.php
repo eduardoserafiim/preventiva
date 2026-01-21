@@ -25,6 +25,14 @@ function criarCardDVRDetalhado($dvrEspecifico){ ?>
                                 <p>Ano</p>
                                 <h4 class="anoDVR"><?= $dvrEspecifico['ano'] ?></h4>
                             </div>
+                            <div class="ipDVRDetalhado">
+                                <p>Endereço IP</p>
+                                <h4 class="ipDVR"><?= $dvrEspecifico['ip'] ?></h4>
+                            </div>
+                            <div class="macDVRDetalhado">
+                                <p>MAC</p>
+                                <h4 class="macDVR"><?= $dvrEspecifico['mac'] ?></h4>
+                            </div>
                         </div>
                     </div>
                 </div>

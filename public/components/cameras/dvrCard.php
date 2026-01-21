@@ -25,6 +25,18 @@ function criarCardDVR($dvr){ ?>
                                 <p>Ano</p>
                                 <h4 class="marcaDVR"><?= $dvr['ano'] ?></h4>
                             </div>
+                            <div class="ipDVRDetalhado">
+                                <p>Endereço IP</p>
+                                <h4 class="ipDVR"><?= $dvr['ip'] ?></h4>
+                            </div>
+                            <div class="macDVRDetalhado">
+                                <p>MAC</p>
+                                <h4 class="macDVR"><?= $dvr['mac'] ?></h4>
+                            </div>
+                            <div class="unidadeDVRDetalhado">
+                                <p>Unidade</p>
+                                <h4 class="macDVR"><?= $dvr['nome_unidade'] ?></h4>
+                            </div>
                         </div>
                     </div>
                 </div>

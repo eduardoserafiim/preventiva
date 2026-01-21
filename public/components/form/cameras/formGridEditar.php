@@ -3,7 +3,7 @@
 function formGridEditarDVR($dvr){
     ?>
     <div class="form-grid">
-        <input type="hidden" name="acao" value="editarDVR">
+        <input type="hidden" name="acao" value="editarDVRPrincipais">
         <input type="hidden" name="id" value="<?= $dvr['id'] ?>">
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
         <!-- IMAGEM -->
@@ -12,7 +12,7 @@ function formGridEditarDVR($dvr){
         <div class="form-group">
             <label for="select-unidade">Unidade</label>
             <select id="select-unidade" name="id_unidade" required>
-                <option value="<?= $dvr['nome_unidade'] ?>" disabled selected><?= htmlspecialchars($dvr['nome_unidade']) ?></option>
+                <option value="<?= $dvr['id_unidade'] ?>" disabled selected><?= htmlspecialchars($dvr['nome_unidade']) ?></option>
                 <?php if($_SESSION['unidade'] == 'HAP - UC') : ?>  
                     <option value="1" selected>HAP - UC</option>
                 <?php elseif($_SESSION['unidade'] == 'HAP - MATRIZ') : ?>

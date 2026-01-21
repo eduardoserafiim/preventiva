@@ -1,6 +1,6 @@
 <?php
 
-function imagemRegras($pasta, $imagemAntigaId = null) {
+function imagemRegras($pasta) {
     if (!empty($_FILES['imagem']['name'])) 
     {
         $imagem = $_FILES['imagem'];
@@ -39,6 +39,6 @@ function imagemRegras($pasta, $imagemAntigaId = null) {
     } 
     else 
     {
-        return $imagemAntigaId;
+        return null;
     }
 }
