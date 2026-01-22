@@ -1,11 +1,12 @@
 <?php 
 
-function formGridCriarCameras($id, $setores){
+function formGridCriarCameras($id, $setores, $idDVR){
     ?>
     <div class="form-grid">
         <input type="hidden" name="acao" value="criarCamera">
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-        <input type="hidden" name="id" value="<?= $id ?>">
+        <input type="hidden" name="idCamera" value="<?= $id ?>">
+        <input type="hidden" name="idDVR" value="<?= $idDVR ?>">
         <input type="hidden" name="responsavelCadastro" value="<?= $_SESSION['id'] ?>">
         <!-- UNIDADE -->
         <div class="form-group">
@@ -25,7 +26,7 @@ function formGridCriarCameras($id, $setores){
         <!-- LOCALIZACAO -->
         <div class="form-group">
             <label for="select-localizacao">Localização</label>
-            <select name="localizacao" id="select-localizacao">
+            <select name="localizacao" id="select-localizacao" required>
                 <option value="" selected required>Selecione...</option>
                 <?php foreach($setores as $setor): ?>
                     <option value="<?= $setor['id'] ?>"><?= $setor['nome'] ?></option>
@@ -73,8 +74,8 @@ function formGridCriarCameras($id, $setores){
             <select name="status" id="select-status" required>
                 <option value="" selected disabled>Selecione...</option>
                 <option value="OK">Imagem OK</option>
-                <option value="i">Imagem Indisponível</option>
-                <option value="s">Imagem Sem Qualidade</option>
+                <option value="I">Imagem Indisponível</option>
+                <option value="S">Imagem Sem Qualidade</option>
             </select>
         </div>
     </div>

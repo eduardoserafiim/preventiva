@@ -36,6 +36,8 @@ class CameraModel
                     $data['id_responsavel_cadastro']
                 ]
             );
+
+            return $this->db->lastInsertId();
         }
         catch(PDOException $e)
         {

@@ -2,6 +2,7 @@
 require_once '../db/db.php';
 
 require_once '../models/cameras.php';
+require_once '../models/camerasdvrs.php';
 
 require_once '../public/components/session/mensagem.php';
 
@@ -20,9 +21,10 @@ class CameraController
         try
         {
             $modelCamera = new CameraModel();
+            $modelCameraDVR = new CameraDVRModel();
 
             $acao   = trim($_POST['acao']);
-            $id     = intval($_POST['id']);
+            $idDVR  = intval($_POST['idDVR']);
 
             if ($acao === 'criarCamera')
             {
@@ -53,7 +55,15 @@ class CameraController
                     'id_responsavel_cadastro'   => $responsavelCadastro
                 ];
 
-                $modelCamera->criarCamera($data);
+                $idCamera = $modelCamera->criarCamera($data);
+
+                $dataCameraDVR = 
+                [
+                    'id_dvr' => $idDVR,
+                    'id_camera' => $idCamera
+                ];
+
+                $modelCameraDVR->relacionarCamerasComDVR($dataCameraDVR);
 
                 getMensagemSession('success', 'Sucesso ao criar!', 'Camera cadastrada com sucesso.', 'cameras.php');
             }

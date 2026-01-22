@@ -42,6 +42,7 @@ require_once "../public/components/form/cameras/formGridEditar.php";
 // MODELS
 require_once "../models/setores.php";
 require_once "../models/dvrs.php";
+require_once "../models/camerasdvrs.php";
 
 ?>
 <?php
@@ -49,13 +50,16 @@ require_once "../models/dvrs.php";
 $url    = $_GET['url'] ?? '';
 $tipo   = $_GET['tipo'] ?? '';
 $id     = $_GET['id'] ?? '';
+$idDVR  = $_GET['idDVR'] ?? '';
 
 $modelSetor     = new SetorModel();
 $modelDVRs      = new DVRModel();
+$modelDVRCameras = new CameraDVRModel();
+
 $setores        = $modelSetor->listar();
 $dvrs           = $modelDVRs->listar();
 $dvrEspecifico  = $modelDVRs->listar($id);
-
+$camerasRelacionadasDVR = $modelDVRCameras->chamarCamerasRelacionadasDVR($idDVR);
 ?>
 <body>
     <div class="app-container">
@@ -64,6 +68,7 @@ $dvrEspecifico  = $modelDVRs->listar($id);
         <main class="main-content">
             <!-- NAVBAR MOBILE -->
             <?= bar() ?>
+            <?php if($url === 'visualizar' && $tipo === 'camera')?>
             <?php if($url === 'criar' && $tipo === 'camera'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
@@ -77,7 +82,7 @@ $dvrEspecifico  = $modelDVRs->listar($id);
                 <div class="controleForm">
                     <div class="form-container">
                         <form action="../controllers/CameraController.php" method="POST" id="formularioCameras" class="equipment-form">
-                            <?= formGridCriarCameras($id, $setores) ?>
+                            <?= formGridCriarCameras($id, $setores, $idDVR) ?>
                             <?= formActionsCriarCameras() ?>
                         </form>
                     </div>
@@ -146,7 +151,7 @@ $dvrEspecifico  = $modelDVRs->listar($id);
                         <p class="informarDVRsDisponiveis">Nenhum DVR cadastrado.</p>
                     <?php else: ?>        
                             <?php foreach ($dvrs as $dvr): ?>
-                                <?= criarCardDVR($dvr) ?>
+                                <?= criarCardDVR($dvr, $modelDVRCameras) ?>
                             <?php endforeach ?>
                     <?php endif ?>
                 </div>

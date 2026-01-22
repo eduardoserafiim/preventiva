@@ -4,7 +4,7 @@ class Database {
     // private $host = "10.141.121.67:3306";
     private $database = "informatica";
     private $user = "root";
-    private $port = "3306";
+    private $port = "3307";
     // private $user = "info";
     private $pass = "";
     // private $pass = "fefeco123@";

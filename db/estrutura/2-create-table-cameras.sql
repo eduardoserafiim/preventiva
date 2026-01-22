@@ -23,3 +23,14 @@ create table dispositivos_cameras
 	foreign key (id_responsavel_cadastro)
 		references usuarios(id)
 );
+
+create table dispositivos_dvrs_cameras
+(
+	id_dvr int,
+	id_camera int,
+	primary key (id_dvr, id_camera),
+	foreign key (id_dvr)
+		references dispositivos_dvrs(id),
+	foreign key (id_camera)
+		references dispositivos_cameras(id)
+);

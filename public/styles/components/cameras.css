@@ -86,7 +86,7 @@
   transform: translateY(-2px);
 }
 
-.canalDisponivel
+.canalDisponivel, .canalOcupado
 {
     width: 35px;
     height: 35px;
@@ -97,6 +97,14 @@
 {
     background-color: greenyellow;
     cursor: pointer;
+}
+
+.canalOcupado
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
 
 .topoInformacoesDVR
