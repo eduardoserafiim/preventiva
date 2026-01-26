@@ -11,7 +11,7 @@ class DVRModel
         $this->db = $database->getConnection();
     }
 
-    public function criarCamera($data)
+    public function criarDVR($data)
     {
         try
         {

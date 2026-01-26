@@ -59,17 +59,17 @@
     width: 100%;
 }
 
-.tituloDVR
+.tituloDVR, .tituloCamera
 {
     width: 100%;
 }
 
-.camera-content .flex, .tituloDVR .flex
+.camera-content .flex, .tituloDVR .flex, .tituloCamera .flex
 {
     gap: 1rem;
 }
 
-.cardDVR
+.cardDVR, .cardCamera
 {
     display: flex;
     background-color: white;
@@ -80,7 +80,7 @@
     transition: all 0.3s ease;
 }
 
-.cardDVR:hover{
+.cardDVR:hover, .cardCamera:hover{
   border: 1px solid #3b82f6;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   transform: translateY(-2px);
@@ -107,25 +107,32 @@
     font-weight: bold;
 }
 
-.topoInformacoesDVR
+.topoInformacoesDVR, .topoInformacoesCamera
 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
-.configuracoesDVR i {
+.inferiorInformacoesCamera
+{
+    display: flex;
+    gap: 10.2rem;
+}
+
+.configuracoesDVR i, .configuracoesCamera i 
+{
     animation: fa-spin 2s linear infinite;
     animation-play-state: paused;
     cursor: pointer;
 }
 
-.configuracoesDVR:hover i {
+.configuracoesDVR:hover i, .configuracoesCamera:hover i 
+{
     animation-play-state: running;
 }
 
-.conteudoDVR, .conteudoDVREspecifico
+.conteudoDVR, .conteudoDVREspecifico, .conteudoCameraEspecifico
 {
     width: 100%;
 }
@@ -138,14 +145,28 @@
     max-width: 100px;
 }
 
-.opcoesDVR
+.imagemCamera, .imagemCamera img
+{
+    height: 200px;
+    width: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 12px;
+}
+
+.opcoesDVR, .opcoesCamera
 {
     display: flex;
     align-items: center;
     gap: 1rem;
 }
 
-.visualizacaoDVR:hover i, .copiaecolaDVR:hover i, .deletarDVR:hover i 
+.opcoesCamera
+{
+    flex-direction: column;
+}
+
+.visualizacaoDVR:hover i, .copiaecolaDVR:hover i, .deletarDVR:hover i, .deletarCamera:hover i 
 {
     animation: fa-bounce 1s linear infinite;
     cursor: pointer;
@@ -188,18 +209,35 @@
     justify-content: space-between;
 }
 
-.inferiorInformacoesDVR
+.inferiorInformacoesDVR 
 {
     display: flex;
     width: 100%;
 }
 
-.informacoesGerais
+.informacoesGerais, .informacoesConexoes
 {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     width: 500px;
+}
+
+.informacoesConexoes
+{
+    width: 200px;
+}
+
+.informacoesUsuarioData
+{
+    width: 300px;
+}
+
+.statusCameraDetalhado
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .informacoesAssinaturas

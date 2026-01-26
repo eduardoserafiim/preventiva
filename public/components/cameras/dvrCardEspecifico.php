@@ -1,5 +1,5 @@
 <?php 
-function criarCardDVRDetalhado($dvrEspecifico){ ?>
+function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
     <div class="cardDVR">
         <div class="imagemDVR">
             <img src="../upload/dvrs/<?= $dvrEspecifico['nome_imagem'] ?>" alt="Algo está errado.">
@@ -48,12 +48,26 @@ function criarCardDVRDetalhado($dvrEspecifico){ ?>
                 <p>Canais Disponíveis <strong><?= $dvrEspecifico['canais'] ?></strong></p>
                 <div class="flex">
                     <?php 
-                        for ($quantidadeCanais = 1; $quantidadeCanais <= 32; $quantidadeCanais++): 
+                        $canaisRelacionadosDVRs = $modelDVRCameras->chamarCanaisRelacionadosDVR($dvrEspecifico['id']);
+
+                        $canaisOcupados = [];
+                        foreach ($canaisRelacionadosDVRs as $camera) {
+                            $canaisOcupados[$camera['canal']] = $camera;
+                        }
                     ?>
+                    <?php for ($quantidadeCanais = 1; $quantidadeCanais <= 32; $quantidadeCanais++): ?>
                         <?php if ($quantidadeCanais <= $dvrEspecifico['canais']): ?>
-                            <a href="cameras.php?url=criar&tipo=camera&id=<?= $quantidadeCanais ?>" class="canalDisponivel verde"></a>
+                            <?php if (isset($canaisOcupados[$quantidadeCanais])): ?>
+                                <?php $camera = $canaisOcupados[$quantidadeCanais]; ?>
+                                <a href="cameras.php?url=visualizar&tipo=camera&id=<?= $camera['id'] ?>" class="canalOcupado" title="Canal <?= $quantidadeCanais ?> ocupado - Status: <?= htmlspecialchars($camera['status']) ?>">
+                                    <?= htmlspecialchars($camera['status']) ?>
+                                </a>
+                            <?php else: ?>
+                                <a href="cameras.php?url=criar&tipo=camera&id=<?= $quantidadeCanais ?>&idDVR=<?= $dvrEspecifico['id'] ?>" class="canalDisponivel verde" title="Canal <?= $quantidadeCanais ?> disponível">
+                                </a>
+                            <?php endif; ?>
                         <?php else: ?>
-                            <div class="canalDisponivel"></div>
+                            <div class="canalDisponivel cinza"></div>
                         <?php endif; ?>
                     <?php endfor; ?>
                 </div>
