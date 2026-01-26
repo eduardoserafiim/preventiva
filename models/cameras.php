@@ -59,7 +59,7 @@ class CameraModel
             LEFT JOIN unidade u
                 ON dc.id_unidade = u.id
             LEFT JOIN usuarios us
-                ON dc.id_unidade = us.id
+                ON dc.id_responsavel_cadastro = us.id
             WHERE dc.id = :id';
             $stmt = $this->db->prepare($sql);
             $stmt->execute(

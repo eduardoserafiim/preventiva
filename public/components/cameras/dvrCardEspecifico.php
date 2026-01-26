@@ -42,6 +42,16 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
+                    <div class="deletarDVR">
+                        <form action="../controllers/DVRController.php" method="POST">
+                            <input type="hidden" value="<?= $dvrEspecifico['id'] ?>" name="id">
+                            <input type="hidden" value="excluirDVR" name="acao">
+                            <input type="hidden" value="<?= $_SESSION['token'] ?>" name="token">
+                            <button style="background-color: inherit; border: none; color: red;" type="submit">
+                                <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
             <div class="canaisDisponiveis">

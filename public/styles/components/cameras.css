@@ -157,6 +157,7 @@
 .opcoesDVR, .opcoesCamera
 {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 1rem;
 }
@@ -230,7 +231,10 @@
 
 .informacoesUsuarioData
 {
+    display: flex;
+    flex-direction: column;
     width: 300px;
+    gap: 1rem;
 }
 
 .statusCameraDetalhado
