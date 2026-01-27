@@ -16,8 +16,8 @@ if ($_SESSION['privilegio'] != 'administrador')
 <?php
 
 // MODELS
-require_once '../models/usuarios.php';
-require_once '../models/setores.php';
+require_once '../models/UsuarioModel.php';
+require_once '../models/SetorModel.php';
 
 // COMPONENTS
 require_once '../public/components/header/header.php';

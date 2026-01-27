@@ -1,8 +1,8 @@
 <?php
 require_once '../db/db.php';
 
-require_once '../models/dvrs.php';
-require_once '../models/imagens.php';
+require_once '../models/DVRModel.php';
+require_once '../models/ImagemModel.php';
 
 require_once '../public/components/session/mensagem.php';
 

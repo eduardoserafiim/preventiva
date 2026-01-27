@@ -1,8 +1,8 @@
 <?php
 require_once '../db/db.php';
 
-require_once '../models/usuarios.php';
-require_once '../models/assinaturas.php';
+require_once '../models/UsuarioModel.php';
+require_once '../models/AssinarModel.php';
 
 require_once '../public/components/session/mensagem.php';
 

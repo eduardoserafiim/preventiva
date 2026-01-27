@@ -45,10 +45,10 @@ require_once "../public/components/form/cameras/formGridEditar.php";
 
 
 // MODELS
-require_once "../models/setores.php";
-require_once "../models/dvrs.php";
-require_once "../models/cameras.php";
-require_once "../models/camerasdvrs.php";
+require_once "../models/SetorModel.php";
+require_once "../models/DVRModel.php";
+require_once "../models/CameraModel.php";
+require_once "../models/CameraDVRModel.php";
 
 ?>
 <?php

@@ -1,7 +1,7 @@
 <?php
 require_once '../db/db.php';
 
-require_once '../models/usuarios.php';
+require_once '../models/UsuarioModel.php';
 
 require_once '../public/components/session/mensagem.php';
 

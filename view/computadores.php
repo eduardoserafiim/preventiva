@@ -16,8 +16,8 @@ if ($_SESSION['privilegio'] != 'administrador' && $_SESSION['privilegio'] != 'TI
 ?>
 <?php
 // MODELS
-require_once '../models/computadores.php';
-require_once '../models/setores.php';
+require_once '../models/ComputadorModel.php';
+require_once '../models/SetorModel.php';
 
 // COMPONENTS
 require_once '../public/components/header/header.php';
