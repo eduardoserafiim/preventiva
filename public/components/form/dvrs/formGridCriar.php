@@ -5,6 +5,7 @@ function formGridCriarDVR(){
     <div class="form-grid">
         <input type="hidden" name="acao" value="criarDVR">
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+        <input type="hidden" name="tecnico_responsavel" value="<?= $_SESSION['nome'] ?>">
         <!-- IMAGEM -->
         <?= dragAreaImagem() ?>
         <!-- UNIDADE -->

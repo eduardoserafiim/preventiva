@@ -31,11 +31,9 @@ create table dispositivos_dvrs
 	horario varchar(2),
 	semestre varchar(17),
 	chamado_manutencao varchar(30),
-	id_assinatura int,
+	tecnico_responsavel varchar(30) not null,
 	id_imagem int,
 	id_unidade int not null,
-	foreign key (id_assinatura)
-		references assinaturas(id),
 	foreign key (id_imagem)
 		references imagem(id),
 	foreign key (id_unidade)

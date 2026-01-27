@@ -1,6 +1,6 @@
 <?php 
 
-function formGridEditarCamera($camera, $dvrEspecifico){
+function formGridEditarCamera($camera, $dvrEspecifico, $setores){
     ?>
     <div class="form-grid">
         <input type="hidden" name="acao" value="editarCamera">
@@ -10,9 +10,8 @@ function formGridEditarCamera($camera, $dvrEspecifico){
         <div class="form-group">
             <label for="select-unidade">Unidade</label>
             <select id="select-unidade" name="id_unidade" required>
-                <option value="<?= $camera['id_unidade'] ?>" disabled selected><?= htmlspecialchars($camera['nome_unidade']) ?></option>
                 <?php if($_SESSION['unidade'] == 'HAP - UC') : ?>  
-                    <option value="1" selected>HAP - UC</option>
+                    <option value="<?= $camera['id_unidade'] ?>" selected><?= $camera["nome_unidade"] ?></option>
                 <?php elseif($_SESSION['unidade'] == 'HAP - MATRIZ') : ?>
                     <option value="2" selected>HAP - MATRIZ</option>
                 <?php else : ?>
@@ -24,11 +23,22 @@ function formGridEditarCamera($camera, $dvrEspecifico){
         <!-- CANAIS -->
         <div class="form-group">
             <label for="select-canais">Canal</label>
-            <select id="select-canais" name="canais" required>
-                <option value="<?= $camera['canal'] ?>" selected><?= $camera['canal'] ?></option>
-                <?php for ($i = 1; $i <= $dvrEspecifico['canais']; $i++): ?>
-                    <option value="<?= $i ?>"><?= htmlspecialchars($i) ?></option>
-                <?php endfor ?>
+            <div class="flex">
+                <input type="text" value="<?= $camera['canal'] ?>" style="width: 100%; margin-right: 0.2rem" readonly>
+                <i class="fas fa-icon fa-solid fa-info" title="Não é permitido a alteração do canal."></i>
+            </div>
+        </div>
+        <!-- LOCALIZACAO -->
+        <div class="form-group">
+            <label for="select-localizacao">Localização</label>
+            <select name="localizacao" id="select-localizacao" required>
+                <?php foreach($setores as $setor): ?>
+                    <?php if($setor['nome'] === $camera['nome_setor']): ?>
+                        <option value="<?= $setor['id'] ?>" selected><?= $setor['nome'] ?></option>
+                    <?php else: ?>
+                        <option value="<?= $setor['id'] ?>"><?= $setor['nome'] ?></option>
+                    <?php endif ?>
+                <?php endforeach ?>
             </select>
         </div>
         <!-- NOME -->
@@ -55,6 +65,41 @@ function formGridEditarCamera($camera, $dvrEspecifico){
         <div class="form-group">
             <label for="input-mac">MAC</label>
             <input type="text" id="input-mac" value="<?= $camera['mac'] ?>" name="mac" required>
+        </div>
+        <!-- PORTA -->
+        <div class="form-group">
+            <label for="input-porta">Porta</label>
+            <input type="text" id="input-porta" value="<?= $camera['porta'] ?>" name="porta" required>
+        </div>
+        <!-- STATUS -->
+        <div class="form-group">
+            <label for="select-status">Status</label>
+            <select name="status" id="select-status" required>
+                <?php
+                    $statusDisponiveis = [
+                        [
+                            'status' => 'OK',
+                            'nome' => 'Imagem OK'
+                        ],
+                        [
+                            'status' => 'I',
+                            'nome' => 'Imagem Indisponível'
+                        ],
+                        [
+                            'status' => 'S',
+                            'nome' => 'Imagem Sem Qualidade'
+                        ]
+                    ]
+                
+                ?>
+                <?php foreach($statusDisponiveis as $status): ?>
+                    <?php if($status['status'] === $camera['status']): ?>
+                        <option value="<?= $camera['status'] ?>" selected><?= $status['nome'] ?></option>
+                    <?php else: ?>
+                        <option value="<?= $status['status'] ?>"><?= $status['nome'] ?></option>
+                    <?php endif ?>
+                <?php endforeach ?>
+            </select>
         </div>
     </div>
 <?php

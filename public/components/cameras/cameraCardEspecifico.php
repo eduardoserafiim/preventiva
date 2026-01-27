@@ -2,7 +2,6 @@
 
 function criarCardCameraDetalhada($camera, $dvr)
 { ?>
-    <?= var_dump($camera) ?>
     <div class="cardCamera">
         <div class="imagemCamera">
             <img src="../upload/cameras/dafault-camera.jpg" alt="camera.jpg">
@@ -17,7 +16,7 @@ function criarCardCameraDetalhada($camera, $dvr)
                                 <h4 class="nomeCamera"><?= $camera['nome'] ?></h4>
                             </div>
                             <div class="canalCameraDetalhado">
-                                <p>Canal</p>
+                                <p>Canal</p>  
                                 <h4 class="canalCamera"><?= $camera['canal'] ?></h4>
                             </div>
                             <div class="marcaCameraDetalhado">
@@ -57,6 +56,7 @@ function criarCardCameraDetalhada($camera, $dvr)
                     </div>
                 </div>
             </div>
+            <hr style="margin: 1rem 0 1rem 0">
             <div class="inferiorInformacoesCamera">
                 <div class="informacoesConexoes">
                     <div class="ipCameraDetalhado">

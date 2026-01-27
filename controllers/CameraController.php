@@ -44,6 +44,7 @@ class CameraController
                 [
                     'id_unidade'                => $unidade,
                     'id_setor'                  => $setor,
+                    'id_dvr'                    => $idDVR,
                     'canal'                     => $canal,
                     'nome'                      => $nome,
                     'marca'                     => $marca,
@@ -88,49 +89,36 @@ class CameraController
     
             if($acao === 'editarCamera')
             {
-                $modelCamera = new DVRModel();
+                $modelCamera = new CameraModel();
 
                 $unidade        = trim($_POST['id_unidade']);
-                $canais         = trim($_POST['canais']);
+                $canal         = trim($_POST['canal']);
                 $nome           = trim($_POST['nome']);
                 $marca          = trim($_POST['marca']);
                 $modelo         = trim($_POST['modelo']);
                 $ip             = trim($_POST['ip']);
                 $mac            = trim($_POST['mac']);
+                $porta          = trim($_POST['porta']);
+                $status         = trim($_POST['status']);
                 $id             = intval($_POST['id']);
-                
-                $idImagemNovo = null;
-                $idImagemAntiga = $_POST['id_imagem_antiga'];
-
-                $pasta = '../upload/dvrs/';
 
                 $data =
                 [
                     'id_unidade'     => $unidade,
-                    'canais'         => $canais,
+                    'canais'         => $canal,
                     'nome'           => $nome,
                     'marca'          => $marca,
                     'modelo'         => $modelo,
                     'ip'             => $ip,
                     'mac'            => $mac,
+                    'porta'           => $porta,
+                    'status'         => $status,
                     'id'             => $id
                 ];
-                
-                $idImagemNovo = imagemRegras($pasta);
-                
-                if ($idImagemNovo !== null) 
-                {
-                    $data['id_imagem'] = $idImagemNovo;
-                } 
 
-                elseif (!empty($_POST['id_imagem_antiga'])) 
-                {
-                    $data['id_imagem'] = $idImagemAntiga;
-                }
+                $modelCamera->editarCamera($data);
 
-                $modelCamera->editarDVR($data);
-
-                getMensagemSession('success', 'Sucesso ao editar!', 'DVR editado com sucesso.', 'cameras.php');
+                getMensagemSession('success', 'Sucesso ao editar!', 'Camera editada com sucesso.', 'cameras.php');
             }
             else
             {
@@ -215,7 +203,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                     break;
                 case 'editarCamera':
                     $controller = new CameraController();
-                    $controller->excluirCamera();
+                    $controller->editarCamera();
                     break;
                 case 'excluirCamera':
                     $controller = new CameraController();

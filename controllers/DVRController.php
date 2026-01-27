@@ -36,7 +36,8 @@ class DVRController
                 $modelo         = $_POST['modelo'];
                 $ip             = $_POST['ip'];
                 $mac            = $_POST['mac'];
-                
+                $responsavel    = $_POST['tecnico_responsavel'];
+
                 $idImagemNovo = null;
                 $idImagemAntiga = $_POST['imagem_antiga'];
 
@@ -50,7 +51,8 @@ class DVRController
                     'marca'          => $marca,
                     'modelo'         => $modelo,
                     'ip'             => $ip,
-                    'mac'            => $mac
+                    'mac'            => $mac,
+                    'responsavel'    => $responsavel
                 ];
 
                 if($copiarDVR === 'copiarDVR')

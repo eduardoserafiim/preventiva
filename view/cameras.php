@@ -90,7 +90,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                 <div class="controleForm">
                     <div class="form-container">
                         <form action="../controllers/CameraController.php" method="POST" id="formularioDVRs" class="equipment-form">
-                            <?= formGridEditarCamera($cameraEspecifica, $dvrEspecificoRelacionadoCamera) ?>
+                            <?= formGridEditarCamera($cameraEspecifica, $dvrEspecificoRelacionadoCamera, $setores) ?>
                             <?= formActionsEditarCamera() ?>
                         </form>
                     </div>
@@ -188,9 +188,9 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                     <?php if(empty($dvrs)): ?>
                         <p class="informarDVRsDisponiveis">Nenhum DVR cadastrado.</p>
                     <?php else: ?>        
-                            <?php foreach ($dvrs as $dvr): ?>
-                                <?= criarCardDVR($dvr, $modelDVRCameras) ?>
-                            <?php endforeach ?>
+                        <?php foreach ($dvrs as $dvr): ?>
+                            <?= criarCardDVR($dvr, $modelDVRCameras) ?>
+                        <?php endforeach ?>
                     <?php endif ?>
                 </div>
             <?php endif ?>

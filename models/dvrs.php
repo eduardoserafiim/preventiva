@@ -17,8 +17,8 @@ class DVRModel
         {
             if($data['ano'])
             {
-                $sql = 'INSERT INTO dispositivos_dvrs(nome,marca,modelo,ano,ip,mac,canais,id_imagem,id_unidade)
-                VALUES (?,?,?,?,?,?,?,?,?)';
+                $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, id_imagem, id_unidade)
+                VALUES (?,?,?,?,?,?,?,?,?,?)';
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute(
                     [
@@ -29,6 +29,7 @@ class DVRModel
                         $data['ip'], 
                         $data['mac'], 
                         $data['canais'], 
+                        $data['responsavel'],
                         $data['id_imagem'] ?? null,         
                         $data['id_unidade'],         
                     ]
@@ -36,8 +37,8 @@ class DVRModel
             }
             else
             {
-                $sql = 'INSERT INTO dispositivos_dvrs(nome,marca,modelo,ano,ip,mac,canais,id_imagem,id_unidade)
-                VALUES (?,?,?,YEAR(NOW()),?,?,?,?,?)';
+                $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, id_imagem, id_unidade)
+                VALUES (?,?,?,YEAR(NOW()),?,?,?,?,?,?)';
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute(
                     [
@@ -47,6 +48,7 @@ class DVRModel
                         $data['ip'], 
                         $data['mac'], 
                         $data['canais'], 
+                        $data['responsavel'],
                         $data['id_imagem'] ?? null,         
                         $data['id_unidade'],         
                     ]
@@ -130,15 +132,12 @@ class DVRModel
             $sql = 'SELECT d.*,
             u.nome AS nome_unidade,
             i.nome_salvo AS nome_imagem,
-            i.id AS id_imagem_antiga,
-            a.assinatura AS assinatura_dvr  
+            i.id AS id_imagem_antiga
             FROM dispositivos_dvrs d
             LEFT JOIN unidade u
                 ON d.id_unidade = u.id
             LEFT JOIN imagem i
                 ON d.id_imagem = i.id
-            LEFT JOIN assinaturas a
-                ON d.id_assinatura = a.id
             ';
             if($id)
             {

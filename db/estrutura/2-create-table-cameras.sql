@@ -6,6 +6,7 @@ create table dispositivos_cameras
 	primary key (id),
 	id_unidade int not null,
 	id_setor int,
+	id_dvr int,
 	canal int(2) not null,
 	nome varchar(20) not null,
 	marca varchar(20) not null,
@@ -24,6 +25,9 @@ create table dispositivos_cameras
 		on delete cascade,
 	foreign key (id_responsavel_cadastro)
 		references usuarios(id)
+		on delete cascade,
+	foreign key (id_dvr)
+		references dispositivos_dvrs(id)
 		on delete cascade
 );
 

@@ -65,6 +65,7 @@ function criarCardDVR($dvr, $modelDVRCameras){ ?>
                             <input type="hidden" value="<?= $dvr['canais'] ?>" name="canais">
                             <input type="hidden" value="<?= $dvr['ip'] ?>" name="ip">
                             <input type="hidden" value="<?= $dvr['mac'] ?>" name="mac">
+                            <input type="hidden" value="<?= $dvr['tecnico_responsavel'] ?>" name="tecnico_responsavel">
                             <button style="background-color: inherit; border: none; color: inherit;" type="submit">
                                 <i class="fas fa-icon fa-solid fa-copy fa-xl"></i>
                             </button>

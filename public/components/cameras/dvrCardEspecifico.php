@@ -189,25 +189,10 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                         </div>
                     </div>
                 </div>
-                <div class="informacoesAssinaturas">
-                    <div class="assinaturas">
+                <div class="informacoesResponsavel">
+                    <div class="responsavel">
                         <p>Assinatura técnico responsável</p>
-                        <div class="flex assinaturaDVREditar">
-                            <h4><?= $dvrEspecifico['assinatura_dvr'] ?? 'Sem assinatura.' ?></h4>
-                            <form action="../controllers/UsuariosController.php" method="POST" id="formularioAssinaturas" class="equipment-form">
-                                <input type="hidden" value="assinar" name="acao">
-                                <input type="hidden" value="<?= $_SESSION['token'] ?>" name="token">
-                                <input type="hidden" value="<?= $_SESSION['usuario'] ?>" name="assinatura-nome">
-                                <input type="hidden" value="<?= $dvrEspecifico['ano'] ?>" name="assinatura-ano">
-                                <input type="hidden" value="<?= $dvrEspecifico['semestre'] ?>" name="assinatura-semestre">
-                                <input type="hidden" value="TI" name="assinatura-setor">
-                                <input type="hidden" value="<?= $_SESSION['unidade'] ?>" name="assinatura-unidade">
-                                <input type="hidden" value="<?= $_SESSION['nome'] ?>" name="assinatura">
-                                <button type="submit" style="border: none; background-color: inherit;">
-                                    <i class="fas fa-icon fa-solid fa-pen"></i>
-                                </button>
-                            </form>
-                        </div>
+                        <h4><?= $dvrEspecifico['tecnico_responsavel'] ?></h4>
                         <hr>
                     </div>
                 </div>
