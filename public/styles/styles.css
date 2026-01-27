@@ -20,6 +20,10 @@
 @import url("components/opcoes.css");
 @import url("components/editarUsuario.css");
 @import url("components/meuPerfil.css");
+@import url("components/cameras.css");
+@import url("components/legendaCamerasDVRs.css");
+@import url("components/dragArea.css");
+@import url("components/miniMenuDVR.css");
 
 /* GERAIS */
 

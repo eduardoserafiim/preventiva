@@ -1,3 +1,6 @@
 USE informatica;
 
 ALTER TABLE computadores ADD COLUMN responsavel VARCHAR(100) NOT NULL;
+ALTER TABLE computadores ADD COLUMN cadastro VARCHAR(100) NOT NULL;
+ALTER TABLE computadores ADD COLUMN numserie VARCHAR(20) NOT NULL;
+ALTER TABLE computadores ADD COLUMN mac VARCHAR(17) NOT NULL;

@@ -1,6 +1,6 @@
 <?php 
 
-function getMensagemSession($tipo, $titulo, $texto, $view, $url='')
+function getMensagemSession($tipo, $titulo, $texto, $view, $url='', $modelo='', $id='')
 {
     $_SESSION["mensagem"] =
     [
@@ -17,6 +17,11 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $url='')
     elseif ($titulo === 'Erro ao alterar senha!')
     {
         header("Location: ../view/".$view."?url=alterarsenha&id=".$url);
+        exit();
+    }
+    elseif ($titulo === 'Erro ao criar!' or $titulo === 'Sucesso ao criar!')
+    {
+        header("Location: ../view/".$view."?url=".$url."&tipo=".$modelo."&id=".$id);
         exit();
     }
     else

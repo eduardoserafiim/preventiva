@@ -1,0 +1,27 @@
+.formulario-imagem {
+  width: 400px;
+  height: 300px;
+  border: 2px dashed #aaa;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.formulario-imagem.dragover {
+  border-color: #4CAF50;
+  background-color: hsl(136, 100%, 97%);
+}
+
+#preview
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border: 12px;
+}

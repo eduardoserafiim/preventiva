@@ -1,0 +1,25 @@
+.miniMenuDVR
+{
+    display: none;
+    opacity: 0;
+    transition: all 0.3s ease;
+    transform: translateY(-10px);
+    width: 200px;
+}
+
+.miniMenuDVR.ativo {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.miniMenuDVR input, .miniMenuDVR select
+{
+    width: 145px;
+}   
+
+.opcoesMiniMenu
+{
+    display: flex;
+    padding: 0.5rem;
+    gap: 0.5rem;
+}

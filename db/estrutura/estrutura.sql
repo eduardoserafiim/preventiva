@@ -1,3 +1,4 @@
+create database informatica;
 USE informatica;
 
 CREATE TABLE computadores (
@@ -36,7 +37,7 @@ CREATE TABLE usuarios (
     usuario VARCHAR(20) NOT NULL,
 	senha VARCHAR(100) NOT NULL,
 	setor VARCHAR(70) NOT NULL,
-    privilegio VARCHAR(20) NOT NULL
+    privilegio VARCHAR(20) NOT null,
     unidade VARCHAR(20) NOT NULL
 );
 
@@ -50,23 +51,15 @@ CREATE TABLE setores (
 create table assinaturas(
 	id int AUTO_INCREMENT,
 	primary key(id),
+    tipo varchar(40) NOT NULL,
 	nome varchar(50) NOT NULL,
 	ano year NOT NULL,
 	semestre varchar(11) NOT NULL,
 	setor varchar(100) NOT NULL,
 	unidade varchar(20) NOT NULL,
 	assinatura varchar(50) NOT NULL,
-    data date NOT NULL
-);
-
-create table assinaturasTecnicos(
-	id int AUTO_INCREMENT,
-	primary key(id),
-	nome varchar(50) NOT NULL,
-	ano year NOT NULL,
-	semestre varchar(11) NOT NULL,
-	setor varchar(100) NOT NULL,
-	unidade varchar(20) NOT NULL,
-	assinatura varchar(50) NOT NULL,
-    data date NOT NULL
+    data date NOT NULL,
+    id_usuario int,
+    foreign key (id_usuario)
+        references usuarios(id)
 );

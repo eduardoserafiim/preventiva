@@ -9,6 +9,13 @@ if (!isset($_SESSION['usuario'])) {
 
 ?>
 <?php
+if ($_SESSION['privilegio'] != 'administrador' && $_SESSION['privilegio'] != 'TI')
+{
+    header("Location: index.php");
+    exit;
+}
+?>
+<?php
 
 // COMPONENTS
 require_once "../public/components/header/header.php";

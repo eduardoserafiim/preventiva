@@ -1,0 +1,266 @@
+.cameras
+{
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    gap: 2rem;
+}
+
+.informarDVRsDisponiveis
+{
+    font-size: larger;
+    text-align: center;
+}
+
+.cameraDiv
+{
+    display: flex;
+    width: 200px;
+    height: 50px;
+    background-color: white;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.cameraLink
+{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.cameraDiv:hover .color-content
+{
+    width: 100%;
+    border-radius: 12px;
+}
+
+.cameraDiv:hover .camera-content
+{
+    display: none;
+}
+
+.color-content
+{
+    width: 20px;
+    min-width: 20px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    background-color: #334155;
+    transition: all 0.3s ease;
+}
+
+.camera-content
+{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.tituloDVR, .tituloCamera
+{
+    width: 100%;
+}
+
+.camera-content .flex, .tituloDVR .flex, .tituloCamera .flex
+{
+    gap: 1rem;
+}
+
+.cardDVR, .cardCamera
+{
+    display: flex;
+    background-color: white;
+    padding: 2rem;
+    gap: 1rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.cardDVR:hover, .cardCamera:hover{
+  border: 1px solid #3b82f6;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.canalDisponivel, .canalOcupado
+{
+    width: 35px;
+    height: 35px;
+    border: 1px solid black;
+}
+
+.canalDisponivel.verde
+{
+    background-color: greenyellow;
+    cursor: pointer;
+}
+
+.canalOcupado
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.topoInformacoesDVR, .topoInformacoesCamera
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.inferiorInformacoesCamera
+{
+    display: flex;
+    gap: 10.2rem;
+}
+
+.configuracoesDVR i, .configuracoesCamera i 
+{
+    animation: fa-spin 2s linear infinite;
+    animation-play-state: paused;
+    cursor: pointer;
+}
+
+.configuracoesDVR:hover i, .configuracoesCamera:hover i 
+{
+    animation-play-state: running;
+}
+
+.conteudoDVR, .conteudoDVREspecifico, .conteudoCameraEspecifico
+{
+    width: 100%;
+}
+
+.imagemDVR, .imagemDVR img
+{
+    height: 100px;
+    width: 100px;
+    max-height: 100px;
+    max-width: 100px;
+    border-radius: 12px;
+}
+
+.imagemCamera, .imagemCamera img
+{
+    height: 200px;
+    width: 200px;
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 12px;
+}
+
+.opcoesDVR, .opcoesCamera
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.opcoesCamera
+{
+    flex-direction: column;
+}
+
+.visualizacaoDVR:hover i, .copiaecolaDVR:hover i, .deletarDVR:hover i, .deletarCamera:hover i 
+{
+    animation: fa-bounce 1s linear infinite;
+    cursor: pointer;
+}
+
+.conteudoDVREspecifico
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.horarioDisponivel
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35px;
+    height: 35px;
+    border: 1px solid black;
+}
+
+.tituloDetalhes
+{
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 1rem;
+    width: 80%;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.manutencaoDVR, .semestreDVR, .horarioDVR
+{
+    width: 100%;
+}
+
+.manutencaoDVR .flex, .semestreDVR .flex, .horarioDVR .flex
+{
+    justify-content: space-between;
+}
+
+.inferiorInformacoesDVR 
+{
+    display: flex;
+    width: 100%;
+}
+
+.informacoesGerais, .informacoesConexoes
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 500px;
+}
+
+.informacoesConexoes
+{
+    width: 200px;
+}
+
+.informacoesUsuarioData
+{
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    gap: 1rem;
+}
+
+.informacoesResponsavel
+{
+    width: 500px;
+}
+
+.statusCameraDetalhado
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.manutencaoDVREditar, .semestreDVREditar, .horarioDVREditar
+{
+    justify-content: space-between;
+}
+
+.manutencaoDVREditar button, .semestreDVREditar button, .horarioDVREditar button
+{
+    cursor: pointer;
+}
+
+.manutencaoInformacoes, .horarioInformacoes, .semestreInformacoes
+{
+    width: 50%;
+}
