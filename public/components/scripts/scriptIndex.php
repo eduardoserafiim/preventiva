@@ -1,4 +1,5 @@
 <!-- ANIMAÇÕES -->
+<script src="../public/javascript/animar/search/animarSearch.js"></script>
 <script src="../public/javascript/animar/page/animarPageHeader.js"></script>
 <script src="../public/javascript/animar/container/animarContainer.js"></script>
 <script src="../public/javascript/animar/bar/animarBar.js"></script>

@@ -17,6 +17,7 @@ include_once "../public/components/header/header.php";
 include_once "../public/components/navbar/navbar.php";
 include_once "../public/components/bar/bar.php";
 include_once "../public/components/voltar.php";
+include_once "../public/components/search.php";
 require_once "../public/components/warning.php";
 include_once "../public/components/assinaturas/assinaturasListar.php";
 include_once "../public/components/opcoes/opcoesDiv.php";
@@ -110,6 +111,10 @@ $url = $_GET['url'] ?? '';
                             </a>
                         </div>
                     </div>
+                </div>
+                <div class="search" style="margin-bottom: 2rem;">
+                    <p>Procure o <strong>Computador</strong> mais rápido</p>
+                    <?= search('search-input', 'computador', 'computadorPesquisaRapida') ?>
                 </div>
                 <div class="fundo-container">
                     <?php if ($_SESSION['privilegio'] != "TI" && $_SESSION['privilegio'] != 'administrador'): ?>
