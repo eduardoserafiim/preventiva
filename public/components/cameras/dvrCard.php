@@ -97,7 +97,7 @@ function criarCardDVR($dvr, $modelDVRCameras){ ?>
                         <?php if ($quantidadeCanais <= $dvr['canais']): ?>
                             <?php if (isset($canaisOcupados[$quantidadeCanais])): ?>
                                 <?php $camera = $canaisOcupados[$quantidadeCanais]; ?>
-                                <a href="cameras.php?url=visualizar&tipo=camera&id=<?= $camera['id'] ?>" class="canalOcupado" title="Canal <?= $quantidadeCanais ?> ocupado - Status: <?= htmlspecialchars($camera['status']) ?>">
+                                <a href="cameras.php?url=visualizar&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvr['id'] ?>" class="canalOcupado" title="Canal <?= $quantidadeCanais ?> ocupado - Status: <?= htmlspecialchars($camera['status']) ?>">
                                     <?= htmlspecialchars($camera['status']) ?>
                                 </a>
                             <?php else: ?>

@@ -1,7 +1,8 @@
 <?php
 
-function criarCardCameraDetalhada($camera)
+function criarCardCameraDetalhada($camera, $dvr)
 { ?>
+    <?= var_dump($camera) ?>
     <div class="cardCamera">
         <div class="imagemCamera">
             <img src="../upload/cameras/dafault-camera.jpg" alt="camera.jpg">
@@ -40,14 +41,14 @@ function criarCardCameraDetalhada($camera)
                 </div>
                 <div class="opcoesCamera">
                     <div class="configuracoesCamera">
-                        <a href="cameras.php?url=editar&tipo=camera&id=<?= $camera['id'] ?>">
+                        <a href="cameras.php?url=editar&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvr['id'] ?>">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
                     <div class="deletarCamera">
                         <form action="../controllers/CameraController.php" method="POST">
                             <input type="hidden" value="<?= $camera['id'] ?>" name="id">
-                            <input type="hidden" value="excluirDVR" name="acao">
+                            <input type="hidden" value="excluirCamera" name="acao">
                             <input type="hidden" value="<?= $_SESSION['token'] ?>" name="token">
                             <button style="background-color: inherit; border: none; color: red;" type="submit">
                                 <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>

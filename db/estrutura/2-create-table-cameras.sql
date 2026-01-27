@@ -17,11 +17,14 @@ create table dispositivos_cameras
 	data_criada date not null,
 	id_responsavel_cadastro int not null,
 	foreign key (id_unidade)
-		references unidade(id),
+		references unidade(id)
+		on delete cascade,
 	foreign key (id_setor)
-		references setores(id),
+		references setores(id)
+		on delete cascade,
 	foreign key (id_responsavel_cadastro)
 		references usuarios(id)
+		on delete cascade
 );
 
 create table dispositivos_dvrs_cameras
@@ -30,7 +33,9 @@ create table dispositivos_dvrs_cameras
 	id_camera int,
 	primary key (id_dvr, id_camera),
 	foreign key (id_dvr)
-		references dispositivos_dvrs(id),
+		references dispositivos_dvrs(id)
+		on delete cascade,
 	foreign key (id_camera)
 		references dispositivos_cameras(id)
+		on delete cascade
 );

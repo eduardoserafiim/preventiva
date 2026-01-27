@@ -24,16 +24,20 @@ require_once "../public/components/navbar/navbar.php";
 require_once "../public/components/bar/bar.php";
 require_once "../public/components/warning.php";
 require_once "../public/components/voltar.php";
+
 require_once "../public/components/cameras/dvrRegistrar.php";
 require_once "../public/components/cameras/dvrCard.php";
 require_once "../public/components/cameras/dvrCardEspecifico.php";
 require_once "../public/components/cameras/cameraCardEspecifico.php";
 require_once "../public/components/cameras/legendas.php";
+
 require_once "../public/components/dragAreaImagens/dragArea.php";
+
 require_once "../public/components/form/dvrs/formActionsCriar.php";
 require_once "../public/components/form/dvrs/formActionsEditar.php";
 require_once "../public/components/form/dvrs/formGridCriar.php";
 require_once "../public/components/form/dvrs/formGridEditar.php";
+
 require_once "../public/components/form/cameras/formActionsCriar.php";
 require_once "../public/components/form/cameras/formActionsEditar.php";
 require_once "../public/components/form/cameras/formGridCriar.php";
@@ -59,11 +63,12 @@ $modelDVRs          = new DVRModel();
 $modelDVRCameras    = new CameraDVRModel();
 $modelCamera        = new CameraModel();
 
-$setores            = $modelSetor->listar();
-$dvrs               = $modelDVRs->listar();
-$dvrEspecifico      = $modelDVRs->listar($id);
-$cameraEspecifica   = $modelCamera->listarCamera($id);
-$camerasRelacionadasDVR = $modelDVRCameras->chamarCamerasRelacionadasDVR($idDVR);
+$setores                        = $modelSetor->listar();
+$dvrs                           = $modelDVRs->listar();
+$dvrEspecifico                  = $modelDVRs->listar($id);
+$dvrEspecificoRelacionadoCamera = $modelDVRs->listar($idDVR);
+$cameraEspecifica               = $modelCamera->listarCamera($id);
+$camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR($idDVR);
 ?>
 <body>
     <div class="app-container">
@@ -72,7 +77,25 @@ $camerasRelacionadasDVR = $modelDVRCameras->chamarCamerasRelacionadasDVR($idDVR)
         <main class="main-content">
             <!-- NAVBAR MOBILE -->
             <?= bar() ?>
-            <?php if($url === 'visualizar' && $tipo === 'camera'): ?>
+            <?php if($url === 'editar' && $tipo === 'camera'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>CFTV</h1>
+                        <p>Editar câmera</p>
+                    </div>
+                </div>
+                <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
+                    <?= voltar('cameras.php') ?>
+                </div>
+                <div class="controleForm">
+                    <div class="form-container">
+                        <form action="../controllers/CameraController.php" method="POST" id="formularioDVRs" class="equipment-form">
+                            <?= formGridEditarCamera($cameraEspecifica, $dvrEspecificoRelacionadoCamera) ?>
+                            <?= formActionsEditarCamera() ?>
+                        </form>
+                    </div>
+                </div>
+            <?php elseif($url === 'visualizar' && $tipo === 'camera'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>CFTV</h1>
@@ -83,7 +106,7 @@ $camerasRelacionadasDVR = $modelDVRCameras->chamarCamerasRelacionadasDVR($idDVR)
                     <?= voltar('cameras.php') ?>
                 </div>
                 <?= criarLegenda() ?>
-                <?= criarCardCameraDetalhada($cameraEspecifica) ?>
+                <?= criarCardCameraDetalhada($cameraEspecifica, $dvrEspecificoRelacionadoCamera) ?>
             <?php elseif($url === 'criar' && $tipo === 'camera'): ?>
                 <div class="page-header">
                     <div class="page-descricao">

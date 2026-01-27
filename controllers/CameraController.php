@@ -151,13 +151,13 @@ class CameraController
 
             if($acao === 'excluirCamera')
             {
-                $modelCamera = new DVRModel();
-                    
+                $modelCamera = new CameraModel();
+
                 $id = $_POST['id'];
 
-                $modelCamera->apagar($id);
+                $modelCamera->excluirCamera($id);
 
-                getMensagemSession('success','Sucesso ao excluir!', 'DVR excluido com sucesso.', 'cameras.php'); 
+                getMensagemSession('success','Sucesso ao excluir!', 'Camera excluida com sucesso.', 'cameras.php'); 
             }
             else
             {

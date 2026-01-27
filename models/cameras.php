@@ -1,3 +1,4 @@
+
 <?php
 require_once __DIR__ . '/../db/db.php';
 
@@ -69,6 +70,26 @@ class CameraModel
             );
 
             return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+        catch (PDOException $e)
+        {
+            return $e->getMessage();
+        }
+    }
+
+    public function excluirCamera($id)
+    {
+        try
+        {
+            $sql = 'DELETE FROM dispositivos_cameras
+            WHERE id = ?';
+            $stmt =  $this->db->prepare($sql);
+            
+            return $stmt->execute(
+                [
+                    $id
+                ]
+            );
         }
         catch (PDOException $e)
         {
