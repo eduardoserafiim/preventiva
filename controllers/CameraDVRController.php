@@ -1,7 +1,7 @@
 <?php
 require_once '../db/db.php';
 
-require_once '../models/camerasdvrs.php';
+require_once '../models/CameraDVRModel.php';
 
 require_once '../public/components/session/mensagem.php';
 

@@ -1,6 +1,6 @@
 <?php
 require_once '../db/db.php';
-require_once '../models/computadores.php';
+require_once '../models/ComputadorModel.php';
 
 function imprimirTabelaComputadores(array $computadores) {
     ?>
@@ -46,7 +46,7 @@ function imprimirTabelaComputadores(array $computadores) {
                             <td><?= $c['nome'] ?></td>
                             <td><?= $c['modelo'] ?></td>
                             <td><?= $c['monitor'] ?></td>
-                            <td><?= $c['so'] ?></td>
+                            <td><?= $c['sistemaOperacional'] ?></td>
                             <td><?= $c['office'] ?></td>
                             <td><?= $c['processador'] ?></td>
                             <td><?= $c['memoria'] ?></td>

@@ -10,7 +10,7 @@ if (!isset($_SESSION['usuario'])) {
 ?>
 <?php
 // MODELS
-include_once "../models/assinaturas.php";
+include_once "../models/AssinarModel.php";
 
 // COMPONENTS
 include_once "../public/components/header/header.php";

@@ -8,9 +8,9 @@ if (!isset($_SESSION['usuario'])) {
 ?>
 <?php
 // MODELS
-require_once "../models/computadores.php";
-require_once "../models/setores.php";
-require_once "../models/assinaturas.php";
+require_once "../models/ComputadorModel.php";
+require_once "../models/SetorModel.php";
+require_once "../models/AssinarModel.php";
 
 // COMPONENTS
 require_once "../public/components/header/header.php";
