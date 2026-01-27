@@ -143,6 +143,7 @@
     width: 100px;
     max-height: 100px;
     max-width: 100px;
+    border-radius: 12px;
 }
 
 .imagemCamera, .imagemCamera img
@@ -237,26 +238,16 @@
     gap: 1rem;
 }
 
+.informacoesResponsavel
+{
+    width: 500px;
+}
+
 .statusCameraDetalhado
 {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.informacoesAssinaturas
-{
-    width: 500px;
-}
-
-.assinaturaDVREditar
-{
-    justify-content: space-between;
-}
-
-.assinaturaDVREditar i, .miniMenu i
-{
-    cursor: pointer;
 }
 
 .manutencaoDVREditar, .semestreDVREditar, .horarioDVREditar

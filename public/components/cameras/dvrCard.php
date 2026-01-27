@@ -66,7 +66,7 @@ function criarCardDVR($dvr, $modelDVRCameras){ ?>
                             <input type="hidden" value="<?= $dvr['ip'] ?>" name="ip">
                             <input type="hidden" value="<?= $dvr['mac'] ?>" name="mac">
                             <input type="hidden" value="<?= $dvr['tecnico_responsavel'] ?>" name="tecnico_responsavel">
-                            <button style="background-color: inherit; border: none; color: inherit;" type="submit">
+                            <button style="background-color: inherit; border: none; color: inherit;" type="submit" onclick="confirmarCopia(event)">
                                 <i class="fas fa-icon fa-solid fa-copy fa-xl"></i>
                             </button>
                         </form>
@@ -76,7 +76,7 @@ function criarCardDVR($dvr, $modelDVRCameras){ ?>
                             <input type="hidden" value="<?= $dvr['id'] ?>" name="id">
                             <input type="hidden" value="excluirDVR" name="acao">
                             <input type="hidden" value="<?= $_SESSION['token'] ?>" name="token">
-                            <button style="background-color: inherit; border: none; color: red;" type="submit">
+                            <button style="background-color: inherit; border: none; color: red;" type="submit" onclick="confirmarExclusao(event)">
                                 <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
                             </button>
                         </form>

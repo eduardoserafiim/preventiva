@@ -47,7 +47,7 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                             <input type="hidden" value="<?= $dvrEspecifico['id'] ?>" name="id">
                             <input type="hidden" value="excluirDVR" name="acao">
                             <input type="hidden" value="<?= $_SESSION['token'] ?>" name="token">
-                            <button style="background-color: inherit; border: none; color: red;" type="submit">
+                            <button style="background-color: inherit; border: none; color: red;" type="submit" onclick="confirmarExclusao(event)">
                                 <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
                             </button>
                         </form>
@@ -191,7 +191,7 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                 </div>
                 <div class="informacoesResponsavel">
                     <div class="responsavel">
-                        <p>Assinatura técnico responsável</p>
+                        <p>Técnico Responsável</p>
                         <h4><?= $dvrEspecifico['tecnico_responsavel'] ?></h4>
                         <hr>
                     </div>

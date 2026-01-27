@@ -13,3 +13,6 @@
 
 <!-- CONFIRMAÇÕES -->
 <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+<script src="../public/javascript/dvrs/confirmarEdicao.js"></script>
+<script src="../public/javascript/dvrs/confirmarExclusao.js"></script>
+<script src="../public/javascript/dvrs/confirmarCopia.js"></script>
