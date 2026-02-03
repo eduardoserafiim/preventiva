@@ -192,7 +192,7 @@ class ComputadorController
             }
         }
     }
-
+    
     public function apagarComputadores()
     {
         
@@ -223,6 +223,7 @@ class ComputadorController
             getMensagemSession('error', 'Erro ao apagar o computador', 'Houve um problema ao apagar.', 'preventiva.php', $setor);
         }
     }
+
 }
 
 if (empty($_SESSION['privilegio']))
@@ -267,7 +268,6 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                     $controller = new ComputadorController();
                     $controller->criarComputadores();
                     break;
-    
                 case 'editar':
                     $controller = new ComputadorController();
                     $controller->alterarComputadores();
