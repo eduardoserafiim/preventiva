@@ -11,6 +11,7 @@ if (!isset($_SESSION['usuario'])) {
 <?php
 // MODELS
 include_once "../models/AssinarModel.php";
+include_once "../models/ComputadorModel.php";
 
 // COMPONENTS
 include_once "../public/components/header/header.php";
@@ -22,23 +23,45 @@ require_once "../public/components/warning.php";
 include_once "../public/components/assinaturas/assinaturasListar.php";
 include_once "../public/components/opcoes/opcoesDiv.php";
 include_once "../public/components/opcoes/dictionaryOpcoes.php";
+require_once "../public/components/computadores/computadoresListar.php";
 
 ?>
 <?php
 
 $dbassinatura = new AssinaturaModel();
+$modelComputador = new ComputadorModel();
 $assinaturasTecnicos = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome']);
 $assinaturas =  $dbassinatura->listarAssinaturas($_SESSION['nome']);
 
 $url = $_GET['url'] ?? '';
+$computador = $_GET['computador'] ?? '';
 
+$computadorEspecifico = $modelComputador->procurarPorComputador($computador);
 ?>
 <body>
     <div class="app-container">
         <?= navbar("menu") ?>
         <main class="main-content">
             <?= bar() ?>
-            <?php if ($_SESSION['privilegio'] == 'TI' && $url == 'minhas-assinaturas'): ?>
+            <?php if ($_SESSION['privilegio'] === 'TI' && $url === 'visualizar-computador'): ?>
+                <div class="page-header">
+                    <div class="page-bem-vindo">
+                        <h1>Visualize o computador</h1>
+                        <p>Computador</p>
+                    </div>
+                    <div class="page-configuracoes">
+                        <div class="editarUsuario">
+                            <a href="perfil.php">
+                                <i class="fa-solid fa-user-pen fa-2xl anima-editarUsuario"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="voltar">
+                    <?= voltar('index.php') ?>
+                </div>
+                <?= listarComputadores($computadorEspecifico, $_SESSION['setor'], $_SESSION['unidade']) ?>
+            <?php elseif ($_SESSION['privilegio'] == 'TI' && $url == 'minhas-assinaturas'): ?>
                 <div class="page-header">
                     <div class="page-bem-vindo">
                         <h1>Minhas assinaturas</h1>
@@ -114,7 +137,15 @@ $url = $_GET['url'] ?? '';
                 </div>
                 <div class="search" style="margin-bottom: 2rem;">
                     <p>Procure o <strong>Computador</strong> mais rápido</p>
-                    <?= search('search-input', 'computador', 'computadorPesquisaRapida') ?>
+                    <form action="index.php" method="GET">
+
+                        <input type="hidden" name="url" value="visualizar-computador"> 
+                        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>"> 
+                        <div class="flex" style="gap: 2rem;">
+                            <?= search('computador', 'computador', 'computadorPesquisaRapida') ?>
+                            <button type="submit" class="botao botao-primario">Pesquisar</button>
+                        </div>
+                    </form>
                 </div>
                 <div class="fundo-container">
                     <?php if ($_SESSION['privilegio'] != "TI" && $_SESSION['privilegio'] != 'administrador'): ?>
