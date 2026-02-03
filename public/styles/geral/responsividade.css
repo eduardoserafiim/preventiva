@@ -68,6 +68,40 @@
   {
     width: 240px;
   }
+
+  .cardDVR
+  {
+    width: 1000px;
+  }
+
+  .cameras
+  {
+    width: 1000px;
+  }
+  .canaisDisponiveis .flex
+  {
+    flex-wrap: wrap;
+  }
+  
+  .canaisDisponiveis
+  {
+    width: 800px;
+  }
+
+  .tituloDVR
+  {
+    width: 800px;
+  }
+
+  .tituloDetalhes
+  {
+    grid-template-columns: repeat(3, auto);
+  }
+
+  .topoInformacoesDVR, .inferiorInformacoesDVR
+  {
+    width: 800px;
+  }
 }
 
 
@@ -111,6 +145,36 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     place-items: center;
+  }
+
+  .cardDVR
+  {
+    width: 700px;
+  }
+
+  .cameras
+  {
+    width: 700px;
+  }
+  
+  .canaisDisponiveis
+  {
+    width: 500px;
+  }
+
+  .tituloDVR
+  {
+    width: 400px;
+  }
+
+  .tituloDetalhes
+  {
+    grid-template-columns: repeat(2, auto);
+  }
+
+  .topoInformacoesDVR, .inferiorInformacoesDVR
+  {
+    width: 500px;
   }
 }
 
@@ -323,6 +387,63 @@
   {
     margin: 0;
   }
+
+  .page-header
+  {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .cardDVR
+  {
+    flex-direction: column;
+    width: 325px;
+  }
+
+  .cameras
+  {
+    width: 325px;
+  }
+
+  .tituloDetalhes
+  {
+    grid-template-columns: repeat(1, auto);
+  }
+
+  .inferiorInformacoesDVR
+  {
+    flex-direction: column;
+  }
+
+  .informacoesGerais
+  {
+    width: 275px;
+    gap: 2rem;
+  }
+
+  .horarioDVR .flex, .manutencaoDVR .flex, .semestreDVR .flex
+  {
+    gap: 2rem;
+  }
+
+  .horarioInformacoes, .manutencaoInformacoes, .semestreInformacoes
+  {
+    width: 100%;
+  }
+
+  .informacoesResponsavel
+  {
+    margin-top: 2rem;
+    width: 275px;
+  }
+
+  .imagemDVR, .imagemDVR img
+  {
+    width: 200px;
+    height: 200px;
+    max-width: 200px;
+    max-height: 200px;
+  }
 }
 
 @media (max-width: 375px) {
@@ -465,6 +586,32 @@
   .equipment-card-computer
   {
     width: 300px;
+  }
+
+  .cardDVR
+  {
+    flex-direction: column;
+    width: 300px;
+  }
+
+  .cameras
+  {
+    width: 300px;
+  }
+
+  .informacoesGerais
+  {
+    width: 250px;
+  }
+
+  .informacoesResponsavel
+  {
+    width: 250px;
+  }
+
+  .semestreDVREditar h4
+  {
+    width: 100px;
   }
 }
 
@@ -654,5 +801,37 @@
   .equipment-card-computer
   {
     width: 250px;
+  }
+
+  .cardDVR
+  {
+    flex-direction: column;
+    width: 250px;
+  }
+
+  .cameras
+  {
+    width: 250px;
+  }
+
+  .informacoesGerais
+  {
+    width: 200px;
+  }
+
+  .informacoesResponsavel
+  {
+    width: 200px;
+  }
+
+  .semestreDVREditar h4
+  {
+    width: 100px;
+  }
+
+  .formulario-imagem
+  {
+    width: 200px;
+    height: 200px;
   }
 }
