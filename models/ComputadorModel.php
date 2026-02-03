@@ -155,32 +155,9 @@ class ComputadorModel
         }
         catch (PDOException $e) 
         {
-            return false;
-        }
-    }
+            echo 'Erro no filtro: '. $e->getMessage();
+            error_log("Erro ao filtar os computadores: " . $e->getMessage());
 
-    public function procurarPorComputador($computador)
-    {
-        try
-        {
-            $sql = 'SELECT *
-            FROM computadores
-            WHERE ip = :ip
-            OR nome = :nome
-            OR mac = :mac';
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute(
-                [
-                    ':ip' => $computador, 
-                    ':nome' => $computador,
-                    ':mac' => $computador
-                ]
-            );
-
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-        catch(PDOException $e)
-        {
             return false;
         }
     }
