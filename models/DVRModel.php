@@ -15,12 +15,12 @@ class DVRModel
     {
         try
         {
-            if($data['ano'])
+            if(!empty($data['ano']))
             {
                 $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, id_imagem, id_unidade)
                 VALUES (?,?,?,?,?,?,?,?,?,?)';
                 $stmt = $this->db->prepare($sql);
-                $stmt->execute(
+                return $stmt->execute(
                     [
                         $data['nome'], 
                         $data['marca'], 
@@ -40,7 +40,7 @@ class DVRModel
                 $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, id_imagem, id_unidade)
                 VALUES (?,?,?,YEAR(NOW()),?,?,?,?,?,?)';
                 $stmt = $this->db->prepare($sql);
-                $stmt->execute(
+                return $stmt->execute(
                     [
                         $data['nome'], 
                         $data['marca'], 

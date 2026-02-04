@@ -25,7 +25,7 @@ class DVRController
             $modelDVR = new DVRModel();
 
             $acao = trim($_POST['acao']);
-            $copiarDVR = trim($_POST['copiar']);
+            $copiarDVR = trim($_POST['copiar'] ?? '');
 
             if ($acao === 'criarDVR')
             {
@@ -36,12 +36,15 @@ class DVRController
                 $modelo         = $_POST['modelo'];
                 $ip             = $_POST['ip'];
                 $mac            = $_POST['mac'];
+                $ano            = '';
                 $responsavel    = $_POST['tecnico_responsavel'];
 
                 $idImagemNovo = null;
-                $idImagemAntiga = $_POST['imagem_antiga'];
 
-                $pasta = '../upload/dvrs/';
+
+                $idImagemAntiga = $_POST['imagem_antiga'] ?? '';
+
+                $pasta = realpath(__DIR__ . '/../upload/dvrs');
 
                 $data =
                 [
@@ -52,12 +55,13 @@ class DVRController
                     'modelo'         => $modelo,
                     'ip'             => $ip,
                     'mac'            => $mac,
-                    'responsavel'    => $responsavel
+                    'responsavel'    => $responsavel,
+                    'ano'            => $ano
                 ];
 
                 if($copiarDVR === 'copiarDVR')
                 {
-                    $ano = $_POST['ano'];
+                    $ano = $_POST['ano'] ?? '';
                     $data['ano'] = $ano+1;
 
                     $idImagemNovo = imagemRegras($pasta, $idImagemAntiga);
@@ -72,7 +76,7 @@ class DVRController
                     $data['id_imagem'] = $idImagemNovo;
                 }
 
-                $modelDVR->criarDVR($data);
+                $modelRes = $modelDVR->criarDVR($data);
 
                 getMensagemSession('success', 'Sucesso ao cadastrar!', 'DVR cadastrado com sucesso.', 'cameras.php');
             }
@@ -83,9 +87,10 @@ class DVRController
                 getMensagemSession('error', 'Erro na verificação', 'Não foi possivel verificar a ação.', 'cameras.php?url=criar&tipo=dvr');
             }
         }
-        catch (Error $e)
+        catch (Throwable $e)
         {
-            return $e->getMessage();
+            var_dump($e->getMessage());
+            exit;
         }
     }
 
