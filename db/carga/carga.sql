@@ -36,7 +36,7 @@ VALUES
 ('Gestão de Leitos', 'fa-bars-progress'),
 ('Hemodinâmica', 'fa-user-doctor'),
 ('Hotelaria', 'fa-user-doctor'),
-('Informática', 'fa-laptop-code'),
+('TI', 'fa-laptop-code'),
 ('Jardinagem', 'fa-leaf'),
 ('Jurídico', 'fa-scale-balanced'),
 ('Laboratório', 'fa-flask'),

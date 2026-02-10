@@ -1,5 +1,5 @@
 <?php
-function listarComputadores(array $computadores, string $usuarioSetor, $unidadeUsuario)
+function listarComputadores(array $computadores, string $usuarioSetor, $usuarioUnidade)
 {
     ?>
     <div id="computers-list" class="computadores-listagem tab-content active">
@@ -16,7 +16,7 @@ function listarComputadores(array $computadores, string $usuarioSetor, $unidadeU
                         <div class="form-actions form-actions-computer">
                             <?php if ($usuarioSetor === 'TI'): ?>
                                 <button type="button" class="botao botao-primario editarComputador" data-id="<?= $computador['id'] ?>">
-                                    <input type="hidden" id="unidadeUsuario" value="<?= $unidadeUsuario ?>">
+                                    <input type="hidden" id="usuarioUnidade" value="<?= $usuarioUnidade ?>">
                                     <i class="fa-solid fa-pencil"></i> Editar
                                 </button>
                                 <form method="POST" action="../controllers/ComputadoresController.php" style="display:inline-block;">

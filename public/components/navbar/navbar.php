@@ -8,7 +8,13 @@ function navbar($active) {
         return '
         <nav class="sidebar">
             <div class="sidebar-header">
-                <h2><i class="fas fa-lock"></i> Suporte TI</h2>
+                <div class="sidebar-logo">
+                    <img src="../public/images/hap.png" alt="hap" />
+                </div>
+                <div class="sidebar-texto">
+                    <h1>Portal HAP</h1>
+                    <p>Preventiva</p>
+                </div>
             </div>
                 <ul class="sidebar-menu">
                     <li>
@@ -24,7 +30,13 @@ function navbar($active) {
     $html = '
     <nav class="sidebar">
         <div class="sidebar-header">
-            <h2><i class="fas fa-cogs"></i> Suporte T.I</h2>
+            <div class="sidebar-logo">
+                <img src="../public/images/hap.png" alt="hap" />
+            </div>
+            <div class="sidebar-texto">
+                <h1>Portal HAP</h1>
+                <p>Preventiva</p>
+            </div>
         </div>
             <ul class="sidebar-menu">
                 <li>

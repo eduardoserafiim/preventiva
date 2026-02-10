@@ -54,108 +54,30 @@ class ComputadorModel
         }
         catch (PDOException $e) 
         {
-            echo 'Erro na criação: '.$e->getMessage();
-            error_log("Erro ao criar um computador: " . $e->getMessage());
-        
             return false;
         }
     }
 
-    public function listar($setor, $unidade)
+    public function listar()
     {
         try
         {
-            $sql = 'SELECT *
-            FROM computadores ';
-            if ($unidade == 'administrador')
-            {
-                $sql .= 
-                '
-                WHERE setor = :setor
-                ';
-            }
-            else
-            {
-                $sql .= 
-                '
-                WHERE setor = :setor
-                AND unidade = :unidade
-                ';
-            }
+            $sql = 'SELECT dc.*,
+            u.nome AS nome_unidade, 
+            i.nome_salvo AS nome_imagem
+            FROM dispositivos_computadores dc
+            LEFT JOIN unidade u
+                ON dc.id_unidade = u.id
+            LEFT JOIN imagem i
+                ON dc.id_imagem = i.id';
             $stmt = $this->db->prepare($sql);
-            if ($unidade == 'administrador')
-            {
-                $stmt->execute([
-                    ':setor' => $setor
-                ]);
-            }
-            else
-            {
-                $stmt->execute([
-                    ':setor' => $setor,
-                    ':unidade' => $unidade
-                ]);
-            }
-    
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-        catch (PDOException $e) 
-        {
-            echo 'Erro na listagem: '. $e->getMessage();
-            error_log("Erro ao atualizar computador: " . $e->getMessage());
-         
-            return false;
-        }
-    }
-
-    public function filtrar($setor, $semestre = '', $ano = '', $unidade = '') 
-    {
-        try
-        {
-            $query = "SELECT * FROM computadores WHERE setor = :setor";
-            $params = [':setor' => $setor];
-    
-            if ($semestre) 
-            {
-                $query .= " AND semestre = :semestre";
-                $params[':semestre'] = $semestre;
-            }
-    
-            if ($ano) 
-            {
-                $query .= " AND ano = :ano";
-                $params[':ano'] = $ano;
-            }
-    
-            if ($unidade) 
-            {
-                if ($unidade != $_SESSION['unidade'])
-                {
-                    if ($_SESSION['unidade'] === 'administrador')
-                    {
-                        $query .= " AND unidade = :unidade";
-                        $params[':unidade'] = $unidade;    
-                    }
-                    else
-                    {
-                       return header("Location: ../view/preventiva.php");
-                    }
-                }
-                else
-                {
-                    $query .= " AND unidade = :unidade";
-                    $params[':unidade'] = $unidade;
-                }
-            }
-    
-            $stmt = $this->db->prepare($query);
-            $stmt->execute($params);
+            $stmt->execute();
 
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
         catch (PDOException $e) 
         {
-            return false;
+            return $e->getMessage();
         }
     }
 

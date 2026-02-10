@@ -24,6 +24,10 @@ require_once '../public/components/header/header.php';
 require_once '../public/components/navbar/navbar.php';
 require_once '../public/components/bar/bar.php';
 require_once "../public/components/warning.php";
+require_once "../public/components/voltar.php";
+require_once "../public/components/computadores/computadoresRegistrar.php";
+require_once "../public/components/computadores/computadoresListar.php";
+require_once "../public/components/computadores/computadoresCard.php";
 
 // FORMS
 require_once '../public/components/form/computadores/formFlex.php';
@@ -35,7 +39,16 @@ require_once '../public/components/form/computadores/formActions.php';
 <?php
 
 $modelSetor = new SetorModel();
+$modelComputador = new ComputadorModel();
+
 $setores = $modelSetor->listar();
+$computadores = $modelComputador->listar();
+
+var_dump($computadores);
+?>
+<?php 
+
+$url = $_GET['url'] ?? '';
 
 ?>
 <body>
@@ -43,20 +56,40 @@ $setores = $modelSetor->listar();
         <?= navbar('computadores') ?>
         <main class="main-content">
             <?= bar() ?>
-            <div class="page-header">
-                <div class="page-descricao">
-                    <h1>Computadores</h1>
-                    <p>Cadastre um computador</p>
+            <?php if($url === 'criar'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Computadores</h1>
+                        <p>Registrar Computador</p>
+                    </div>
                 </div>
-            </div>
-            <div class="form-container">
-                <form method="POST" action="../controllers/ComputadoresController.php" id="formularioComputadores" class="equipment-form">
-                    <?= formFlex() ?>
-                    <?= formGrid($setores) ?>
-                    <?= formLegenda() ?>
-                    <?= formActions() ?>
-                </form>
-            </div>
+                <div class="voltar">
+                    <?= voltar('computadores.php') ?>
+                </div>
+                <div class="form-container">
+                    <form method="POST" action="../controllers/ComputadoresController.php" id="formularioComputadores" class="equipment-form">
+                        <?= formFlex() ?>
+                        <?= formGrid($setores) ?>
+                        <?= formLegenda() ?>
+                        <?= formActions() ?>
+                    </form>
+                </div>
+            <?php else: ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Computadores</h1>
+                        <p>Gestão e levantamento de computadores</p>
+                    </div>
+                    <div class="page-criar-computadores">
+                        <?= criarComputador('Registrar PC', 'computadores.php?url=criar') ?>
+                    </div>
+                </div>
+                <div class="computadores">
+                    <?php foreach($computadores as $computador): ?>
+                        <?= criarComputadorCard($computador) ?>
+                    <?php endforeach ?>
+                </div>
+            <?php endif ?>
         </main>
     </div>
 </body>

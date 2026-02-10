@@ -28,8 +28,14 @@ CREATE TABLE dispositivos_computadores(
 	legenda_h boolean not NULL default 0,
 	legenda_i boolean not NULL default 0,
 	responsavel_cadastro varchar(30) not NULL,
-	responsavel_uso varchar(30) not null,
-	data_cadastro datetime not NULL
+	responsavel_uso varchar(30) not NULL,
+	data_cadastro datetime not NULL,
+	id_imagem int,
+	id_unidade int,
+	foreign key (id_imagem)
+		references imagem(id),
+	foreign key (id_unidade),
+		references unidade(id)
 );
 
 CREATE TABLE usuarios (
