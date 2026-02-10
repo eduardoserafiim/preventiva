@@ -3,7 +3,7 @@ function criarComputadorCard($computador)
 { ?>
     <div class="cardComputador">
         <div class="imagemComputador">
-            <img src="../upload/dvrs/<?= $computador['nome_imagem'] ?>" alt="Algo está errado.">
+            <img src="../upload/computadores/<?= $computador['nome_imagem'] ?>" alt="Algo está errado.">
         </div>
         <div class="conteudoComputador">
             <div class="topoInformacoesComputador">
@@ -51,7 +51,7 @@ function criarComputadorCard($computador)
                 </div>
                 <div class="opcoesComputador">
                     <div class="configuracoesComputador">
-                        <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador">
+                        <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>

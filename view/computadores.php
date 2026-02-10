@@ -29,10 +29,10 @@ require_once "../public/components/computadores/computadoresRegistrar.php";
 require_once "../public/components/computadores/computadoresListar.php";
 require_once "../public/components/computadores/computadoresCard.php";
 require_once "../public/components/computadores/computadoresCardEspecifico.php";
+require_once "../public/components/dragAreaImagens/dragArea.php";
 
 // FORMS
-require_once '../public/components/form/computadores/formFlex.php';
-require_once '../public/components/form/computadores/formGrid.php';
+require_once '../public/components/form/computadores/formGridCriar.php';
 require_once '../public/components/form/computadores/formLegenda.php';
 require_once '../public/components/form/computadores/formActions.php';
 
@@ -51,6 +51,7 @@ $computadores = $modelComputador->listar();
 $url = $_GET['url'] ?? '';
 $tipo = $_GET['tipo'] ?? '';
 $id = $_GET['id'] ?? '';
+$informacoes = $_GET['informacoes'] ?? '';
 
 ?>
 <?php
@@ -63,7 +64,25 @@ $computadorEspecifico = $modelComputador->listar($id);
         <?= navbar('computadores') ?>
         <main class="main-content">
             <?= bar() ?>
-            <?php if($url === 'visualizar' && $tipo === 'computador'): ?>
+            <?php if($url === 'editar' && $tipo === 'computador' && $informacoes === 'basicas'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Computadores</h1>
+                        <p>Visualizar Computador</p>
+                    </div>
+                </div>
+                <div class="voltar">
+                    <?= voltar('computadores.php') ?>
+                </div>
+                <div class="controleForm">
+                    <div class="form-container">
+                        <form action="../controllers/ComputadoresController.php">
+                            <?= formGrid() ?>
+                            <?= formActions() ?>
+                        </form>
+                    </div>
+                </div>
+            <?php elseif($url === 'visualizar' && $tipo === 'computador'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Computadores</h1>
@@ -86,13 +105,13 @@ $computadorEspecifico = $modelComputador->listar($id);
                 <div class="voltar">
                     <?= voltar('computadores.php') ?>
                 </div>
-                <div class="form-container">
-                    <form method="POST" action="../controllers/ComputadoresController.php" id="formularioComputadores" class="equipment-form">
-                        <?= formFlex() ?>
-                        <?= formGrid($setores) ?>
-                        <?= formLegenda() ?>
-                        <?= formActions() ?>
-                    </form>
+                <div class="controleForm">
+                    <div class="form-container">
+                        <form action="../controllers/ComputadoresController.php" method="POST" enctype="multipart/form-data">
+                            <?= formGridCriarComputador() ?>
+                            <?= formActions() ?>
+                        </form>
+                    </div>
                 </div>
             <?php else: ?>
                 <div class="page-header">
@@ -101,7 +120,7 @@ $computadorEspecifico = $modelComputador->listar($id);
                         <p>Gestão e levantamento de computadores</p>
                     </div>
                     <div class="page-criar-computadores">
-                        <?= criarComputador('Registrar PC',"computadores.php?url=criar&token={$_SESSION['token']}&tipo=computador") ?>
+                        <?= criarComputador('Registrar PC',"computadores.php?url=criar&token={$_SESSION['token']}&tipo=computador&informacoes=basicas") ?>
                     </div>
                 </div>
                 <div class="computadores">

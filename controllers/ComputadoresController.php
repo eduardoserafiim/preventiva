@@ -2,8 +2,11 @@
 require_once '../db/db.php';
 
 require_once '../models/ComputadorModel.php';  
+require_once '../models/ImagemModel.php';  
 
 require_once '../public/components/session/mensagem.php';
+
+include '../public/rules/regrasImagem.php';
 
 session_start();
 
@@ -17,90 +20,67 @@ class ComputadorController
 {
     public function criarComputadores()
     {
-
-        $semestre                   = trim($_POST['semestre']);
-        $ano                        = trim($_POST['ano']);
-        $unidade                    = trim($_POST['unidade']);
-        $setor                      = trim($_POST['setor']);
-        $nome                       = trim($_POST['nome']);
-        $modelo                     = trim($_POST['modelo']);
-        $monitor                    = trim($_POST['monitor']);
-        $sistemaOperacional         = trim($_POST['sistemaOperacional']);
-        $office                     = trim($_POST['office']);
-        $processador                = trim($_POST['processador']);
-        $memoria                    = trim($_POST['memoria']);
-        $disco                      = trim($_POST['disco']);
-        $ip                         = trim($_POST['ip']);
-        $mac                        = trim($_POST['mac']);
-        $numeroSerie                = trim($_POST['numeroSerie']);
-        $lacre                      = trim($_POST['lacre']);
-        $legendaA                   = isset($_POST['legendaA']) ? 1 : 0;
-        $legendaB                   = isset($_POST['legendaB']) ? 1 : 0;
-        $legendaC                   = isset($_POST['legendaC']) ? 1 : 0;
-        $legendaD                   = isset($_POST['legendaD']) ? 1 : 0;
-        $legendaE                   = isset($_POST['legendaE']) ? 1 : 0;
-        $legendaF                   = isset($_POST['legendaF']) ? 1 : 0;
-        $legendaG                   = isset($_POST['legendaG']) ? 1 : 0;
-        $legendaH                   = isset($_POST['legendaH']) ? 1 : 0;
-        $legendaI                   = isset($_POST['legendaI']) ? 1 : 0;
-        $status                     = trim($_POST['status']);
-        $responsavelCadastroTI      = trim($_SESSION['usuario']);
-        $responsavel                = trim($_POST['responsavel']);
-
-        if(!$semestre || !$ano || !$unidade || !$setor || !$nome || !$modelo || !$monitor || !$sistemaOperacional || !$office || !$processador || !$memoria || !$disco || !$ip || !$mac || !$numeroSerie || !$lacre || !$status || !$responsavel || !$responsavelCadastroTI)
+        try
         {
-            echo 'Váriaveis não preenchidas.';
+            $acao = trim($_POST['acao']);
 
-            getMensagemSession('error', 'Erro ao cadastrar computador!', 'Você precisa preencher todos os campos.', 'computadores.php');
-        }
-        else
-        {
-            try
+            if($acao === 'criarComputador')
             {
-                $model = new ComputadorModel();
+                $modelComputadores = new ComputadorModel();
 
-                $data = 
+                $unidade                = intval($_POST['unidade']);
+                $nome                   = trim($_POST['nome']);
+                $modelo                 = trim($_POST['modelo']);
+                $endereco_ip            = trim($_POST['endereco_ip']);
+                $endereco_mac           = trim($_POST['endereco_mac']);
+                $responsavel_uso        = trim($_POST['responsavel_uso']);
+                $responsavel_cadastro   = trim($_POST['responsavel_cadastro']);
+                $status                 = trim($_POST['status']);
+
+                $idImagemNovo = null;
+
+                $pasta = realpath(__DIR__ . '/../upload/computadores');
+
+                $data =
                 [
-                    'semestre'                  => $semestre,
-                    'ano'                       => $ano,
-                    'unidade'                   => $unidade,
-                    'setor'                     => $setor,
-                    'nome'                      => $nome,
-                    'modelo'                    => $modelo,
-                    'monitor'                   => $monitor,
-                    'sistemaOperacional'        => $sistemaOperacional,
-                    'office'                    => $office,
-                    'processador'               => $processador,
-                    'memoria'                   => $memoria,
-                    'disco'                     => $disco,
-                    'ip'                        => $ip,
-                    'mac'                       => $mac,
-                    'numeroSerie'               => $numeroSerie,
-                    'lacre'                     => $lacre,
-                    'legendaA'                  => $legendaA,
-                    'legendaB'                  => $legendaB,
-                    'legendaC'                  => $legendaC,
-                    'legendaD'                  => $legendaD,
-                    'legendaE'                  => $legendaE,
-                    'legendaF'                  => $legendaF,
-                    'legendaG'                  => $legendaG,
-                    'legendaH'                  => $legendaH,
-                    'legendaI'                  => $legendaI,
-                    'status'                    => $status,
-                    'responsavelCadastroTI'     => $responsavelCadastroTI,         
-                    'responsavel'               => $responsavel,         
+                    'unidade'               => $unidade,
+                    'nome'                  => $nome,
+                    'modelo'                => $modelo,
+                    'endereco_ip'           => $endereco_ip,
+                    'endereco_mac'          => $endereco_mac,
+                    'responsavel_uso'       => $responsavel_uso,
+                    'responsavel_cadastro'  => $responsavel_cadastro,
+                    'status'                => $status
                 ];
+                
+                $idImagemNovo = imagemRegras($pasta, null, 'Computador');
 
-                $model->criar($data);
+                if ($idImagemNovo !== null) 
+                {
+                    $data['id_imagem'] = $idImagemNovo;
+                }
 
-                getMensagemSession('success', 'Sucesso ao cadastrar computador!', 'computador cadastrado.', 'preventiva.php', $setor);
+                $modelRes = $modelComputadores->criarComputador($data);
+
+                if($modelRes === false)
+                {
+                    new Error('Não foi possivel criar o computador no momento. Tente novamente mais tarde.');
+                }
+                else
+                {
+                    getMensagemSession('success', 'Sucesso ao criar!',  "Computador criado com sucesso.", 'computadores.php');
+                }
             }
-            catch (Exception $e)
+            else
             {
-                echo 'Erro na criação do computador: '.$e->getMessage();
-
-                getMensagemSession('error', 'Erro ao cadastrar computador!', 'Não foi possivel cadastrar.', 'computadores.php');
+                new Error('Falha na verificação da ação.');
             }
+        }
+        catch(Throwable $e)
+        {
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Erro ao criar!', $texto, 'computadores.php');
         }
     }
 
@@ -223,7 +203,6 @@ class ComputadorController
             getMensagemSession('error', 'Erro ao apagar o computador', 'Houve um problema ao apagar.', 'preventiva.php', $setor);
         }
     }
-
 }
 
 if (empty($_SESSION['privilegio']))
@@ -264,7 +243,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             switch ($acao)
             {
-                case 'criar':
+                case 'criarComputador':
                     $controller = new ComputadorController();
                     $controller->criarComputadores();
                     break;

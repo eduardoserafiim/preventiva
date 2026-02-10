@@ -64,11 +64,11 @@ class DVRController
                     $ano = $_POST['ano'] ?? '';
                     $data['ano'] = $ano+1;
 
-                    $idImagemNovo = imagemRegras($pasta, $idImagemAntiga);
+                    $idImagemNovo = imagemRegras($pasta, $idImagemAntiga, 'DVR');
                 }
                 else
                 {
-                    $idImagemNovo = imagemRegras($pasta);
+                    $idImagemNovo = imagemRegras($pasta, null,'DVR');
                 }
 
                 if ($idImagemNovo !== null) 
@@ -89,18 +89,14 @@ class DVRController
             }
             else
             {
-                echo 'Falha na verificação da ação.';
-
                 getMensagemSession('error', 'Erro na verificação', 'Não foi possivel verificar a ação.', 'cameras.php?url=criar&tipo=dvr');
             }
         }
         catch (Throwable $e)
         {
-            var_dump($e->getMessage());
-            exit;
+            getMensagemSession('error', 'Erro na verificação', 'Não foi possivel verificar a ação.', 'cameras.php?url=criar&tipo=dvr');
         }
     }
-
     public function criarHorarioDVR()
     {
         try
@@ -134,7 +130,6 @@ class DVRController
             return $e->getMessage();
         }
     }
-
     public function criarManutencaoDVR()
     {
         try
@@ -168,7 +163,6 @@ class DVRController
             return $e->getMessage();
         }
     }
-
     public function criarSemestreDVR()
     {
         try
@@ -202,7 +196,6 @@ class DVRController
             return $e->getMessage();
         }
     }
-
     public function editarDVRPrincipais()
     {
         try
@@ -265,7 +258,6 @@ class DVRController
             getMensagemSession('error', 'Erro ao editar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php');
         }
     }
-
     public function apagarDVR()
     {
         try

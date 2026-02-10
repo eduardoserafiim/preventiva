@@ -11,44 +11,26 @@ class ComputadorModel
         $this->db = $database->getConnection();
     }
 
-    public function criar($data) 
+    public function criarComputador($data) 
     {
         try
         {
-            $sql = "INSERT INTO computadores
-                (semestre, ano, unidade, setor, nome, modelo, monitor, sistemaOperacional, office, processador, memoria, disco, ip, mac, numeroSerie, lacre, status, legendaA, legendaB, legendaC, legendaD, legendaE, legendaF, legendaG, legendaH, legendaI, dataCadastro, responsavelCadastroTI, responsavel)
-                VALUES (:semestre, :ano, :unidade, :setor, :nome, :modelo, :monitor, :sistemaOperacional, :office, :processador, :memoria, :disco, :ip, :mac, :numeroSerie, :lacre, :status, :legendaA, :legendaB, :legendaC, :legendaD, :legendaE, :legendaF, :legendaG, :legendaH, :legendaI, NOW(), :responsavelCadastroTI, :responsavel)";
+            $sql = 'INSERT INTO dispositivos_computadores(id_unidade, id_imagem, nome, modelo, endereco_ip, endereco_mac, responsavel_cadastro, responsavel_uso, status, data_cadastro)
+            VALUES(:unidade, :imagem, :nome, :modelo, :endereco_ip, :endereco_mac, :responsavel_cadastro, :responsavel_uso, :status, NOW())';
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':semestre'                 => $data['semestre'],
-                ':ano'                      => $data['ano'],
-                ':unidade'                  => $data['unidade'],
-                ':setor'                    => $data['setor'],
-                ':nome'                     => $data['nome'],
-                ':modelo'                   => $data['modelo'],
-                ':monitor'                  => $data['monitor'],
-                ':sistemaOperacional'       => $data['sistemaOperacional'],
-                ':office'                   => $data['office'],
-                ':processador'              => $data['processador'],
-                ':memoria'                  => $data['memoria'],
-                ':disco'                    => $data['disco'],
-                ':ip'                       => $data['ip'],
-                ':mac'                      => $data['mac'],
-                ':numeroSerie'              => $data['numeroSerie'],
-                ':lacre'                    => $data['lacre'],
-                ':legendaA'                 => $data['legendaA'] ? 1 : 0,
-                ':legendaB'                 => $data['legendaB'] ? 1 : 0,
-                ':legendaC'                 => $data['legendaC'] ? 1 : 0,
-                ':legendaD'                 => $data['legendaD'] ? 1 : 0,
-                ':legendaE'                 => $data['legendaE'] ? 1 : 0,
-                ':legendaF'                 => $data['legendaF'] ? 1 : 0,
-                ':legendaG'                 => $data['legendaG'] ? 1 : 0,
-                ':legendaH'                 => $data['legendaH'] ? 1 : 0,
-                ':legendaI'                 => $data['legendaI'] ? 1 : 0,
-                ':status'                   => $data['status'],
-                ':responsavelCadastroTI'    => $data['responsavelCadastroTI'],
-                ':responsavel'              => $data['responsavel'],
-            ]);
+            $stmt->execute(
+                [
+                    ':unidade' => $data['unidade'],
+                    ':nome' => $data['nome'],
+                    ':modelo' => $data['modelo'],
+                    ':endereco_ip' => $data['endereco_ip'],
+                    ':endereco_mac' => $data['endereco_mac'],
+                    ':responsavel_cadastro' => $data['responsavel_cadastro'],
+                    ':responsavel_uso' => $data['responsavel_uso'],
+                    ':status' => $data['status'],
+                    ':imagem' => $data['id_imagem']
+                ]
+            );
 
             return true;
         }
@@ -88,7 +70,8 @@ class ComputadorModel
                 LEFT JOIN unidade u
                     ON dc.id_unidade = u.id
                 LEFT JOIN imagem i
-                    ON dc.id_imagem = i.id';
+                    ON dc.id_imagem = i.id
+                ORDER BY dc.id DESC';
         
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute();

@@ -1,6 +1,6 @@
 <?php
 
-function imagemRegras($pasta, $idImagemAntiga = null)
+function imagemRegras($pasta, $idImagemAntiga = null, $tipo)
 {
     if (
         !isset($_FILES['imagem']) ||
@@ -27,7 +27,14 @@ function imagemRegras($pasta, $idImagemAntiga = null)
     }
 
     $extensao = pathinfo($imagem['name'], PATHINFO_EXTENSION);
-    $nomeSalvo = uniqid('dvr_') . '.' . $extensao;
+    if($tipo === 'Computador')
+    {
+        $nomeSalvo = uniqid('pc_') . '.' . $extensao;
+    }
+    elseif($tipo === 'DVR')
+    {
+        $nomeSalvo = uniqid('dvr_') . '.' . $extensao;
+    }
     $caminhoArquivo = rtrim($pasta, '/') . '/' . $nomeSalvo;
 
     if (!move_uploaded_file($imagem['tmp_name'], $caminhoArquivo)) {

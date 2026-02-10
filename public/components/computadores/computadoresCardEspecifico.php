@@ -3,7 +3,7 @@ function criarComputadorCardEspecifico($computador)
 { ?>
     <div class="cardComputador">
         <div class="imagemComputador">
-            <img src="../upload/dvrs/<?= $computador['nome_imagem'] ?>" alt="Algo está errado.">
+            <img src="../upload/computadores/<?= $computador['nome_imagem'] ?>" alt="Algo está errado.">
         </div>
         <div class="conteudoComputador">
             <div class="topoInformacoesComputador">
@@ -51,7 +51,7 @@ function criarComputadorCardEspecifico($computador)
                 </div>
                 <div class="opcoesComputador">
                     <div class="configuracoesComputador">
-                        <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador">
+                        <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
@@ -109,33 +109,33 @@ function criarComputadorCardEspecifico($computador)
                 <div class="detalhesHardwareComputador">
                     <div class="processadorComputadorDetalhado">
                         <p>Processador</p>
-                        <h4 class="processadorComputador"><?= $computador['processador'] ?></h4>
+                        <h4 class="processadorComputador"><?= $computador['processador'] ?? 'Não Informado.' ?></h4>
                     </div>                        
                     <div class="processadorComputadorDetalhado">
                         <p>Memória RAM</p>
-                        <h4 class="memoriaRAMComputador"><?= $computador['memoria_ram'] ?></h4>
+                        <h4 class="memoriaRAMComputador"><?= $computador['memoria_ram'] ?? 'Não Informado.' ?></h4>
                     </div>                        
                     <div class="armazenamentoComputadorDetalhado">
                         <p>Armazenamento</p>
-                        <h4 class="armazenamentoComputador"><?= $computador['armazenamento'] ?></h4>
+                        <h4 class="armazenamentoComputador"><?= $computador['armazenamento'] ?? 'Não Informado.' ?></h4>
                     </div>                        
                     <div class="sistemaOperacionalDetalhado">
                         <p>Sistema Operacional</p>
-                        <h4 class="sistemaOperacionalComputador"><?= $computador['sistema_operacional'] ?></h4>
+                        <h4 class="sistemaOperacionalComputador"><?= $computador['sistema_operacional'] ?? 'Não Informado.' ?></h4>
                     </div>                        
                 </div>
                 <div class="detalhesPatrimoniaisComputador">
                     <div class="numeroDeSerieDetalhado">
                         <p>Número de Série</p>
-                        <h4 class="numeroDeSerieComputador"><?= $computador['numero_serie'] ?></h4>
+                        <h4 class="numeroDeSerieComputador"><?= $computador['numero_serie'] ?? 'Não Informado.' ?></h4>
                     </div>   
                     <div class="lacreDetalhado">
                         <p>Lacre</p>
-                        <h4 class="lacreComputador"><?= $computador['lacre'] ?></h4>
+                        <h4 class="lacreComputador"><?= $computador['lacre'] ?? 'Não Informado.' ?></h4>
                     </div>   
                     <div class="etiquetaPatrimonioDetalhe">
                         <p>Etiqueta de Patrimônio</p>
-                        <h4 class="etiquetaDePatrimonioComputador"><?= $computador['etiqueta_patrimonio'] ?></h4>
+                        <h4 class="etiquetaDePatrimonioComputador"><?= $computador['etiqueta_patrimonio'] ?? 'Não Informado.' ?></h4>
                     </div>   
                 </div>
                 <div class="detalhesHorarioComputador">
