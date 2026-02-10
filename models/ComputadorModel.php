@@ -58,22 +58,42 @@ class ComputadorModel
         }
     }
 
-    public function listar()
+    public function listar($id = '')
     {
         try
         {
-            $sql = 'SELECT dc.*,
-            u.nome AS nome_unidade, 
-            i.nome_salvo AS nome_imagem
-            FROM dispositivos_computadores dc
-            LEFT JOIN unidade u
-                ON dc.id_unidade = u.id
-            LEFT JOIN imagem i
-                ON dc.id_imagem = i.id';
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute();
+            if($id)
+            {
+                $sql = 'SELECT dc.*,
+                u.nome AS nome_unidade, 
+                i.nome_salvo AS nome_imagem
+                FROM dispositivos_computadores dc
+                LEFT JOIN unidade u
+                    ON dc.id_unidade = u.id
+                LEFT JOIN imagem i
+                    ON dc.id_imagem = i.id
+                WHERE dc.id = ?';
 
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute([$id]);
+
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            else
+            {
+                $sql = 'SELECT dc.*,
+                u.nome AS nome_unidade, 
+                i.nome_salvo AS nome_imagem
+                FROM dispositivos_computadores dc
+                LEFT JOIN unidade u
+                    ON dc.id_unidade = u.id
+                LEFT JOIN imagem i
+                    ON dc.id_imagem = i.id';
+        
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute();
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
         }
         catch (PDOException $e) 
         {

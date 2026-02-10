@@ -1,6 +1,23 @@
 create database informatica;
 USE informatica;
 
+create table imagem
+(
+	id int auto_increment,
+	primary key(id),
+	path_imagem varchar(255),
+	nome_imagem varchar(255),
+	nome_salvo varchar(255),
+	data_salvo date
+);
+
+create table unidade
+(
+	id int auto_increment,
+	primary key (id),
+	nome varchar(50)
+);
+
 CREATE TABLE dispositivos_computadores(
 	id int auto_increment,
 	primary key (id),
@@ -34,7 +51,7 @@ CREATE TABLE dispositivos_computadores(
 	id_unidade int,
 	foreign key (id_imagem)
 		references imagem(id),
-	foreign key (id_unidade),
+	foreign key (id_unidade)
 		references unidade(id)
 );
 

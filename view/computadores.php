@@ -28,6 +28,7 @@ require_once "../public/components/voltar.php";
 require_once "../public/components/computadores/computadoresRegistrar.php";
 require_once "../public/components/computadores/computadoresListar.php";
 require_once "../public/components/computadores/computadoresCard.php";
+require_once "../public/components/computadores/computadoresCardEspecifico.php";
 
 // FORMS
 require_once '../public/components/form/computadores/formFlex.php';
@@ -44,11 +45,17 @@ $modelComputador = new ComputadorModel();
 $setores = $modelSetor->listar();
 $computadores = $modelComputador->listar();
 
-var_dump($computadores);
 ?>
 <?php 
 
 $url = $_GET['url'] ?? '';
+$tipo = $_GET['tipo'] ?? '';
+$id = $_GET['id'] ?? '';
+
+?>
+<?php
+
+$computadorEspecifico = $modelComputador->listar($id);
 
 ?>
 <body>
@@ -56,7 +63,20 @@ $url = $_GET['url'] ?? '';
         <?= navbar('computadores') ?>
         <main class="main-content">
             <?= bar() ?>
-            <?php if($url === 'criar'): ?>
+            <?php if($url === 'visualizar' && $tipo === 'computador'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Computadores</h1>
+                        <p>Visualizar Computador</p>
+                    </div>
+                </div>
+                <div class="voltar">
+                    <?= voltar('computadores.php') ?>
+                </div>
+                <div class="computadores">
+                    <?= criarComputadorCardEspecifico($computadorEspecifico) ?>
+                </div>
+            <?php elseif($url === 'criar' && $tipo === 'computador'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Computadores</h1>
@@ -81,13 +101,17 @@ $url = $_GET['url'] ?? '';
                         <p>Gestão e levantamento de computadores</p>
                     </div>
                     <div class="page-criar-computadores">
-                        <?= criarComputador('Registrar PC', 'computadores.php?url=criar') ?>
+                        <?= criarComputador('Registrar PC',"computadores.php?url=criar&token={$_SESSION['token']}&tipo=computador") ?>
                     </div>
                 </div>
                 <div class="computadores">
-                    <?php foreach($computadores as $computador): ?>
-                        <?= criarComputadorCard($computador) ?>
-                    <?php endforeach ?>
+                    <?php if(!empty($computadores)): ?>
+                        <?php foreach($computadores as $computador): ?>
+                            <?= criarComputadorCard($computador) ?>
+                        <?php endforeach ?>
+                    <?php else: ?>
+                        <p class="computadores aviso">Não há computadores registrados.</p>
+                    <?php endif ?>
                 </div>
             <?php endif ?>
         </main>

@@ -51,18 +51,18 @@ function criarComputadorCard($computador)
                 </div>
                 <div class="opcoesComputador">
                     <div class="configuracoesComputador">
-                        <a href="computadores.php?url=editar">
+                        <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
                     <div class="visualizacaoComputador">
-                        <a href="computadores.php?url=visualizar">
+                        <a href="computadores.php?url=visualizar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador">
                             <i class="fas fa-icon fa-solid fa-eye fa-xl"></i>
                         </a>
                     </div>
                     <div class="deletarComputador">
                         <form action="../controllers/ComputadoresController.php" method="POST">
-                            <button style="background-color: inherit; border: none; color: red;" type="submit" onclick="confirmarExclusao(event)">
+                            <button style="background-color: inherit; border: none; color: red; cursor: pointer;" type="submit" onclick="confirmarExclusao(event)">
                                 <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
                             </button>
                         </form>

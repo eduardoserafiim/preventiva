@@ -1,22 +1,5 @@
 use informatica;
 
-create table imagem
-(
-	id int auto_increment,
-	primary key(id),
-	path_imagem varchar(255),
-	nome_imagem varchar(255),
-	nome_salvo varchar(255),
-	data_salvo date
-);
-
-create table unidade
-(
-	id int auto_increment,
-	primary key (id),
-	nome varchar(50)
-);
-
 create table dispositivos_dvrs
 (
 	id int auto_increment,

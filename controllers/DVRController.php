@@ -78,7 +78,14 @@ class DVRController
 
                 $modelRes = $modelDVR->criarDVR($data);
 
-                getMensagemSession('success', 'Sucesso ao cadastrar!', 'DVR cadastrado com sucesso.', 'cameras.php');
+                if($modelRes === false)
+                {
+                    getMensagemSession('error', 'Erro ao cadastrar!', 'Não cadastrado, tente novamente.', 'cameras.php');
+                }
+                else
+                {
+                    getMensagemSession('success', 'Sucesso ao cadastrar!', 'DVR cadastrado com sucesso.', 'cameras.php');
+                }
             }
             else
             {

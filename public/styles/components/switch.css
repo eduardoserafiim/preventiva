@@ -6,7 +6,7 @@
 
 .switch-wrapper label
 {
-    color: #374151;
+    color: rgb(52, 65, 84);
 }
 
 .switch-wrapper input[type="checkbox"] {
@@ -18,7 +18,7 @@
     display: inline-block;
     width: 50px;
     height: 28px;
-    background-color: #ccc;
+    background-color: rgb(139, 140, 143);
     border-radius: 34px;
     transition: background-color 0.3s;
     cursor: pointer;
