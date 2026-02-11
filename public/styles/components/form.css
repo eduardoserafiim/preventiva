@@ -139,3 +139,14 @@
     padding: 0.5rem 0 0.5rem 0;
     width: 300px;padding: 0;
 }
+
+.form-escolher-editar
+{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+}
+
+.form-escolher-editar .borda-inferior
+{
+    background-color: #124e8a;
+}

@@ -33,6 +33,7 @@ require_once "../public/components/dragAreaImagens/dragArea.php";
 
 // FORMS
 require_once '../public/components/form/computadores/formGridCriar.php';
+require_once '../public/components/form/computadores/formGridEditar.php';
 require_once '../public/components/form/computadores/formLegenda.php';
 require_once '../public/components/form/computadores/formActions.php';
 
@@ -76,10 +77,15 @@ $computadorEspecifico = $modelComputador->listar($id);
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
-                        <form action="../controllers/ComputadoresController.php">
-                            <?= formGrid() ?>
-                            <?= formActions() ?>
-                        </form>
+                        <div class="form-escolher-editar">
+                            <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">informações Básicas</a>
+                            <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=legenda">informações Legenda</a>
+                            <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">informações Hardware e Patrimônio</a>
+                        </div>
+                        <div class="form-escolher-editar .borda-inferior">
+                            
+                        </div>
+                        <?= formGridEditarComputador($computadorEspecifico) ?>
                     </div>
                 </div>
             <?php elseif($url === 'visualizar' && $tipo === 'computador'): ?>
