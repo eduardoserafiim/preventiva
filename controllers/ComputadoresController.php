@@ -175,32 +175,37 @@ class ComputadorController
     
     public function apagarComputadores()
     {
-        
-        $id    = intval($_POST['id']);
-        $setor = trim($_POST['setor']);
+        $acao = trim($_POST['acao']);        
+        $id   = intval($_POST['id']);
 
         try
         {
-            $model = new ComputadorModel();
-
-            if(!$id || !$setor)
+            if($acao === 'excluirComputador')
             {
-                echo 'Varíavel não definida.';
-                
-                getMensagemSession('error', 'Erro ao apagar o computador!', 'Computador não encontrado.', 'preventiva.php', $setor);
+                if($id)
+                {
+                    $model = new ComputadorModel();
+        
+                    $model->apagar($id);
+        
+                    getMensagemSession('success', 'Sucesso ao apagar o computador!', 'Computador apagado com sucesso.', 'computadores.php');
+    
+                }
+                else
+                {
+                    throw new Error('Não foi possivel validar este computador.');
+                }
             }
             else
             {
-                $model->apagar($id);
-    
-                getMensagemSession('success', 'Sucesso ao apagar o computador!', 'Computador apagado com sucesso.', 'preventiva.php', $setor);
+                throw new Error('Ação inválida.');
             }
         }
-        catch (Exception $e)
+        catch (Throwable $e)
         {
-            echo 'Erro ao executar: '.$e->getMessage();
+            $texto = $e->getMessage();
 
-            getMensagemSession('error', 'Erro ao apagar o computador', 'Houve um problema ao apagar.', 'preventiva.php', $setor);
+            getMensagemSession('error', 'Erro ao apagar o computador!', $texto, 'computadores.php');
         }
     }
 }
@@ -251,7 +256,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                     $controller = new ComputadorController();
                     $controller->alterarComputadores();
                     break;
-                case 'apagar':
+                case 'excluirComputador':
                     $controller = new ComputadorController();
                     $controller->apagarComputadores();
                     break;

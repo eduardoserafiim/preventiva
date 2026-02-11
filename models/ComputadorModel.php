@@ -193,7 +193,7 @@ class ComputadorModel
         try
         {
             $sql = "DELETE 
-                FROM computadores 
+                FROM dispositivos_computadores 
                 WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);

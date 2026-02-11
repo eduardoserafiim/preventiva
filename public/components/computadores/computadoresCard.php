@@ -62,6 +62,9 @@ function criarComputadorCard($computador)
                     </div>
                     <div class="deletarComputador">
                         <form action="../controllers/ComputadoresController.php" method="POST">
+                            <input type="hidden" name="id" value="<?= $computador['id'] ?>">
+                            <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                            <input type="hidden" name="acao" value="excluirComputador">
                             <button style="background-color: inherit; border: none; color: red; cursor: pointer;" type="submit" onclick="confirmarExclusao(event)">
                                 <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
                             </button>
