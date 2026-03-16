@@ -65,34 +65,71 @@ $computadorEspecifico = $modelComputador->listar($id);
         <?= navbar('computadores') ?>
         <main class="main-content">
             <?= bar() ?>
-            <?php if($url === 'editar' && $tipo === 'computador' && $informacoes === 'basicas'): ?>
+            <?php if($url === 'editar' && $tipo === 'computador' && $informacoes === 'hardware-e-patrimonio'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Computadores</h1>
-                        <p>Visualizar Computador</p>
+                        <p>Editar Computador - Informações de Hardware e Patrmônio</p>
                     </div>
                 </div>
                 <div class="voltar">
                     <?= voltar('computadores.php') ?>
                 </div>
                 <div class="controleForm">
-                    <div class="form-container">
-                        <div class="form-escolher-editar">
-                            <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">informações Básicas</a>
-                            <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=legenda">informações Legenda</a>
-                            <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">informações Hardware e Patrimônio</a>
-                        </div>
-                        <div class="form-escolher-editar .borda-inferior">
-                            
-                        </div>
-                        <?= formGridEditarComputador($computadorEspecifico) ?>
+                    <div class="form-escolher-editar">
+                        <a class="form-escolher <?= $informacoes === 'basicas' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">Básico</a>
+                        <a class="form-escolher <?= $informacoes === 'legenda' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=legenda">Legenda</a>
+                        <a class="form-escolher <?= $informacoes === 'hardware-e-patrimonio' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">Hardware e Patrimônio</a>
+                    </div>
+                    <div class="form-container form-container-editar-computador">
+                        <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
+                    </div>
+                </div>
+            <?php elseif($url === 'editar' && $tipo === 'computador' && $informacoes === 'legenda'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Computadores</h1>
+                        <p>Editar Computador - Informacções de Legenda</p>
+                    </div>
+                </div>
+                <div class="voltar">
+                    <?= voltar('computadores.php') ?>
+                </div>
+                <div class="controleForm">
+                    <div class="form-escolher-editar">
+                        <a class="form-escolher <?= $informacoes === 'basicas' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">Básico</a>
+                        <a class="form-escolher <?= $informacoes === 'legenda' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=legenda">Legenda</a>
+                        <a class="form-escolher <?= $informacoes === 'hardware-e-patrimonio' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">Hardware e Patrimônio</a>
+                    </div>
+                    <div class="form-container form-container-editar-computador">
+                        <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
+                    </div>
+                </div>
+            <?php elseif($url === 'editar' && $tipo === 'computador' && $informacoes === 'basicas'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Computadores</h1>
+                        <p>Editar Computador - Informações Básicas</p>
+                    </div>
+                </div>
+                <div class="voltar">
+                    <?= voltar('computadores.php') ?>
+                </div>
+                <div class="controleForm">
+                    <div class="form-escolher-editar">
+                        <a class="form-escolher <?= $informacoes === 'basicas' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">Básico</a>
+                        <a class="form-escolher <?= $informacoes === 'legenda' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=legenda">Legenda</a>
+                        <a class="form-escolher <?= $informacoes === 'hardware-e-patrimonio' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">Hardware e Patrimônio</a>
+                    </div>
+                    <div class="form-container form-container-editar-computador">
+                        <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
                     </div>
                 </div>
             <?php elseif($url === 'visualizar' && $tipo === 'computador'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Computadores</h1>
-                        <p>Visualizar Computador</p>
+                        <p>Editar Computador</p>
                     </div>
                 </div>
                 <div class="voltar">
