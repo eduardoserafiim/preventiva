@@ -25,6 +25,7 @@ require_once '../public/components/navbar/navbar.php';
 require_once '../public/components/bar/bar.php';
 require_once "../public/components/warning.php";
 require_once "../public/components/voltar.php";
+require_once "../public/components/search.php";
 require_once "../public/components/computadores/computadoresRegistrar.php";
 require_once "../public/components/computadores/computadoresListar.php";
 require_once "../public/components/computadores/computadoresCard.php";
@@ -43,7 +44,7 @@ $modelSetor = new SetorModel();
 $modelComputador = new ComputadorModel();
 
 $setores = $modelSetor->listar();
-$computadores = $modelComputador->listar();
+$computadores = $modelComputador->listarComputador();
 
 ?>
 <?php 
@@ -56,7 +57,7 @@ $informacoes = $_GET['informacoes'] ?? '';
 ?>
 <?php
 
-$computadorEspecifico = $modelComputador->listar($id);
+$computadorEspecifico = $modelComputador->listarComputador($id);
 
 ?>
 <body>
@@ -188,6 +189,9 @@ $computadorEspecifico = $modelComputador->listar($id);
                     <div class="page-criar-computadores">
                         <?= criarComputador('Registrar PC',"computadores?url=criar&token={$_SESSION['token']}&tipo=computador&informacoes=basicas") ?>
                     </div>
+                </div>
+                <div class="search">
+                    <?= search('search-input', 'computadores', 'computadores') ?>
                 </div>
                 <div class="computadores">
                     <?php if(!empty($computadores)): ?>

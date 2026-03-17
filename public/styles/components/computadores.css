@@ -1,5 +1,6 @@
 .computadores
 {
+    margin-top: 2rem;
     display: grid;
     grid-template-columns: repeat(1, auto);
     gap: 2rem;

@@ -1,7 +1,7 @@
 <?php
 function criarComputadorCard($computador)
 { ?>
-    <div class="cardComputador">
+    <div class="cardComputador" data-nome="<?= $computador['nome'] ?>" data-endereco-ip="<?= $computador['endereco_ip'] ?>" data-endereco-mac="<?= $computador['endereco_mac'] ?>">
         <div class="imagemComputador">
             <img src="../upload/computadores/<?= $computador['nome_imagem'] ?>" alt="Algo está errado.">
         </div>

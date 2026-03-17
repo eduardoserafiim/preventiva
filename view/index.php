@@ -36,7 +36,6 @@ $assinaturas =  $dbassinatura->listarAssinaturas($_SESSION['nome']);
 $url = $_GET['url'] ?? '';
 $computador = $_GET['computador'] ?? '';
 
-$computadorEspecifico = $modelComputador->procurarPorComputador($computador);
 ?>
 <body>
     <div class="app-container">
@@ -134,18 +133,6 @@ $computadorEspecifico = $modelComputador->procurarPorComputador($computador);
                             </a>
                         </div>
                     </div>
-                </div>
-                <div class="search" style="margin-bottom: 2rem;">
-                    <p>Procure o <strong>Computador</strong> mais rápido</p>
-                    <form action="index.php" method="GET">
-
-                        <input type="hidden" name="url" value="visualizar-computador"> 
-                        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>"> 
-                        <div class="flex" style="gap: 2rem;">
-                            <?= search('computador', 'computador', 'computadorPesquisaRapida') ?>
-                            <button type="submit" class="botao botao-primario">Pesquisar</button>
-                        </div>
-                    </form>
                 </div>
                 <div class="fundo-container">
                     <?php if ($_SESSION['privilegio'] != "TI" && $_SESSION['privilegio'] != 'administrador'): ?>
