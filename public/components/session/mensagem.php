@@ -9,7 +9,7 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
         'texto' => $texto
     ];
 
-    if (empty($view))
+    if (empty($view) or $view === 'index')
     {
         header("Location: ../view/");
         exit();

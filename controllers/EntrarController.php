@@ -28,7 +28,7 @@ class EntrarController
         {
             echo 'Variáveis não definidas.';
 
-            getMensagemSession('error', 'Erro ao entrar!', 'Preencha todos os campos!', 'login.php');
+            getMensagemSession('error', 'Erro ao entrar!', 'Preencha todos os campos!', 'login');
         }
         else
         {

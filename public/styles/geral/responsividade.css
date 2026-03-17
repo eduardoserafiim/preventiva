@@ -71,12 +71,12 @@
 
   .cardDVR
   {
-    width: 1000px;
+    width: 900px;
   }
 
   .cameras
   {
-    width: 1000px;
+    width: 900px;
   }
   .canaisDisponiveis .flex
   {
@@ -85,22 +85,22 @@
   
   .canaisDisponiveis
   {
-    width: 800px;
+    width: 600px;
   }
 
   .tituloDVR
   {
-    width: 800px;
+    width: 500px;
   }
 
   .tituloDetalhes
   {
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, auto-fit);
   }
 
   .topoInformacoesDVR, .inferiorInformacoesDVR
   {
-    width: 800px;
+    width: 700px;
   }
 }
 

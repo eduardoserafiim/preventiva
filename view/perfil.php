@@ -47,7 +47,7 @@ $id = $_SESSION['id'];
                 </div>
             </div>
             <div class="voltar">
-                <?= voltar('perfil.php') ?>
+                <?= voltar('perfil') ?>
             </div>
             <div class="controleForm" style="margin: 0px;">
                 <div class="form-container">
@@ -65,7 +65,7 @@ $id = $_SESSION['id'];
                 </div>
             </div>
             <div class="voltar">
-                <?=  voltar( '../index.php') ?>
+                <?=  voltar( 'index') ?>
             </div>
             <div class="page-perfil">
                 <div class="fundo-container fundo-perfil">
@@ -88,7 +88,7 @@ $id = $_SESSION['id'];
                         </div>
                     </div>
                     <div class="container-perfil-senha">
-                        <a href="perfil.php?url=alterarsenha">
+                        <a href="perfil?url=alterarsenha">
                             <h5>Alterar minha senha</h5>
                         </a>
                     </div>

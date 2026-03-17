@@ -3,7 +3,7 @@
 // VERIFICAÇÃO LOGIN
 session_start();
 if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
+    header("Location: login");
     exit;
 }
 
@@ -50,14 +50,14 @@ $computador = $_GET['computador'] ?? '';
                     </div>
                     <div class="page-configuracoes">
                         <div class="editarUsuario">
-                            <a href="perfil.php">
+                            <a href="perfil">
                                 <i class="fa-solid fa-user-pen fa-2xl anima-editarUsuario"></i>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="voltar">
-                    <?= voltar('index.php') ?>
+                    <?= voltar('index') ?>
                 </div>
                 <?= listarComputadores($computadorEspecifico, $_SESSION['setor'], $_SESSION['unidade']) ?>
             <?php elseif ($_SESSION['privilegio'] == 'TI' && $url == 'minhas-assinaturas'): ?>
@@ -68,14 +68,14 @@ $computador = $_GET['computador'] ?? '';
                     </div>
                     <div class="page-configuracoes">
                         <div class="editarUsuario">
-                            <a href="perfil.php">
+                            <a href="perfil">
                                 <i class="fa-solid fa-user-pen fa-2xl anima-editarUsuario"></i>
                             </a>
                         </div>
                     </div>
                 </div>
                 <div class="voltar">
-                    <?= voltar('index.php') ?>
+                    <?= voltar('index') ?>
                 </div>
                 <div class="fundo-container">
                     <div class="equipment-grid-assinaturas">
@@ -95,7 +95,7 @@ $computador = $_GET['computador'] ?? '';
                     </div>
                 </div>
                 <div class="voltar">
-                    <?= voltar('index.php') ?>
+                    <?= voltar('index') ?>
                 </div>
                 <div class="fundo-container">
                     <div class="equipment-grid-assinaturas">
@@ -109,13 +109,13 @@ $computador = $_GET['computador'] ?? '';
                         <p>Visualize as suas preventivas realizadas e à serem realizadas.</p>
                     </div>
                     <div class="page-configuracoes">
-                        <a href="perfil.php">
+                        <a href="perfil">
                             <i class="fa-solid fa-user-pen fa-2xl anima-editarUsuario"></i>
                         </a>
                     </div>
                 </div>
                 <div class="voltar">
-                    <?= voltar('index.php') ?>
+                    <?= voltar('index') ?>
                 </div>
                 <div class="fundo-container">
                     <p>Ainda estamos trabalhando nisso...</p>
@@ -128,7 +128,7 @@ $computador = $_GET['computador'] ?? '';
                     </div>
                     <div class="page-configuracoes">
                         <div class="editarUsuario">
-                            <a href="perfil.php">
+                            <a href="perfil">
                                 <i class="fa-solid fa-user-pen fa-2xl anima-editarUsuario"></i>
                             </a>
                         </div>
