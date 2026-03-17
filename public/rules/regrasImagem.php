@@ -2,10 +2,8 @@
 
 function imagemRegras($pasta, $idImagemAntiga = null, $tipo)
 {
-    if (
-        !isset($_FILES['imagem']) ||
-        $_FILES['imagem']['error'] !== UPLOAD_ERR_OK
-    ) {
+    if (!isset($_FILES['imagem']) || $_FILES['imagem']['error'] !== UPLOAD_ERR_OK) 
+    {
         return $idImagemAntiga;
     }
 

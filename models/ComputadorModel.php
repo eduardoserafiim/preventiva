@@ -48,7 +48,8 @@ class ComputadorModel
             {
                 $sql = 'SELECT dc.*,
                 u.nome AS nome_unidade, 
-                i.nome_salvo AS nome_imagem
+                i.nome_salvo AS nome_imagem,
+                i.id AS id_imagem_antiga
                 FROM dispositivos_computadores dc
                 LEFT JOIN unidade u
                     ON dc.id_unidade = u.id
@@ -65,7 +66,8 @@ class ComputadorModel
             {
                 $sql = 'SELECT dc.*,
                 u.nome AS nome_unidade, 
-                i.nome_salvo AS nome_imagem
+                i.nome_salvo AS nome_imagem,
+                i.id AS id_imagem_antiga
                 FROM dispositivos_computadores dc
                 LEFT JOIN unidade u
                     ON dc.id_unidade = u.id
@@ -110,82 +112,40 @@ class ComputadorModel
         }
     }
 
-    public function atualizar($id, $data) 
+    public function editarComputador($data, $tipo)
     {
-        try 
+        try
         {
-            $sql = "UPDATE computadores 
-                SET 
-                semestre = :semestre,
-                ano = :ano, 
-                unidade = :unidade, 
-                setor = :setor, 
-                nome = :nome, 
-                modelo = :modelo,
-                monitor = :monitor, 
-                responsavel = :responsavel,
-                sistemaOperacional = :sistemaOperacional, 
-                office = :office, 
-                processador = :processador, 
-                memoria = :memoria, 
-                disco = :disco,
-                ip = :ip, 
-                mac = :mac, 
-                numeroSerie = :numeroSerie, 
-                legendaA = :legendaA,
-                legendaB = :legendaB,
-                legendaC = :legendaC,
-                legendaD = :legendaD,
-                legendaE = :legendaE,
-                legendaF = :legendaF,
-                legendaG = :legendaG,
-                legendaH = :legendaH,
-                legendaI = :legendaI,
-                lacre = :lacre, 
-                status = :status
-                WHERE id = :id";
+            if($tipo === 'editarBasico')
+            {
+                $sql = 'UPDATE dispositivos_computadores
+                SET
+                    nome            = :nome,
+                    modelo          = :modelo,
+                    endereco_ip     = :endereco_ip,
+                    endereco_mac    = :endereco_mac,
+                    responsavel_uso = :responsavel_uso,
+                    status = :status
+                WHERE id = :id';
 
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':id' => $id,
-                ':semestre' => $data['semestre'],
-                ':ano' => $data['ano'],
-                ':unidade' => $data['unidade'],
-                ':setor' => $data['setor'],
-                ':nome' => $data['nome'],
-                ':modelo' => $data['modelo'],
-                ':monitor' => $data['monitor'],
-                ':responsavel' => $data['responsavel'],
-                ':sistemaOperacional' => $data['sistemaOperacional'],
-                ':office' => $data['office'],
-                ':processador' => $data['processador'],
-                ':memoria' => $data['memoria'],
-                ':disco' => $data['disco'],
-                ':ip' => $data['ip'],
-                ':mac' => $data['mac'],
-                ':numeroSerie' => $data['numeroSerie'],
-                ':legendaA'=> $data['legendaA'],
-                ':legendaB'=> $data['legendaB'],
-                ':legendaC'=> $data['legendaC'],
-                ':legendaD'=> $data['legendaD'],
-                ':legendaE'=> $data['legendaE'],
-                ':legendaF'=> $data['legendaF'],
-                ':legendaG'=> $data['legendaG'],
-                ':legendaH'=> $data['legendaH'],
-                ':legendaI'=> $data['legendaI'],
-                ':lacre' => $data['lacre'],
-                ':status' => $data['status'],
-            ]);
-
-            return true;
-        } 
-        catch (PDOException $e) {
-            echo 'Erro na edição: '. $e->getMessage();
-            error_log("Erro ao atualizar computador: " . $e->getMessage());
-
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(
+                    [
+                        ':nome'             => $data['nome'],
+                        ':modelo'           => $data['modelo'],
+                        ':endereco_ip'      => $data['endereco_ip'],
+                        ':endereco_mac'     => $data['endereco_mac'],
+                        ':responsavel_uso'  => $data['responsavel_uso'],
+                        ':status'           => $data['status'],
+                        ':id'               => $data['id']
+                    ]
+                );
+            }
+        }
+        catch(PDOException $e)
+        {
             return false;
         }
-        
     }
 
     public function apagar($id) 

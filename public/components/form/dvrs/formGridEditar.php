@@ -7,7 +7,7 @@ function formGridEditarDVR($dvr){
         <input type="hidden" name="id" value="<?= $dvr['id'] ?>">
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
         <!-- IMAGEM -->
-        <?= dragAreaImagem($dvr) ?>
+        <?= dragAreaImagem($dvr, 'dvrs') ?>
         <!-- UNIDADE -->
         <div class="form-group">
             <label for="select-unidade">Unidade</label>

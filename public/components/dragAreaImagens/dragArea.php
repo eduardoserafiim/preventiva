@@ -1,6 +1,6 @@
 <?php
 
-function dragAreaImagem($imagem = '')
+function dragAreaImagem($imagem = '', $dispositivo)
 { ?>
     <div class="formulario-imagem" id="formulario-imagem-receber">
         <?php if ($imagem): ?>
@@ -8,7 +8,7 @@ function dragAreaImagem($imagem = '')
 
             <input type="file" name="imagem" accept="image/*" id="input-imagem" hidden>
 
-            <img id="preview" src="../upload/dvrs/<?= $imagem['nome_imagem'] ?>"/>
+            <img id="preview" src="../upload/<?= $dispositivo ?>/<?= $imagem['nome_imagem'] ?>"/>
         <?php else: ?>
             <input type="file" name="imagem" accept="image/*" id="input-imagem" hidden>
             <img id="preview"/>    

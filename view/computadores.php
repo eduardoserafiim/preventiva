@@ -66,6 +66,11 @@ $computadorEspecifico = $modelComputador->listar($id);
         <main class="main-content">
             <?= bar() ?>
             <?php if($url === 'editar' && $tipo === 'computador' && $informacoes === 'hardware-e-patrimonio'): ?>
+                <?php 
+                    $idAntigo = $id;
+
+                    $computador['id'] = $idAntigo;
+                ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Computadores</h1>
@@ -87,6 +92,11 @@ $computadorEspecifico = $modelComputador->listar($id);
                     </div>
                 </div>
             <?php elseif($url === 'editar' && $tipo === 'computador' && $informacoes === 'legenda'): ?>
+                <?php 
+                    $idAntigo = $id;
+
+                    $computador['id'] = $idAntigo;
+                ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Computadores</h1>
@@ -108,10 +118,15 @@ $computadorEspecifico = $modelComputador->listar($id);
                     </div>
                 </div>
             <?php elseif($url === 'editar' && $tipo === 'computador' && $informacoes === 'basicas'): ?>
+                <?php 
+                    $idAntigo = $id;
+
+                    $computador['id'] = $idAntigo;
+                ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Computadores</h1>
-                        <p>Editar Computador - Informações Básicas</p>
+                        <p>Editar Computador - <strong>Informações Básicas</strong></p>
                     </div>
                 </div>
                 <div class="voltar">
@@ -124,8 +139,10 @@ $computadorEspecifico = $modelComputador->listar($id);
                         <a class="form-escolher <?= $informacoes === 'hardware-e-patrimonio' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">Hardware e Patrimônio</a>
                     </div>
                     <div class="form-container form-container-editar-computador">
-                        <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
-                        <?= formActions() ?>
+                        <form action="../controllers/ComputadoresController.php" method="POST" enctype="multipart/form-data">
+                            <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
+                            <?= formActions() ?>
+                        </form>
                     </div>
                 </div>
             <?php elseif($url === 'visualizar' && $tipo === 'computador'): ?>

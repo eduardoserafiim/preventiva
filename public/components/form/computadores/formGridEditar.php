@@ -4,19 +4,19 @@ function formGridEditarComputador($computador, $tipoEditar){
     <div class="form-grid form-grid-editar-computadores">
         <input type="hidden" name="acao" value="editarComputador"> 
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>"> 
-        <input type="hidden" name="responsavel_cadastro" value="<?= $_SESSION['nome'] ?>">
-
+        <input type="hidden" name="responsavel_editar" value="<?= $_SESSION['nome'] ?>">
+        <input type="hidden" name="id" value="<?= $computador['id'] ?>">
 
         <?php if ($tipoEditar === 'hardware-e-patrimonio'): ?>
             <input type="hidden" name="tipoEdicao" value="editarHardwarePatrimonio">
             <div class="form-group">
                 <label for="input-processador">Processador</label>
-                <input type="text" id="input-processador" name="processador" placeholder="Obrigatório" required>
+                <input type="text" id="input-processador" name="processador" value="<?= $computador['processador'] ?? '' ?>" placeholder="Obrigatório" required>
             </div>
             <div class="form-group">
                 <label for="select-memoria">Memoria RAM</label>
                 <select id="select-memoria" name="memoria" required>
-                    <option value="" selected disabled>Selecione...</option>
+                    <option value="<?= $computador['memoria_ram'] ?? '' ?>" selected disabled><?= $computador['memoria_ram'] ?? 'Selecione...' ?></option>
                     <option value="2GB">2GB</option>
                     <option value="4GB">4GB</option>
                     <option value="6GB">6GB</option>
@@ -28,7 +28,7 @@ function formGridEditarComputador($computador, $tipoEditar){
             <div class="form-group">
                 <label for="select-disco">Armazenameto</label>
                 <select id="select-disco" name="disco" required>
-                    <option value="" selected disabled>Selecione...</option>
+                    <option value="<?= $computador['armazenamento'] ?>" selected disabled><?= $computador['armazenamento'] ?? 'Selecione...' ?></option>
                     <option value="SSD NVMe">SSD NVMe</option>
                     <option value="SSD">SSD</option>
                     <option value="HDD">HDD</option>
@@ -37,7 +37,7 @@ function formGridEditarComputador($computador, $tipoEditar){
             <div class="form-group">
                 <label for="select-sistema-operacional">Sistema Operacional</label>
                 <select id="select-sistema-operacional" name="sistema-operacional" required>
-                    <option value="" selected disabled>Selecione...</option>
+                    <option value="<?= $computador['sistema_operacional'] ?>" selected disabled><?= $computador['sistema_operacional'] ?? 'Selecione...' ?></option>
                     <option value="Linux Ubuntu">Linux Ubuntu</option>
                     <option value="Linux Mint">Linux Mint</option>
                     <option value="Windows 10 Pro">Windows 10 Pro</option>
@@ -49,15 +49,15 @@ function formGridEditarComputador($computador, $tipoEditar){
             </div>
             <div class="form-group">
                 <label for="input-numero-de-serie">Número de Série</label>
-                <input type="text" id="input-numero-de-serie" name="numero-de-serie" placeholder="Obrigatório" required>
+                <input type="text" id="input-numero-de-serie" name="numero-de-serie" value="<?= $computador['numero_serie'] ?? '' ?>" placeholder="Obrigatório" required>
             </div>
             <div class="form-group">
                 <label for="input-lacre">Lacre</label>
-                <input type="text" id="input-lacre" name="lacre" placeholder="Obrigatório" required>
+                <input type="text" id="input-lacre" name="lacre" value="<?= $computador['lacre'] ?? '' ?>" placeholder="Obrigatório" required>
             </div>
             <div class="form-group">
                 <label for="input-etiqueta">Etiqueta de Patrimônio</label>
-                <input type="text" id="input-etiqueta" name="etiqueta" placeholder="Obrigatório" required>
+                <input type="text" id="input-etiqueta" name="etiqueta" value="<?= $computador['etiqueta_patrimonio'] ?? '' ?>" placeholder="Obrigatório" required>
             </div>
         <?php elseif ($tipoEditar === 'legenda'): ?>
             <input type="hidden" name="tipoEdicao" value="editarLegenda">
@@ -147,7 +147,7 @@ function formGridEditarComputador($computador, $tipoEditar){
             ?>
             <!-- IMAGEM -->
             <div class="form-wrap-imagem">
-                <?= dragAreaImagem() ?>
+                <?= dragAreaImagem($computador, 'computadores') ?>
             </div>
             <div class="form-group-editar-computadores">
                 <!-- UNIDADE -->
@@ -168,15 +168,18 @@ function formGridEditarComputador($computador, $tipoEditar){
                 <?php foreach ($basico as $base): ?>
                     <div class="form-group">
                         <label for="<?= $base['input-nome'] ?>"><?= $base['nome'] ?></label>
-                        <input type="text" id="<?= $base['input-nome'] ?>" name="<?= $base['valor'] ?>" placeholder="Obrigatório" required>
+                        <input type="text" id="<?= $base['input-nome'] ?>" name="<?= $base['valor'] ?>" value="<?= $computador[$base['valor']] ?? 'Obrigatório' ?>" required>
                     </div>
                 <?php endforeach ?>
                 <div class="form-group">
                     <label for="select-status">Status</label>
                     <select id="select-status" name="status" required>
-                        <option value="" selected disabled>Selecione...</option>
-                        <option value="Ativo">Ativo</option>
-                        <option value="Inativo">Inativo</option>
+                        <option value="<?= $computador['status'] ?>" selected><?= $computador['status'] ?></option>
+                        <?php if($computador['status'] === 'Ativo'): ?>
+                            <option value="Inativo">Inativo</option>
+                        <?php else: ?>
+                            <option value="Ativo">Ativo</option>
+                        <?php endif ?>
                     </select>
                 </div>
             </div>

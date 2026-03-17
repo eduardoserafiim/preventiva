@@ -94,7 +94,7 @@ class DVRController
         }
         catch (Throwable $e)
         {
-            getMensagemSession('error', 'Erro na verificação', 'Não foi possivel verificar a ação.', 'cameras.php?url=criar&tipo=dvr');
+            getMensagemSession('error', 'Erro na aplicação', 'Houve um erro interno. Entre em contato com o Suporte.', 'cameras.php?url=criar&tipo=dvr');
         }
     }
     public function criarHorarioDVR()
@@ -232,7 +232,7 @@ class DVRController
                     'id'             => $id
                 ];
                 
-                $idImagemNovo = imagemRegras($pasta);
+                $idImagemNovo = imagemRegras($pasta, null, 'DVR');
                 
                 if ($idImagemNovo !== null) 
                 {
