@@ -2,14 +2,65 @@
 function formGridEditarComputador($computador, $tipoEditar){
 ?>
     <div class="form-grid form-grid-editar-computadores">
-        <input type="hidden" name="acao" value="criarComputador"> 
+        <input type="hidden" name="acao" value="editarComputador"> 
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>"> 
         <input type="hidden" name="responsavel_cadastro" value="<?= $_SESSION['nome'] ?>">
 
 
-        <?php if ($tipoEditar === 'hardware-e-patriminio'): ?>
-            
+        <?php if ($tipoEditar === 'hardware-e-patrimonio'): ?>
+            <input type="hidden" name="tipoEdicao" value="editarHardwarePatrimonio">
+            <div class="form-group">
+                <label for="input-processador">Processador</label>
+                <input type="text" id="input-processador" name="processador" placeholder="Obrigatório" required>
+            </div>
+            <div class="form-group">
+                <label for="select-memoria">Memoria RAM</label>
+                <select id="select-memoria" name="memoria" required>
+                    <option value="" selected disabled>Selecione...</option>
+                    <option value="2GB">2GB</option>
+                    <option value="4GB">4GB</option>
+                    <option value="6GB">6GB</option>
+                    <option value="8GB">8GB</option>
+                    <option value="12GB">12GB</option>
+                    <option value="16GB">16GB</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="select-disco">Armazenameto</label>
+                <select id="select-disco" name="disco" required>
+                    <option value="" selected disabled>Selecione...</option>
+                    <option value="SSD NVMe">SSD NVMe</option>
+                    <option value="SSD">SSD</option>
+                    <option value="HDD">HDD</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="select-sistema-operacional">Sistema Operacional</label>
+                <select id="select-sistema-operacional" name="sistema-operacional" required>
+                    <option value="" selected disabled>Selecione...</option>
+                    <option value="Linux Ubuntu">Linux Ubuntu</option>
+                    <option value="Linux Mint">Linux Mint</option>
+                    <option value="Windows 10 Pro">Windows 10 Pro</option>
+                    <option value="Windows 10 Home">Windows 10 Home</option>
+                    <option value="Windows 11 Pro">Windows 11 Pro</option>
+                    <option value="Windows 11 Home">Windows 11 Home</option>
+                    <option value="MacOS">MacOS</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="input-numero-de-serie">Número de Série</label>
+                <input type="text" id="input-numero-de-serie" name="numero-de-serie" placeholder="Obrigatório" required>
+            </div>
+            <div class="form-group">
+                <label for="input-lacre">Lacre</label>
+                <input type="text" id="input-lacre" name="lacre" placeholder="Obrigatório" required>
+            </div>
+            <div class="form-group">
+                <label for="input-etiqueta">Etiqueta de Patrimônio</label>
+                <input type="text" id="input-etiqueta" name="etiqueta" placeholder="Obrigatório" required>
+            </div>
         <?php elseif ($tipoEditar === 'legenda'): ?>
+            <input type="hidden" name="tipoEdicao" value="editarLegenda">
             <?php 
                 $legendas =
                 [
@@ -52,18 +103,48 @@ function formGridEditarComputador($computador, $tipoEditar){
                 ]
             ?>
             <div class="form-group-editar-legenda-computadores">
-                <!-- S.O -->
                 <?php foreach($legendas as $legenda): ?>
                     <div class="form-group">
                         <label for="<?= $legenda['label-for'] ?>"><?= $legenda['nome'] ?></label>
                         <div class="switch-wrapper">
-                            <input type="checkbox" disabled>
+                            <input type="checkbox" id="input-legendaB" name="legendaB" value="1">
                             <label class="switch"></label>
                         </div>
                     </div>
                 <?php endforeach ?>
             </div>
         <?php elseif ($tipoEditar === 'basicas'): ?>
+            <input type="hidden" name="tipoEdicao" value="editarBasico">
+            <?php
+                $basico = 
+                [
+                    [
+                        'nome' => 'Nome',
+                        'input-nome' => 'input-nome',
+                        'valor' => 'nome'
+                    ],
+                    [
+                        'nome' => 'Modelo',
+                        'input-nome' => 'input-modelo',
+                        'valor' => 'modelo'
+                    ],
+                    [
+                        'nome' => 'Endereço IP',
+                        'input-nome' => 'input-ip',
+                        'valor' => 'endereco_ip'
+                    ],
+                    [
+                        'nome' => 'MAC',
+                        'input-nome' => 'input-mac',
+                        'valor' => 'endereco_mac'
+                    ],
+                    [
+                        'nome' => 'Responsável Uso',
+                        'input-nome' => 'input-responsavel-uso',
+                        'valor' => 'responsavel_uso'
+                    ]
+                ]
+            ?>
             <!-- IMAGEM -->
             <div class="form-wrap-imagem">
                 <?= dragAreaImagem() ?>
@@ -84,32 +165,12 @@ function formGridEditarComputador($computador, $tipoEditar){
                         <?php endif ?>
                     </select>
                 </div>
-                <!-- NOME -->
-                <div class="form-group">
-                    <label for="input-nome">Nome</label>
-                    <input type="text" id="input-nome" name="nome" placeholder="Obrigatório" required>
-                </div>
-                <!-- MODELO -->
-                <div class="form-group">
-                    <label for="input-modelo">Modelo</label>
-                    <input type="text" id="input-modelo" name="modelo" placeholder="Obrigatório" required>
-                </div>
-                <!-- IP -->
-                <div class="form-group">
-                    <label for="input-ip">Endereço IP</label>
-                    <input type="text" id="input-ip" name="endereco_ip" placeholder="Obrigatório" required>
-                </div> 
-                <!-- MAC -->
-                <div class="form-group">
-                    <label for="input-mac">MAC</label>
-                    <input type="text" id="input-mac" name="endereco_mac" placeholder="Obrigatório" required>
-                </div>
-                <!-- RESPONSAVEL PELO COMPUTADOR -->
-                <div class="form-group">
-                    <label for="input-responsavel">Responsável Uso</label>
-                    <input type="text" id="input-responsavel" name="responsavel_uso" placeholder="Obrigatório" required>
-                </div>
-                <!-- STATUS -->
+                <?php foreach ($basico as $base): ?>
+                    <div class="form-group">
+                        <label for="<?= $base['input-nome'] ?>"><?= $base['nome'] ?></label>
+                        <input type="text" id="<?= $base['input-nome'] ?>" name="<?= $base['valor'] ?>" placeholder="Obrigatório" required>
+                    </div>
+                <?php endforeach ?>
                 <div class="form-group">
                     <label for="select-status">Status</label>
                     <select id="select-status" name="status" required>

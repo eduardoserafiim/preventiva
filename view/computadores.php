@@ -83,13 +83,14 @@ $computadorEspecifico = $modelComputador->listar($id);
                     </div>
                     <div class="form-container form-container-editar-computador">
                         <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
+                        <?= formActions() ?>
                     </div>
                 </div>
             <?php elseif($url === 'editar' && $tipo === 'computador' && $informacoes === 'legenda'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Computadores</h1>
-                        <p>Editar Computador - Informacções de Legenda</p>
+                        <p>Editar Computador - Informações de Legenda</p>
                     </div>
                 </div>
                 <div class="voltar">
@@ -103,6 +104,7 @@ $computadorEspecifico = $modelComputador->listar($id);
                     </div>
                     <div class="form-container form-container-editar-computador">
                         <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
+                        <?= formActions() ?>
                     </div>
                 </div>
             <?php elseif($url === 'editar' && $tipo === 'computador' && $informacoes === 'basicas'): ?>
@@ -123,6 +125,7 @@ $computadorEspecifico = $modelComputador->listar($id);
                     </div>
                     <div class="form-container form-container-editar-computador">
                         <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
+                        <?= formActions() ?>
                     </div>
                 </div>
             <?php elseif($url === 'visualizar' && $tipo === 'computador'): ?>
