@@ -4,9 +4,10 @@ function formGridCriarComputador(){
     <div class="form-grid">
         <input type="hidden" name="acao" value="criarComputador"> 
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>"> 
+        <input type="hidden" name="informacoes" value="basicas"> 
         <input type="hidden" name="responsavel_cadastro" value="<?= $_SESSION['nome'] ?>">
         <!-- IMAGEM -->
-        <?= dragAreaImagem() ?>
+        <?= dragAreaImagem('', 'computador') ?>
         <!-- UNIDADE -->
         <div class="form-group">
             <label for="select-unidade">Unidade</label>

@@ -9,96 +9,110 @@ function formGridEditarComputador($computador, $tipoEditar){
 
         <?php if ($tipoEditar === 'hardware-e-patrimonio'): ?>
             <input type="hidden" name="tipoEdicao" value="editarHardwarePatrimonio">
-            <div class="form-group">
-                <label for="input-processador">Processador</label>
-                <input type="text" id="input-processador" name="processador" value="<?= $computador['processador'] ?? '' ?>" placeholder="Obrigatório" required>
-            </div>
-            <div class="form-group">
-                <label for="select-memoria">Memoria RAM</label>
-                <select id="select-memoria" name="memoria" required>
-                    <option value="<?= $computador['memoria_ram'] ?? '' ?>" selected disabled><?= $computador['memoria_ram'] ?? 'Selecione...' ?></option>
-                    <option value="2GB">2GB</option>
-                    <option value="4GB">4GB</option>
-                    <option value="6GB">6GB</option>
-                    <option value="8GB">8GB</option>
-                    <option value="12GB">12GB</option>
-                    <option value="16GB">16GB</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="select-disco">Armazenameto</label>
-                <select id="select-disco" name="disco" required>
-                    <option value="<?= $computador['armazenamento'] ?>" selected disabled><?= $computador['armazenamento'] ?? 'Selecione...' ?></option>
-                    <option value="SSD NVMe">SSD NVMe</option>
-                    <option value="SSD">SSD</option>
-                    <option value="HDD">HDD</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="select-sistema-operacional">Sistema Operacional</label>
-                <select id="select-sistema-operacional" name="sistema-operacional" required>
-                    <option value="<?= $computador['sistema_operacional'] ?>" selected disabled><?= $computador['sistema_operacional'] ?? 'Selecione...' ?></option>
-                    <option value="Linux Ubuntu">Linux Ubuntu</option>
-                    <option value="Linux Mint">Linux Mint</option>
-                    <option value="Windows 10 Pro">Windows 10 Pro</option>
-                    <option value="Windows 10 Home">Windows 10 Home</option>
-                    <option value="Windows 11 Pro">Windows 11 Pro</option>
-                    <option value="Windows 11 Home">Windows 11 Home</option>
-                    <option value="MacOS">MacOS</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="input-numero-de-serie">Número de Série</label>
-                <input type="text" id="input-numero-de-serie" name="numero-de-serie" value="<?= $computador['numero_serie'] ?? '' ?>" placeholder="Obrigatório" required>
-            </div>
-            <div class="form-group">
-                <label for="input-lacre">Lacre</label>
-                <input type="text" id="input-lacre" name="lacre" value="<?= $computador['lacre'] ?? '' ?>" placeholder="Obrigatório" required>
-            </div>
-            <div class="form-group">
-                <label for="input-etiqueta">Etiqueta de Patrimônio</label>
-                <input type="text" id="input-etiqueta" name="etiqueta" value="<?= $computador['etiqueta_patrimonio'] ?? '' ?>" placeholder="Obrigatório" required>
+            <input type="hidden" name="informacoes" value="hardware-e-patrimonio">
+            <div class="form-group-editar-hardware-e-patrimonio">
+
+                <div class="form-group">
+                    <label for="input-processador">Processador</label>
+                    <input type="text" id="input-processador" name="processador" value="<?= $computador['processador'] ?? '' ?>" placeholder="Obrigatório" required>
+                </div>
+                <div class="form-group">
+                    <label for="select-memoria">Memoria RAM</label>
+                    <select id="select-memoria" name="memoria-ram" required>
+                        <option value="<?= $computador['memoria_ram'] ?? '' ?>" selected><?= $computador['memoria_ram'] ?? 'Selecione...' ?></option>
+                        <option value="2GB">2GB</option>
+                        <option value="4GB">4GB</option>
+                        <option value="6GB">6GB</option>
+                        <option value="8GB">8GB</option>
+                        <option value="12GB">12GB</option>
+                        <option value="16GB">16GB</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-disco">Armazenameto</label>
+                    <select id="select-disco" name="armazenamento" required>
+                        <option value="<?= $computador['armazenamento'] ?>" selected><?= $computador['armazenamento'] ?? 'Selecione...' ?></option>
+                        <option value="SSD NVMe">SSD NVMe</option>
+                        <option value="SSD">SSD</option>
+                        <option value="HDD">HDD</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-sistema-operacional">Sistema Operacional</label>
+                    <select id="select-sistema-operacional" name="sistema-operacional" required>
+                        <option value="<?= $computador['sistema_operacional'] ?>" selected><?= $computador['sistema_operacional'] ?? 'Selecione...' ?></option>
+                        <option value="Linux Ubuntu">Linux Ubuntu</option>
+                        <option value="Linux Mint">Linux Mint</option>
+                        <option value="Windows 10 Pro">Windows 10 Pro</option>
+                        <option value="Windows 10 Home">Windows 10 Home</option>
+                        <option value="Windows 11 Pro">Windows 11 Pro</option>
+                        <option value="Windows 11 Home">Windows 11 Home</option>
+                        <option value="MacOS">MacOS</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="input-numero-de-serie">Número de Série</label>
+                    <input type="text" id="input-numero-de-serie" name="numero-serie" value="<?= $computador['numero_serie'] ?? '' ?>" placeholder="Obrigatório" required>
+                </div>
+                <div class="form-group">
+                    <label for="input-lacre">Lacre</label>
+                    <input type="text" id="input-lacre" name="lacre" value="<?= $computador['lacre'] ?? '' ?>" placeholder="Obrigatório" required>
+                </div>
+                <div class="form-group">
+                    <label for="input-etiqueta">Etiqueta de Patrimônio</label>
+                    <input type="text" id="input-etiqueta" name="etiqueta-patrimonio" value="<?= $computador['etiqueta_patrimonio'] ?? '' ?>" placeholder="Obrigatório" required>
+                </div>
             </div>
         <?php elseif ($tipoEditar === 'legenda'): ?>
             <input type="hidden" name="tipoEdicao" value="editarLegenda">
+            <input type="hidden" name="informacoes" value="legenda">
             <?php 
                 $legendas =
                 [
                     [
                         'nome' => 'Atualização de S.O',
-                        'label-for' => 'input-atualizacao'
+                        'label-for' => 'input-atualizacao',
+                        'legenda' => 'legenda_a'
                     ],
                     [
                         'nome' => 'Atualização Antivírus',
-                        'label-for' => 'input-antivirus'
+                        'label-for' => 'input-antivirus',
+                        'legenda' => 'legenda_b'
                     ],
                     [
                         'nome' => 'Área de Trabalho Padrão',
-                        'label-for' => 'input-area-de-trabalho'
+                        'label-for' => 'input-area-de-trabalho',
+                        'legenda' => 'legenda_c'
                     ],
                     [
                         'nome' => 'Orientação Pasta Compartilhada',
-                        'label-for' => 'input-pasta-compartilhada'
+                        'label-for' => 'input-pasta-compartilhada',
+                        'legenda' => 'legenda_d'
                     ],
                     [
                         'nome' => 'Verificação de Software não Permitido',
-                        'label-for' => 'input-software-nao-permitido'
+                        'label-for' => 'input-software-nao-permitido',
+                        'legenda' => 'legenda_e'
                     ],
                     [
                         'nome' => 'Limpeza do Gabinete',
-                        'label-for' => 'input-limpeza'
+                        'label-for' => 'input-limpeza',
+                        'legenda' => 'legenda_f'
                     ],
                     [
                         'nome' => 'OEM Windows',
-                        'label-for' => 'input-oem-windows'
+                        'label-for' => 'input-oem-windows',
+                        'legenda' => 'legenda_g'
                     ],
                     [
                         'nome' => 'Etiqueta de Patrimônio',
-                        'label-for' => 'input-etiqueta'
+                        'label-for' => 'input-etiqueta',
+                        'legenda' => 'legenda_h'
                     ],
                     [
                         'nome' => 'Licença SQL Server',
-                        'label-for' => 'input-licenca-server'
+                        'label-for' => 'input-licenca-server',
+                        'legenda' => 'legenda_i'
                     ],
                 ]
             ?>
@@ -107,14 +121,19 @@ function formGridEditarComputador($computador, $tipoEditar){
                     <div class="form-group">
                         <label for="<?= $legenda['label-for'] ?>"><?= $legenda['nome'] ?></label>
                         <div class="switch-wrapper">
-                            <input type="checkbox" id="input-legendaB" name="legendaB" value="1">
-                            <label class="switch"></label>
+                            <?php if ($computador[$legenda['legenda']] === 1): ?>
+                                <input type="checkbox" id="<?= $legenda['label-for'] ?>" name="<?= $legenda['label-for'] ?>" value="<?= $computador[$legenda['legenda']] ?? 0 ?>" checked>
+                            <?php else: ?>
+                                    <input type="checkbox" id="<?= $legenda['label-for'] ?>" name="<?= $legenda['label-for'] ?>" value="<?= $computador[$legenda['legenda']] ?? 0 ?>">
+                            <?php endif ?>
+                            <label for="<?= $legenda['label-for'] ?>" class="switch"></label>
                         </div>
                     </div>
                 <?php endforeach ?>
             </div>
         <?php elseif ($tipoEditar === 'basicas'): ?>
             <input type="hidden" name="tipoEdicao" value="editarBasico">
+            <input type="hidden" name="informacoes" value="basicas">
             <?php
                 $basico = 
                 [

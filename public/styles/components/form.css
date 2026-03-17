@@ -38,10 +38,15 @@
     margin-top: 1rem;
 }
 
-.form-group-editar-legenda-computadores
+.form-group-editar-legenda-computadores, .form-group-editar-hardware-e-patrimonio
 {
     display: grid;
     grid-template-columns: repeat(2, 2fr);
+}
+
+.form-group-editar-hardware-e-patrimonio
+{
+    gap: 1rem;
 }
 
 .form-actions {

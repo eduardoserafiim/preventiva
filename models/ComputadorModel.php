@@ -31,8 +31,8 @@ class ComputadorModel
                     ':imagem' => $data['id_imagem']
                 ]
             );
-
-            return true;
+        
+            return $this->db->lastInsertId();
         }
         catch (PDOException $e) 
         {
@@ -82,7 +82,7 @@ class ComputadorModel
         }
         catch (PDOException $e) 
         {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -141,6 +141,66 @@ class ComputadorModel
                     ]
                 );
             }
+            elseif ($tipo === 'editarLegenda')
+            {
+                $sql = 'UPDATE dispositivos_computadores
+                SET
+                    legenda_a = :legenda_a,
+                    legenda_b = :legenda_b,
+                    legenda_c = :legenda_c,
+                    legenda_d = :legenda_d,
+                    legenda_e = :legenda_e,
+                    legenda_f = :legenda_f,
+                    legenda_g = :legenda_g,
+                    legenda_h = :legenda_h,
+                    legenda_i = :legenda_i
+                WHERE id = :id';
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(
+                    [
+                        ':id'        => $data['id'],
+                        ':legenda_a' => $data['legenda_a'],
+                        ':legenda_b' => $data['legenda_b'],
+                        ':legenda_c' => $data['legenda_c'],
+                        ':legenda_d' => $data['legenda_d'],
+                        ':legenda_e' => $data['legenda_e'],
+                        ':legenda_f' => $data['legenda_f'],
+                        ':legenda_g' => $data['legenda_g'],
+                        ':legenda_h' => $data['legenda_h'],
+                        ':legenda_i' => $data['legenda_i']
+                    ]
+                );
+            }
+            elseif ($tipo === 'editarHardwarePatrimonio')
+            {
+                $sql = 'UPDATE dispositivos_computadores
+                SET
+                    processador         = :processador,
+                    memoria_ram         = :memoria_ram,
+                    armazenamento       = :armazenamento,
+                    sistema_operacional = :sistema_operacional,
+                    numero_serie        = :numero_serie,
+                    lacre               = :lacre,
+                    etiqueta_patrimonio = :etiqueta_patrimonio
+                WHERE id = :id';
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(
+                    [
+                        ':id' => $data['id'],
+                        ':processador' => $data['processador'],
+                        ':memoria_ram' => $data['memoria_ram'],
+                        ':armazenamento' => $data['armazenamento'],
+                        ':sistema_operacional' => $data['sistema_operacional'],
+                        ':numero_serie' => $data['numero_serie'],
+                        ':lacre' => $data['lacre'],
+                        ':etiqueta_patrimonio' => $data['etiqueta_patrimonio']
+                    ]
+                );
+            }
+
+            return true;
         }
         catch(PDOException $e)
         {

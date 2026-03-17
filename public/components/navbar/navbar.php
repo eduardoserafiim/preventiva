@@ -18,7 +18,7 @@ function navbar($active) {
             </div>
                 <ul class="sidebar-menu">
                     <li>
-                        <a href="login.php" class="menu-item ' . ($active === 'login' ? 'active' : '') . '">
+                        <a href="login" class="menu-item ' . ($active === 'login' ? 'active' : '') . '">
                             <i class="fas fa-sign-in-alt"></i>
                             <span>Login</span>
                         </a>
@@ -40,7 +40,7 @@ function navbar($active) {
         </div>
             <ul class="sidebar-menu">
                 <li>
-                    <a href="index.php" class="menu-item ' . ($active === 'menu' ? 'active' : '') . '">
+                    <a href="index" class="menu-item ' . ($active === 'menu' ? 'active' : '') . '">
                         <i class="fas fa-house"></i>
                         <span>Início</span>
                     </a>
@@ -52,37 +52,37 @@ function navbar($active) {
     if ($isAdmin) {
         $html .= '
                 <li>
-                    <a href="computadores.php" class="menu-item ' . ($active === 'computadores' ? 'active' : '') . '">
+                    <a href="computadores" class="menu-item ' . ($active === 'computadores' ? 'active' : '') . '">
                         <i class="fas fa-desktop"></i>
                         <span>Computadores</span>
                     </a>
                 </li>
                 <li>
-                    <a href="cameras.php" class="menu-item ' . ($active === 'cameras' ? 'active' : '') . '">
+                    <a href="cameras" class="menu-item ' . ($active === 'cameras' ? 'active' : '') . '">
                         <i class="fas fa-video"></i>
                         <span>CFTV</span>
                     </a>
                 </li>
                 <li>
-                    <a href="impressoras.php" class="menu-item ' . ($active === 'impressoras' ? 'active' : '') . '">
+                    <a href="impressoras" class="menu-item ' . ($active === 'impressoras' ? 'active' : '') . '">
                         <i class="fas fa-print"></i>
                         <span>Impressoras</span>
                     </a>
                 </li>
                 <li>
-                    <a href="preventiva.php" class="menu-item ' . ($active === 'preventiva' ? 'active' : '') . '">
+                    <a href="preventiva" class="menu-item ' . ($active === 'preventiva' ? 'active' : '') . '">
                         <i class="fas fa-clipboard-list"></i>
                         <span>Preventiva</span>
                     </a>
                 </li>
                 <li>
-                    <a href="usuarios.php" class="menu-item ' . ($active === 'usuarios' ? 'active' : '') . '">
+                    <a href="usuarios" class="menu-item ' . ($active === 'usuarios' ? 'active' : '') . '">
                         <i class="fas fa-user"></i>
                         <span>Usuários</span>
                     </a>
                 </li>
                 <li>
-                    <a href="setores.php" class="menu-item ' . ($active === 'setores' ? 'active' : '') . '">
+                    <a href="setores" class="menu-item ' . ($active === 'setores' ? 'active' : '') . '">
                         <i class="fas fa-building"></i>
                         <span>Setores</span>
                     </a>
@@ -93,25 +93,25 @@ function navbar($active) {
     else if ($isTI) {
         $html .= '
                 <li>
-                    <a href="computadores.php" class="menu-item ' . ($active === 'computadores' ? 'active' : '') . '">
+                    <a href="computadores" class="menu-item ' . ($active === 'computadores' ? 'active' : '') . '">
                         <i class="fas fa-desktop"></i>
                         <span>Computadores</span>
                     </a>
                 </li>
                 <li>
-                    <a href="cameras.php" class="menu-item ' . ($active === 'cameras' ? 'active' : '') . '">
+                    <a href="cameras" class="menu-item ' . ($active === 'cameras' ? 'active' : '') . '">
                         <i class="fas fa-video"></i>
                         <span>CFTV</span>
                     </a>
                 </li>
                 <li>
-                    <a href="impressoras.php" class="menu-item ' . ($active === 'impressoras' ? 'active' : '') . '">
+                    <a href="impressoras" class="menu-item ' . ($active === 'impressoras' ? 'active' : '') . '">
                         <i class="fas fa-print"></i>
                         <span>Impressoras</span>
                     </a>
                 </li>
                 <li>
-                    <a href="preventiva.php" class="menu-item ' . ($active === 'preventiva' ? 'active' : '') . '">
+                    <a href="preventiva" class="menu-item ' . ($active === 'preventiva' ? 'active' : '') . '">
                         <i class="fas fa-clipboard-list"></i>
                         <span>Preventiva</span>
                     </a>
@@ -122,7 +122,7 @@ function navbar($active) {
     else {
         $html .= '
                 <li>
-                    <a href="preventiva.php" class="menu-item ' . ($active === 'preventiva' ? 'active' : '') . '">
+                    <a href="preventiva" class="menu-item ' . ($active === 'preventiva' ? 'active' : '') . '">
                         <i class="fas fa-clipboard-list"></i>
                         <span>Preventiva</span>
                     </a>
@@ -131,7 +131,7 @@ function navbar($active) {
 
     $html .= '
                 <li>
-                    <a href="../controllers/EntrarController.php" class="menu-item" onclick="confirmarSaida(event)">
+                    <a href="../controllers/EntrarController" class="menu-item" onclick="confirmarSaida(event)">
                         <i class="fas fa-sign-out-alt"></i>
                         <span>Sair</span>
                     </a>

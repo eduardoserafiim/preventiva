@@ -1,6 +1,6 @@
 <?php 
 
-function getMensagemSession($tipo, $titulo, $texto, $view, $url='', $modelo='', $id='')
+function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data = '')
 {
     $_SESSION["mensagem"] =
     [
@@ -9,24 +9,41 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $url='', $modelo='', 
         'texto' => $texto
     ];
 
-    if(empty($url))
+    if (empty($view))
     {
-        header("Location: ../view/".$view);
+        header("Location: ../view/");
         exit();
     }
-    elseif ($titulo === 'Erro ao alterar senha!')
+    elseif ($view === 'login')
     {
-        header("Location: ../view/".$view."?url=alterarsenha&id=".$url);
+        header("Location: ../view/login");
         exit();
     }
-    elseif ($titulo === 'Erro ao criar!' or $titulo === 'Sucesso ao criar!')
+    elseif ($view === 'computadores')
     {
-        header("Location: ../view/".$view."?url=".$url."&tipo=".$modelo."&id=".$id);
-        exit();
+        if ($execucao === 'editarComputador')
+        {
+            header("Location: ../view/computadores?url=editar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=computador". "&informacoes=" . urlencode($data['informacoes']));
+            exit();
+        }
+        elseif ($execucao === 'criarComputador')
+        {
+            header("Location: ../view/computadores?url=criar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=computador". "&informacoes=" . urlencode($data['informacoes']));
+            exit();
+        }
+        elseif ($execucao === 'visualizarComputador')
+        {
+            header("Location: ../view/computadores?url=visualizar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=computador");
+            exit();   
+        }
+        else
+        {
+            header("Location: ../view/computadores");
+            exit();   
+        }
     }
-    else
+    elseif ($view === 'cameras')
     {
-        header("Location: ../view/".$view. "?url=" . rawurlencode($url));
-        exit();
+        
     }
 }

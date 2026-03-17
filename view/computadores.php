@@ -2,7 +2,7 @@
 // VERIFICAÇÃO LOGIN
 session_start();
 if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
+    header("Location: login");
     exit;
 }
 
@@ -10,7 +10,7 @@ if (!isset($_SESSION['usuario'])) {
 <?php
 if ($_SESSION['privilegio'] != 'administrador' && $_SESSION['privilegio'] != 'TI')
 {
-    header("Location: index.php");
+    header("Location: index");
     exit;
 }
 ?>
@@ -34,7 +34,6 @@ require_once "../public/components/dragAreaImagens/dragArea.php";
 // FORMS
 require_once '../public/components/form/computadores/formGridCriar.php';
 require_once '../public/components/form/computadores/formGridEditar.php';
-require_once '../public/components/form/computadores/formLegenda.php';
 require_once '../public/components/form/computadores/formActions.php';
 
 ?>
@@ -78,17 +77,19 @@ $computadorEspecifico = $modelComputador->listar($id);
                     </div>
                 </div>
                 <div class="voltar">
-                    <?= voltar('computadores.php') ?>
+                    <?= voltar('computadores') ?>
                 </div>
                 <div class="controleForm">
                     <div class="form-escolher-editar">
-                        <a class="form-escolher <?= $informacoes === 'basicas' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">Básico</a>
-                        <a class="form-escolher <?= $informacoes === 'legenda' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=legenda">Legenda</a>
-                        <a class="form-escolher <?= $informacoes === 'hardware-e-patrimonio' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">Hardware e Patrimônio</a>
+                        <a class="form-escolher <?= $informacoes === 'basicas' ? 'selecionado' : '' ?>" href="computadores?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">Básico</a>
+                        <a class="form-escolher <?= $informacoes === 'legenda' ? 'selecionado' : '' ?>" href="computadores?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=legenda">Legenda</a>
+                        <a class="form-escolher <?= $informacoes === 'hardware-e-patrimonio' ? 'selecionado' : '' ?>" href="computadores?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">Hardware e Patrimônio</a>
                     </div>
                     <div class="form-container form-container-editar-computador">
-                        <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
-                        <?= formActions() ?>
+                        <form action="../controllers/ComputadoresController.php" method="POST">
+                            <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
+                            <?= formActions() ?>
+                        </form>
                     </div>
                 </div>
             <?php elseif($url === 'editar' && $tipo === 'computador' && $informacoes === 'legenda'): ?>
@@ -100,21 +101,23 @@ $computadorEspecifico = $modelComputador->listar($id);
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Computadores</h1>
-                        <p>Editar Computador - Informações de Legenda</p>
+                        <p>Editar Computador - <strong>Informações de Legenda</strong></p>
                     </div>
                 </div>
                 <div class="voltar">
-                    <?= voltar('computadores.php') ?>
+                    <?= voltar('computadores') ?>
                 </div>
                 <div class="controleForm">
                     <div class="form-escolher-editar">
-                        <a class="form-escolher <?= $informacoes === 'basicas' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">Básico</a>
-                        <a class="form-escolher <?= $informacoes === 'legenda' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=legenda">Legenda</a>
-                        <a class="form-escolher <?= $informacoes === 'hardware-e-patrimonio' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">Hardware e Patrimônio</a>
+                        <a class="form-escolher <?= $informacoes === 'basicas' ? 'selecionado' : '' ?>" href="computadores?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">Básico</a>
+                        <a class="form-escolher <?= $informacoes === 'legenda' ? 'selecionado' : '' ?>" href="computadores?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=legenda">Legenda</a>
+                        <a class="form-escolher <?= $informacoes === 'hardware-e-patrimonio' ? 'selecionado' : '' ?>" href="computadores?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">Hardware e Patrimônio</a>
                     </div>
                     <div class="form-container form-container-editar-computador">
-                        <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
-                        <?= formActions() ?>
+                        <form action="../controllers/ComputadoresController.php" method="POST">
+                            <?= formGridEditarComputador($computadorEspecifico, $informacoes) ?>
+                            <?= formActions() ?>
+                        </form>
                     </div>
                 </div>
             <?php elseif($url === 'editar' && $tipo === 'computador' && $informacoes === 'basicas'): ?>
@@ -130,13 +133,13 @@ $computadorEspecifico = $modelComputador->listar($id);
                     </div>
                 </div>
                 <div class="voltar">
-                    <?= voltar('computadores.php') ?>
+                    <?= voltar('computadores') ?>
                 </div>
                 <div class="controleForm">
                     <div class="form-escolher-editar">
-                        <a class="form-escolher <?= $informacoes === 'basicas' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">Básico</a>
-                        <a class="form-escolher <?= $informacoes === 'legenda' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=legenda">Legenda</a>
-                        <a class="form-escolher <?= $informacoes === 'hardware-e-patrimonio' ? 'selecionado' : '' ?>" href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">Hardware e Patrimônio</a>
+                        <a class="form-escolher <?= $informacoes === 'basicas' ? 'selecionado' : '' ?>" href="computadores?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">Básico</a>
+                        <a class="form-escolher <?= $informacoes === 'legenda' ? 'selecionado' : '' ?>" href="computadores?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=legenda">Legenda</a>
+                        <a class="form-escolher <?= $informacoes === 'hardware-e-patrimonio' ? 'selecionado' : '' ?>" href="computadores?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=hardware-e-patrimonio">Hardware e Patrimônio</a>
                     </div>
                     <div class="form-container form-container-editar-computador">
                         <form action="../controllers/ComputadoresController.php" method="POST" enctype="multipart/form-data">
@@ -153,7 +156,7 @@ $computadorEspecifico = $modelComputador->listar($id);
                     </div>
                 </div>
                 <div class="voltar">
-                    <?= voltar('computadores.php') ?>
+                    <?= voltar('computadores') ?>
                 </div>
                 <div class="computadores">
                     <?= criarComputadorCardEspecifico($computadorEspecifico) ?>
@@ -166,7 +169,7 @@ $computadorEspecifico = $modelComputador->listar($id);
                     </div>
                 </div>
                 <div class="voltar">
-                    <?= voltar('computadores.php') ?>
+                    <?= voltar('computadores') ?>
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
@@ -183,7 +186,7 @@ $computadorEspecifico = $modelComputador->listar($id);
                         <p>Gestão e levantamento de computadores</p>
                     </div>
                     <div class="page-criar-computadores">
-                        <?= criarComputador('Registrar PC',"computadores.php?url=criar&token={$_SESSION['token']}&tipo=computador&informacoes=basicas") ?>
+                        <?= criarComputador('Registrar PC',"computadores?url=criar&token={$_SESSION['token']}&tipo=computador&informacoes=basicas") ?>
                     </div>
                 </div>
                 <div class="computadores">

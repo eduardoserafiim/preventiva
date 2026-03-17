@@ -51,12 +51,12 @@ function criarComputadorCard($computador)
                 </div>
                 <div class="opcoesComputador">
                     <div class="configuracoesComputador">
-                        <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">
+                        <a href="computadores?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
                     <div class="visualizacaoComputador">
-                        <a href="computadores.php?url=visualizar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador">
+                        <a href="computadores?url=visualizar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador">
                             <i class="fas fa-icon fa-solid fa-eye fa-xl"></i>
                         </a>
                     </div>
