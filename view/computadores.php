@@ -186,7 +186,7 @@ $computadorEspecifico = $modelComputador->listarComputador($id);
                         <h1>Computadores</h1>
                         <p>Gestão e levantamento de computadores</p>
                     </div>
-                    <div class="page-criar-computadores">
+                    <div class="page-criar-computador">
                         <?= criarComputador('Registrar PC',"computadores?url=criar&token={$_SESSION['token']}&tipo=computador&informacoes=basicas") ?>
                     </div>
                 </div>

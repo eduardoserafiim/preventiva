@@ -62,10 +62,8 @@
     align-items: center;
 }
 
-.page-criar-dvr
+.page-criar-dvr, .page-criar-computador
 {
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-wrap: nowrap;
 }
