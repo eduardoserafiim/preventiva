@@ -46,7 +46,9 @@ CREATE TABLE dispositivos_computadores(
 	legenda_i boolean default 0,
 	responsavel_cadastro varchar(30) not NULL,
 	responsavel_uso varchar(30) not NULL,
+	responsavel_edicao varchar(30),
 	data_cadastro datetime not NULL,
+	data_edicao datetime,
 	id_imagem int,
 	id_unidade int not NULL,
 	foreign key (id_imagem)

@@ -98,20 +98,25 @@ class ComputadorModel
                     modelo          = :modelo,
                     endereco_ip     = :endereco_ip,
                     endereco_mac    = :endereco_mac,
-                    responsavel_uso = :responsavel_uso,
-                    status = :status
+                    responsavel_edicao = :responsavel_edicao,
+                    status          = :status,
+                    data_edicao     = NOW(),
+                    id_imagem       = :id_imagem,
+                    id_unidade      = :id_unidade
                 WHERE id = :id';
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute(
                     [
-                        ':nome'             => $data['nome'],
-                        ':modelo'           => $data['modelo'],
-                        ':endereco_ip'      => $data['endereco_ip'],
-                        ':endereco_mac'     => $data['endereco_mac'],
-                        ':responsavel_uso'  => $data['responsavel_uso'],
-                        ':status'           => $data['status'],
-                        ':id'               => $data['id']
+                        ':nome'                 => $data['nome'],
+                        ':modelo'               => $data['modelo'],
+                        ':endereco_ip'          => $data['endereco_ip'],
+                        ':endereco_mac'         => $data['endereco_mac'],
+                        ':responsavel_edicao'   => $data['responsavel_alteracao'],
+                        ':status'               => $data['status'],
+                        ':id_imagem'            => $data['id_imagem'],
+                        ':id_unidade'           => $data['id_unidade'],
+                        ':id'                   => $data['id']
                     ]
                 );
             }
@@ -127,7 +132,9 @@ class ComputadorModel
                     legenda_f = :legenda_f,
                     legenda_g = :legenda_g,
                     legenda_h = :legenda_h,
-                    legenda_i = :legenda_i
+                    legenda_i = :legenda_i,
+                    data_edicao         = NOW(),
+                    responsavel_edicao  = :responsavel_edicao
                 WHERE id = :id';
 
                 $stmt = $this->db->prepare($sql);
@@ -142,7 +149,8 @@ class ComputadorModel
                         ':legenda_f' => $data['legenda_f'],
                         ':legenda_g' => $data['legenda_g'],
                         ':legenda_h' => $data['legenda_h'],
-                        ':legenda_i' => $data['legenda_i']
+                        ':legenda_i' => $data['legenda_i'],
+                        ':responsavel_edicao' => $data['responsavel_alteracao']
                     ]
                 );
             }
@@ -156,20 +164,23 @@ class ComputadorModel
                     sistema_operacional = :sistema_operacional,
                     numero_serie        = :numero_serie,
                     lacre               = :lacre,
-                    etiqueta_patrimonio = :etiqueta_patrimonio
+                    etiqueta_patrimonio = :etiqueta_patrimonio,
+                    data_edicao         = NOW(),
+                    responsavel_edicao  = :responsavel_edicao
                 WHERE id = :id';
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute(
                     [
-                        ':id' => $data['id'],
-                        ':processador' => $data['processador'],
-                        ':memoria_ram' => $data['memoria_ram'],
-                        ':armazenamento' => $data['armazenamento'],
-                        ':sistema_operacional' => $data['sistema_operacional'],
-                        ':numero_serie' => $data['numero_serie'],
-                        ':lacre' => $data['lacre'],
-                        ':etiqueta_patrimonio' => $data['etiqueta_patrimonio']
+                        ':id'                   => $data['id'],
+                        ':processador'          => $data['processador'],
+                        ':memoria_ram'          => $data['memoria_ram'],
+                        ':armazenamento'        => $data['armazenamento'],
+                        ':sistema_operacional'  => $data['sistema_operacional'],
+                        ':numero_serie'         => $data['numero_serie'],
+                        ':lacre'                => $data['lacre'],
+                        ':etiqueta_patrimonio'  => $data['etiqueta_patrimonio'],
+                        ':responsavel_edicao'   => $data['responsavel_alteracao']
                     ]
                 );
             }

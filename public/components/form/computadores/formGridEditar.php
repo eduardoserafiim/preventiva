@@ -4,7 +4,7 @@ function formGridEditarComputador($computador, $tipoEditar){
     <div class="form-grid form-grid-editar-computadores">
         <input type="hidden" name="acao" value="editarComputador"> 
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>"> 
-        <input type="hidden" name="responsavel_editar" value="<?= $_SESSION['nome'] ?>">
+        <input type="hidden" name="responsavel_alteracao" value="<?= $_SESSION['nome'] ?>">
         <input type="hidden" name="id" value="<?= $computador['id'] ?>">
 
         <?php if ($tipoEditar === 'hardware-e-patrimonio'): ?>
@@ -172,7 +172,7 @@ function formGridEditarComputador($computador, $tipoEditar){
                 <!-- UNIDADE -->
                 <div class="form-group">
                     <label for="select-unidade">Unidade</label>
-                    <select id="select-unidade" name="unidade" required>
+                    <select id="select-unidade" name="id_unidade" required>
                         <option value="" disabled selected>Selecione...</option>
                         <?php if($_SESSION['unidade'] == 'HAP - UC') : ?>  
                             <option value="1" selected>HAP - UC</option>

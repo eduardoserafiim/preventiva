@@ -4,7 +4,7 @@ function criarCardCameraDetalhada($camera, $dvr)
 { ?>
     <div class="cardCamera">
         <div class="imagemCamera">
-            <img src="../upload/cameras/dafault-camera.jpg" alt="camera.jpg">
+            <img src="../upload/cameras/default-camera.png" alt="camera">
         </div>
         <div class="conteudoCameraEspecifico">
             <div class="topoInformacoesCamera">
@@ -40,7 +40,7 @@ function criarCardCameraDetalhada($camera, $dvr)
                 </div>
                 <div class="opcoesCamera">
                     <div class="configuracoesCamera">
-                        <a href="cameras.php?url=editar&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvr['id'] ?>">
+                        <a href="cameras?url=editar&token=<?= $_SESSION['token'] ?>&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvr['id'] ?>">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>

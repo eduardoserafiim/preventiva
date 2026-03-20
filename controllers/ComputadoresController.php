@@ -112,8 +112,9 @@ class ComputadorController
                 $endereco_ip            = trim($_POST['endereco_ip']);
                 $endereco_mac           = trim($_POST['endereco_mac']);
                 $responsavel_uso        = trim($_POST['responsavel_uso']);
-                $responsavel_cadastro   = trim($_POST['responsavel_cadastro']);
+                $responsavel_alteracao  = trim($_POST['responsavel_alteracao']) ;
                 $status                 = trim($_POST['status']);
+                $id_unidade             = intval($_POST['id_unidade']);
     
                 $idImagemNovo = null;
                 $idImagemAntiga = $_POST['id_imagem_antiga'];
@@ -128,8 +129,9 @@ class ComputadorController
                     'endereco_ip'           => $endereco_ip,
                     'endereco_mac'          => $endereco_mac,
                     'responsavel_uso'       => $responsavel_uso,
-                    'responsavel_cadastro'  => $responsavel_cadastro,
+                    'responsavel_alteracao' => $responsavel_alteracao,
                     'status'                => $status,
+                    'id_unidade'            => $id_unidade,
                     'id'                    => $id
                 ];
                 
@@ -173,10 +175,12 @@ class ComputadorController
                 $legenda_g = isset($_POST['input-oem-windows']) ? 1 : 0;
                 $legenda_h = isset($_POST['input-etiqueta']) ? 1 : 0;
                 $legenda_i = isset($_POST['input-licenca-server']) ? 1 : 0;
+                $responsavel_alteracao  = trim($_POST['responsavel_alteracao']);
 
                 $data =
                 [
-                    'id'        => $id,
+                    'id'                    => $id,
+                    'responsavel_alteracao' => $responsavel_alteracao,
                     'legenda_a' => $legenda_a ?? 0,
                     'legenda_b' => $legenda_b ?? 0,
                     'legenda_c' => $legenda_c ?? 0,
@@ -213,17 +217,19 @@ class ComputadorController
                 $numero_serie = trim($_POST['numero-serie']);
                 $lacre = trim($_POST['lacre']);
                 $etiqueta_patrimonio = trim($_POST['etiqueta-patrimonio']);
+                $responsavel_alteracao  = trim($_POST['responsavel_alteracao']);
 
                 $data =
                 [
-                    'id'                  => $id,
-                    'processador'         => $processador,
-                    'memoria_ram'         => $memoria_ram,
-                    'armazenamento'       => $armazenamento,
-                    'sistema_operacional' => $sistema_operacional,
-                    'numero_serie'        => $numero_serie,
-                    'lacre'               => $lacre,
-                    'etiqueta_patrimonio' => $etiqueta_patrimonio
+                    'id'                    => $id,
+                    'processador'           => $processador,
+                    'memoria_ram'           => $memoria_ram,
+                    'armazenamento'         => $armazenamento,
+                    'sistema_operacional'   => $sistema_operacional,
+                    'numero_serie'          => $numero_serie,
+                    'lacre'                 => $lacre,
+                    'etiqueta_patrimonio'   => $etiqueta_patrimonio,
+                    'responsavel_alteracao' => $responsavel_alteracao
                 ];
 
                 $modelRes = $modelComputadores->editarComputador($data, $edicao);

@@ -15,6 +15,9 @@ create table dispositivos_dvrs
 	semestre varchar(17),
 	chamado_manutencao varchar(30),
 	tecnico_responsavel varchar(30) not null,
+	responsavel_edicao varchar(30),
+	data_criacao datetime not null,
+	data_edicao datetime,
 	id_imagem int,
 	id_unidade int not null,
 	foreign key (id_imagem)

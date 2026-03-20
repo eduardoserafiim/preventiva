@@ -33,12 +33,20 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                                 <p>MAC</p>
                                 <h4 class="macDVR"><?= $dvrEspecifico['mac'] ?></h4>
                             </div>
+                            <div class="unidadeDVRDetalhado">
+                                <p>Unidade</p>
+                                <h4 class="unidadeDVR"><?= $dvrEspecifico['nome_unidade'] ?></h4>
+                            </div>
+                            <div class="responsavelDVRDetalhado">
+                                <p>Responsável</p>
+                                <h4 class="responsavelDVR"><?= $dvrEspecifico['tecnico_responsavel'] ?></h4>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="opcoesDVR">
                     <div class="configuracoesDVR">
-                        <a href="cameras.php?url=editar&tipo=dvr&id=<?= $dvrEspecifico['id'] ?>">
+                        <a href="cameras?url=editar&token=<?= $_SESSION['token'] ?>&tipo=dvr&id=<?= $dvrEspecifico['id'] ?>">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
@@ -47,6 +55,7 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                             <input type="hidden" value="<?= $dvrEspecifico['id'] ?>" name="id">
                             <input type="hidden" value="excluirDVR" name="acao">
                             <input type="hidden" value="<?= $_SESSION['token'] ?>" name="token">
+                            <input type="hidden" value="<?= $_SESSION['nome'] ?>" name="responsavel">
                             <button style="background-color: inherit; border: none; color: red;" type="submit" onclick="confirmarExclusao(event)">
                                 <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
                             </button>
@@ -69,11 +78,11 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                         <?php if ($quantidadeCanais <= $dvrEspecifico['canais']): ?>
                             <?php if (isset($canaisOcupados[$quantidadeCanais])): ?>
                                 <?php $camera = $canaisOcupados[$quantidadeCanais]; ?>
-                                <a href="cameras.php?url=visualizar&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvrEspecifico['id'] ?>" class="canalOcupado" title="Canal <?= $quantidadeCanais ?> ocupado - Status: <?= htmlspecialchars($camera['status']) ?>">
+                                <a href="cameras?url=visualizar&token=<?= $_SESSION['token'] ?>&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvrEspecifico['id'] ?>" class="canalOcupado" title="Canal <?= $quantidadeCanais ?> ocupado - Status: <?= htmlspecialchars($camera['status']) ?>">
                                     <?= htmlspecialchars($camera['status']) ?>
                                 </a>
                             <?php else: ?>
-                                <a href="cameras.php?url=criar&tipo=camera&id=<?= $quantidadeCanais ?>&idDVR=<?= $dvrEspecifico['id'] ?>" class="canalDisponivel verde" title="Canal <?= $quantidadeCanais ?> disponível">
+                                <a href="cameras?url=criar&token=<?= $_SESSION['token'] ?>&tipo=camera&id=<?= $quantidadeCanais ?>&idDVR=<?= $dvrEspecifico['id'] ?>" class="canalDisponivel verde" title="Canal <?= $quantidadeCanais ?> disponível">
                                 </a>
                             <?php endif; ?>
                         <?php else: ?>
@@ -101,6 +110,7 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                                         <input type="hidden" name="acao" value="criarHorario">
                                         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
                                         <input type="hidden" name="id" value="<?= $dvrEspecifico['id'] ?>">
+                                        <input type="hidden" value="<?= $_SESSION['nome'] ?>" name="responsavel">
                                         <input type="hidden" name="informacoes" value="basicas">
                                         <select name="horario" id="select-horario">
                                             <option value="" disabled selected>Selecione...</option>
@@ -138,6 +148,7 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                                     <div class="flex">
                                         <input type="hidden" name="acao" value="criarManutencao">
                                         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                        <input type="hidden" value="<?= $_SESSION['nome'] ?>" name="responsavel">
                                         <input type="hidden" name="id" value="<?= $dvrEspecifico['id'] ?>">
                                         <input type="hidden" name="informacoes" value="basicas">
                                         <input type="text" name="manutencao" placeholder="Digite...">
@@ -171,6 +182,7 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                                     <div class="flex">
                                         <input type="hidden" name="acao" value="criarSemestre">
                                         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                        <input type="hidden" value="<?= $_SESSION['nome'] ?>" name="responsavel">
                                         <input type="hidden" name="id" value="<?= $dvrEspecifico['id'] ?>">
                                         <input type="hidden" name="informacoes" value="basicas">
                                         <select name="semestre" id="select-semestre">
@@ -193,10 +205,27 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                     </div>
                 </div>
                 <div class="informacoesResponsavel">
-                    <div class="responsavel">
-                        <p>Técnico Responsável</p>
-                        <h4><?= $dvrEspecifico['tecnico_responsavel'] ?></h4>
-                        <hr>
+                    <?php
+                        $timestp = strtotime($dvrEspecifico['data_criacao']);
+                        $dataBr = date('d/m/Y H:i:s', $timestp);
+
+                        if(!empty($dvrEspecifico['data_edicao']))
+                        {
+                            $timestpAlteracao = strtotime($dvrEspecifico['data_edicao']);
+                            $dataBrAlteracao = date('d/m/Y H:i:s', $timestpAlteracao);
+                        }
+                    ?>
+                    <div class="dataCadastro">
+                        <p>Data Cadastro</p>
+                        <h4><?= $dataBr ?></h4>
+                    </div>
+                    <div class="responsavelAlteracao">
+                        <p>Responsável da Última Alteração</p>
+                        <h4><?= $dvrEspecifico['responsavel_edicao'] ?? 'Ainda não houve edição.' ?></h4>
+                    </div>
+                    <div class="dataAlterecao">
+                        <p>Data da Última Alteração</p>
+                        <h4><?= !empty($dataBrAlteracao) ? $dataBrAlteracao : 'Ainda não houve edição.' ?></h4>
                     </div>
                 </div>
             </div>

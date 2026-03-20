@@ -117,10 +117,12 @@ class DVRController
             $modelDVR = new DVRModel();
             
             $horario = trim($_POST['horario']);
+            $responsavel = trim($_POST['responsavel']);
 
             $data = 
             [
                 'horario' => $horario,
+                'responsavel_edicao' => $responsavel,
                 'id'       => $id
             ];
 
@@ -160,10 +162,13 @@ class DVRController
             $modelDVR = new DVRModel();
 
             $manutencao = trim($_POST['manutencao']);
+            $responsavel = trim($_POST['responsavel']);
+
 
             $data =
             [
                 'manutencao' => $manutencao,
+                'responsavel_edicao' => $responsavel,
                 'id'         => $id
             ];  
 
@@ -203,10 +208,12 @@ class DVRController
             $modelDVR = new DVRModel();
 
             $semestre = trim($_POST['semestre']);
+            $responsavel = trim($_POST['responsavel']);
 
             $data =
             [
                 'semestre' => $semestre,
+                'responsavel_edicao' => $responsavel,
                 'id'       => $id
             ];
 
@@ -233,6 +240,7 @@ class DVRController
         $token       = trim($_POST['token']);
         $informacoes = trim($_POST['informacoes']);
         $id          = intval($_POST['id']);
+        $responsavel = trim($_POST['responsavel']);
 
 
         $dataUrl =
@@ -268,6 +276,7 @@ class DVRController
                 'modelo'         => $modelo,
                 'ip'             => $ip,
                 'mac'            => $mac,
+                'responsavel_edicao' => $responsavel,
                 'id'             => $id
             ];
             

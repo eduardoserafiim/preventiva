@@ -24,6 +24,7 @@ require_once "../public/components/navbar/navbar.php";
 require_once "../public/components/bar/bar.php";
 require_once "../public/components/warning.php";
 require_once "../public/components/voltar.php";
+require_once "../public/components/search.php";
 
 require_once "../public/components/cameras/dvrRegistrar.php";
 require_once "../public/components/cameras/dvrCard.php";
@@ -182,6 +183,9 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                     <div class="page-criar-dvr">
                         <?= criarDVR('Registar DVR', 'cameras?url=criar&token='. $_SESSION["token"] .'&tipo=dvr&informacoes=basicas') ?>
                     </div>
+                </div>
+                <div class="search">
+                    <?= search('search-input', 'dvrs', 'dvrs') ?>
                 </div>
                 <?= criarLegenda() ?>
                 <div class="cameras">

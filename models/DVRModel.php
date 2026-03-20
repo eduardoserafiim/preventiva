@@ -17,8 +17,8 @@ class DVRModel
         {
             if(!empty($data['ano']))
             {
-                $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, id_imagem, id_unidade)
-                VALUES (?,?,?,?,?,?,?,?,?,?)';
+                $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, data_criacao, id_imagem, id_unidade)
+                VALUES (?,?,?,?,?,?,?,?,NOW(),?,?)';
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute(
                     [
@@ -37,8 +37,8 @@ class DVRModel
             }
             else
             {
-                $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, id_imagem, id_unidade)
-                VALUES (?,?,?,YEAR(NOW()),?,?,?,?,?,?)';
+                $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, data_criacao, id_imagem, id_unidade)
+                VALUES (?,?,?,YEAR(NOW()),?,?,?,?,NOW(),?,?)';
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute(
                     [
@@ -68,13 +68,17 @@ class DVRModel
         try
         {
             $sql = 'UPDATE dispositivos_dvrs
-            SET horario = ?
+            SET 
+                horario = ?,
+                responsavel_edicao = ?,
+                data_edicao = NOW() 
             WHERE id = ?';
             
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
                     $data['horario'],
+                    $data['responsavel_edicao'],
                     $data['id']
                 ]
             );    
@@ -92,12 +96,16 @@ class DVRModel
         try
         {
             $sql = 'UPDATE dispositivos_dvrs
-            SET chamado_manutencao = ?
+            SET 
+                chamado_manutencao = ?,
+                responsavel_edicao = ?,
+                data_edicao = NOW() 
             WHERE id = ?';
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
                     $data['manutencao'],
+                    $data['responsavel_edicao'],
                     $data['id']
                 ]
             );
@@ -115,12 +123,16 @@ class DVRModel
         try
         {
             $sql = 'UPDATE dispositivos_dvrs
-            SET semestre = ?
+            SET
+                semestre = ?,
+                responsavel_edicao = ?,
+                data_edicao = NOW() 
             WHERE id = ?';
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
                     $data['semestre'],
+                    $data['responsavel_edicao'],
                     $data['id']
                 ]
             );
@@ -188,6 +200,8 @@ class DVRModel
                 ip          = :ip,
                 mac         = :mac,
                 canais      = :canais,
+                data_edicao = NOW(),
+                responsavel_edicao = :responsavel_edicao,
                 id_imagem   = :id_imagem,
                 id_unidade  = :id_unidade
             WHERE id = :id';
@@ -201,6 +215,7 @@ class DVRModel
                     ':ip'           => $data['ip'],
                     ':mac'          => $data['mac'],
                     ':canais'       => $data['canais'],
+                    ':responsavel_edicao' => $data['responsavel_edicao'],
                     ':id_imagem'    => $data['id_imagem'],
                     ':id_unidade'   => $data['id_unidade'],
                     ':id'           => $data['id']

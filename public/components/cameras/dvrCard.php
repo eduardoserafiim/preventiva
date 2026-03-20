@@ -1,6 +1,6 @@
 <?php 
 function criarCardDVR($dvr, $modelDVRCameras){ ?>
-    <div class="cardDVR">
+    <div class="cardDVR" data-nome="<?= $dvr['nome'] ?>" data-endereco-ip="<?= $dvr['ip'] ?>" data-endereco-mac="<?= $dvr['mac'] ?>">
         <div class="imagemDVR">
             <img src="../upload/dvrs/<?= $dvr['nome_imagem'] ?? 'default-dvr.png' ?>" alt="Algo está errado.">
         </div>
@@ -36,6 +36,10 @@ function criarCardDVR($dvr, $modelDVRCameras){ ?>
                             <div class="unidadeDVRDetalhado">
                                 <p>Unidade</p>
                                 <h4 class="macDVR"><?= $dvr['nome_unidade'] ?></h4>
+                            </div>
+                            <div class="responsavelDVRDetalhado">
+                                <p>Responsável</p>
+                                <h4 class="responsavelDVR"><?= $dvr['tecnico_responsavel'] ?></h4>
                             </div>
                         </div>
                     </div>
@@ -102,7 +106,7 @@ function criarCardDVR($dvr, $modelDVRCameras){ ?>
                                     <?= htmlspecialchars($camera['status']) ?>
                                 </a>
                             <?php else: ?>
-                                <a href="cameras?url=criar&tipo=camera&id=<?= $quantidadeCanais ?>&idDVR=<?= $dvr['id'] ?>" class="canalDisponivel verde" title="Canal <?= $quantidadeCanais ?> disponível">
+                                <a href="cameras?url=criar&token=<?= $_SESSION['token'] ?>&tipo=camera&id=<?= $quantidadeCanais ?>&idDVR=<?= $dvr['id'] ?>" class="canalDisponivel verde" title="Canal <?= $quantidadeCanais ?> disponível">
                                 </a>
                             <?php endif; ?>
                         <?php else: ?>

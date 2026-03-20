@@ -1,7 +1,7 @@
 .informacoesLegenda
 {
     display: flex;
-    margin-bottom: 2rem;
+    margin: 2rem 0 2rem 0;
 }
 
 .informacoesLegenda button
@@ -47,10 +47,8 @@
     transform: translate(-50%, -55%);
     background: #fff;
     border-radius: 8px;
-
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
-
     z-index: 20;
     padding: 1rem;
     max-height: 80vh;

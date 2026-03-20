@@ -138,12 +138,22 @@ function criarComputadorCardEspecifico($computador)
                 </div>
                 <div class="detalhesHorarioComputador">
                     <?php
-                            $timestp = strtotime($computador['data_cadastro']);
-                            $dataBr = date('d/m/Y h:i:s', $timestp);
+                        $timestp = strtotime($computador['data_cadastro']);
+                        $dataBr = date('d/m/Y H:i:s', $timestp);
+
+                        if(!empty($computador['data_edicao']))
+                        {
+                            $timestpAlteracao = strtotime($computador['data_edicao']);
+                            $dataBrAlteracao = date('d/m/Y H:i:s', $timestpAlteracao);
+                        }
                     ?>
                     <div class="DataCadastroDetalhe">
                         <p>Data Cadastro</p>
-                        <h4 class="etiquetaDePatrimonioComputador"><?= $dataBr ?></h4>
+                        <h4 class="dataCadastroComputador"><?= $dataBr ?></h4>
+                        <p>Data da Última Alteração</p>
+                        <h4 class="dataEdicaoComputador"><?= !empty($dataBrAlteracao) ? $dataBrAlteracao : 'Ainda não houve edição.' ?></h4>
+                        <p>Responsável da Última Alteração</p>
+                        <h4 class="dataEdicaoComputador"><?= $computador['responsavel_edicao'] ?? 'Ainda não houve edição.' ?></h4>
                     </div>   
                 </div>
             </div>
