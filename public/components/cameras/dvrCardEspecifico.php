@@ -2,7 +2,7 @@
 function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
     <div class="cardDVR">
         <div class="imagemDVR">
-            <img src="../upload/dvrs/<?= $dvrEspecifico['nome_imagem'] ?>" alt="Algo está errado.">
+            <img src="../upload/dvrs/<?= !empty($dvrEspecifico['nome_imagem']) ? $dvrEspecifico['nome_imagem'] : 'default-dvr.png' ?>" alt="Algo está errado.">
         </div>
         <div class="conteudoDVREspecifico">
             <div class="topoInformacoesDVR">
@@ -101,6 +101,7 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                                         <input type="hidden" name="acao" value="criarHorario">
                                         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
                                         <input type="hidden" name="id" value="<?= $dvrEspecifico['id'] ?>">
+                                        <input type="hidden" name="informacoes" value="basicas">
                                         <select name="horario" id="select-horario">
                                             <option value="" disabled selected>Selecione...</option>
                                             <option value="*">*</option>
@@ -138,6 +139,7 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                                         <input type="hidden" name="acao" value="criarManutencao">
                                         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
                                         <input type="hidden" name="id" value="<?= $dvrEspecifico['id'] ?>">
+                                        <input type="hidden" name="informacoes" value="basicas">
                                         <input type="text" name="manutencao" placeholder="Digite...">
                                         <div class="opcoesMiniMenu">
                                             <button type="submit" style="border: none; background-color: inherit">
@@ -170,6 +172,7 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                                         <input type="hidden" name="acao" value="criarSemestre">
                                         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
                                         <input type="hidden" name="id" value="<?= $dvrEspecifico['id'] ?>">
+                                        <input type="hidden" name="informacoes" value="basicas">
                                         <select name="semestre" id="select-semestre">
                                             <option value="" disabled selected>Selecione...</option>
                                             <option value="1° Semestre">1° Semestre</option>

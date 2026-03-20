@@ -3,7 +3,7 @@ function criarComputadorCardEspecifico($computador)
 { ?>
     <div class="cardComputador">
         <div class="imagemComputador">
-            <img src="../upload/computadores/<?= $computador['nome_imagem'] ?>" alt="Algo está errado.">
+            <img src="../upload/computadores/<?= !empty($computador['nome_imagem']) ? $computador['nome_imagem'] : 'default-computador.png' ?>" alt="Algo está errado.">
         </div>
         <div class="conteudoComputador">
             <div class="topoInformacoesComputador">

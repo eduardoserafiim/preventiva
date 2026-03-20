@@ -20,301 +20,322 @@ class DVRController
 {
     public function criarDVR()
     {
+        $token = $_POST['token'];
+
         try
         {
             $modelDVR = new DVRModel();
 
-            $acao = trim($_POST['acao']);
             $copiarDVR = trim($_POST['copiar'] ?? '');
 
-            if ($acao === 'criarDVR')
+            $unidade        = $_POST['id_unidade'];
+            $canais         = $_POST['canais'];
+            $nome           = $_POST['nome'];
+            $marca          = $_POST['marca'];
+            $modelo         = $_POST['modelo'];
+            $ip             = $_POST['ip'];
+            $mac            = $_POST['mac'];
+            $ano            = '';
+            $responsavel    = $_POST['tecnico_responsavel'];
+
+            $idImagemNovo = null;
+
+
+            $idImagemAntiga = $_POST['imagem_antiga'] ?? '';
+
+            $pasta = realpath(__DIR__ . '/../upload/dvrs');
+
+            $data =
+            [
+                'id_unidade'     => $unidade,
+                'canais'         => $canais,
+                'nome'           => $nome,
+                'marca'          => $marca,
+                'modelo'         => $modelo,
+                'ip'             => $ip,
+                'mac'            => $mac,
+                'responsavel'    => $responsavel,
+                'ano'            => $ano
+            ];
+
+            if($copiarDVR === 'copiarDVR')
             {
-                $unidade        = $_POST['id_unidade'];
-                $canais         = $_POST['canais'];
-                $nome           = $_POST['nome'];
-                $marca          = $_POST['marca'];
-                $modelo         = $_POST['modelo'];
-                $ip             = $_POST['ip'];
-                $mac            = $_POST['mac'];
-                $ano            = '';
-                $responsavel    = $_POST['tecnico_responsavel'];
+                $ano = $_POST['ano'] ?? '';
+                $data['ano'] = $ano+1;
 
-                $idImagemNovo = null;
-
-
-                $idImagemAntiga = $_POST['imagem_antiga'] ?? '';
-
-                $pasta = realpath(__DIR__ . '/../upload/dvrs');
-
-                $data =
-                [
-                    'id_unidade'     => $unidade,
-                    'canais'         => $canais,
-                    'nome'           => $nome,
-                    'marca'          => $marca,
-                    'modelo'         => $modelo,
-                    'ip'             => $ip,
-                    'mac'            => $mac,
-                    'responsavel'    => $responsavel,
-                    'ano'            => $ano
-                ];
-
-                if($copiarDVR === 'copiarDVR')
-                {
-                    $ano = $_POST['ano'] ?? '';
-                    $data['ano'] = $ano+1;
-
-                    $idImagemNovo = imagemRegras($pasta, $idImagemAntiga, 'DVR');
-                }
-                else
-                {
-                    $idImagemNovo = imagemRegras($pasta, null,'DVR');
-                }
-
-                if ($idImagemNovo !== null) 
-                {
-                    $data['id_imagem'] = $idImagemNovo;
-                }
-
-                $modelRes = $modelDVR->criarDVR($data);
-
-                if($modelRes === false)
-                {
-                    getMensagemSession('error', 'Erro ao cadastrar!', 'Não cadastrado, tente novamente.', 'cameras.php');
-                }
-                else
-                {
-                    getMensagemSession('success', 'Sucesso ao cadastrar!', 'DVR cadastrado com sucesso.', 'cameras.php');
-                }
+                $idImagemNovo = imagemRegras($pasta, $idImagemAntiga, 'DVR');
             }
             else
             {
-                getMensagemSession('error', 'Erro na verificação', 'Não foi possivel verificar a ação.', 'cameras.php?url=criar&tipo=dvr');
+                $idImagemNovo = imagemRegras($pasta, null,'DVR');
+            }
+
+            if ($idImagemNovo !== null) 
+            {
+                $data['id_imagem'] = $idImagemNovo;
+            }
+
+            $modelRes = $modelDVR->criarDVR($data);
+
+            if($modelRes === false)
+            {
+                throw new Error('Houve um erro intero, entre em contato com o suporte.');
+            }
+            else
+            {
+                $dataUrl =
+                [
+                    'token' => $token,
+                    'id' => $modelRes,
+                    'informacoes' => 'basicas'
+                ];
+
+                getMensagemSession('success', 'Sucesso ao cadastrar!', 'DVR cadastrado com sucesso.', 'cameras', 'visualizarDVR', $dataUrl);
             }
         }
         catch (Throwable $e)
         {
-            getMensagemSession('error', 'Erro na aplicação', 'Houve um erro interno. Entre em contato com o Suporte.', 'cameras.php?url=criar&tipo=dvr');
+            $texto = $e->getMessage();
+
         }
     }
     public function criarHorarioDVR()
     {
+        $token = trim($_POST['token']);
+        $informacoes = trim($_POST['informacoes']);
+        $id = intval($_POST['id']);
+
+        $dataUrl =
+        [
+            'token'         => $token,
+            'id'            => $id,
+            'informacoes'   => $informacoes 
+        ];
+
         try
         {
-            $acao = trim($_POST['acao']);
-            $id = intval($_POST['id']);
-    
-            if($acao === 'criarHorario')
+            $modelDVR = new DVRModel();
+            
+            $horario = trim($_POST['horario']);
+
+            $data = 
+            [
+                'horario' => $horario,
+                'id'       => $id
+            ];
+
+            $modelRes = $modelDVR->criarHorario($data);
+
+            if ($modelRes === true)
             {
-                $horario = trim($_POST['horario']);
-    
-                $data = 
-                [
-                    'horario' => $horario,
-                    'id'       => $id
-                ];
-    
-                $modelDVR = new DVRModel();
-
-                $modelDVR->criarHorario($data);
-
-                getMensagemSession('success', 'Sucesso ao criar!', 'Horário criado com sucesso.', 'cameras.php', 'visualizar', 'dvr', $id);
+                getMensagemSession('success', 'Sucesso ao editar o DVR!', 'DVR editado com sucesso.', 'cameras', 'visualizarDVR', $dataUrl);
             }
             else
             {
-                getMensagemSession('error', 'Erro ao criar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php', 'visualizar', 'dvr', $id);
+                throw new Error('Houve um erro intero, entre em contato com o suporte.');
             }
         }
-        catch (Error $e)
+        catch (Throwable $e)
         {
-            return $e->getMessage();
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Erro ao editar!', $texto, 'cameras', 'visualizarDVR', $dataUrl);
         }
     }
     public function criarManutencaoDVR()
     {
+        $token = trim($_POST['token']);
+        $informacoes = trim($_POST['informacoes']);
+        $id = intval($_POST['id']);
+
+        $dataUrl =
+        [
+            'token'         => $token,
+            'id'            => $id,
+            'informacoes'   => $informacoes 
+        ];
+
         try
         {
-            $acao = trim($_POST['acao']);
-            $id = intval($_POST['id']);
+            $modelDVR = new DVRModel();
 
-            if($acao === 'criarManutencao')
+            $manutencao = trim($_POST['manutencao']);
+
+            $data =
+            [
+                'manutencao' => $manutencao,
+                'id'         => $id
+            ];  
+
+            $modelRes = $modelDVR->criarManutencao($data);
+
+            if ($modelRes === true)
             {
-                $manutencao = trim($_POST['manutencao']);
-
-                $data =
-                [
-                    'manutencao' => $manutencao,
-                    'id'         => $id
-                ];  
-
-                $modelDVR = new DVRModel();
-
-                $modelDVR->criarManutencao($data);
-
-                getMensagemSession('success', 'Sucesso ao criar!', 'Manutenção criada com sucesso.', 'cameras.php', 'visualizar', 'dvr', $id);
+                getMensagemSession('success', 'Sucesso ao criar!', 'Manutenção criada com sucesso.', 'cameras', 'visualizarDVR', $dataUrl);
             }
             else
             {
-                getMensagemSession('error', 'Erro ao criar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php', 'visualizar', 'dvr', $id);
+                throw new Error('Houve um erro interno, entre em contato com o suporte.');
             }
         }
-        catch (Error $e)
+        catch (Throwable $e)
         {
-            return $e->getMessage();
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Erro ao editar!', $texto, 'cameras', 'visualizarDVR', $dataUrl);
         }
     }
     public function criarSemestreDVR()
     {
+        $token = trim($_POST['token']);
+        $informacoes = trim($_POST['informacoes']);
+        $id = intval($_POST['id']);
+
+        $dataUrl =
+        [
+            'token'         => $token,
+            'id'            => $id,
+            'informacoes'   => $informacoes 
+        ];
+
         try
         {
-            $acao = trim($_POST['acao']);
-            $id = intval($_POST['id']);
-    
-            if($acao === 'criarSemestre')
+            $modelDVR = new DVRModel();
+
+            $semestre = trim($_POST['semestre']);
+
+            $data =
+            [
+                'semestre' => $semestre,
+                'id'       => $id
+            ];
+
+            $modelRes = $modelDVR->criarSemestre($data);
+
+            if ($modelRes === true)
             {
-                $semestre = trim($_POST['semestre']);
-
-                $data =
-                [
-                    'semestre' => $semestre,
-                    'id'       => $id
-                ];
-
-                $modelDVR = new DVRModel();
-
-                $modelDVR->criarSemestre($data);
-
-                getMensagemSession('success', 'Sucesso ao criar!', 'Semestre criado com sucesso.', 'cameras.php', 'visualizar', 'dvr', $id);
+                getMensagemSession('success', 'Sucesso ao criar!', 'Semestre editado com sucesso.', 'cameras', 'visualizarDVR', $dataUrl);
             }
             else
             {
-                getMensagemSession('error', 'Erro ao criar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php', 'visualizar', 'dvr', $id);
+                throw new Error('Houve um erro interno, entre em contato com o suporte.');
             }
         }
-        catch (Error $e)
+        catch (Throwable $e)
         {
-            return $e->getMessage();
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Erro ao editar!', $texto, 'cameras', 'visualizarDVR', $dataUrl);
         }
     }
     public function editarDVRPrincipais()
     {
+        $token       = trim($_POST['token']);
+        $informacoes = trim($_POST['informacoes']);
+        $id          = intval($_POST['id']);
+
+
+        $dataUrl =
+        [
+            'token'         => $token,
+            'id'            => $id,
+            'informacoes'   => $informacoes 
+        ];
+
         try
-        {
-            $acao = trim($_POST['acao']);
-    
-            if($acao === 'editarDVRPrincipais')
+        {   
+            $modelDVR = new DVRModel();
+
+            $unidade        = trim($_POST['id_unidade']);
+            $canais         = trim($_POST['canais']);
+            $nome           = trim($_POST['nome']);
+            $marca          = trim($_POST['marca']);
+            $modelo         = trim($_POST['modelo']);
+            $ip             = trim($_POST['ip']);
+            $mac            = trim($_POST['mac']);
+            
+            $idImagemNovo = null;
+            $idImagemAntiga = $_POST['id_imagem_antiga'];
+
+            $pasta = '../upload/dvrs/';
+
+            $data =
+            [
+                'id_unidade'     => $unidade,
+                'canais'         => $canais,
+                'nome'           => $nome,
+                'marca'          => $marca,
+                'modelo'         => $modelo,
+                'ip'             => $ip,
+                'mac'            => $mac,
+                'id'             => $id
+            ];
+            
+            $idImagemNovo = imagemRegras($pasta, null, 'DVR');
+            
+            if ($idImagemNovo !== null) 
             {
-                $modelDVR = new DVRModel();
+                $data['id_imagem'] = $idImagemNovo;
+            } 
 
-                $unidade        = trim($_POST['id_unidade']);
-                $canais         = trim($_POST['canais']);
-                $nome           = trim($_POST['nome']);
-                $marca          = trim($_POST['marca']);
-                $modelo         = trim($_POST['modelo']);
-                $ip             = trim($_POST['ip']);
-                $mac            = trim($_POST['mac']);
-                $id             = intval($_POST['id']);
-                
-                $idImagemNovo = null;
-                $idImagemAntiga = $_POST['id_imagem_antiga'];
+            elseif (!empty($_POST['id_imagem_antiga'])) 
+            {
+                $data['id_imagem'] = $idImagemAntiga;
+            }
 
-                $pasta = '../upload/dvrs/';
+            $modelRes = $modelDVR->editarDVR($data);
 
-                $data =
-                [
-                    'id_unidade'     => $unidade,
-                    'canais'         => $canais,
-                    'nome'           => $nome,
-                    'marca'          => $marca,
-                    'modelo'         => $modelo,
-                    'ip'             => $ip,
-                    'mac'            => $mac,
-                    'id'             => $id
-                ];
-                
-                $idImagemNovo = imagemRegras($pasta, null, 'DVR');
-                
-                if ($idImagemNovo !== null) 
-                {
-                    $data['id_imagem'] = $idImagemNovo;
-                } 
-
-                elseif (!empty($_POST['id_imagem_antiga'])) 
-                {
-                    $data['id_imagem'] = $idImagemAntiga;
-                }
-
-                $modelDVR->editarDVR($data);
-
-                getMensagemSession('success', 'Sucesso ao editar!', 'DVR editado com sucesso.', 'cameras.php');
+            if ($modelRes === true)
+            {
+                getMensagemSession('success', 'Sucesso ao editar!', 'DVR editado com sucesso.', 'cameras', 'visualizarDVR', $dataUrl);
             }
             else
             {
-                getMensagemSession('error', 'Erro ao editar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php', );
+                throw new Error('Houve um erro interno, entre em contato com o suporte.');
             }
         }
-        catch (Error $e)
+        catch (Throwable $e)
         {
-            getMensagemSession('error', 'Erro ao editar!', 'Não foi possivel validar. Tente novamente.', 'cameras.php');
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Erro ao editar!', $texto, 'cameras');
         }
     }
     public function apagarDVR()
     {
         try
         {
-            $acao = $_POST['acao'];
+            $modelDVR = new DVRModel();
+                
+            $id = $_POST['id'];
 
-            if($acao === 'excluirDVR')
+            $modelRes = $modelDVR->apagarDVR($id);
+
+            if($modelRes === true)
             {
-                $modelDVR = new DVRModel();
-                    
-                $id = $_POST['id'];
-
-                $modelDVR->apagar($id);
-
-                getMensagemSession('success','Sucesso ao excluir!', 'DVR excluido com sucesso.', 'cameras.php'); 
+                getMensagemSession('success','Sucesso ao excluir!', 'DVR excluido com sucesso.', 'cameras'); 
             }
             else
             {
-                getMensagemSession('error', 'Erro ao excluir!', 'Não foi possivel validar. Tente novamente.', 'cameras.php');
+                throw new Error('Houve um erro interno, entre em contato com o suporte.');
             }
         }
-        catch (Error $e)
+        catch (Throwable $e)
         {
-            getMensagemSession('error','Erro ao excluir!', 'Não foi possivel excluir. Tente novamente.' , 'cameras.php');
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Erro ao editar!', $texto, 'cameras');
         }
     }
 }
 
-if (empty($_SESSION['privilegio']))
+if (empty($_SESSION['privilegio']) || empty($_SESSION['usuario']) || empty($_SESSION['token']))
 {
-    echo 'Erro ao validar o privilégio.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do privilégio.', 'login.php');
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação.', 'login');
 }
-elseif (empty($_SESSION['usuario']))
+elseif (empty($acao) || empty($token))
 {
-    echo 'Erro ao validar o usuário.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do usuário.', 'login.php');
-}
-elseif (empty($_SESSION['token']))
-{
-    echo 'Falha na verificação do token da session.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token da sessão.', 'login.php');
-}
-elseif (empty($acao))
-{
-    echo 'Nenhuma ação foi instanciada.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação da ação.', 'index.php');
-}
-elseif (empty($token))
-{
-    echo 'Erro ao validar o token.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token.', 'index.php');
+    getMensagemSession('error', 'Sem permissão', 'Você não tem permissão para acessar essa página.', 'index');
 }
 elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
@@ -354,14 +375,38 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
         {
             error_log('Falha na verificação do privilégio.');
 
-            getMensagemSession('error', 'Privilégio não aceito.', 'Você não tem permissão para essa ação.', 'usuarios.php');
+            getMensagemSession('error', 'Privilégio não aceito.', 'Você não tem permissão para essa ação.', 'login');
         }
     }
     else
     {
         error_log('Falha na verificação do token.');
 
-        getMensagemSession('error', 'Token não aceito.', 'Falha na verificação do token.', 'usuarios.php');
+        getMensagemSession('error', 'Token não aceito.', 'Falha na verificação do token.', 'login');
     }
 }
-exit();
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aonde estou?</title>
+    <link rel="stylesheet" href="../public/styles/components/404.css">
+</head>
+<body>
+    <div class="erro-404">
+        <img class="erro-imagem" src="../public/images/error-404.png" alt="404">
+        <hr>
+        <div class="erro-texto">
+            <p>Como você chegou aqui?</p>
+        </div>
+        <div class="erro-link">
+            <a href="../view/cameras">
+                Se você não foi redirecionado automaticamente, clique aqui.
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -20,7 +20,7 @@ class DVRModel
                 $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, id_imagem, id_unidade)
                 VALUES (?,?,?,?,?,?,?,?,?,?)';
                 $stmt = $this->db->prepare($sql);
-                return $stmt->execute(
+                $stmt->execute(
                     [
                         $data['nome'], 
                         $data['marca'], 
@@ -40,7 +40,7 @@ class DVRModel
                 $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, id_imagem, id_unidade)
                 VALUES (?,?,?,YEAR(NOW()),?,?,?,?,?,?)';
                 $stmt = $this->db->prepare($sql);
-                return $stmt->execute(
+                $stmt->execute(
                     [
                         $data['nome'], 
                         $data['marca'], 
@@ -54,10 +54,12 @@ class DVRModel
                     ]
                 );
             }
+
+            return $this->db->lastInsertId();
         }
         catch(PDOException $e)
         {
-            return $e->getMessage();
+            return false;
         }
     } 
 
@@ -76,10 +78,12 @@ class DVRModel
                     $data['id']
                 ]
             );    
+
+            return true;
         }
         catch (PDOException $e)
         {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -97,10 +101,12 @@ class DVRModel
                     $data['id']
                 ]
             );
+
+            return true;
         }
         catch (PDOException $e)
         {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -118,14 +124,16 @@ class DVRModel
                     $data['id']
                 ]
             );
+
+            return true;
         }
         catch (PDOException $e)
         {
-            return $e->getMessage();
+            return false;
         }
     }
 
-    public function listar($id = '')
+    public function listarDVR($id = '')
     {
         try
         {
@@ -164,41 +172,50 @@ class DVRModel
         }
         catch (PDOException $e)
         {
-            return $e->getMessage();
+            return false;
         }
     }
 
     public function editarDVR($data)
     {
-        $sql = 'UPDATE dispositivos_dvrs
-        SET 
-            nome        = :nome,
-            marca       = :marca,
-            modelo      = :modelo,
-            ip          = :ip,
-            mac         = :mac,
-            canais      = :canais,
-            id_imagem   = :id_imagem,
-            id_unidade  = :id_unidade
-        WHERE id = :id';
+        try
+        {
+            $sql = 'UPDATE dispositivos_dvrs
+            SET 
+                nome        = :nome,
+                marca       = :marca,
+                modelo      = :modelo,
+                ip          = :ip,
+                mac         = :mac,
+                canais      = :canais,
+                id_imagem   = :id_imagem,
+                id_unidade  = :id_unidade
+            WHERE id = :id';
+    
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(
+                [
+                    ':nome'         => $data['nome'],
+                    ':marca'        => $data['marca'],
+                    ':modelo'       => $data['modelo'],
+                    ':ip'           => $data['ip'],
+                    ':mac'          => $data['mac'],
+                    ':canais'       => $data['canais'],
+                    ':id_imagem'    => $data['id_imagem'],
+                    ':id_unidade'   => $data['id_unidade'],
+                    ':id'           => $data['id']
+                ]
+            );
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(
-            [
-                ':nome'         => $data['nome'],
-                ':marca'        => $data['marca'],
-                ':modelo'       => $data['modelo'],
-                ':ip'           => $data['ip'],
-                ':mac'          => $data['mac'],
-                ':canais'       => $data['canais'],
-                ':id_imagem'    => $data['id_imagem'],
-                ':id_unidade'   => $data['id_unidade'],
-                ':id'           => $data['id']
-            ]
-        );
+            return true;
+        }
+        catch(PDOException $e)
+        {
+            return false;
+        }
     }
 
-    public function apagar($id)
+    public function apagarDVR($id)
     {
         try
         {
@@ -206,12 +223,13 @@ class DVRModel
             WHERE id = :id';
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
 
-            return $stmt->execute();
+            return true;
         }
         catch (PDOException $e)
         {
-            return $e->getMessage();
+            return false;
         }
     }
 }

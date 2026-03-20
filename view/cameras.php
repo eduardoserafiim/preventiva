@@ -64,9 +64,9 @@ $modelDVRCameras    = new CameraDVRModel();
 $modelCamera        = new CameraModel();
 
 $setores                        = $modelSetor->listar();
-$dvrs                           = $modelDVRs->listar();
-$dvrEspecifico                  = $modelDVRs->listar($id);
-$dvrEspecificoRelacionadoCamera = $modelDVRs->listar($idDVR);
+$dvrs                           = $modelDVRs->listarDVR();
+$dvrEspecifico                  = $modelDVRs->listarDVR($id);
+$dvrEspecificoRelacionadoCamera = $modelDVRs->listarDVR($idDVR);
 $cameraEspecifica               = $modelCamera->listarCamera($id);
 $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR($idDVR);
 ?>
@@ -85,7 +85,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                     </div>
                 </div>
                 <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
-                    <?= voltar('cameras.php') ?>
+                    <?= voltar('cameras') ?>
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
@@ -103,7 +103,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                     </div>
                 </div>
                 <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
-                    <?= voltar('cameras.php') ?>
+                    <?= voltar('cameras') ?>
                 </div>
                 <?= criarLegenda() ?>
                 <?= criarCardCameraDetalhada($cameraEspecifica, $dvrEspecificoRelacionadoCamera) ?>
@@ -115,7 +115,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                     </div>
                 </div>
                 <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
-                    <?= voltar('cameras.php') ?>
+                    <?= voltar('cameras') ?>
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
@@ -133,7 +133,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                     </div>
                 </div>
                 <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
-                    <?= voltar('cameras.php') ?>
+                    <?= voltar('cameras') ?>
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
@@ -151,7 +151,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                     </div>
                 </div>
                 <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
-                    <?= voltar('cameras.php') ?>
+                    <?= voltar('cameras') ?>
                 </div>
                 <?= criarLegenda() ?>
                 <?= criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras) ?>
@@ -163,7 +163,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                     </div>
                 </div>
                 <div class="voltar" style="padding: 0;">
-                    <?= voltar('cameras.php') ?>
+                    <?= voltar('cameras') ?>
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
@@ -180,7 +180,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                         <p>Sistema e Monitoramento de Câmeras</p>
                     </div>
                     <div class="page-criar-dvr">
-                        <?= criarDVR('Registar DVR', 'cameras.php?url=criar&tipo=dvr') ?>
+                        <?= criarDVR('Registar DVR', 'cameras?url=criar&token='. $_SESSION["token"] .'&tipo=dvr&informacoes=basicas') ?>
                     </div>
                 </div>
                 <?= criarLegenda() ?>

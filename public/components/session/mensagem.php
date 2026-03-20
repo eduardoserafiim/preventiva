@@ -44,6 +44,25 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
     }
     elseif ($view === 'cameras')
     {
-        
+        if ($execucao === 'editarDVR')
+        {
+            header("Location: ../view/cameras?url=editar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=dvr". "&informacoes=" . urlencode($data['informacoes']));
+            exit();
+        }
+        elseif ($execucao === 'criarDVR')
+        {
+            header("Location: ../view/cameras?url=criar". "&token=" . urlencode($data['token']). "&tipo=dvr". "&informacoes=" . urlencode($data['informacoes']));
+            exit();
+        }
+        elseif ($execucao === 'visualizarDVR')
+        {
+            header("Location: ../view/cameras?url=visualizar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=dvr". "&informacoes=" . urlencode($data['informacoes']));
+            exit();
+        }
+        else
+        {
+            header("Location: ../view/cameras");
+            exit();
+        }
     }
 }

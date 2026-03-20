@@ -74,6 +74,11 @@
     width: auto;
   }
 
+  .cardCamera
+  {
+    width: auto;
+  }
+
   .cameras
   {
     width: auto;
@@ -98,9 +103,9 @@
     grid-template-columns: repeat(3, auto-fit);
   }
 
-  .topoInformacoesDVR, .inferiorInformacoesDVR
+  .topoInformacoesDVR, .inferiorInformacoesDVR, .topoInformacoesCamera, .inferiorInformacoesCamera
   {
-    width: 700px;
+    width: 750px;
   }
 }
 
@@ -222,6 +227,16 @@
   {
     width: 250px;
     height: 200px;
+  }
+
+  .topoInformacoesCamera, .inferiorInformacoesCamera
+  {
+    width: 500px;
+  }
+
+  .inferiorInformacoesCamera
+  {
+    gap: 5rem;
   }
 }
 
@@ -508,6 +523,11 @@
 }
 
 @media (max-width: 375px) {
+  .main-content
+  {
+    width: 375px;
+  }
+
   /* login */
   .controleForm
   {
@@ -535,6 +555,26 @@
   #search-input
   {
     width: 300px;
+  }
+
+  #overlay
+  {
+    width: 375px;
+  }
+
+  #legenda
+  {
+    width: 300px;
+  }
+  
+  .legenda-destacada
+  {
+    margin: 2rem 0 2rem 0;
+  }
+
+  .tituloCamera
+  {
+    width: 200px;
   }
 
   .usuarioDiv p
@@ -598,7 +638,7 @@
     height: 250px;
   }
 
-    .preventiva-flex
+  .preventiva-flex
   {
     justify-content: center;
     width: 240px;
@@ -678,6 +718,11 @@
 
 
 @media (max-width: 320px) {
+  .main-content
+  {
+    width: 320px;
+  }
+
   /* login */
   .controleForm
   {

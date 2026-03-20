@@ -77,7 +77,6 @@ class ComputadorController
 
                 getMensagemSession('success', 'Sucesso ao editar!',  'Computador alterado com sucesso.', 'computadores', 'visualizarComputador', $dataUrl);
             }
-    
         }
         catch(Throwable $e)
         {
@@ -273,7 +272,7 @@ class ComputadorController
             {
                 $model = new ComputadorModel();
     
-                $model->apagar($id);
+                $model->apagarComputador($id);
     
                 getMensagemSession('success', 'Sucesso ao apagar o computador!', 'Computador apagado com sucesso.', 'computadores');
             }
@@ -291,35 +290,13 @@ class ComputadorController
     }
 }
 
-if (empty($_SESSION['privilegio']))
+if (empty($_SESSION['privilegio']) || empty($_SESSION['usuario']) || empty($_SESSION['token']))
 {
-    echo 'Erro ao validar o privilégio.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do privilégio.', 'login');
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação.', 'login');
 }
-elseif (empty($_SESSION['usuario']))
+elseif (empty($acao) || empty($token))
 {
-    echo 'Erro ao validar o usuário.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do usuário.', 'login');
-}
-elseif (empty($_SESSION['token']))
-{
-    echo 'Falha na verificação do token da session.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token da sessão.', 'login');
-}
-elseif (empty($acao))
-{
-    echo 'Nenhuma ação foi instanciada.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação da ação.', 'index');
-}
-elseif (empty($token))
-{
-    echo 'Erro ao validar o token.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token.', 'index');
+    getMensagemSession('error', 'Sem permissão', 'Você não tem permissão para acessar essa página.', 'index');
 }
 elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
@@ -358,3 +335,28 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
     }
 }
 exit();
+?>
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>??</title>
+    <link rel="stylesheet" href="../public/styles/components/404.css">
+</head>
+<body>
+    <div class="erro-404">
+        <img class="erro-imagem" src="../public/images/error-404.png" alt="404">
+        <hr>
+        <div class="erro-texto">
+            <p>Como você chegou aqui?</p>
+        </div>
+        <div class="erro-link">
+            <a href="../view/computadores">
+                Se você não foi redirecionado automaticamente, clique aqui.
+            </a>
+        </div>
+    </div>
+</body>
+</html>
