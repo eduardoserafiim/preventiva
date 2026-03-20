@@ -13,3 +13,4 @@
 
 <!-- CONFIRMAÇÕES -->
 <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+<script src="../public/javascript/computadores/confirmarExclusao.js"></script>

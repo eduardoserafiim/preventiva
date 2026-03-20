@@ -59,6 +59,11 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
             header("Location: ../view/cameras?url=visualizar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=dvr". "&informacoes=" . urlencode($data['informacoes']));
             exit();
         }
+        elseif ($execucao === 'visualizarCamera')
+        {
+            header("Location: ../view/cameras?url=visualizar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['idCamera']). "&idDVR=". $data['idDVR'] ."&tipo=camera");
+            exit();
+        }
         else
         {
             header("Location: ../view/cameras");

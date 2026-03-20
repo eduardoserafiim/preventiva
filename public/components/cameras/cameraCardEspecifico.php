@@ -47,7 +47,9 @@ function criarCardCameraDetalhada($camera, $dvr)
                     <div class="deletarCamera">
                         <form action="../controllers/CameraController.php" method="POST">
                             <input type="hidden" value="<?= $camera['id'] ?>" name="id">
+                            <input type="hidden" value="<?= $dvr['id'] ?>" name="idDVR">
                             <input type="hidden" value="excluirCamera" name="acao">
+                            <input type="hidden" value="informacoes" name="basicas">
                             <input type="hidden" value="<?= $_SESSION['token'] ?>" name="token">
                             <button style="background-color: inherit; border: none; color: red;" type="submit">
                                 <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>

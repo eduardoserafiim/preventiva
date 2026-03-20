@@ -2,8 +2,9 @@ function confirmarExclusao(event) {
     event.preventDefault();
 
     Swal.fire({
-        title: '<i class="fa-solid fa-triangle-exclamation fa-2xl"></i><br>Tem certeza desta ação?',
-        text: "Você está EXCLUINDO um computador",
+        icon: 'warning',
+        title: 'Tem certeza desta ação?',
+        text: "Você está EXCLUINDO um Computador",
         showCancelButton: true,
         confirmButtonText: 'Sim, excluir',
         cancelButtonText: 'Cancelar',
