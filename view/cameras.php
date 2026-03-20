@@ -107,7 +107,9 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                     <?= voltar('cameras') ?>
                 </div>
                 <?= criarLegenda() ?>
-                <?= criarCardCameraDetalhada($cameraEspecifica, $dvrEspecificoRelacionadoCamera) ?>
+                <div class="cameras">
+                    <?= criarCardCameraDetalhada($cameraEspecifica, $dvrEspecificoRelacionadoCamera) ?>
+                </div>
             <?php elseif($url === 'criar' && $tipo === 'camera'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
@@ -155,7 +157,9 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                     <?= voltar('cameras') ?>
                 </div>
                 <?= criarLegenda() ?>
-                <?= criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras) ?>
+                <div class="cameras">
+                    <?= criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras) ?>
+                </div>
             <?php elseif ($url === 'criar' && $tipo  === 'dvr'): ?>
                 <div class="page-header">
                     <div class="page-descricao">

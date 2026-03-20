@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
-    const animarListagem = document.querySelector(".computadores");
+    const animarListagem = document.querySelector(".informacoesLegenda");
 
     if(animarListagem){
         setTimeout(() => {
