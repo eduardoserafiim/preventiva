@@ -4,7 +4,6 @@
 @import url("components/bar.css");
 @import url("components/search.css");
 @import url("components/filtro.css");
-@import url("components/assinar.css");
 @import url("components/fundo.css");
 @import url("components/form.css");
 @import url("components/botoes.css");
@@ -15,7 +14,6 @@
 @import url("components/usuarioDiv.css");
 @import url("components/switch.css");
 @import url("components/status.css");
-@import url("components/equipamento.css");
 @import url("components/warning.css");
 @import url("components/opcoes.css");
 @import url("components/editarUsuario.css");
@@ -25,6 +23,7 @@
 @import url("components/404.css");
 @import url("components/dragArea.css");
 @import url("components/miniMenuDVR.css");
+@import url("components/preventiva.css");
 
 /* GERAIS */
 

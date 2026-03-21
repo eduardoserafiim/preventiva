@@ -64,7 +64,7 @@ $modelDVRs          = new DVRModel();
 $modelDVRCameras    = new CameraDVRModel();
 $modelCamera        = new CameraModel();
 
-$setores                        = $modelSetor->listar();
+$setores                        = $modelSetor->listarSetor();
 $dvrs                           = $modelDVRs->listarDVR();
 $dvrEspecifico                  = $modelDVRs->listarDVR($id);
 $dvrEspecificoRelacionadoCamera = $modelDVRs->listarDVR($idDVR);

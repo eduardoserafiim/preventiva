@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function(){
-    const animarListagem = document.querySelector(".setores");
+    const animarListagem = document.querySelector(".preventiva");
 
     if(animarListagem){
         setTimeout(() => {

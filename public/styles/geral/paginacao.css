@@ -62,7 +62,7 @@
     align-items: center;
 }
 
-.page-criar-dvr, .page-criar-computador
+.page-criar-dvr, .page-criar-computador, .page-criar-preventiva
 {
     display: flex;
     align-items: center;

@@ -43,34 +43,5 @@ class CameraController
     }
 }
 
-if (empty($_SESSION['privilegio']))
-{
-    echo 'Erro ao validar o privilégio.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do privilégio.', 'login.php');
-}
-elseif (empty($_SESSION['usuario']))
-{
-    echo 'Erro ao validar o usuário.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do usuário.', 'login.php');
-}
-elseif (empty($_SESSION['token']))
-{
-    echo 'Falha na verificação do token da session.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token da sessão.', 'login.php');
-}
-elseif (empty($acao))
-{
-    echo 'Nenhuma ação foi instanciada.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação da ação.', 'index.php');
-}
-elseif (empty($token))
-{
-    echo 'Erro ao validar o token.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token.', 'index.php');
-}
 exit();
+

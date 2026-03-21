@@ -2,12 +2,18 @@
 {
   opacity: 0;
   display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-rows: repeat(200px);
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  place-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 2fr));
   transform: translateY(-10px);
   transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.setores.show
+{
+  margin-bottom: 2rem;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .setoresAdministrador
@@ -28,122 +34,45 @@
   transform: translateY(0);
 }
 
-.setores.show
-{
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.setor
+.card-setor
 {
   display: flex;
   flex-direction: column;
-  height: 160px;
-  width: 350px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  margin: 1rem;
-  padding: 1rem 0.2rem 0.2rem 0.2rem;
+  width: 300px;
   border-radius: 12px;
-  background-color: white;
-  border: 1px solid #e2e8f0;
-  transition: border 0.2s ease-in-out;
-  cursor: pointer;
-
+  transition: all 0.3s ease;
 }
 
-.setor:hover i {
-    animation: fa-bounce 1s infinite;
-}
-
-.setor:hover{
-  border: 1px solid #3b82f6;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-}
-
-.setor a
+.card-setor:hover
 {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-.setor i
-{
-  padding: 1rem;
-}
-
-.setor p
-{
-  padding: 0 1rem;
-}
-
-.setor h4
-{
-  padding: 0rem 1rem 0rem 0rem;
-}
-
-.setorDiv
-{
-  display: flex;
-  flex-direction: column;
-  height: 160px;
-  width: 350px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  margin: 1rem;
-  border-radius: 12px;
-  background-color: white;
-  border: 1px solid #e2e8f0;
-  transition: transform 0.3s ease, border 0.2s ease-in-out;
-  cursor: pointer;
-
-}
-
-.setorDiv i
-{
-  padding: 0px 2rem 0px 0px;
-}
-
-.setorDiv p
-{
-  padding: 0.5rem 0 0 2rem;
-}
-
-.setorDiv:hover i {
-    animation: fa-bounce 1s infinite;
-}
-
-.setorDiv:hover{
-  border: 1px solid #3b82f6;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   transform: translateY(-2px);
 }
 
-.setorDiv a
+.card-setor:hover .card-setor-conteudo
 {
-  display: block;;
-  width: 100%;
-  height: 100%;
+    border: 1px solid #3b82f6;
 }
 
-.setorDiv i
+.card-setor-titulo
 {
   padding: 1rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background-color: #334155;
+  transition: all 0.3s ease;
 }
 
-.setorDiv h4
+.card-setor-conteudo
 {
-  padding: 1rem 1rem 1rem 0rem;
-}
-
-.setores-listagem
-{
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.setores-listagem.show
-{
-  opacity: 1;
-  transform: translateY(0);
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  height: 80px;
+  border: 1px solid #334155;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  transition: all 0.3s ease;
 }

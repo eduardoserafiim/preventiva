@@ -350,7 +350,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if ($_SESSION['token'] === $token)
     {
-        if ($_SESSION['privilegio'] === 'TI')
+        if ($_SESSION['privilegio'] === 'TI' || $_SESSION['privilegio'] === 'administrador')
         {
             switch ($acao)
             {

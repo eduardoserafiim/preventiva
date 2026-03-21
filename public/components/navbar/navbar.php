@@ -64,12 +64,6 @@ function navbar($active) {
                     </a>
                 </li>
                 <li>
-                    <a href="impressoras" class="menu-item ' . ($active === 'impressoras' ? 'active' : '') . '">
-                        <i class="fas fa-print"></i>
-                        <span>Impressoras</span>
-                    </a>
-                </li>
-                <li>
                     <a href="preventiva" class="menu-item ' . ($active === 'preventiva' ? 'active' : '') . '">
                         <i class="fas fa-clipboard-list"></i>
                         <span>Preventiva</span>
@@ -102,12 +96,6 @@ function navbar($active) {
                     <a href="cameras" class="menu-item ' . ($active === 'cameras' ? 'active' : '') . '">
                         <i class="fas fa-video"></i>
                         <span>CFTV</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="impressoras" class="menu-item ' . ($active === 'impressoras' ? 'active' : '') . '">
-                        <i class="fas fa-print"></i>
-                        <span>Impressoras</span>
                     </a>
                 </li>
                 <li>

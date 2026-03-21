@@ -43,7 +43,7 @@ require_once '../public/components/form/computadores/formActions.php';
 $modelSetor = new SetorModel();
 $modelComputador = new ComputadorModel();
 
-$setores = $modelSetor->listar();
+$setores = $modelSetor->listarSetor();
 $computadores = $modelComputador->listarComputador();
 
 ?>
@@ -194,12 +194,12 @@ $computadorEspecifico = $modelComputador->listarComputador($id);
                     <?= search('search-input', 'computadores', 'computadores') ?>
                 </div>
                 <div class="computadores">
-                    <?php if(!empty($computadores)): ?>
+                    <?php if(empty($computadores)): ?>
+                        <p class="informarComputadoresDisponiveis">Nenhum computador cadastrado.</p>
+                    <?php else: ?>
                         <?php foreach($computadores as $computador): ?>
                             <?= criarComputadorCard($computador) ?>
                         <?php endforeach ?>
-                    <?php else: ?>
-                        <p class="computadores aviso">Não há computadores registrados.</p>
                     <?php endif ?>
                 </div>
             <?php endif ?>

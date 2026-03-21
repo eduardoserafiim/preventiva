@@ -34,7 +34,7 @@ class SetorController
             {
                 $model = new SetorModel();
 
-                $setorExiste = $model->validar($nome);
+                $setorExiste = $model->validarSetor($nome);
 
                 if ($setorExiste)
                 {
@@ -50,7 +50,7 @@ class SetorController
                         'icon' => $icon  
                     ];
 
-                    $model->criar($data);
+                    $model->criarSetor($data);
 
                     getMensagemSession('success', 'Sucesso ao criar setor!', 'Setor criado com sucesso.', 'setores.php', $this->url[1]);
                 }
@@ -86,7 +86,7 @@ class SetorController
                     'nome' => $nome
                 ];
                 
-                $model->atualizar($id, $data);
+                $model->atualizarSetor($id, $data);
     
                 getMensagemSession('success', 'Sucesso ao editar o setor!', 'Setor editado no sistema.', 'setores.php', $this->url[1]);
             }
@@ -115,7 +115,7 @@ class SetorController
             {
                 $model = new SetorModel();
 
-                $model->apagar($id);
+                $model->apagarSetor($id);
 
                 getMensagemSession('success', 'Sucesso ao apagar o setor!', 'Setor apagado com sucesso.', 'setores.php', $this->url[1]);
             }

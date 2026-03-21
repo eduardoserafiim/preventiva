@@ -11,7 +11,7 @@ class SetorModel{
         $this->db = $database->getConnection();
     }
 
-    public function criar($data)
+    public function criarSetor($data)
     {
         try {
             $sql = 'INSERT INTO setores
@@ -31,7 +31,7 @@ class SetorModel{
         }
     }
 
-    public function listar()
+    public function listarSetor()
     {
         try
         {
@@ -42,7 +42,6 @@ class SetorModel{
             $stmt->execute();
     
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
         }
         catch (PDOException $e) 
         {
@@ -52,7 +51,7 @@ class SetorModel{
         }
     }
 
-    public function atualizar($id, $data)
+    public function atualizarSetor($id, $data)
     {
         try {
             $sql = 'UPDATE setores
@@ -75,7 +74,7 @@ class SetorModel{
         
     }
 
-    public function apagar($id)
+    public function apagarSetor($id)
     {
         try
         {
@@ -95,7 +94,7 @@ class SetorModel{
         }
     }
 
-    public function validar($nome)
+    public function validarSetor($nome)
     {
         try 
         {

@@ -16,9 +16,10 @@
     transform: translateY(0);
 }
 
-.computadores .aviso
+.informarComputadoresDisponiveis
 {
-    place-items: center;
+    font-size: larger;
+    text-align: center;
 }
 
 .computadorDiv

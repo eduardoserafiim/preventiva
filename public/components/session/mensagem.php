@@ -70,4 +70,17 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
             exit();
         }
     }
+    elseif ($view === 'preventiva')
+    {
+        if($execucao === 'criarPreventiva')
+        {
+            header("Location: ../view/preventiva?url=criar". "&token=" . urlencode($data['token']). "&tipo=preventiva");
+            exit();
+        }
+        else
+        {
+            header("Location: ../view/preventiva");
+            exit();
+        }
+    }
 }

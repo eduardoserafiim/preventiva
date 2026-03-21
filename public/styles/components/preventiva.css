@@ -1,0 +1,129 @@
+.preventiva
+{
+    margin-top: 2rem;
+    display: grid;
+    place-items: center;
+    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
+    gap: 2rem;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.preventiva.show
+{
+    margin-bottom: 2rem;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card-preventiva
+{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.card-preventiva:hover
+{
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+}
+
+.card-preventiva:hover .card-preventiva-conteudo
+{
+    border: 1px solid #3b82f6;
+}
+
+.card-preventiva-titulo
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 1rem;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-color: #334155;
+    transition: all 0.3s ease;
+}
+
+.preventiva-titulo
+{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.card-preventiva-conteudo
+{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border: 1px solid #334155;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.preventivaDiv
+{
+    display: flex;
+    width: 200px;
+    height: 50px;
+    background-color: white;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.preventivaLink
+{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.preventivaDiv:hover .color-content
+{
+    width: 100%;
+    border-radius: 12px;
+}
+
+.preventivaDiv:hover .preventiva-content
+{
+    display: none;
+}
+
+.color-content
+{
+    width: 20px;
+    min-width: 20px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    background-color: #334155;
+    transition: all 0.3s ease;
+}
+
+.preventiva-content
+{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.preventiva-content .flex
+{
+    gap: 1rem;
+}
+
+.informarPreventivasDisponiveis
+{
+    font-size: larger;
+    text-align: center;
+}

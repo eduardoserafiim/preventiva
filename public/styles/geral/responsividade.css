@@ -1,13 +1,4 @@
 @media (max-width: 2560px){
-  .setores
-  {
-    display: grid;
-    align-items: center;
-    grid-template-rows: repeat(200px);
-    grid-template-columns: repeat(5, minmax(350px, 1fr));
-    place-items: center;
-  }
-
   .form-flex {
     display: flex;
     align-items: center;
@@ -26,16 +17,6 @@
     margin-bottom: 0rem;
   }
 
-  .setores
-  {
-    grid-template-columns: repeat(3, 350px);
-  }
-
-  .setor
-  {
-    width: 300px;
-  }
-
   .usuarios
   {
     grid-template-columns: repeat(2, 400px);
@@ -52,12 +33,6 @@
 }
 
 @media (max-width: 1440px){
-  .setores
-  {
-    grid-template-rows: repeat(200px);
-    grid-template-columns: repeat(2, 400px);
-  }
-
   .usuarios
   {
     grid-template-rows: repeat(200px);
@@ -135,13 +110,6 @@
   .botoes-filtrar
   {
     margin-top: 0;
-  }
-
-  .setores
-  {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-template-rows: auto;
   }
 
   /* usuarios */
