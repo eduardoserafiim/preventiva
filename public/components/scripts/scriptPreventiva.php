@@ -5,6 +5,7 @@
 <script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
 <script src="../public/javascript/animar/bar/animarBar.js"></script>
 <script src="../public/javascript/animar/preventiva/animarListagemPreventiva.js"></script>
+<script src="../public/javascript/animar/computadores/animarListagemComputadores.js"></script>
 <script src="../public/javascript/animar/setores/animarListagemSetores.js"></script>
 <script src="../public/javascript/animar/formulario/animarFormulario.js"></script>
 
@@ -18,6 +19,7 @@
 
 <!-- CONFIRMAÇÕES -->
 <script src="../public/javascript/usuarios/confirmarSaida.js"></script>
+<script src="../public/javascript/preventiva/confirmarExclusaoPreventiva.js"></script>
 <script src="../public/javascript/assinaturas/confirmarAssinatura.js"></script>
 
 <!-- COMPONENTS -->

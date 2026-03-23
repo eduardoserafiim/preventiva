@@ -27,7 +27,6 @@ require_once "../public/components/warning.php";
 require_once "../public/components/voltar.php";
 require_once "../public/components/search.php";
 require_once "../public/components/computadores/computadoresRegistrar.php";
-require_once "../public/components/computadores/computadoresListar.php";
 require_once "../public/components/computadores/computadoresCard.php";
 require_once "../public/components/computadores/computadoresCardEspecifico.php";
 require_once "../public/components/dragAreaImagens/dragArea.php";

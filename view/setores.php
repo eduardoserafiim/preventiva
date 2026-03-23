@@ -44,7 +44,7 @@ $modelSetor = new SetorModel();
 
 $url = $_GET['url'] ?? '';
 
-$setores = $modelSetor->listar();
+$setores = $modelSetor->listarSetor();
 
 ?>
 <body>

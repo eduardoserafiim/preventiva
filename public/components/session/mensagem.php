@@ -77,6 +77,11 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
             header("Location: ../view/preventiva?url=criar". "&token=" . urlencode($data['token']). "&tipo=preventiva");
             exit();
         }
+        elseif ($execucao === 'relacionarPreventiva')
+        {
+            header("Location: ../view/preventiva?url=setor&token=".$data['token']."&id_setor=".$data['id_setor']."&setor=".$data['setor']."&ano=".$data['ano']."&semestre=".$data['semestre']);
+            exit();
+        }
         else
         {
             header("Location: ../view/preventiva");

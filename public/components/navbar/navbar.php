@@ -13,7 +13,7 @@ function navbar($active) {
                 </div>
                 <div class="sidebar-texto">
                     <h1>Portal HAP</h1>
-                    <p>Preventiva</p>
+                    <p>Suporte T.I</p>
                 </div>
             </div>
                 <ul class="sidebar-menu">
@@ -35,7 +35,7 @@ function navbar($active) {
             </div>
             <div class="sidebar-texto">
                 <h1>Portal HAP</h1>
-                <p>Preventiva</p>
+                <p>Suporte T.I</p>
             </div>
         </div>
             <ul class="sidebar-menu">

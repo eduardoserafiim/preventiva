@@ -33,24 +33,50 @@ class PreventivaModel
         }
     } 
 
-    public function listarPreventiva()
+    public function listarPreventiva($ano = '', $semestre = '')
     {
         try
         {
-            $sql = 'SELECT p.*,
-                u.nome AS nome_unidade,
-                r.nome AS nome_responsavel
-            FROM preventiva p
-            LEFT JOIN unidade u
-                ON p.id_unidade = u.id
-            LEFT JOIN usuarios r
-                ON p.id_usuario_responsavel_criacao = r.id
-            ORDER BY YEAR(ano) DESC';
-
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute();
-
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($ano && $semestre)
+            {
+                $sql = 'SELECT p.*,
+                    u.nome AS nome_unidade,
+                    r.nome AS nome_responsavel
+                FROM preventiva p
+                LEFT JOIN unidade u
+                    ON p.id_unidade = u.id
+                LEFT JOIN usuarios r
+                    ON p.id_usuario_responsavel_criacao = r.id
+                WHERE p.ano = :ano 
+                AND p.semestre = :semestre';
+    
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(
+                    [
+                        ':ano' => $ano,
+                        ':semestre' => $semestre
+                    ]
+                );
+    
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            else
+            {
+                $sql = 'SELECT p.*,
+                    u.nome AS nome_unidade,
+                    r.nome AS nome_responsavel
+                FROM preventiva p
+                LEFT JOIN unidade u
+                    ON p.id_unidade = u.id
+                LEFT JOIN usuarios r
+                    ON p.id_usuario_responsavel_criacao = r.id
+                ORDER BY YEAR(ano) DESC';
+    
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute();
+    
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
         }
         catch(PDOException $e)
         {

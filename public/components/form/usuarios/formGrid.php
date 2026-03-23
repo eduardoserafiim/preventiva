@@ -2,7 +2,7 @@
 
 function formGrid() {
     $model = new SetorModel();
-    $setores = $model->listar();
+    $setores = $model->listarSetor();
 
     $html = '
     <div class="form-grid">

@@ -58,6 +58,12 @@
     gap: 1rem;
 }
 
+.preventiva-excluir:hover
+{
+    animation: fa-bounce 1s linear infinite;
+    cursor: pointer;
+}
+
 .card-preventiva-conteudo
 {
     display: flex;
@@ -126,4 +132,39 @@
 {
     font-size: larger;
     text-align: center;
+}
+
+.preventiva-informacoes-basicas
+{
+    display: flex;
+    justify-content: space-between;
+}
+
+.preventiva-informacao
+{
+    text-align: center;
+}
+
+.statusPreventiva
+{
+    text-align: center;
+    border-radius: 12px;
+}
+
+.statusPreventiva.nenhum
+{
+    background-color: #586374;
+    color: #d9dce2;
+}
+
+.statusPreventiva.aberta
+{
+    background-color: #dcfce7;
+    color: #166534;
+}
+
+.statusPreventiva.fechada
+{
+    background-color: #fee2e2;
+    color: #991b1b;
 }

@@ -20,10 +20,8 @@ include_once "../public/components/bar/bar.php";
 include_once "../public/components/voltar.php";
 include_once "../public/components/search.php";
 require_once "../public/components/warning.php";
-include_once "../public/components/assinaturas/assinaturasListar.php";
 include_once "../public/components/opcoes/opcoesDiv.php";
 include_once "../public/components/opcoes/dictionaryOpcoes.php";
-require_once "../public/components/computadores/computadoresListar.php";
 
 ?>
 <?php
@@ -34,7 +32,6 @@ $assinaturasTecnicos = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome']
 $assinaturas =  $dbassinatura->listarAssinaturas($_SESSION['nome']);
 
 $url = $_GET['url'] ?? '';
-$computador = $_GET['computador'] ?? '';
 
 ?>
 <body>
@@ -59,7 +56,6 @@ $computador = $_GET['computador'] ?? '';
                 <div class="voltar">
                     <?= voltar('index') ?>
                 </div>
-                <?= listarComputadores($computadorEspecifico, $_SESSION['setor'], $_SESSION['unidade']) ?>
             <?php elseif ($_SESSION['privilegio'] == 'TI' && $url == 'minhas-assinaturas'): ?>
                 <div class="page-header">
                     <div class="page-bem-vindo">
@@ -79,7 +75,6 @@ $computador = $_GET['computador'] ?? '';
                 </div>
                 <div class="fundo-container">
                     <div class="equipment-grid-assinaturas">
-                        <?= assinaturasListar($assinaturasTecnicos) ?>
                     </div>    
                 </div>
             <?php elseif ($_SESSION['privilegio'] === 'usuario' && $url === 'minhas-assinaturas'): ?>
@@ -99,7 +94,6 @@ $computador = $_GET['computador'] ?? '';
                 </div>
                 <div class="fundo-container">
                     <div class="equipment-grid-assinaturas">
-                        <?= assinaturasListar($assinaturas) ?>
                     </div>    
                 </div>
             <?php elseif ($_SESSION['privilegio'] === 'TI' && $url === 'minhas-preventivas'): ?>

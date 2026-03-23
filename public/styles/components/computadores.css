@@ -138,6 +138,12 @@
     gap: 1rem;
 }
 
+.visualizacaoComputador:hover i, .deletarComputador:hover i
+{
+    animation: fa-bounce 1s linear infinite;
+    cursor: pointer;
+}
+
 .statusComputador
 {
     text-align: center;

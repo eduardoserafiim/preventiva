@@ -2,13 +2,13 @@
 session_start();
 if (!isset($_SESSION['usuario'])) 
 {
-    header("Location: login.php");
+    header("Location: login");
     exit;
 }
 
 if ($_SESSION['privilegio'] != 'administrador')
 {
-    header("Location: index.php");
+    header("Location: index");
     exit;
 }
 
@@ -47,7 +47,7 @@ $id = intval($_GET['id'] ?? 0);
 $usuariosModel = new UsuarioModel();
 $setoresModel = new SetorModel();
 
-$setores = $setoresModel->listar();
+$setores = $setoresModel->listarSetor();
 
 if ($url) 
 {
