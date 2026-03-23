@@ -41,7 +41,7 @@ class PreventivaModel
             {
                 $sql = 'SELECT p.*,
                     u.nome AS nome_unidade,
-                    r.nome AS nome_responsavel
+                    r.nome AS tecnico_solicitante
                 FROM preventiva p
                 LEFT JOIN unidade u
                     ON p.id_unidade = u.id

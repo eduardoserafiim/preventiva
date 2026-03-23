@@ -36,15 +36,22 @@ create table preventiva_setores
 (
 	id_preventiva int,
 	id_setor int,
-	primary key (id_preventiva, id_setor),
-	status ENUM('Aberto', 'Fechado') DEFAULT 'Nenhum',
+	status ENUM('Aberta', 'Fechado') DEFAULT 'Aberta',
 	id_usuario_responsavel_preventiva int,
 	id_usuario_responsavel_setor int,
 	data_inicio datetime not null,
-	data_finalizacao datetime not null,
+	data_finalizacao datetime,
+	primary key (id_preventiva, id_setor),
 	foreign key (id_preventiva)
-		references preventiva(id),
+		references preventiva(id) 
+		on delete cascade,
 	foreign key (id_setor)
-		references setores(id),
+		references setores(id) 
+		on delete cascade,
 	foreign key (id_usuario_responsavel_preventiva)
+		references usuarios(id)
+		on delete cascade,
+	foreign key (id_usuario_responsavel_setor)
+		references usuarios(id)
+		on delete cascade
 );
