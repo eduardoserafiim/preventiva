@@ -2,6 +2,7 @@
 require_once '../db/db.php';
 
 require_once '../models/PreventivaComputadorModel.php';
+require_once '../models/ComputadorModel.php';
 
 require_once '../public/components/session/mensagem.php';
 
@@ -35,26 +36,39 @@ class PreventivaComputadorController
         try
         {
             $modelPreventivaComputador = new PreventivaComputadorModel();
+            $modelComputador = new ComputadorModel();
 
             $idComputador = intval($_POST['idComputador']);
-            $idPreventiva = intval($_POST['idPreventiva']);
 
-            $data =
-            [
-                'idComputador' => $idComputador,
-                'idPreventiva' => $idPreventiva,
-                'idSetor'      => $idSetor
-            ];
+            $dadosComputador = $modelComputador->listarComputador($idComputador);
 
-            $modelRes =  $modelPreventivaComputador->relacionarComputadorPreventiva($data);
+            $idComputadorPreventiva = $modelPreventivaComputador->criarComputadorPreventiva($dadosComputador);
 
-            if ($modelRes === true)
+            if(intval($idComputadorPreventiva))
             {
-                getMensagemSession('success', 'Sucesso ao relacionar!', 'Computador registrado à preventiva.', 'preventiva', 'relacionarPreventiva' , $dataUrl);
+                $idPreventiva = intval($_POST['idPreventiva']);
+    
+                $data =
+                [
+                    'idComputador' => $idComputador,
+                    'idPreventiva' => $idPreventiva,
+                    'idSetor'      => $idSetor
+                ];
+    
+                $modelRes =  $modelPreventivaComputador->relacionarComputadorPreventiva($data);
+    
+                if ($modelRes === true)
+                {
+                    getMensagemSession('success', 'Sucesso ao relacionar!', 'Computador registrado à preventiva.', 'preventiva', 'relacionarPreventiva' , $dataUrl);
+                }
+                else
+                {
+                    throw new Error('Houve um erro interno, entre em contato com o suporte.');
+                }
             }
             else
             {
-                throw new Error('Houve um erro interno, entre em contato com o suporte.');
+                throw new Error('Não foi possível registrar o computador à preventiva, entre em contato com o suporte.');
             }
         }
         catch (Throwable $e)

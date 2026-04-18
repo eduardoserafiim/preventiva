@@ -1,9 +1,0 @@
-document.addEventListener("DOMContentLoaded", function(){
-    const animarListagem = document.querySelector(".setores");
-
-    if(animarListagem){
-        setTimeout(() => {
-            animarListagem.classList.add("show");
-        }, 100);
-    }
-});

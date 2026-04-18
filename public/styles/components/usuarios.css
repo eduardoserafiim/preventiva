@@ -1,4 +1,4 @@
-.computadores
+.usuarios
 {
     margin-top: 2rem;
     display: grid;
@@ -8,13 +8,14 @@
     margin-bottom: 2rem;
 }
 
-.informarComputadoresDisponiveis
+.usuario-titulo
 {
-    font-size: larger;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-.computadorDiv
+.usuarioDiv
 {
     display: flex;
     width: 200px;
@@ -24,7 +25,7 @@
     cursor: pointer;
 }
 
-.computadorLink
+.usuarioLink
 {
     display: flex;
     width: 100%;
@@ -33,28 +34,18 @@
     text-decoration: none;
 }
 
-.computadorDiv:hover .color-content
+.usuarioDiv:hover .color-content
 {
     width: 100%;
     border-radius: 12px;
 }
 
-.computadorDiv:hover .computador-content
+.usuarioDiv:hover .usuario-content
 {
     display: none;
 }
 
-.color-content
-{
-    width: 20px;
-    min-width: 20px;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-    background-color: #334155;
-    transition: all 0.3s ease;
-}
-
-.computador-content
+.usuario-content
 {
     display: flex;
     align-items: center;
@@ -62,12 +53,12 @@
     width: 100%;
 }
 
-.computador-content .flex
+.usuario-content .flex
 {
     gap: 1rem;
 }
 
-.cardComputador
+.cardUsuario
 {
     display: flex;
     background-color: white;
@@ -78,25 +69,25 @@
     transition: all 0.3s ease;
 }
 
-.cardComputador:hover{
+.cardUsuario:hover{
   border: 1px solid #3b82f6;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   transform: translateY(-2px);
 }
 
-.conteudoComputador
+.conteudoUsuario
 {
     width: 100%;
 }
 
-.topoInformacoesComputador
+.topoInformacoesUsuario
 {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.imagemComputador, .imagemComputador img
+.imagemUsuario, .imagemUsuario img
 {
     height: 100px;
     width: 100px;
@@ -105,72 +96,27 @@
     border-radius: 12px;
 }
 
-.tituloComputador
+.tituloUsuario
 {
     width: 100%;
 }
 
-.configuracoesComputador i
+.configuracoesUsuario i
 {
     animation: fa-spin 2s linear infinite;
     animation-play-state: paused;
     cursor: pointer;
 }
 
-.configuracoesComputador:hover i
+.configuracoesUsuario:hover i
 {
     animation-play-state: running;
 }
 
-.opcoesComputador
+.opcoesUsuario
 {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-}
-
-.visualizacaoComputador:hover i, .deletarComputador:hover i
-{
-    animation: fa-bounce 1s linear infinite;
-    cursor: pointer;
-}
-
-.statusComputador
-{
-    text-align: center;
-    border-radius: 12px;
-}
-
-.statusComputador.ativo
-{
-    background-color: #dcfce7;
-    color: #166534;
-}
-
-.statusComputador.inativo
-{
-    background-color: #fee2e2;
-    color: #991b1b;
-}
-
-.meioInformacoesComputador
-{
-    display: flex;
-    padding: 0.5rem 0 0.5rem 0;
-}
-
-.legendaComputador
-{
-    display: grid;
-    grid-template-columns: repeat(3, auto);
-    padding: 0.5rem 0 0.5rem 0;
-    gap: 2rem;
-}
-
-.inferiorInformacoesComputador
-{
-    margin-top: 1rem;
-    display: grid;
-    grid-template-columns: repeat(3, auto);
 }

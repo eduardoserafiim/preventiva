@@ -1,0 +1,43 @@
+.card-preventiva, .card-usuario
+{
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.card-preventiva:hover, .card-usuario:hover
+{
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+    transform: translateY(-2px);
+}
+
+.card-preventiva-conteudo:hover, .card-usuario-conteudo:hover
+{
+    border: 1px solid #3b82f6;
+}
+
+.card-preventiva-titulo, .card-usuario-titulo
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    padding: 1rem;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    background-color: #334155;
+    transition: all 0.3s ease;
+}
+
+.card-preventiva-conteudo, .card-usuario-conteudo
+{
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    border: 1px solid #334155;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    transition: all 0.3s ease;
+}

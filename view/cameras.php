@@ -85,7 +85,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                         <p>Editar câmera</p>
                     </div>
                 </div>
-                <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
+                <div class="voltar">
                     <?= voltar('cameras') ?>
                 </div>
                 <div class="controleForm">
@@ -103,7 +103,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                         <p>Visualizar câmera</p>
                     </div>
                 </div>
-                <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
+                <div class="voltar">
                     <?= voltar('cameras') ?>
                 </div>
                 <?= criarLegenda() ?>
@@ -117,7 +117,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                         <p>Criar câmera</p>
                     </div>
                 </div>
-                <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
+                <div class="voltar">
                     <?= voltar('cameras') ?>
                 </div>
                 <div class="controleForm">
@@ -135,7 +135,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                         <p>Editar DVR</p>
                     </div>
                 </div>
-                <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
+                <div class="voltar">
                     <?= voltar('cameras') ?>
                 </div>
                 <div class="controleForm">
@@ -153,7 +153,7 @@ $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR
                         <p>Visualização DVR</p>
                     </div>
                 </div>
-                <div class="voltar" style="padding: 0; margin-bottom: 1.5rem">
+                <div class="voltar">
                     <?= voltar('cameras') ?>
                 </div>
                 <?= criarLegenda() ?>

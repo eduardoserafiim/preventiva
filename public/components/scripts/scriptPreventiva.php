@@ -1,13 +1,5 @@
 <!-- ANIMAÇÕES -->
-<script src="../public/javascript/animar/page/animarPageHeader.js"></script>
-<script src="../public/javascript/animar/search/animarSearch.js"></script>
-<script src="../public/javascript/animar/setores/animarSetores.js"></script>
-<script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
-<script src="../public/javascript/animar/bar/animarBar.js"></script>
-<script src="../public/javascript/animar/preventiva/animarListagemPreventiva.js"></script>
-<script src="../public/javascript/animar/computadores/animarListagemComputadores.js"></script>
-<script src="../public/javascript/animar/setores/animarListagemSetores.js"></script>
-<script src="../public/javascript/animar/formulario/animarFormulario.js"></script>
+<script src="../public/javascript/animation.js"></script>
 
 <!-- MODELS -->
 <script src="../public/javascript/computadores/atualizarComputadores.js"></script>

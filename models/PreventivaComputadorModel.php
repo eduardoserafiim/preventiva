@@ -11,6 +11,57 @@ class PreventivaComputadorModel
         $this->db = $database->getConnection();
     }
 
+    public function criarComputadorPreventiva($data)
+    {
+        try
+        {
+            $sql = 'INSERT INTO dispositivos_computadores_preventiva(nome, modelo, monitor, sistema_operacional, office, processador, memoria_ram, armazenamento, endereco_ip, endereco_mac, numero_serie, lacre, status, etiqueta_patrimonio, legenda_a, legenda_b, legenda_c, legenda_d, legenda_e, legenda_f, legenda_g, legenda_h, legenda_i, responsavel_cadastro, responsavel_uso, responsavel_edicao, data_cadastro, data_edicao, id_imagem, id_unidade)
+            VALUES (:nome, :modelo, :monitor, :sistema_operacional, :office, :processador, :memoria_ram, :armazenamento, :endereco_ip, :endereco_mac, :numero_serie, :lacre, :status, :etiqueta_patrimonio, :legenda_a, :legenda_b, :legenda_c, :legenda_d, :legenda_e, :legenda_f, :legenda_g, :legenda_h, :legenda_i, :responsavel_cadastro, :responsavel_uso, :responsavel_edicao, :data_cadastro, :data_edicao, :id_imagem, :id_unidade)';
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(
+                [
+                    ':nome' => $data['nome'],
+                    ':modelo' => $data['modelo'],
+                    ':monitor' => $data['monitor'],
+                    ':sistema_operacional' => $data['sistema_operacional'],
+                    ':office' => $data['office'],
+                    ':processador' => $data['processador'],
+                    ':memoria_ram' => $data['memoria_ram'],
+                    ':armazenamento' => $data['armazenamento'],
+                    ':endereco_ip' => $data['endereco_ip'],
+                    ':endereco_mac' => $data['endereco_mac'],
+                    ':numero_serie' => $data['numero_serie'],
+                    ':lacre' => $data['lacre'],
+                    ':status' => $data['status'],
+                    ':etiqueta_patrimonio' => $data['etiqueta_patrimonio'],
+                    ':legenda_a' => $data['legenda_a'],
+                    ':legenda_b' => $data['legenda_b'],
+                    ':legenda_c' => $data['legenda_c'],
+                    ':legenda_d' => $data['legenda_d'],
+                    ':legenda_e' => $data['legenda_e'],
+                    ':legenda_f' => $data['legenda_f'],
+                    ':legenda_g' => $data['legenda_g'],
+                    ':legenda_h' => $data['legenda_h'],
+                    ':legenda_i' => $data['legenda_i'],
+                    ':responsavel_cadastro' => $data['responsavel_cadastro'],
+                    ':responsavel_uso' => $data['responsavel_uso'],
+                    ':responsavel_edicao' => $data['responsavel_edicao'],
+                    ':data_cadastro' => $data['data_cadastro'],
+                    ':data_edicao' => $data['data_edicao'],
+                    ':id_imagem' => $data['id_imagem'],
+                    ':id_unidade' => $data['id_unidade']
+                ]
+            );
+
+            return $stmt->db->lastInsertId();
+        }
+        catch(PDOException $e)
+        {
+
+        }
+    
+    }
+
     public function relacionarComputadorPreventiva($data)
     {
         try

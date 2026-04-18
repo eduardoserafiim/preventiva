@@ -18,7 +18,8 @@ create table unidade
 	nome varchar(50)
 );
 
-CREATE TABLE dispositivos_computadores(
+CREATE TABLE dispositivos_computadores
+(
 	id int auto_increment,
 	primary key (id),
 	nome varchar(20) not NULL,
@@ -57,10 +58,12 @@ CREATE TABLE dispositivos_computadores(
 		references unidade(id)
 );
 
-CREATE TABLE usuarios (
+CREATE TABLE usuarios 
+(
 	id INT AUTO_INCREMENT,
 	PRIMARY KEY (id),
 	nome VARCHAR(50) NOT NULL,
+	email VARCHAR(255) NOT NULL,
     usuario VARCHAR(20) NOT NULL,
 	senha VARCHAR(100) NOT NULL,
 	setor VARCHAR(70) NOT NULL,
@@ -68,14 +71,16 @@ CREATE TABLE usuarios (
     unidade VARCHAR(20) NOT NULL
 );
 
-CREATE TABLE setores (
+CREATE TABLE setores 
+(
     id INT AUTO_INCREMENT,
     PRIMARY KEY (id),
     nome VARCHAR(100) NOT NULL,
     icon VARCHAR(50) NOT NULL
 );
 
-create table assinaturas(
+create table assinaturas
+(
 	id int AUTO_INCREMENT,
 	primary key(id),
     tipo varchar(40) NOT NULL,

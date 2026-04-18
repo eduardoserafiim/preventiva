@@ -26,92 +26,62 @@ require_once '../public/components/bar/bar.php';
 require_once '../public/components/voltar.php';
 require_once '../public/components/search.php';
 require_once "../public/components/warning.php";
-require_once '../public/components/usuarios/usuariosDiv.php';
-require_once '../public/components/usuarios/usuariosListar.php';
-require_once '../public/components/usuarios/dictionaryUsuarios.php';
+
+require_once "../public/components/usuarios/usuariosRegistrar.php";
+require_once "../public/components/usuarios/usuarioCard.php";
 
 // FORMS
-require_once '../public/components/form/usuarios/formGrid.php';
-require_once '../public/components/form/usuarios/formSenha.php';
-require_once '../public/components/form/usuarios/formActionsAlterarSenha.php';
-require_once '../public/components/form/usuarios/formActions.php';
-
 ?>
 <?php
 
 $url = $_GET['url'] ?? '';
-$erro = $_GET['erro'] ?? null;
-
-$id = intval($_GET['id'] ?? 0);
-
+$tipo = $_GET['tipo'] ?? '';
+$informacoes = $_GET['informacoes'] ?? '';
 $usuariosModel = new UsuarioModel();
 $setoresModel = new SetorModel();
 
 $setores = $setoresModel->listarSetor();
-
-if ($url) 
-{
-    $usuarios = $usuariosModel->listar();
-}
+$usuarios = $usuariosModel->listar();
 
 ?>
 <body>
     <div class="app-container">
         <?= navbar("usuarios") ?>
         <main class="main-content">
-            <div class="page-header">
-                <div class="page-descricao">
-                    <h1>Usuários</h1>
-                    <p>Gerencie os usuários</p>
-                </div>
-            </div>
             <?= bar() ?>
-            <?php if ($url == 'criar'): ?>
-                <div class="voltar">
-                    <?= voltar('usuarios.php') ?>
-                </div>
-                <div class="controleForm" style="margin: 0px;">
-                    <div class="form-container">
-                        <form action="../controllers/UsuariosController.php" method="POST" id="formularioUsuarios" class="equipment-form">
-                            <?= formGrid() ?>
-                            <?= formActions() ?>
-                        </form>
-                    </div>
-                </div>
-            <?php elseif ($url == 'listar'): ?>
-                <div class="search">
-                    <?= search('search-input-usuario', 'nome') ?>
-                </div>
-                <div class="voltar">
-                    <?= voltar('usuarios.php') ?>
-                </div>
-                <?= listarUsuarios($usuarios) ?>
-            <?php elseif ($url == 'alterarsenha'): ?>
-                <div class="voltar">
-                    <?php voltar('usuarios.php?url=listar') ?>
-                </div>
-                <div class="controleForm" style="margin: 0px;">
-                    <div class="form-container">
-                        <form action="../controllers/UsuariosController.php" method="POST" id="formularioUsuarios" class="equipment-form">
-                            <?= formGridSenha($id) ?>
-                            <?= formActionsAlterarSenha() ?>
-                        </form>
+            <?php if($url === 'criar' && $tipo === 'usuario' && $informacoes === 'basicas'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Usuários</h1>
+                        <p>Cadastrar usuário</p>
                     </div>
                 </div>
             <?php else: ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Usuários</h1>
+                        <p>Administrar usuários no sistema</p>
+                    </div>
+                    <div class="page-criar-usuario">
+                        <?= criarUsuario('Registrar',"usuarios?url=criar&token={$_SESSION['token']}&tipo=usuario&informacoes=basicas") ?>
+                    </div>
+                </div>
+                <div class="search">
+                    <?= search('search-input', 'usuarios', 'usuario') ?>
+                </div>
                 <div class="usuarios">
-                    <?php foreach ($usuarios as $usuario): ?>
-                        <?= criarUsuarioDiv($usuario[1], $usuario[0], $usuario[2]) ?>
-                    <?php endforeach ?>
+                    <?php if(empty($usuarios)): ?>
+                        <p class="informarUsuariosDisponiveis">Nenhum usuáirio cadastrado.</p>
+                    <?php else: ?>
+                        <?php foreach($usuarios as $usuario): ?>
+                            <?= criarCardUsuario($usuario) ?>
+                        <?php endforeach ?>
+                    <?php endif ?>
                 </div>
             <?php endif ?>
         </main>
     </div>
 </body>
-<script>
-    window.setores = <?php echo json_encode($setores); ?>;
-    window.token = <?php echo json_encode($_SESSION['token']); ?>;
-</script>
 <?php
 
 require_once '../public/components/scripts/scriptUsuarios.php';

@@ -11,39 +11,7 @@
   }
 }
 
-@media (max-width: 1920px){
-  .page-header 
-  {
-    margin-bottom: 0rem;
-  }
-
-  .usuarios
-  {
-    grid-template-columns: repeat(2, 400px);
-  }
-
-  .equipment-grid-user
-  {
-    grid-template-columns: repeat(auto-fill, minmax(300, 1fr));
-  }
-
-  .form-flex .texto{
-    width: 260px;
-  }
-}
-
 @media (max-width: 1440px){
-  .usuarios
-  {
-    grid-template-rows: repeat(200px);
-    grid-template-columns: repeat(2, 400px);
-  }
-
-  .form-flex .texto
-  {
-    width: 240px;
-  }
-
   .cardDVR, .cardComputador
   {
     width: auto;
@@ -110,19 +78,6 @@
   .botoes-filtrar
   {
     margin-top: 0;
-  }
-
-  /* usuarios */
-  .usuarios
-  {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    place-items: center;
-  }
-
-  .usuarioDiv
-  {
-    width: 300px;
   }
 
   .cardDVR
@@ -244,19 +199,6 @@
   #formularioUsuario, #formularioUsuario input, .usuario, .senha
   {
     width: 250px;
-  }
-
-  /* usuarios */
-  .usuarios-listagem
-  {
-    place-items: center;
-  }
-
-  .usuarios
-  {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    place-items: center;
   }
 
   .opcoes
@@ -502,19 +444,6 @@
     width: auto;
   }
 
-  #formularioUsuario, #formularioUsuario input, .usuario, .senha
-  {
-    width: 225px;
-  }
-
-  /* usuarios */
-  .usuarios
-  {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    place-items: center;
-  }
-
   .search
   {
     width: 300px;
@@ -720,16 +649,6 @@
   }
 
   .search, #search-input, .voltar
-  {
-    width: 250px;
-  }
-  
-  .equipment-card, .usuarios-listagem
-  {
-    width: 250px;
-  }
-
-  .equipment-grid-user
   {
     width: 250px;
   }

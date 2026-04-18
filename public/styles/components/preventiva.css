@@ -6,49 +6,8 @@
     align-items: center;
     grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
     gap: 2rem;
-    opacity: 0;
-    transform: translateY(-10px);
     transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.preventiva.show
-{
     margin-bottom: 2rem;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-.card-preventiva
-{
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-}
-
-.card-preventiva:hover
-{
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-    transform: translateY(-2px);
-}
-
-.card-preventiva:hover .card-preventiva-conteudo
-{
-    border: 1px solid #3b82f6;
-}
-
-.card-preventiva-titulo
-{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
-    padding: 1rem;
-    border-top-left-radius: 12px;
-    border-top-right-radius: 12px;
-    background-color: #334155;
-    transition: all 0.3s ease;
 }
 
 .preventiva-titulo
@@ -62,17 +21,6 @@
 {
     animation: fa-bounce 1s linear infinite;
     cursor: pointer;
-}
-
-.card-preventiva-conteudo
-{
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem;
-    border: 1px solid #334155;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-    transition: all 0.3s ease;
 }
 
 .preventivaDiv

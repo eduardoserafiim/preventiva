@@ -1,10 +1,5 @@
 <!-- ANIMAÇÕES -->
-<script src="../public/javascript/animar/search/animarSearch.js"></script>
-<script src="../public/javascript/animar/page/animarPageHeader.js"></script>
-<script src="../public/javascript/animar/container/animarContainer.js"></script>
-<script src="../public/javascript/animar/bar/animarBar.js"></script>
-<script src="../public/javascript/animar/voltar/animarVoltar.js"></script>
-<script src="../public/javascript/animar/computadores/animarListagemComputadores.js"></script>
+<script src="../public/javascript/animation.js"></script>
 
 <!-- COMPONENTS -->
 <script src="../public/javascript/bar/bar.js"></script>

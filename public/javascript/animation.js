@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function (){
-    const animarEntrada = document.querySelector('.forgetpassword-container');
+    const animarEntrada = document.querySelector(".main-content");
 
     if(animarEntrada){
         setTimeout(() => {
-            animarEntrada.classList.add('show');
+            animarEntrada.classList.add('active')
         }, 100);
     }
 })

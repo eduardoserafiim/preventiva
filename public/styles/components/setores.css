@@ -1,19 +1,11 @@
 .setores
 {
-  opacity: 0;
   display: grid;
   gap: 1rem;
   place-items: center;
   grid-template-columns: repeat(auto-fit, minmax(350px, 2fr));
-  transform: translateY(-10px);
   transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.setores.show
-{
   margin-bottom: 2rem;
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .setoresAdministrador
