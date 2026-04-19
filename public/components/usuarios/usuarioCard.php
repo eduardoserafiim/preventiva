@@ -16,27 +16,27 @@ function criarCardUsuario($usuario)
                             </div>
                             <div class=usuarioUsuarioDetalhado">
                                 <p>Usuário</p>
-                                <h4 class="nomeUsuario"><?= htmlspecialchars($usuario['nome']) ?></h4>
+                                <h4 class="usuarioUsuario"><?= htmlspecialchars($usuario['usuario']) ?></h4>
                             </div>
                             <div class="senhaUsuarioDetalhado">
                                 <p>Senha</p>
-                                <h4 class="nomeUsuario">********</h4>
+                                <h4 class="senhaUsuario">********</h4>
                             </div>
                             <div class="setorUsuarioDetalhado">
                                 <p>Setor</p>
-                                <h4 class="nomeUsuario"><?= htmlspecialchars($usuario['setor']) ?></h4>
+                                <h4 class="setorUsuario"><?= htmlspecialchars($usuario['setor']) ?></h4>
                             </div>
                             <div class="privilegioUsuarioDetalhado">
                                 <p>Privilégio</p>
-                                <h4 class="nomeUsuario"><?= htmlspecialchars($usuario['privilegio']) ?></h4>
+                                <h4 class="privilegioUsuario"><?= htmlspecialchars($usuario['privilegio']) ?></h4>
                             </div>
                             <div class="unidadeUsuarioDetalhado">
                                 <p>Unidade</p>
-                                <h4 class="nomeUsuario"><?= htmlspecialchars($usuario['unidade']) ?></h4>
+                                <h4 class="unidadeUsuario"><?= htmlspecialchars($usuario['nome_unidade']) ?></h4>
                             </div>
                             <div class="emailUsuarioDetalhado">
                                 <p>Email</p>
-                                <h4 class="nomeUsuario"><?= htmlspecialchars($usuario['email']) ?></h4>
+                                <h4 class="emailUsuario"><?= htmlspecialchars($usuario['email']) ?></h4>
                             </div>
                         </div>
                     </div>

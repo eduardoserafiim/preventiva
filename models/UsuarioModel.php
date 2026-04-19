@@ -15,24 +15,30 @@ class UsuarioModel{
         try
         {
             $sql = "INSERT INTO usuarios
-            (nome, usuario, senha, setor, privilegio, unidade)
-                VALUES (:nome, :usuario, :senha, :setor, :privilegio, :unidade)";
+            (nome, usuario, email, senha, setor, privilegio, id_unidade)
+                VALUES (:nome, :usuario, :email, :senha, :setor, :privilegio, :id_unidade)";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([
+            $query = $stmt->execute([
                 ':nome' => $data['nome'],
                 ':usuario' => $data['usuario'],
+                ':email' => $data['email'],
                 ':senha' => $data['senha'],
                 ':setor' => $data['setor'],
                 ':privilegio' => $data['privilegio'],
-                ':unidade' => $data['unidade'],
+                ':id_unidade' => $data['unidade'],
             ]);
 
-            return true;
+            if($query)
+            {
+                return true;
+            }
+            else
+            {
+                return 'Houve um erro interno.';
+            }
         }
         catch (PDOException $e) 
-        {
-            error_log("Erro ao criar usuario: " . $e->getMessage());
-         
+        {         
             return false;
         }
     }
@@ -41,8 +47,15 @@ class UsuarioModel{
     {
         try
         {
-            $sql = 'SELECT *
-                FROM usuarios';
+            $sql = 'SELECT us.*,
+                u.nome AS nome_unidade, 
+                i.nome_salvo AS nome_imagem
+                FROM usuarios us
+                LEFT JOIN unidade u
+                    ON us.id_unidade = u.id
+                LEFT JOIN imagem i
+                    ON us.id_imagem = i.id
+                ORDER BY us.id DESC';
             $stmt = $this->db->prepare($sql);
             $stmt ->execute();
 
@@ -50,8 +63,8 @@ class UsuarioModel{
         }
         catch (PDOException $e) 
         {
-            error_log("Erro ao listar os usuarios: " . $e->getMessage());
-         
+            $texto = $e->getMessage(); 
+
             return false;
         }
     }

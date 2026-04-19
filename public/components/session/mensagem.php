@@ -88,4 +88,17 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
             exit();
         }
     }
+    elseif ($view === 'usuarios')
+    {
+        if($execucao === 'criarUsuario')
+        {
+            header("Location: ../view/usuarios?url=criar&token=".$data['token']."&tipo=".$data['tipo']."&informacoes=".$data['informacoe']);
+            exit();
+        }
+        else
+        {
+            header("Location: ../view/usuarios");
+            exit();
+        }   
+    }
 }

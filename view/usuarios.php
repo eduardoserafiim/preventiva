@@ -29,6 +29,9 @@ require_once "../public/components/warning.php";
 
 require_once "../public/components/usuarios/usuariosRegistrar.php";
 require_once "../public/components/usuarios/usuarioCard.php";
+require_once "../public/components/form/usuarios/formGridCriar.php";
+require_once "../public/components/form/usuarios/formGridEditar.php";
+require_once "../public/components/form/usuarios/formActions.php";
 
 // FORMS
 ?>
@@ -49,11 +52,38 @@ $usuarios = $usuariosModel->listar();
         <?= navbar("usuarios") ?>
         <main class="main-content">
             <?= bar() ?>
-            <?php if($url === 'criar' && $tipo === 'usuario' && $informacoes === 'basicas'): ?>
+            <?php if($url === 'editar' && $tipo === 'usuario' && $informacoes === 'basicas'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Usuários</h1>
                         <p>Cadastrar usuário</p>
+                    </div>
+                </div>
+                <div class="voltar">
+                    <?= voltar('usuarios') ?>
+                </div>
+                <div class="controleForm">
+                    <div class="form-container">
+                        <?= formGridEditarUsuario($setores) ?>
+                        <?= formActions() ?>
+                    </div>
+                </div>
+            <?php elseif($url === 'criar' && $tipo === 'usuario' && $informacoes === 'basicas'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Usuários</h1>
+                        <p>Cadastrar usuário</p>
+                    </div>
+                </div>
+                <div class="voltar">
+                    <?= voltar('usuarios') ?>
+                </div>
+                <div class="controleForm">
+                    <div class="form-container">
+                        <form action="../controllers/UsuariosController.php" method="POST" enctype="multipart/form-data">
+                            <?= formGridCriarUsuario($setores) ?>
+                            <?= formActions() ?>
+                        </form>
                     </div>
                 </div>
             <?php else: ?>

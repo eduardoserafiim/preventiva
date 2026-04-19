@@ -41,13 +41,15 @@
     gap: 1rem;
 }
 
-.form-actions {
+.form-actions 
+{
     display: flex;
     gap: 1rem;
     justify-content: center;
 }
 
-.form-flex {
+.form-flex 
+{
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -85,7 +87,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 2rem;
 }
 
 .form-wrap-imagem
@@ -135,19 +136,13 @@
     gap: 1.5rem;
 }
 
-.nome
+.nome, .user, .email, .privilegio, .unidade, .setor, .senha, .confirmar-senha
 {
     display: flex;
     flex-direction: column;
 }
 
 .icone
-{
-    display: flex;
-    flex-direction: column;
-}
-
-.user
 {
     display: flex;
     flex-direction: column;

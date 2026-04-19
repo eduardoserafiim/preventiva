@@ -67,8 +67,13 @@ CREATE TABLE usuarios
     usuario VARCHAR(20) NOT NULL,
 	senha VARCHAR(100) NOT NULL,
 	setor VARCHAR(70) NOT NULL,
-    privilegio VARCHAR(20) NOT null,
-    unidade VARCHAR(20) NOT NULL
+    privilegio VARCHAR(20) NOT NULL,
+	id_imagem int,
+	id_unidade int NOT NULL,
+	foreign key (id_imagem)
+		references imagem(id),
+	foreign key (id_unidade)
+		references unidade(id)
 );
 
 CREATE TABLE setores 

@@ -1,6 +1,6 @@
-INSERT INTO usuarios (nome, usuario, senha, setor, privilegio, unidade) 
+INSERT INTO usuarios (nome, usuario, email, senha, setor, privilegio, id_unidade) 
 VALUES 
-('Administrador', 'administrador', '$2y$10$x1Nxbuyu7uu/eZfPm/EfGeTPZ0v/YDGayKyrhTeBoHtQlC9iUDYKG', 'TI', 'administrador', 'administrador');
+('Administrador', 'administrador', 'administrador@example.com', '$2y$10$x1Nxbuyu7uu/eZfPm/EfGeTPZ0v/YDGayKyrhTeBoHtQlC9iUDYKG', 'TI', 'administrador', '3');
 
 INSERT INTO setores (nome, icon) 
 VALUES

@@ -8,7 +8,7 @@ function showStep(index) {
         step.classList.toggle("active", i === index);
     });
 
-    botaoVoltar.style.display = index > 0 ? "inline-block" : "none";
+    botaoVoltar.style.display = index > 0 ? "flex" : "none";
 
     if (index === etapas.length - 1) {
         botaoAvancar.innerHTML = "<i class='fa-solid fa-save'></i> Salvar";

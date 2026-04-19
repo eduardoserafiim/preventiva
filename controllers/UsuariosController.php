@@ -16,69 +16,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
 class UsuarioController
 {
-    private $url = ['criar', 'listar'];
-
     public function criarUsuarios()
     {
-        $usuario        = trim($_POST['usuario']);
-        $nome           = trim($_POST['nome']);
-        $senha          = trim($_POST['senha']);
-        $confirmarSenha = trim($_POST['confirmar-senha']);
-        $setor          = trim($_POST['setor']);
-        $privilegio     = trim($_POST['privilegio']);
-        $unidade        = trim($_POST['unidade']);    
-        
-        if (!$usuario || !$nome || !$senha || !$confirmarSenha || !$setor || !$privilegio || !$unidade)
+        try
         {
-            echo 'Variável não definida.';
+            $model = new UsuarioModel();
 
-            getMensagemSession('error', 'Erro no preenchimento dos dados!', 'Você precisa preencher todos os campos.', 'usuarios.php', $this->url[0]);
-        }
-        else
-        {
-            try
+            $usuario        = trim($_POST['usuario']);
+            $email          = trim($_POST['email']);
+            $nome           = trim($_POST['nome']);
+            $senha          = trim($_POST['senha']);
+            $confirmarSenha = trim($_POST['confirmar-senha']);
+            $setor          = trim($_POST['setor']);
+            $privilegio     = trim($_POST['privilegio']);
+            $unidade        = trim($_POST['unidade']);    
+
+            $token = trim($_POST['token']);
+
+            $dataUrl = 
+            [
+                'url' => 'criar',
+                'token' => $token,
+                'tipo' => 'usuario',
+                'informacoes' => 'basicas'
+            ];
+            
+            if (!$usuario || !$nome || !$email || !$senha || !$confirmarSenha || !$setor || !$privilegio || !$unidade)
             {
-                $model = new UsuarioModel();
-    
-                $usuarioExistente = $model->validar($usuario);
-    
-                if ($usuarioExistente)
+                throw new Error('Você precisa preencher todos os campos.');
+            }
+
+            $usuarioExistente = $model->validar($usuario);
+
+            if ($usuarioExistente)
+            {
+                throw new Error('Usuário já existente.');
+            }
+            elseif ($senha !== $confirmarSenha)
+            {
+                throw new Error('Senhas diferentes.');
+            }
+            else
+            {
+                $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
+
+                $data = 
+                [   
+                    'usuario' => $usuario,
+                    'nome' => $nome,
+                    'email' => $email,
+                    'senha' => $senhaHash,
+                    'setor' => $setor,
+                    'privilegio' => $privilegio,
+                    'unidade' => $unidade
+                ];
+
+                $modelRes = $model->criar($data);
+
+                if($modelRes)
                 {
-                    echo 'Usuário já cadastrado no sistema.';
-    
-                    getMensagemSession('error', 'Usuário já cadastrado!', 'Esse usuário já está cadastrado no sistema.', 'usuarios.php', $this->url[1]);   
-                }
-                elseif ($senha !== $confirmarSenha)
-                {
-                    echo 'Senhas diferentes.';
-    
-                    getMensagemSession('error', 'Senhas diferentes!', 'As senhas não coencidem.', 'usuarios.php', $this->url[0]);
+                    getMensagemSession('success', 'Cadastrado!', 'O usuário foi cadastrado com sucesso.', 'usuarios');
                 }
                 else
                 {
-                    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-    
-                    $data = 
-                    [   
-                        'usuario' => $usuario,
-                        'nome' => $nome,
-                        'senha' => $senhaHash,
-                        'setor' => $setor,
-                        'privilegio' => $privilegio,
-                        'unidade' => $unidade
-                    ];
-    
-                    $model->criar($data);
-    
-                    getMensagemSession('success', 'Sucesso ao cadastrar usuário!', 'Usuário cadastrado com sucesso no sistema.', 'usuarios.php', $this->url[1]);
+                    throw new Error('Não foi possivel cadastrar o usuário.');
                 }
             }
-            catch (Exception $e)
-            {
-                echo 'Houve um erro ao executar a criação do usuário: '. $e->getMessage();
+        }
+        catch (Error $e)
+        {
+            $texto = $e->getMessage();
 
-                getMensagemSession('error', 'Erro ao cadastrar o usuário!', 'Houve algum problema e o usuário não foi cadastrado.', 'usuarios.php', $this->url[0]);
-            }
+            getMensagemSession('error', 'Erro ao cadastrar o usuário!', $texto, 'usuarios', 'criarUsuario', $dataUrl);
         }
     }
 
@@ -95,7 +104,6 @@ class UsuarioController
         {
             echo 'Variáveis não definidas.';
 
-            getMensagemSession('error', 'Erro no preenchimento dos dados!', 'Você precisa preencher todos os campos.', 'usuarios.php', $this->url[0]);
         }
         else
         {
@@ -114,13 +122,11 @@ class UsuarioController
 
                 $model->atualizar($id, $data);
 
-                getMensagemSession('success', 'Sucesso ao editar o usuário!', 'Usuário editado no sistema.', 'usuarios.php', $this->url[1]);
             }
             catch (Exception $e)
             {
                 echo 'Houve um erro ao executar a edição do usuário: '. $e->getMessage();
     
-                getMensagemSession('error', 'Erro ao editar o usuário!', 'Houve algum problema e o usuário não foi editado.', 'usuarios.php', $this->url[0]);
             }
         }
     }
@@ -137,20 +143,15 @@ class UsuarioController
 
                 $apagar = $model->apagar($id);
 
-                getMensagemSession('success', 'Sucesso ao apagar!', 'O usuário foi apagado no sistema.', 'usuarios.php', $this->url[1]);
             }
             catch (Exception $e)
             {
-                echo 'Ocorreu algum erro durante a exclusão do usuário: '. $e->getMessage();
 
-                getMensagemSession('error', 'Erro ao apagar!', 'O usuário não pode ser excluído.', 'usuarios.php', $this->url[1]);
             }
         }
         else
         {
-            echo 'Ocorreu algum erro durante a exclusão do usuário id não informado';
 
-            getMensagemSession('error', 'Erro ao apagar!', 'O usuário não pode ser excluído.', 'usuarios.php', $this->url[1]);
         }
     }
 
@@ -164,13 +165,11 @@ class UsuarioController
         {
             echo 'Variáveis não preenchidas.';
 
-            getMensagemSession('error', 'Erro ao alterar senha!', 'Você precisa preencher todos os campos!', 'usuarios.php', $id);
         }
         else if($novaSenha !== $confirmarSenha)
         {
             echo 'Senhas diferentes.';
 
-            getMensagemSession('error', 'Erro ao alterar senha!', 'Senhas diferentes.', 'usuarios.php', $id);
         }
         else
         {
@@ -180,13 +179,11 @@ class UsuarioController
 
                 $alterar = $model->atualizarSenha($id, $novaSenha);
 
-                getMensagemSession('success', 'Sucesso ao atualizar a senha!', 'A senha foi alterada com sucesso.', 'usuarios.php');
             }
             catch (Exception $e)
             {
                 echo 'Houve um erro ao executar: '. $e->getMessage();
 
-                getMensagemSession('error', 'Erro ao alterar senha!', 'Houve um erro ao alterar.', 'usuarios.php', $id);
             }
         }
     }
@@ -204,7 +201,6 @@ class UsuarioController
         {
             echo 'Variáveis não definidas.';
 
-            getMensagemSession('error', 'Erro no preenchimento dos dados!', 'Você precisa preencher todos os campos.', 'usuarios.php', $this->url[0]);
         }
 
         if ($_SESSION['setor'] === 'TI')
@@ -225,13 +221,10 @@ class UsuarioController
                 $model = new AssinaturaModel();
                 $assinar = $model->criarTecnicos($data);
 
-                getMensagemSession('success', 'Sucesso ao assinar!', 'A preventiva do ano de '. $ano .' no '. $setor .', foi assinada.', 'preventiva.php', $setor);
             }
             catch (Exception $e)
             {
-                error_log('Ocorreu um erro ao tentar assinar a preventiva: '. $e->getMessage());
 
-                getMensagemSession('error', 'Erro ao assinar!', 'Houve um erro ao assinar a preventiva.', 'preventiva.php', $setor);
             }
         }
         else
@@ -251,13 +244,11 @@ class UsuarioController
                 $model = new AssinaturaModel();
                 $assinar = $model->criarResponsaveis($data);
 
-                getMensagemSession('success', 'Sucesso ao assinar!', 'Obrigado por assinar, você pode verificar sua assinatura no Início.', 'preventiva.php', $setor);
             }
             catch (Exception $e)
             {
                 error_log('Ocorreu um erro ao tentar assinar a preventiva: '. $e->getMessage());
 
-                getMensagemSession('error', 'Erro ao assinar!', 'Houve um erro ao assinar a preventiva.', 'preventiva.php', $setor);
             }
         }
     }
@@ -267,31 +258,27 @@ if (empty($_SESSION['privilegio']))
 {
     echo 'Erro ao validar o privilégio.';
 
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do privilégio.', 'login.php');
 }
 elseif (empty($_SESSION['usuario']))
 {
     echo 'Erro ao validar o usuário.';
 
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do usuário.', 'login.php');
 }
 elseif (empty($_SESSION['token']))
 {
     echo 'Falha na verificação do token da session.';
 
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token da sessão.', 'login.php');
 }
 elseif (empty($acao))
 {
     echo 'Nenhuma ação foi instanciada.';
 
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação da ação.', 'index.php');
 }
 elseif (empty($token))
 {
     echo 'Erro ao validar o token.';
 
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token.', 'index.php');
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token.', 'index');
 }
 elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
