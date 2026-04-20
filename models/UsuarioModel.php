@@ -43,23 +43,47 @@ class UsuarioModel{
         }
     }
 
-    public function listar() 
+    public function listar($id = '') 
     {
         try
         {
-            $sql = 'SELECT us.*,
-                u.nome AS nome_unidade, 
-                i.nome_salvo AS nome_imagem
-                FROM usuarios us
-                LEFT JOIN unidade u
-                    ON us.id_unidade = u.id
-                LEFT JOIN imagem i
-                    ON us.id_imagem = i.id
-                ORDER BY us.id DESC';
-            $stmt = $this->db->prepare($sql);
-            $stmt ->execute();
+            if ($id != '')
+            {
+                $sql = 'SELECT us.*,
+                    u.nome AS nome_unidade, 
+                    i.nome_salvo AS nome_imagem
+                    FROM usuarios us
+                    LEFT JOIN unidade u
+                        ON us.id_unidade = u.id
+                    LEFT JOIN imagem i
+                        ON us.id_imagem = i.id
+                    WHERE us.id = ?';
+                $stmt = $this->db->prepare($sql);
+                $stmt ->execute
+                (
+                    [
+                        $id
+                    ]
+                );
 
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            else
+            {
+                $sql = 'SELECT us.*,
+                    u.nome AS nome_unidade, 
+                    i.nome_salvo AS nome_imagem
+                    FROM usuarios us
+                    LEFT JOIN unidade u
+                        ON us.id_unidade = u.id
+                    LEFT JOIN imagem i
+                        ON us.id_imagem = i.id
+                    ORDER BY us.id DESC';
+                $stmt = $this->db->prepare($sql);
+                $stmt ->execute();
+
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
         }
         catch (PDOException $e) 
         {
@@ -78,23 +102,30 @@ class UsuarioModel{
                 usuario = :usuario,
                 setor = :setor,
                 privilegio = :privilegio,
-                unidade = :unidade
+                id_unidade = :id_unidade
                 WHERE id = :id";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([
+            $query = $stmt->execute([
                 ':id' => $id,
                 ':nome' => $data['nome'],
                 ':usuario' => $data['usuario'],
                 ':setor' => $data['setor'],
                 ':privilegio' => $data['privilegio'],
-                ':unidade' => $data['unidade'],
+                ':id_unidade' => $data['unidade'],
             ]);
-            return true;
 
+            if($query)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         } 
         catch (PDOException $e) {
-            error_log("Erro ao atualizar o usuario: " . $e->getMessage());
-           
+            $texto = $e->getMessage();
+        
             return false;
         }
     }
@@ -129,16 +160,27 @@ class UsuarioModel{
         {
             $sql = "DELETE 
                 FROM usuarios 
-                WHERE id = :id";
+                WHERE id = ?";
             $stmt = $this->db->prepare($sql);
-            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-            
-            return $stmt->execute();
+            $query = $stmt->execute(
+                [
+                    $id
+                ]
+            );
+
+            if($query)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         catch (PDOException $e) 
         {
-            error_log("Erro ao apagar o usuario: " . $e->getMessage());
-         
+            $texto = $e->getMessage();
+
             return false;
         }
     }

@@ -49,11 +49,11 @@ function formGridCriarUsuario($setores)
         </div>
         
         <div class="form-group step">
-            <div class="senha">
+            <div class="cadastrar-senha">
                 <label for="input-senha">Senha</label>
                 <input type="password" id="input-senha" name="senha" required>
             </div>
-            <div class="confirmar-senha">
+            <div class="confirmar-cadastrar-senha">
                 <label for="input-confirmar-senha">Confirmar Senha</label>
                 <input type="password" id="input-confirmar-senha" name="confirmar-senha" required>
             </div>

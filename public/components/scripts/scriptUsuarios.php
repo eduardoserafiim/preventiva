@@ -8,4 +8,5 @@
 
 <!-- COMPONENTS -->
 <script src="../public/javascript/bar/bar.js"></script>
+<script src="../public/javascript/usuarios/searchNomeUsuario.js"></script>
 <script src="../public/javascript/usuarios/cadastrarUsuario.js"></script>

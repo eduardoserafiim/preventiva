@@ -32,6 +32,7 @@ require_once "../public/components/usuarios/usuarioCard.php";
 require_once "../public/components/form/usuarios/formGridCriar.php";
 require_once "../public/components/form/usuarios/formGridEditar.php";
 require_once "../public/components/form/usuarios/formActions.php";
+require_once "../public/components/form/usuarios/formActionsEditar.php";
 
 // FORMS
 ?>
@@ -40,6 +41,7 @@ require_once "../public/components/form/usuarios/formActions.php";
 $url = $_GET['url'] ?? '';
 $tipo = $_GET['tipo'] ?? '';
 $informacoes = $_GET['informacoes'] ?? '';
+$id = $_GET['id'] ?? '';
 $usuariosModel = new UsuarioModel();
 $setoresModel = new SetorModel();
 
@@ -53,6 +55,9 @@ $usuarios = $usuariosModel->listar();
         <main class="main-content">
             <?= bar() ?>
             <?php if($url === 'editar' && $tipo === 'usuario' && $informacoes === 'basicas'): ?>
+                <?php
+                    $usuarioEspecifico = $usuariosModel->listar($id);
+                ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Usuários</h1>
@@ -64,8 +69,10 @@ $usuarios = $usuariosModel->listar();
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
-                        <?= formGridEditarUsuario($setores) ?>
-                        <?= formActions() ?>
+                        <form action="../controllers/UsuariosController" method="POST">
+                            <?= formGridEditarUsuario($usuarioEspecifico, $setores) ?>
+                            <?= formActionsEditar() ?>
+                        </form>
                     </div>
                 </div>
             <?php elseif($url === 'criar' && $tipo === 'usuario' && $informacoes === 'basicas'): ?>
@@ -80,7 +87,7 @@ $usuarios = $usuariosModel->listar();
                 </div>
                 <div class="controleForm">
                     <div class="form-container">
-                        <form action="../controllers/UsuariosController.php" method="POST" enctype="multipart/form-data">
+                        <form action="../controllers/UsuariosController" method="POST">
                             <?= formGridCriarUsuario($setores) ?>
                             <?= formActions() ?>
                         </form>
@@ -97,7 +104,7 @@ $usuarios = $usuariosModel->listar();
                     </div>
                 </div>
                 <div class="search">
-                    <?= search('search-input', 'usuarios', 'usuario') ?>
+                    <?= search('search-input', 'Nome, Usuário e Email.', 'usuario') ?>
                 </div>
                 <div class="usuarios">
                     <?php if(empty($usuarios)): ?>

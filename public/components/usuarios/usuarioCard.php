@@ -49,9 +49,9 @@ function criarCardUsuario($usuario)
                     </div>
                     <div class="deletarUsuario">
                         <form action="../controllers/UsuariosController" method="POST">
-                            <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
+                            <input type="hidden" name="acao" value="excluir">
                             <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-                            <input type="hidden" name="acao" value="excluirUsuario">
+                            <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
                             <button style="background-color: inherit; border: none; color: red; cursor: pointer;" type="submit" onclick="confirmarExclusao(event)">
                                 <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
                             </button>

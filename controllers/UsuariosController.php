@@ -93,65 +93,74 @@ class UsuarioController
 
     public function alterarUsuarios()
     {
-        $id         = intval($_POST['id']);
-        $usuario    = trim($_POST['usuario']);
-        $nome       = trim($_POST['nome']);
-        $setor      = trim($_POST['setor']);
-        $privilegio = trim($_POST['privilegio']);
-        $unidade    = trim($_POST['unidade']);
-
-        if (!$usuario || !$nome || !$setor || !$privilegio || !$unidade)
+        try
         {
-            echo 'Variáveis não definidas.';
+            $model = new UsuarioModel();
 
+            $id         = intval($_POST['id']);
+            $usuario    = trim($_POST['usuario']);
+            $nome       = trim($_POST['nome']);
+            $setor      = trim($_POST['setor']);
+            $privilegio = trim($_POST['privilegio']);
+            $unidade    = trim($_POST['unidade']);
+
+            if (!$usuario || !$nome || !$setor || !$privilegio || !$unidade)
+            {
+                throw new Error('Todos os campos devem estar preenchidos.');
+            }
+
+            $data =
+            [
+                'nome' => $nome,
+                'usuario' => $usuario,
+                'setor' => $setor,
+                'privilegio' => $privilegio,
+                'unidade' => $unidade
+            ];
+
+            $modelRes = $model->atualizar($id, $data);
+
+            if($modelRes)
+            {
+                getMensagemSession('success', 'Atualizado.', 'O usuário foi atualizado', 'usuarios');
+            }
+            else
+            {
+                throw new Error('Houve um erro interno. Entre em contato com a TI.');
+            }
         }
-        else
+        catch (Exception $e)
         {
-            try
-            {
-                $model = new UsuarioModel();
+            $texto = $e->getMessage();
 
-                $data =
-                [
-                    'nome' => $nome,
-                    'usuario' => $usuario,
-                    'setor' => $setor,
-                    'privilegio' => $privilegio,
-                    'unidade' => $unidade
-                ];
-
-                $model->atualizar($id, $data);
-
-            }
-            catch (Exception $e)
-            {
-                echo 'Houve um erro ao executar a edição do usuário: '. $e->getMessage();
-    
-            }
+            getMensagemSession('error', 'Não recebemos.', $texto, 'usuarios');
         }
     }
 
     public function apagarUsuarios()
     {
-        $id = intval($_POST['id']);
-        
-        if (isset($id))
+        try
         {
-            try
+            $model = new UsuarioModel();
+
+            $id = intval($_POST['id']);
+
+            $modelRes = $model->apagar($id);
+
+            if($modelRes)
             {
-                $model = new UsuarioModel();
-
-                $apagar = $model->apagar($id);
-
+                getMensagemSession('success', 'Excluído', 'Usuário excluído com sucesso.', 'usuarios');
             }
-            catch (Exception $e)
+            else
             {
-
+                throw new Error('Houve um erro interno. Entre em contato com a TI.');
             }
         }
-        else
+        catch (Error $e)
         {
+            $texto = $e->getMessage();
 
+            getMensagemSession('error', 'Não recebemos.', $texto, 'usuarios');
         }
     }
 
@@ -190,67 +199,7 @@ class UsuarioController
 
     public function assinarUsuarios()
     {
-        $nome       = trim($_POST['assinatura-nome']);
-        $ano        = trim($_POST['assinatura-ano']);
-        $semestre   = trim($_POST['assinatura-semestre']);
-        $setor      = trim($_POST['assinatura-setor']);
-        $unidade    = trim($_POST['assinatura-unidade']);
-        $assinatura = trim($_POST['assinatura']);
 
-        if (!$nome || !$ano || !$semestre || !$setor || !$unidade || !$assinatura)
-        {
-            echo 'Variáveis não definidas.';
-
-        }
-
-        if ($_SESSION['setor'] === 'TI')
-        {
-            try
-            {
-                $model = new AssinaturaModel();
-                
-                $data = [
-                    'nome'       => $nome,
-                    'ano'        => $ano,
-                    'semestre'   => $semestre,
-                    'setor'      => $setor,
-                    'unidade'    => $unidade,
-                    'assinatura' => $assinatura,
-                ];
-            
-                $model = new AssinaturaModel();
-                $assinar = $model->criarTecnicos($data);
-
-            }
-            catch (Exception $e)
-            {
-
-            }
-        }
-        else
-        {
-            try
-            {
-                $model = new AssinaturaModel();
-                $data = [
-                    'nome' => $nome,
-                    'ano' => $ano,
-                    'semestre' => $semestre,
-                    'setor' => $setor,
-                    'unidade' => $unidade,
-                    'assinatura' => $assinatura,
-                ];
-            
-                $model = new AssinaturaModel();
-                $assinar = $model->criarResponsaveis($data);
-
-            }
-            catch (Exception $e)
-            {
-                error_log('Ocorreu um erro ao tentar assinar a preventiva: '. $e->getMessage());
-
-            }
-        }
     }
 };
 
@@ -297,7 +246,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                     $controller = new UsuarioController();
                     $controller->alterarUsuarios();
                     break;
-                case 'apagar':
+                case 'excluir':
                     $controller = new UsuarioController();
                     $controller->apagarUsuarios();
                     break;
@@ -335,4 +284,3 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
         getMensagemSession('error', 'Token não aceito.', 'Falha na verificação do token.', 'usuarios.php');
     }
 }
-exit();

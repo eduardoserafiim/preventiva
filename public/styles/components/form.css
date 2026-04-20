@@ -126,17 +126,19 @@
     width: 300px;
 }
 
-.step {
+.step 
+{
     display: none;
 }
 
-.step.active {
+.step.active
+{
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.nome, .user, .email, .privilegio, .unidade, .setor, .senha, .confirmar-senha
+.nome, .user, .email, .privilegio, .unidade, .setor, .cadastrar-senha, .confirmar-cadastrar-senha
 {
     display: flex;
     flex-direction: column;
