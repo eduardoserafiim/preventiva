@@ -48,6 +48,8 @@ $setor = $_GET['setor'] ?? '';
 $setorID = $_GET['id_setor'] ?? '';
 $preventivaID = $_GET['id_preventiva'] ?? '';
 $semestre = $_GET['semestre'] ?? '';
+$unidade = $_GET['unidade'] ?? '';
+$unidadeID = $_GET['id_unidade'] ?? '';
 $tipo = $_GET['tipo'] ?? '';
 
 ?>
@@ -58,7 +60,7 @@ $tipo = $_GET['tipo'] ?? '';
             <?= bar() ?>
             <?php if ($url === 'relacionar' && $tipo === 'preventiva_computador'): ?>
                 <?php 
-                    $preventiva = $modelPreventiva->listarPreventiva($ano, $semestre);
+                    $preventiva = $modelPreventiva->listarPreventiva($ano, $semestre, $unidadeID);
                     $computadoresDisponiveis = $modelComputador->listarComputador();
                 ?>
                 <div class="page-header">
@@ -68,7 +70,7 @@ $tipo = $_GET['tipo'] ?? '';
                     </div>
                 </div>
                 <div class="voltar">
-                    <?= voltar('preventiva?url=setor&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre)) ?>
+                    <?= voltar('preventiva?url=setor&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
                 </div>
                 <div class="computadores">
                     <?php if(empty($computadoresDisponiveis)): ?>
@@ -80,7 +82,8 @@ $tipo = $_GET['tipo'] ?? '';
                                 'ano' => $ano,
                                 'semestre' => $semestre,
                                 'setor' => $setor,
-                                'setorID' => $setorID
+                                'setorID' => $setorID,
+                                'unidadeID' => $unidadeID
                             ];
                         ?>
                         <?php foreach($computadoresDisponiveis as $computador): ?>
@@ -90,23 +93,26 @@ $tipo = $_GET['tipo'] ?? '';
                 </div>
             <?php elseif ($url === 'setor'): ?>
                 <?php 
-                    $preventiva = $modelPreventiva->listarPreventiva($ano, $semestre);
-
+                    $preventiva = $modelPreventiva->listarPreventiva($ano, $semestre, $unidadeID);
+                    
                     $dataPreventivaEspecifico =
                     [
                         'setor' => $setorID,
                         'semestre' => $semestre,
                         'ano' => $ano,
+                        'unidade' => $unidadeID
                     ];
 
                     $preventivaEspecifica = $modelPreventivaSetor->listarPreventiva($dataPreventivaEspecifico);
+
                     $preventivaStatus = $preventivaEspecifica['status'] ?? 'Nenhum';
 
                     $dataListarComputadoresPreventiva = 
                     [
                         'ano' => $ano,
                         'semestre' => $semestre,
-                        'setor' => $setor
+                        'setor' => $setor,
+                        'unidade' => $unidade
                     ];
 
                     $computadores = $modelPreventivaComputador->listarComputadorPreventiva($dataListarComputadoresPreventiva);
@@ -117,10 +123,10 @@ $tipo = $_GET['tipo'] ?? '';
                         <p>Visualize os computadores registrados em <strong><?= htmlspecialchars($setor) ?></strong></p>
                     </div>
                     <?php if ($_SESSION['privilegio'] === 'TI' || $_SESSION['privilegio'] === 'administrador'): ?>
-                        <?php if($preventivaStatus === 'Nenhum' || $preventivaStatus === 'Fechada'): ?>
+                        <?php if($preventivaStatus === 'Nenhum' || $preventivaStatus === 'Fechado'): ?>
                         <?php else: ?>
                             <div class="page-relacionar-computador">
-                                <?= relacionarPreventiva('Registrar PC', 'preventiva?url=relacionar&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&tipo=preventiva_computador') ?>
+                                <?= relacionarPreventiva('Registrar PC', 'preventiva?url=relacionar&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&tipo=preventiva_computador'.'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
                             </div>
                         <?php endif ?>
                     <?php endif ?>
@@ -129,12 +135,12 @@ $tipo = $_GET['tipo'] ?? '';
                     <?= search('computadores', 'computadores', 'computadores') ?>
                 </div>
                 <div class="voltar">
-                    <?= voltar('preventiva?url=setores&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre)) ?>
+                    <?= voltar('preventiva?url=setores&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
                 </div>
                 <div class="preventiva-informacoes-basicas">
                     <div class="preventiva-informacao preventiva-disponibilidade">
                         <h2>Status</h2>
-                        <?php if ($preventivaStatus === 'Fechada'): ?>
+                        <?php if ($preventivaStatus === 'Fechado'): ?>
                             <h4 class="statusPreventiva fechada">Fechada</h4>
                         <?php elseif($preventivaStatus === 'Aberta'): ?>
                             <h4 class="statusPreventiva aberta">Aberta</h4>
@@ -188,11 +194,13 @@ $tipo = $_GET['tipo'] ?? '';
                                 'ano' => $ano,
                                 'semestre' => $semestre,
                                 'setor' => $setor,
-                                'setorID' => $setorID
+                                'setorID' => $setorID,
+                                'unidade' => $unidade,
+                                'unidadeID' => $unidadeID
                             ];
                         ?>
                         <?php foreach ($computadores as $computador): ?>
-                            <?= criarComputadorCard($computador, $dataCriarComputadorPreventiva) ?>
+                            <?= criarComputadorCard($computador, $dataCriarComputadorPreventiva, $preventivaStatus) ?>
                         <?php endforeach ?>
                     <?php endif ?>
                 </div>
@@ -215,8 +223,13 @@ $tipo = $_GET['tipo'] ?? '';
                                 <input type="hidden" name="idPreventiva" value="<?= htmlspecialchars($preventivaEspecifica['id_preventiva']) ?>">
                                 <input type="hidden" name="acao" value="finalizarPreventivaRelacionadaSetor">
                                 <input type="hidden" name="token" value="<?= htmlspecialchars($_SESSION['token']) ?>">
-                                <input type="hidden" name="tecnicoPreventiva" value="<?= htmlspecialchars($preventivaEspecifica['tecnico_responsavel']) ?>">
-                                <input type="hidden" name="responsavelSetor" value="<?= htmlspecialchars($preventivaEspecifica['responsavel_setor']) ?>">
+                                <input type="hidden" name="setor" value="<?= htmlspecialchars($setor) ?>">
+                                <input type="hidden" name="idSetor" value="<?= htmlspecialchars($setorID) ?>">
+                                <input type="hidden" name="unidade" value="<?= htmlspecialchars($unidade) ?>">
+                                <input type="hidden" name="unidadeID" value="<?= htmlspecialchars($unidadeID) ?>">
+                                <input type="hidden" name="idResponsavel" value="<?= htmlspecialchars($_SESSION['id']) ?>">
+                                <input type="hidden" name="semestre" value="<?= htmlspecialchars($semestre) ?>">
+                                <input type="hidden" name="ano" value="<?= htmlspecialchars($ano) ?>">
                                 <button type="submit" class="botao botao-cancelar">Finalizar preventiva</button>
                             </form>
                         <?php endif ?>
@@ -248,7 +261,8 @@ $tipo = $_GET['tipo'] ?? '';
                     $dataSemestreAno =
                     [
                         'ano' => $ano,
-                        'semestre' => $semestre  
+                        'semestre' => $semestre,
+                        'unidade' => $unidadeID
                     ];
 
                     $preventivaStatus = $modelPreventivaSetor->listarPreventivaRelacionadaSetor($dataSemestreAno);
@@ -273,7 +287,7 @@ $tipo = $_GET['tipo'] ?? '';
                             $totalComputadoresSetor = $quantidadeComputadores[$setor['id']] ?? '0';    
                             $statusPreventivaSetor = $preventivaStatus[$setor['id']] ?? '';
                         ?>
-                        <a href="preventiva?url=setor&token=<?= htmlspecialchars($_SESSION['token']) ?>&id_preventiva=<?= htmlspecialchars($preventivaID) ?>&id_setor=<?= htmlspecialchars($setor['id']) ?>&setor=<?= htmlspecialchars($setor['nome']) ?>&ano=<?= htmlspecialchars($ano) ?>&semestre=<?= htmlspecialchars($semestre) ?>">
+                        <a href="preventiva?url=setor&token=<?= htmlspecialchars($_SESSION['token']) ?>&id_preventiva=<?= htmlspecialchars($preventivaID) ?>&id_setor=<?= htmlspecialchars($setor['id']) ?>&setor=<?= htmlspecialchars($setor['nome']) ?>&ano=<?= htmlspecialchars($ano) ?>&semestre=<?= htmlspecialchars($semestre) ?>&unidade=<?= htmlspecialchars($unidade) ?>&id_unidade=<?= htmlspecialchars($unidadeID) ?>">
                             <div class="card-setor" data-nome="<?= $setor['nome'] ?>">
                                 <div class="card-setor-titulo">
                                     <i class="fa <?= $setor['icon'] ?> fa-xl"></i>
@@ -293,7 +307,7 @@ $tipo = $_GET['tipo'] ?? '';
                                     <?php endif ?>
                                     <?php if($statusPreventivaSetor === 'Aberta'): ?>
                                         <h4 class="statusPreventiva aberta">Aberta</h4>
-                                    <?php elseif($statusPreventivaSetor === 'Fechada'): ?>
+                                    <?php elseif($statusPreventivaSetor === 'Fechado'): ?>
                                         <h4 class="statusPreventiva fechada">Fechada</h4>
                                     <?php else: ?>
                                         <h4 class="statusPreventiva nenhum">Não aberto</h4>
@@ -324,7 +338,7 @@ $tipo = $_GET['tipo'] ?? '';
                         <p class="informarPreventivasDisponiveis">Nenhuma preventiva registrada.</p>
                     <?php else: ?>
                         <?php foreach($preventivas as $preventiva): ?>
-                            <a href="preventiva?url=setores&token=<?= $_SESSION['token'] ?>&id_preventiva=<?= htmlspecialchars($preventiva['id']) ?>&ano=<?= htmlspecialchars($preventiva['ano']) ?>&semestre=<?= htmlspecialchars($preventiva['semestre']) ?>">
+                            <a href="preventiva?url=setores&token=<?= $_SESSION['token'] ?>&id_preventiva=<?= htmlspecialchars($preventiva['id']) ?>&ano=<?= htmlspecialchars($preventiva['ano']) ?>&semestre=<?= htmlspecialchars($preventiva['semestre']) ?>&unidade=<?= htmlspecialchars($preventiva['nome_unidade']).'&id_unidade='.htmlspecialchars($preventiva['id_unidade']) ?>">
                                 <div class="card-preventiva" data-ano='<?= $preventiva['ano'] ?>'>
                                     <div class="card-preventiva-titulo">
                                         <div class="preventiva-titulo">
@@ -332,14 +346,16 @@ $tipo = $_GET['tipo'] ?? '';
                                             <h4>Preventiva <?= htmlspecialchars($preventiva['ano']) ?></h4>
                                         </div>
                                         <div class="preventiva-excluir">
-                                            <form action="../controllers/PreventivaController.php" method="POST" class="form-actions">
-                                                <input type="hidden" name="id" value="<?= $preventiva['id'] ?>">
-                                                <input type="hidden" name="acao" value="excluirPreventiva">
-                                                <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-                                                <button type="submit" style="background-color: inherit; border: none; cursor: pointer;" onclick="confirmarExclusaoPreventiva(event)">
-                                                    <i class="fas fa-icon fa-solid fa-trash fa-lg" style="color: red;"></i>
-                                                </button>
-                                            </form>
+                                            <?php if($_SESSION['privilegio'] === 'Administrador'): ?>
+                                                <form action="../controllers/PreventivaController.php" method="POST" class="form-actions">
+                                                    <input type="hidden" name="id" value="<?= $preventiva['id'] ?>">
+                                                    <input type="hidden" name="acao" value="excluirPreventiva">
+                                                    <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                                    <button type="submit" style="background-color: inherit; border: none; cursor: pointer;" onclick="confirmarExclusaoPreventiva(event)">
+                                                        <i class="fas fa-icon fa-solid fa-trash fa-lg" style="color: red;"></i>
+                                                    </button>
+                                                </form>
+                                            <?php endif ?>
                                         </div>
                                     </div>
                                     <div class="card-preventiva-conteudo">

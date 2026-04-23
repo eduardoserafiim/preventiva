@@ -23,15 +23,18 @@ class PreventivaSetorController
         $idPreventiva = intval($_POST['idPreventiva']);
         $ano = intval($_POST['ano']);
         $semestre = trim($_POST['semestre']);
+        $unidade = trim($_POST['unidade']);
+        $idUnidade = trim($_POST['unidadeID']);
 
         $dataUrl =
         [
             'token' => $token,
             'setor' => $setor,
             'id_setor' => $idSetor,
-            'id_preventiva' => $idPreventiva,
             'ano' => $ano,
-            'semestre' => $semestre
+            'semestre' => $semestre,
+            'unidade' => $unidade,
+            'unidadeID' => $idUnidade
         ];
 
         try
@@ -70,30 +73,57 @@ class PreventivaSetorController
 
     public function finalizarPreventivaSetor()
     {
-        $token = trim($_POST['token']);
-        $setor = trim($_POST['setor']);
-        $idSetor = intval($_POST['idSetor']);
-        $ano = intval($_POST['ano']);
-        $semestre = trim($_POST['semestre']);
-        
-        $dataUrl =
-        [
-            'token' => $token,
-            'setor' => $setor,
-            'id_setor' => $idSetor,
-            'ano' => $ano,
-            'semestre' => $semestre
-        ];
-
         try
         {
+            $model = new PreventivaSetorModel();
 
+            $token = trim($_POST['token']);
+            $setor = trim($_POST['setor']);
+            $idPreventiva = trim($_POST['idPreventiva']);
+            $idSetor = intval($_POST['idSetor']);
+            $ano = intval($_POST['ano']);
+            $semestre = trim($_POST['semestre']);
+            $unidade = trim($_POST['unidade']);
+            $idUnidade = trim($_POST['unidadeID']);
+            $idResponsavel = trim($_POST['idResponsavel']);
+
+            $status = 'Fechado';
+            
+            $dataUrl =
+            [
+                'token' => $token,
+                'setor' => $setor,
+                'id_setor' => $idSetor,
+                'ano' => $ano,
+                'semestre' => $semestre,
+                'unidade' => $unidade,
+                'unidadeID' => $idUnidade
+            ];     
+
+            $data =
+            [
+                'idPreventiva' => $idPreventiva,
+                'idSetor' => $idSetor,
+                'idResponsavel' => $idResponsavel,
+                'status' => $status,
+            ];
+
+            $modelRes = $model->finalizarPreventivaSetor($data);
+
+            if($modelRes)
+            {
+                getMensagemSession('success', 'Finalizada!', 'Enviamos um E-mail para o Responsável do Setor assinar.', 'preventiva', 'relacionarPreventiva', $dataUrl);
+            }
+            else    
+            {
+                throw new Error('Houve um erro interno. Entre em contato com o suporte.');
+            }
         }
         catch(Throwable $e)
         {
             $texto = $e->getMessage();
 
-            getMensagemSession('error', 'Erro ao remover!', $texto, 'preventiva', 'relacionarPreventiva', $dataUrl);
+            getMensagemSession('error', 'Erro ao finalizar!', $texto, 'preventiva', 'relacionarPreventiva', $dataUrl);
         }
     }
 }

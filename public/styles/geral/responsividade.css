@@ -292,19 +292,6 @@
   }
 
   /* setores */
-  .setoresAdministrador
-  {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .setores .flex
-  {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-  }
 
   .setorDiv
   {
@@ -524,12 +511,6 @@
     height: 2800px;
   }
 
-  /* setores */
-  .setores
-  {
-    width: 300px;
-  }
-
   .setor-preventiva{
     width: 250px;
     height: 250px;
@@ -709,10 +690,6 @@
   }
 
   /* setores */
-  .setores
-  {
-    width: 250px;
-  }
 
   .setor-preventiva{
     width: 200px;

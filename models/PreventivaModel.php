@@ -33,7 +33,7 @@ class PreventivaModel
         }
     } 
 
-    public function listarPreventiva($ano = '', $semestre = '')
+    public function listarPreventiva($ano = '', $semestre = '', $unidadeID = '')
     {
         try
         {
@@ -48,13 +48,15 @@ class PreventivaModel
                 LEFT JOIN usuarios r
                     ON p.id_usuario_responsavel_criacao = r.id
                 WHERE p.ano = :ano 
-                AND p.semestre = :semestre';
+                AND p.semestre = :semestre
+                AND p.id_unidade = :unidadeID';
     
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute(
                     [
                         ':ano' => $ano,
-                        ':semestre' => $semestre
+                        ':semestre' => $semestre,
+                        ':unidadeID' => $unidadeID
                     ]
                 );
     

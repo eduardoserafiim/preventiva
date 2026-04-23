@@ -31,7 +31,7 @@ function formGridEditarUsuario($usuario, $setores)
                         <option value="Administrador">Administrativo</option>
                         <option value="Usuário">Usuário</option>
                     <?php elseif ($usuario['privilegio'] === 'Usuário'): ?>
-                        <option value="Adminstrador">Administrativo</option>
+                        <option value="Administrador">Administrativo</option>
                         <option value="TI">TI</option>
                     <?php endif ?>
                 </select>

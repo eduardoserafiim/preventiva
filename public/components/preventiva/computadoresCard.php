@@ -1,5 +1,5 @@
 <?php
-function criarComputadorCard($computador, $data)
+function criarComputadorCard($computador, $data, $preventiva)
 { ?>
     <div class="cardComputador" data-nome="<?= $computador['nome'] ?>" data-endereco-ip="<?= $computador['endereco_ip'] ?>" data-endereco-mac="<?= $computador['endereco_mac'] ?>">
         <div class="imagemComputador">
@@ -56,21 +56,25 @@ function criarComputadorCard($computador, $data)
                                 <i class="fas fa-icon fa-solid fa-eye fa-xl"></i>
                             </a>
                         </div>
-                        <div class="deletarComputador">
-                            <form action="../controllers/PreventivaComputadorController.php" method="POST">
-                                <input type="hidden" name="acao" value="desrelacionarPreventivaComputador">
-                                <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-                                <input type="hidden" name="setor" value="<?= $data['setor'] ?>">
-                                <input type="hidden" name="idSetor" value="<?= $data['setorID'] ?>">
-                                <input type="hidden" name="idPreventiva" value="<?= $computador['id_preventiva'] ?>">
-                                <input type="hidden" name="idComputador" value="<?= $computador['id_computador'] ?>">
-                                <input type="hidden" name="ano" value="<?= $data['ano'] ?>">
-                                <input type="hidden" name="semestre" value="<?= $data['semestre'] ?>">
-                                <button style="background-color: inherit; border: none; color: red; cursor: pointer;" type="submit" onclick="confirmarExclusao(event)">
-                                    <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
-                                </button>
-                            </form>
-                        </div>
+                        <?php if($preventiva != 'Fechado'): ?>
+                            <div class="deletarComputador">
+                                <form action="../controllers/PreventivaComputadorController.php" method="POST">
+                                    <input type="hidden" name="acao" value="desrelacionarPreventivaComputador">
+                                    <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                    <input type="hidden" name="setor" value="<?= $data['setor'] ?>">
+                                    <input type="hidden" name="idSetor" value="<?= $data['setorID'] ?>">
+                                    <input type="hidden" name="idPreventiva" value="<?= $computador['id_preventiva'] ?>">
+                                    <input type="hidden" name="idComputador" value="<?= $computador['id_computador'] ?>">
+                                    <input type="hidden" name="ano" value="<?= $data['ano'] ?>">
+                                    <input type="hidden" name="unidade" value="<?= htmlspecialchars($data['unidade']) ?>">
+                                    <input type="hidden" name="unidadeID" value="<?= htmlspecialchars($data['unidadeID']) ?>">
+                                    <input type="hidden" name="semestre" value="<?= $data['semestre'] ?>">
+                                    <button style="background-color: inherit; border: none; color: red; cursor: pointer;" type="submit" onclick="confirmarExclusao(event)">
+                                        <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        <?php endif ?>
                     <?php endif ?>
                 </div>
             </div>

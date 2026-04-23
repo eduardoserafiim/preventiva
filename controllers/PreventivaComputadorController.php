@@ -23,6 +23,8 @@ class PreventivaComputadorController
         $idSetor = intval($_POST['idSetor']);
         $ano = intval($_POST['ano']);
         $semestre = trim($_POST['semestre']);
+        $unidade = trim($_POST['unidade']);
+        $idUnidade = intval($_POST['unidadeID']);
 
         $dataUrl =
         [
@@ -30,7 +32,9 @@ class PreventivaComputadorController
             'setor' => $setor,
             'id_setor' => $idSetor,
             'ano' => $ano,
-            'semestre' => $semestre
+            'semestre' => $semestre,
+            'unidade' => $unidade,
+            'unidadeID' => $idUnidade
         ];
 
         try
@@ -50,14 +54,14 @@ class PreventivaComputadorController
     
                 $data =
                 [
-                    'idComputador' => $idComputador,
+                    'idComputador' => $idComputadorPreventiva,
                     'idPreventiva' => $idPreventiva,
                     'idSetor'      => $idSetor
                 ];
     
                 $modelRes =  $modelPreventivaComputador->relacionarComputadorPreventiva($data);
-    
-                if ($modelRes === true)
+
+                if ($modelRes)
                 {
                     getMensagemSession('success', 'Sucesso ao relacionar!', 'Computador registrado à preventiva.', 'preventiva', 'relacionarPreventiva' , $dataUrl);
                 }
@@ -86,6 +90,8 @@ class PreventivaComputadorController
         $idSetor = intval($_POST['idSetor']);
         $ano = intval($_POST['ano']);
         $semestre = trim($_POST['semestre']);
+        $unidade = trim($_POST['unidade']);
+        $idUnidade = trim($_POST['unidadeID']);
         
         $dataUrl =
         [
@@ -93,7 +99,9 @@ class PreventivaComputadorController
             'setor' => $setor,
             'id_setor' => $idSetor,
             'ano' => $ano,
-            'semestre' => $semestre
+            'semestre' => $semestre,
+            'unidade' => $unidade,
+            'unidadeID' => $idUnidade
         ];
 
         try

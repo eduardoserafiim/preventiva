@@ -59,6 +59,8 @@ function criarComputadorPreventivaCard($computador, $preventiva, $data)
                             <input type="hidden" name="idSetor" value="<?= htmlspecialchars($data['setorID']) ?>">
                             <input type="hidden" name="setor" value="<?= htmlspecialchars($data['setor']) ?>">
                             <input type="hidden" name="ano" value="<?= htmlspecialchars($data['ano']) ?>">
+                            <input type="hidden" name="unidade" value="<?= htmlspecialchars($preventiva['nome_unidade']) ?>">
+                            <input type="hidden" name="unidadeID" value="<?= htmlspecialchars($data['unidadeID']) ?>">
                             <input type="hidden" name="semestre" value="<?= htmlspecialchars($data['semestre']) ?>">
                             <button type="submit" style="background-color: inherit; border: none; cursor: pointer;">
                                 <i class="fas fa-icon fa-solid fa-plus fa-xl" style="color: green;"></i>

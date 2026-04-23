@@ -53,13 +53,14 @@ class PreventivaComputadorModel
                 ]
             );
 
-            return $stmt->db->lastInsertId();
+            return $this->db->lastInsertId();
         }
         catch(PDOException $e)
         {
+            $texto = $e->getMessage();
 
+            return false;
         }
-    
     }
 
     public function relacionarComputadorPreventiva($data)
@@ -79,7 +80,9 @@ class PreventivaComputadorModel
         }
         catch(PDOException $e)
         {
-            return false;
+            $texto = $e->getMessage();
+            
+            return $texto;
         }
     } 
 
@@ -93,7 +96,7 @@ class PreventivaComputadorModel
                 u.nome AS nome_unidade,
                 s.nome AS nome_setor
             FROM preventiva_computadores pc
-            LEFT JOIN dispositivos_computadores c 
+            LEFT JOIN dispositivos_computadores_preventiva c 
                 ON pc.id_computador = c.id
             LEFT JOIN preventiva p 
                 ON pc.id_preventiva = p.id
@@ -102,6 +105,7 @@ class PreventivaComputadorModel
             LEFT JOIN setores s
                 ON pc.id_setor = s.id
             WHERE s.nome = :setor
+            AND u.nome = :unidade
             AND p.ano = :ano
             AND p.semestre = :semestre';
             $stmt = $this->db->prepare($sql);
@@ -109,7 +113,8 @@ class PreventivaComputadorModel
                 [
                     ':setor' => $data['setor'],
                     ':ano' => $data['ano'],
-                    ':semestre' => $data['semestre']
+                    ':semestre' => $data['semestre'],
+                    ':unidade' => $data['unidade']
                 ]
             );
 
@@ -123,20 +128,29 @@ class PreventivaComputadorModel
 
     public function listarQuantidade($data)
     {
-        $sql = 'SELECT pc.id_preventiva, pc.id_setor, COUNT(pc.id_computador) AS total_computadores, p.*
-            FROM preventiva_computadores pc
-            LEFT JOIN preventiva p
-                ON pc.id_preventiva = p.id 
-            WHERE p.ano = :ano 
-            AND p.semestre = :semestre
-            GROUP BY id_setor
+        $sql = 'SELECT 
+            p.id_unidade, 
+            pc.id_setor, 
+            pc.id_preventiva, 
+            COUNT(pc.id_computador) AS total_computadores, 
+            p.ano,
+            p.semestre
+        FROM preventiva_computadores pc 
+        LEFT JOIN preventiva p ON pc.id_preventiva = p.id 
+        WHERE 
+            p.ano = :ano 
+            AND p.semestre = :semestre 
+            AND p.id_unidade = :id_unidade
+        GROUP BY 
+            pc.id_setor
         ';
 
         $stmt = $this->db->prepare($sql);
         $stmt->execute(
             [
                 'ano' => $data['ano'],
-                'semestre' => $data['semestre']
+                'semestre' => $data['semestre'],
+                'id_unidade' => $data['unidade']
             ]
         );
         $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);

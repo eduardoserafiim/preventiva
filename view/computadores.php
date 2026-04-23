@@ -8,7 +8,7 @@ if (!isset($_SESSION['usuario'])) {
 
 ?>
 <?php
-if ($_SESSION['privilegio'] != 'administrador' && $_SESSION['privilegio'] != 'TI')
+if ($_SESSION['privilegio'] != 'Administrador' && $_SESSION['privilegio'] != 'TI')
 {
     header("Location: index");
     exit;

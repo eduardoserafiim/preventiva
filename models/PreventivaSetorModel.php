@@ -44,12 +44,14 @@ class PreventivaSetorModel
             LEFT JOIN preventiva p
                 ON ps.id_preventiva = p.id
             WHERE ano = :ano
-            AND semestre = :semestre';
+            AND semestre = :semestre
+            AND id_unidade = :unidade';
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
                     ':ano' => $data['ano'],
-                    ':semestre' => $data['semestre']
+                    ':semestre' => $data['semestre'],
+                    ':unidade' => $data['unidade']
                 ]
             );
 
@@ -83,13 +85,15 @@ class PreventivaSetorModel
             WHERE ps.id_setor = :setor
             AND p.ano = :ano
             AND p.semestre = :semestre
+            AND p.id_unidade = :unidade
             ';
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
                     ':setor' => $data['setor'],
                     ':semestre' => $data['semestre'],
-                    ':ano' => $data['ano']
+                    ':ano' => $data['ano'],
+                    ':unidade' => $data['unidade']
                 ]
             );
 
@@ -98,6 +102,41 @@ class PreventivaSetorModel
         catch(PDOException $e)
         {
             return $e->getMessage();
+        }
+    }
+
+    public function finalizarPreventivaSetor($data)
+    {
+        try
+        {   
+            $sql = 'UPDATE preventiva_setores ps
+                SET status = :status, id_usuario_responsavel_setor = :idResponsavel, data_finalizacao = NOW()
+                WHERE ps.id_preventiva = :idPreventiva
+                AND ps.id_setor= :idSetor';
+            $stmt = $this->db->prepare($sql);
+            $query = $stmt->execute(
+                [
+                    ':status' => $data['status'],
+                    ':idResponsavel' => $data['idResponsavel'],
+                    ':idPreventiva' => $data['idPreventiva'],
+                    ':idSetor' => $data['idSetor']
+                ]
+            );
+
+            if($query)
+            {
+                return true;
+            }
+            else
+            {
+                return $query;
+            }
+        }
+        catch(PDOException $e)
+        {
+            $texto = $e->getMessage();
+
+            return $texto;
         }
     }
 

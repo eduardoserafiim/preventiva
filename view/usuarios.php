@@ -6,7 +6,7 @@ if (!isset($_SESSION['usuario']))
     exit;
 }
 
-if ($_SESSION['privilegio'] != 'administrador')
+if ($_SESSION['privilegio'] != 'Administrador')
 {
     header("Location: index");
     exit;

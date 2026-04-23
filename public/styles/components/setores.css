@@ -4,26 +4,7 @@
   gap: 1rem;
   place-items: center;
   grid-template-columns: repeat(auto-fit, minmax(350px, 2fr));
-  transition: opacity 0.4s ease, transform 0.4s ease;
   margin-bottom: 2rem;
-}
-
-.setoresAdministrador
-{
-  opacity: 0;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-rows: repeat(200px);
-  grid-template-columns: repeat(2, 400px);
-  transform: translateY(-10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;    
-}
-
-.setoresAdministrador.show
-{
-  opacity: 1;
-  transform: translateY(0);
 }
 
 .card-setor
@@ -33,6 +14,11 @@
   width: 300px;
   border-radius: 12px;
   transition: all 0.3s ease;
+}
+
+.card-setor-setores
+{
+  margin-top: 2rem;
 }
 
 .card-setor:hover
@@ -61,6 +47,11 @@
   transition: all 0.3s ease;
 }
 
+.card-setor-titulo-setores
+{
+  border-radius: 12px;
+}
+
 .card-setor-conteudo
 {
   display: flex;
@@ -81,4 +72,47 @@
   display: flex;
   gap: 1rem;
   align-items: center;
+}
+
+.setorDiv
+{
+    display: flex;
+    width: 200px;
+    height: 50px;
+    background-color: white;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.setorLink
+{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.setorDiv:hover .color-content
+{
+    width: 100%;
+    border-radius: 12px;
+}
+
+.setorDiv:hover .setor-content
+{
+    display: none;
+}
+
+.setor-content
+{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.setor-content .flex
+{
+    gap: 1rem;
 }

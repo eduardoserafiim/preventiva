@@ -4,14 +4,14 @@
 session_start();
 if (!isset($_SESSION['usuario'])) 
 {
-    header("Location: login.php");
+    header("Location: login");
     exit;
 }
 
 // VERIFICAÇÃO PRIVILEGIO
-if ($_SESSION['privilegio'] != 'administrador')
+if ($_SESSION['privilegio'] != 'Administrador')
 {
-    header("Location: index.php");
+    header("Location: index");
     exit;
 }
 
@@ -28,10 +28,8 @@ require_once "../public/components/bar/bar.php";
 require_once '../public/components/voltar.php';
 require_once '../public/components/search.php';
 require_once "../public/components/warning.php";
-require_once "../public/components/setores/dictionarySetores.php";
-require_once "../public/components/setores/optionsIcons.php";
-require_once "../public/components/setores/setoresAdministrador.php";
-require_once "../public/components/setores/setoresListar.php";
+require_once "../public/components/setores/setoresCard.php";
+require_once "../public/components/setores/setorRegistrar.php";
 
 // FORM
 require_once "../public/components/form/setores/formGrid.php";
@@ -43,6 +41,8 @@ require_once "../public/components/form/setores/formActions.php";
 $modelSetor = new SetorModel();
 
 $url = $_GET['url'] ?? '';
+$token = $_GET['token'] ?? '';
+$tipo = $_GET['tipo'] ?? '';
 
 $setores = $modelSetor->listarSetor();
 
@@ -51,16 +51,16 @@ $setores = $modelSetor->listarSetor();
     <div class="app-container">
         <?= navbar('setores') ?>
         <main class="main-content">
-            <div class="page-header">
-                <div class="page-descricao">
-                    <h1>Setores</h1>
-                    <p>Gerencie os setores</p>
-                </div>
-            </div>
             <?= bar() ?>
-            <?php if($url == 'criar'): ?>
+            <?php if($url === 'criar' && $tipo === 'setor'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Setores</h1>
+                        <p>Criar um setor</p>
+                    </div>
+                </div>
                 <div class="voltar">
-                    <?= voltar('setores.php') ?>
+                    <?= voltar('setores') ?>
                 </div>
                 <div class="controleForm" style="margin: 0px">
                     <div class="form-container">
@@ -70,19 +70,25 @@ $setores = $modelSetor->listarSetor();
                         </form>
                     </div>
                 </div>
-            <?php elseif($url == 'listar'): ?> 
+            <?php else: ?> 
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Setores</h1>
+                        <p>Visualize os setores disponíveis</p>
+                    </div>
+                    <?= criarSetor('Criar Setor', 'setores?url=criar'.'&token='.$_SESSION['token'].'&tipo=setor') ?>
+                </div>
                 <div class="search">
                     <?= search('search-input-setor', 'setor') ?>
                 </div>
-                <div class="voltar">
-                    <?= voltar('setores.php') ?>
-                </div>
-                <?= listarSetores($setores) ?>
-            <?php else: ?>
-                <div class="setoresAdministrador">
-                    <?php foreach ($setoresDiv as $setor): ?>
-                        <?= criarSetorDiv($setor[1], $setor[0], $setor[2]) ?>
-                    <?php endforeach ?>
+                <div class="setores">
+                    <?php if(empty($setores)): ?>
+                        <p>Nenhum Setor registrado.</p>
+                    <?php else: ?>
+                        <?php foreach($setores as $setor): ?>
+                            <?= criarSetorCard($setor) ?>
+                        <?php endforeach ?>
+                    <?php endif ?>
                 </div>
             <?php endif ?>
         </main>

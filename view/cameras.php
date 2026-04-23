@@ -3,16 +3,16 @@
 // VERIFICAÇÃO LOGIN
 session_start();
 if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
+    header("Location: login");
     exit;
 }
 
 ?>
 
 <?php
-if ($_SESSION['privilegio'] != 'administrador' && $_SESSION['privilegio'] != 'TI')
+if ($_SESSION['privilegio'] != 'Administrador' && $_SESSION['privilegio'] != 'TI')
 {
-    header("Location: index.php");
+    header("Location: index");
     exit;
 }
 ?>

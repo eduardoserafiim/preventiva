@@ -23,9 +23,9 @@ function formGridCriarUsuario($setores)
                 <label for="select-privilegio">Privilégio</label>
                 <select id="select-privilegio" name="privilegio" required>
                     <option value="" selected disabled>Selecione...</option>
-                    <option value="administrador">Administrativo</option>
+                    <option value="Administrador">Administrativo</option>
                     <option value="TI">TI</option>
-                    <option value="usuario">Usuário</option>
+                    <option value="Usuário">Usuário</option>
                 </select>
             </div>
             <div class="unidade">
