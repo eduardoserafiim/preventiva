@@ -22,6 +22,7 @@ require_once "../public/components/voltar.php";
 require_once "../public/components/search.php";
 require_once "../public/components/warning.php";
 require_once "../public/components/computadores/computadoresImprimir.php";
+require_once "../public/components/computadores/computadoresCardEspecifico.php";
 require_once "../public/components/preventiva/computadoresPreventivaCard.php";
 require_once "../public/components/preventiva/computadoresCard.php";
 require_once "../public/components/preventiva/preventivaRegistrar.php";
@@ -51,6 +52,7 @@ $semestre = $_GET['semestre'] ?? '';
 $unidade = $_GET['unidade'] ?? '';
 $unidadeID = $_GET['id_unidade'] ?? '';
 $tipo = $_GET['tipo'] ?? '';
+$idComputador = $_GET['id_computador'] ?? '';
 
 ?>
 <body>
@@ -58,7 +60,31 @@ $tipo = $_GET['tipo'] ?? '';
         <?= navbar('preventiva') ?>
         <main class="main-content">
             <?= bar() ?>
-            <?php if ($url === 'relacionar' && $tipo === 'preventiva_computador'): ?>
+            <?php if ($url === 'visualizar' && $tipo === 'computador'): ?>
+                <?php
+                    $dataListarComputadoresPreventiva = 
+                    [
+                        'ano' => $ano,
+                        'semestre' => $semestre,
+                        'setor' => $setor,
+                        'unidade' => $unidade
+                    ];
+
+                    $computadorEspecifico = $modelPreventivaComputador->listarComputadorPreventiva($dataListarComputadoresPreventiva, $idComputador);
+                ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Preventiva</h1>
+                        <p>Visualize o</p>
+                    </div>
+                </div>
+                <div class="voltar">
+                    <?= voltar('preventiva?url=setor&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
+                </div>
+                <div class="computadores">
+                    <?= criarComputadorCardEspecifico($computadorEspecifico) ?>
+                </div>
+            <?php elseif ($url === 'relacionar' && $tipo === 'preventiva_computador'): ?>
                 <?php 
                     $preventiva = $modelPreventiva->listarPreventiva($ano, $semestre, $unidadeID);
                     $computadoresDisponiveis = $modelComputador->listarComputador();
@@ -199,6 +225,7 @@ $tipo = $_GET['tipo'] ?? '';
                                 'unidadeID' => $unidadeID
                             ];
                         ?>
+                        <?= var_dump($computadores) ?>
                         <?php foreach ($computadores as $computador): ?>
                             <?= criarComputadorCard($computador, $dataCriarComputadorPreventiva, $preventivaStatus) ?>
                         <?php endforeach ?>
@@ -216,6 +243,8 @@ $tipo = $_GET['tipo'] ?? '';
                                 <input type="hidden" name="idPreventiva" value="<?= htmlspecialchars($preventivaID) ?>">
                                 <input type="hidden" name="ano" value="<?= htmlspecialchars($ano) ?>">
                                 <input type="hidden" name="semestre" value="<?= htmlspecialchars($semestre) ?>">
+                                <input type="hidden" name="unidade" value="<?= htmlspecialchars($unidade) ?>">
+                                <input type="hidden" name="unidadeID" value="<?= htmlspecialchars($unidadeID) ?>">
                                 <button type="submit" class="botao botao-primario">Iniciar preventiva</button>
                             </form>
                         <?php elseif ($preventivaStatus === 'Aberta'): ?>        
@@ -276,7 +305,7 @@ $tipo = $_GET['tipo'] ?? '';
                     </div>
                 </div>
                 <div class="search">
-                    <?= search('setor', 'setor') ?>
+                    <?= search('search-input-setor', 'setor') ?>
                 </div>
                 <div class="voltar">
                     <?= voltar('preventiva') ?>

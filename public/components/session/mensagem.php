@@ -101,4 +101,17 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
             exit();
         }   
     }
+    elseif ($view === 'setores')
+    {
+        if ($execucao === 'setoresCriar')
+        {
+            header("Location: ../view/setores?url=criar&token=".$data['token']."&tipo=setor");
+            exit();
+        }
+        else
+        {
+            header("Location: ../view/setores");
+            exit();
+        }
+    }
 }

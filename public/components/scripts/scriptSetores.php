@@ -2,8 +2,6 @@
 <script src="../public/javascript/animation.js"></script>
 
 <!-- MODELS -->
-<script src="../public/javascript/setores/cadastrarSetor.js"></script>
-<script src="../public/javascript/setores/atualizarSetor.js"></script>
 <script src="../public/javascript/setores/searchNomeSetor.js"></script>
     
 <!-- CONFIRMAÇÕES -->

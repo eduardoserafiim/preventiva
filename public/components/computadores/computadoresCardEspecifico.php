@@ -50,21 +50,24 @@ function criarComputadorCardEspecifico($computador)
                     </div>
                 </div>
                 <div class="opcoesComputador">
-                    <div class="configuracoesComputador">
-                        <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">
-                            <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
-                        </a>
-                    </div>
-                    <div class="deletarComputador">
-                        <form action="../controllers/ComputadoresController.php" method="POST">
-                            <input type="hidden" name="id" value="<?= $computador['id'] ?>">
-                            <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-                            <input type="hidden" name="acao" value="excluirComputador">
-                            <button style="background-color: inherit; border: none; color: red; cursor: pointer;" type="submit" onclick="confirmarExclusao(event)">
-                                <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
-                            </button>
-                        </form>
-                    </div>
+                    <?php if ($computador['id_preventiva']): ?>
+                    <?php else: ?>
+                        <div class="configuracoesComputador">
+                            <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">
+                                <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
+                            </a>
+                        </div>
+                        <div class="deletarComputador">
+                            <form action="../controllers/ComputadoresController.php" method="POST">
+                                <input type="hidden" name="id" value="<?= $computador['id'] ?>">
+                                <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                <input type="hidden" name="acao" value="excluirComputador">
+                                <button style="background-color: inherit; border: none; color: red; cursor: pointer;" type="submit" onclick="confirmarExclusao(event)">
+                                    <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
+                                </button>
+                            </form>
+                        </div>
+                    <?php endif ?>
                 </div>
             </div>
             <hr>

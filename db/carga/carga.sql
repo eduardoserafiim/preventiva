@@ -1,3 +1,8 @@
+USE informatica;
+
+INSERT INTO unidade(nome) 
+VALUES ('HAP - UC'),('HAP - MATRIZ'),('AMBAS');
+
 INSERT INTO usuarios (nome, usuario, email, senha, setor, privilegio, id_unidade) 
 VALUES 
 ('Administrador', 'administrador', 'administrador@example.com', '$2y$10$x1Nxbuyu7uu/eZfPm/EfGeTPZ0v/YDGayKyrhTeBoHtQlC9iUDYKG', 'TI', 'administrador', '3');

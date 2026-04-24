@@ -116,3 +116,24 @@
 {
     gap: 1rem;
 }
+
+.setor-titulo
+{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.setor-editar-excluir
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.setor-editar:hover, .setor-excluir:hover
+{
+    animation: fa-bounce 1s linear infinite;
+    cursor: pointer;
+}

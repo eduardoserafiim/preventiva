@@ -32,7 +32,8 @@ require_once "../public/components/setores/setoresCard.php";
 require_once "../public/components/setores/setorRegistrar.php";
 
 // FORM
-require_once "../public/components/form/setores/formGrid.php";
+require_once "../public/components/form/setores/formGridCriar.php";
+require_once "../public/components/form/setores/formGridEditar.php";
 require_once "../public/components/form/setores/formActions.php";
 
 ?>
@@ -43,6 +44,9 @@ $modelSetor = new SetorModel();
 $url = $_GET['url'] ?? '';
 $token = $_GET['token'] ?? '';
 $tipo = $_GET['tipo'] ?? '';
+$nome = $_GET['nome'] ?? '';
+$icone = $_GET['icone'] ?? '';
+$idSetor = $_GET['idSetor'] ?? '';
 
 $setores = $modelSetor->listarSetor();
 
@@ -52,7 +56,34 @@ $setores = $modelSetor->listarSetor();
         <?= navbar('setores') ?>
         <main class="main-content">
             <?= bar() ?>
-            <?php if($url === 'criar' && $tipo === 'setor'): ?>
+            <?php if($url === 'editar' && $tipo === 'setor'): ?>
+                <div class="page-header">
+                    <div class="page-descricao">
+                        <h1>Setores</h1>
+                        <p>Atualizar um setor</p>
+                    </div>
+                </div>
+                <div class="voltar">
+                    <?= voltar('setores') ?>
+                </div>
+                <div class="controleForm" style="margin: 0px">
+                    <div class="form-container">
+                        <form action="../controllers/SetoresController.php" method="POST" id="formularioSetores" class="equipment-form">
+                            <?php 
+                                $icones = $modelSetor->listarIconesSetores(); 
+                                $data =
+                                [
+                                    'nome' => $nome,
+                                    'icone' => $icone,
+                                    'idSetor' => $idSetor
+                                ];
+                            ?>
+                            <?= formGridEditar($data, $icones) ?>
+                            <?= formActions() ?>
+                        </form>
+                    </div>
+                </div>
+            <?php elseif($url === 'criar' && $tipo === 'setor'): ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Setores</h1>
@@ -65,7 +96,8 @@ $setores = $modelSetor->listarSetor();
                 <div class="controleForm" style="margin: 0px">
                     <div class="form-container">
                         <form action="../controllers/SetoresController.php" method="POST" id="formularioSetores" class="equipment-form">
-                            <?= formGrid() ?>
+                            <?php $icones = $modelSetor->listarIconesSetores(); ?>
+                            <?= formGridCriar($icones) ?>
                             <?= formActions() ?>
                         </form>
                     </div>

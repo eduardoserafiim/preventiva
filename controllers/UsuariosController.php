@@ -233,7 +233,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if ($_SESSION['token'] === $token)
     {
-        if ($_SESSION['privilegio'] === 'administrador')
+        if ($_SESSION['privilegio'] === 'Administrador')
         {
             switch ($acao)
             {
@@ -284,3 +284,27 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
         getMensagemSession('error', 'Token não aceito.', 'Falha na verificação do token.', 'usuarios.php');
     }
 }
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500</title>
+    <link rel="stylesheet" href="../public/styles/components/404.css">
+</head>
+<body>
+    <div class="erro-404">
+        <img class="erro-imagem" src="../public/images/error-404.png" alt="404">
+        <hr>
+        <div class="erro-texto">
+            <p>Como você chegou aqui?</p>
+        </div>
+        <div class="erro-link">
+            <a href="../view/">
+                <p>Se você não foi redirecionado automaticamente, clique aqui.</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

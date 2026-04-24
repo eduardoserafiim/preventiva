@@ -7,7 +7,7 @@
 <script src="../public/javascript/computadores/imprimirComputadores.js"></script>
 
 <!-- SEARCH -->
-<script src="../public/javascript/setores/searchSetor.js"></script>
+<script src="../public/javascript/setores/searchNomeSetor.js"></script>
 
 <!-- CONFIRMAÇÕES -->
 <script src="../public/javascript/usuarios/confirmarSaida.js"></script>

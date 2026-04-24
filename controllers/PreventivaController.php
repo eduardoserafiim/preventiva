@@ -109,7 +109,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if ($_SESSION['token'] === $token)
     {
-        if ($_SESSION['privilegio'] === 'administrador')
+        if ($_SESSION['privilegio'] === 'Administrador')
         {
             switch ($acao)
             {

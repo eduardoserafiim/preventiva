@@ -86,39 +86,98 @@ class PreventivaComputadorModel
         }
     } 
 
-    public function listarComputadorPreventiva($data)
+    public function listarComputadorPreventiva($data, $id = '')
     {
         try
         {
-            $sql = 'SELECT pc.*, 
-                c.*, 
-                p.*, 
-                u.nome AS nome_unidade,
-                s.nome AS nome_setor
-            FROM preventiva_computadores pc
-            LEFT JOIN dispositivos_computadores_preventiva c 
-                ON pc.id_computador = c.id
-            LEFT JOIN preventiva p 
-                ON pc.id_preventiva = p.id
-            LEFT JOIN unidade u 
-                ON p.id_unidade = u.id
-            LEFT JOIN setores s
-                ON pc.id_setor = s.id
-            WHERE s.nome = :setor
-            AND u.nome = :unidade
-            AND p.ano = :ano
-            AND p.semestre = :semestre';
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute(
-                [
-                    ':setor' => $data['setor'],
-                    ':ano' => $data['ano'],
-                    ':semestre' => $data['semestre'],
-                    ':unidade' => $data['unidade']
-                ]
-            );
+            if ($id)
+            {
+                $sql = 'SELECT pc.*, 
+                    c.*, 
+                    p.*, 
+                    u.nome AS nome_unidade,
+                    s.nome AS nome_setor,
+                    i.nome_salvo AS nome_imagem,
+                    i.id AS id_imagem_antiga
+                FROM preventiva_computadores pc
+                LEFT JOIN dispositivos_computadores_preventiva c 
+                    ON pc.id_computador = c.id
+                LEFT JOIN preventiva p 
+                    ON pc.id_preventiva = p.id
+                LEFT JOIN unidade u 
+                    ON p.id_unidade = u.id
+                LEFT JOIN setores s
+                    ON pc.id_setor = s.id
+                LEFT JOIN imagem i
+                    ON c.id_imagem = i.id
+                WHERE s.nome = :setor
+                AND u.nome = :unidade
+                AND p.ano = :ano
+                AND p.semestre = :semestre
+                AND pc.id_computador = :idComputador';
+                $stmt = $this->db->prepare($sql);
+                $query = $stmt->execute(
+                    [
+                        ':setor' => $data['setor'],
+                        ':ano' => $data['ano'],
+                        ':semestre' => $data['semestre'],
+                        ':unidade' => $data['unidade'],
+                        ':idComputador' => $id
+                    ]
+                );
 
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                if ($query)
+                {
+                    return $stmt->fetch(PDO::FETCH_ASSOC);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                $sql = 'SELECT pc.*, 
+                    c.*, 
+                    p.*, 
+                    u.nome AS nome_unidade,
+                    s.nome AS nome_setor,
+                    i.nome_salvo AS nome_imagem,
+                    i.id AS id_imagem_antiga
+                FROM preventiva_computadores pc
+                LEFT JOIN dispositivos_computadores_preventiva c 
+                    ON pc.id_computador = c.id
+                LEFT JOIN preventiva p 
+                    ON pc.id_preventiva = p.id
+                LEFT JOIN unidade u 
+                    ON p.id_unidade = u.id
+                LEFT JOIN setores s
+                    ON pc.id_setor = s.id
+                LEFT JOIN imagem i
+                    ON c.id_imagem = i.id
+                WHERE s.nome = :setor
+                AND u.nome = :unidade
+                AND p.ano = :ano
+                AND p.semestre = :semestre';
+                $stmt = $this->db->prepare($sql);
+                $query = $stmt->execute(
+                    [
+                        ':setor' => $data['setor'],
+                        ':ano' => $data['ano'],
+                        ':semestre' => $data['semestre'],
+                        ':unidade' => $data['unidade']
+                    ]
+                );
+
+                if ($query)
+                {
+                    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
         catch(PDOException $e)
         {
