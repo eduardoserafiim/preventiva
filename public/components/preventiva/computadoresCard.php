@@ -50,13 +50,13 @@ function criarComputadorCard($computador, $data, $preventiva)
                     </div>
                 </div>
                 <div class="opcoesComputador">
-                    <?php if ($_SESSION['privilegio'] === 'TI' || $_SESSION['privilegio'] === 'administrador'): ?>
-                        <div class="visualizacaoComputador">
-                            <a href="preventiva?url=visualizar&token=<?= $_SESSION['token'] ?>&id_preventiva=<?= $computador['id_preventiva'] ?>&id_setor=<?= $data['setorID'] ?>&setor=<?= $data['setor'] ?>&ano=<?= $data['ano'] ?>&semestre=<?= $data['semestre'] ?>&unidade=<?= $data['unidade'] ?>&id_unidade=<?= $data['unidadeID'] ?>&id_computador=<?= $computador['id_computador'] ?>&tipo=computador">
-                                <i class="fas fa-icon fa-solid fa-eye fa-xl"></i>
-                            </a>
-                        </div>
-                        <?php if($preventiva != 'Fechado'): ?>
+                    <div class="visualizacaoComputador">
+                        <a href="preventiva?url=visualizar&token=<?= $_SESSION['token'] ?>&id_preventiva=<?= $computador['id_preventiva'] ?>&id_setor=<?= $data['setorID'] ?>&setor=<?= $data['setor'] ?>&ano=<?= $data['ano'] ?>&semestre=<?= $data['semestre'] ?>&unidade=<?= $data['unidade'] ?>&id_unidade=<?= $data['unidadeID'] ?>&id_computador=<?= $computador['id_computador'] ?>&tipo=computador">
+                            <i class="fas fa-icon fa-solid fa-eye fa-xl"></i>
+                        </a>
+                    </div>
+                    <?php if ($_SESSION['privilegio'] === 'TI' || $_SESSION['privilegio'] === 'Administrador'): ?>
+                        <?php if ($preventiva != 'Fechado'): ?>
                             <div class="deletarComputador">
                                 <form action="../controllers/PreventivaComputadorController.php" method="POST">
                                     <input type="hidden" name="acao" value="desrelacionarPreventivaComputador">

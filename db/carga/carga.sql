@@ -3,10 +3,6 @@ USE informatica;
 INSERT INTO unidade(nome) 
 VALUES ('HAP - UC'),('HAP - MATRIZ'),('AMBAS');
 
-INSERT INTO usuarios (nome, usuario, email, senha, setor, privilegio, id_unidade) 
-VALUES 
-('Administrador', 'administrador', 'administrador@example.com', '$2y$10$x1Nxbuyu7uu/eZfPm/EfGeTPZ0v/YDGayKyrhTeBoHtQlC9iUDYKG', 'TI', 'administrador', '3');
-
 INSERT INTO setores (nome, icon) 
 VALUES
 ('Administração', 'fa-user-tie'),
@@ -81,3 +77,7 @@ VALUES
 ('Unidade Internação Clínica', 'fa-bed-pulse'),
 ('Vigilância', 'fa-eye'),
 ('Enfermaria', 'fa-hospital');
+
+INSERT INTO usuarios (nome, usuario, email, senha, privilegio, id_unidade, id_setor) 
+VALUES 
+('Administrador', 'administrador', 'administrador@example.com', '$2y$10$x1Nxbuyu7uu/eZfPm/EfGeTPZ0v/YDGayKyrhTeBoHtQlC9iUDYKG', 'Administrador', '3', '33');

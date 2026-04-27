@@ -24,7 +24,7 @@ class ImagemModel{
                     $data['nome_salvo']
                 ]
             );
-
+            
             return $this->db->lastInsertId();
         }
         catch (PDOException $e)

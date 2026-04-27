@@ -1,6 +1,7 @@
 <!-- ANIMAÇÕES -->
- <script src="../public/javascript/animation.js"></script>
- <script src="../public/javascript/animar/legenda/legenda.js"></script>
+<script src="../public/javascript/animation.js"></script>
+<script src="../public/javascript/animar/legenda/legenda.js"></script>
+<script src="../public/javascript/animar/miniMenu/miniMenu.js"></script>
  
 <!-- COMPONENTS -->
 <script src="../public/javascript/bar/bar.js"></script>

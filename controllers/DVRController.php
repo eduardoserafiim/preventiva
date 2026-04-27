@@ -74,9 +74,9 @@ class DVRController
             {
                 $data['id_imagem'] = $idImagemNovo;
             }
-
+            
             $modelRes = $modelDVR->criarDVR($data);
-
+            
             if($modelRes === false)
             {
                 throw new Error('Houve um erro intero, entre em contato com o suporte.');
@@ -97,6 +97,7 @@ class DVRController
         {
             $texto = $e->getMessage();
 
+            getMensagemSession('error', 'Não realizado!', $texto, 'cameras');
         }
     }
     public function criarHorarioDVR()

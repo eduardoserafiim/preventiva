@@ -42,7 +42,7 @@ function formGridCriarUsuario($setores)
                 <select id="select-setor" name="setor" required>
                     <option value="" disabled selected>Selecione...</option>';
                     <?php foreach($setores as $setor): ?>
-                        <option value='<?= $setor['nome'] ?>'><?= htmlspecialchars($setor['nome']) ?></option>
+                        <option value='<?= $setor['id'] ?>'><?= htmlspecialchars($setor['nome']) ?></option>
                     <?php endforeach ?>
                 </select>
             </div>

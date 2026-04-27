@@ -42,11 +42,13 @@ class EntrarController
                     $_SESSION['id'] = $usuario['id'];
                     $_SESSION['usuario'] = $usuario['usuario'];
                     $_SESSION['nome'] = $usuario['nome'];
-                    $_SESSION['setor'] = $usuario['setor'];
+                    $_SESSION['setor'] = $usuario['nome_setor'];
+                    $_SESSION['id_setor'] = $usuario['id_setor'];
                     $_SESSION['privilegio'] = $usuario['privilegio'];
-                    $_SESSION['unidade'] = $usuario['unidade'];
+                    $_SESSION['unidade'] = $usuario['nome_unidade'];
+                    $_SESSION['id_unidade'] = $usuario['id_unidade'];
                     $_SESSION['token'] = bin2hex(random_bytes(32));
-                
+                    
                     getMensagemSession('success', 'Bem vindo!', 'Você já pode navegar no sistema.', 'index');
                 }
                 else

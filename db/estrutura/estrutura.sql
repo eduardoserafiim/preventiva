@@ -1,7 +1,7 @@
 create database informatica;
 USE informatica;
 
-create table imagem
+CREATE TABLE imagem
 (
 	id int auto_increment,
 	primary key(id),
@@ -11,7 +11,7 @@ create table imagem
 	data_salvo date
 );
 
-create table unidade
+CREATE TABLE unidade
 (
 	id int auto_increment,
 	primary key (id),
@@ -58,24 +58,6 @@ CREATE TABLE dispositivos_computadores
 		references unidade(id)
 );
 
-CREATE TABLE usuarios 
-(
-	id INT AUTO_INCREMENT,
-	PRIMARY KEY (id),
-	nome VARCHAR(50) NOT NULL,
-	email VARCHAR(255) NOT NULL,
-    usuario VARCHAR(20) NOT NULL,
-	senha VARCHAR(100) NOT NULL,
-	setor VARCHAR(70) NOT NULL,
-    privilegio VARCHAR(20) NOT NULL,
-	id_imagem int,
-	id_unidade int NOT NULL,
-	foreign key (id_imagem)
-		references imagem(id),
-	foreign key (id_unidade)
-		references unidade(id)
-);
-
 CREATE TABLE setores 
 (
     id INT AUTO_INCREMENT,
@@ -84,7 +66,27 @@ CREATE TABLE setores
     icon VARCHAR(50) NOT NULL
 );
 
-create table assinaturas
+CREATE TABLE usuarios 
+(
+	id INT AUTO_INCREMENT,
+	PRIMARY KEY (id),
+	nome VARCHAR(50) NOT NULL,
+	email VARCHAR(255) NOT NULL,
+    usuario VARCHAR(20) NOT NULL,
+	senha VARCHAR(100) NOT NULL,
+    privilegio VARCHAR(20) NOT NULL,
+	id_imagem int,
+	id_unidade int NOT NULL,
+	id_setor int NOT NULL,
+	foreign key (id_imagem)
+		references imagem(id),
+	foreign key (id_unidade)
+		references unidade(id),
+	foreign key (id_setor)
+		references setores(id)
+);
+
+CREATE TABLE assinaturas
 (
 	id int AUTO_INCREMENT,
 	primary key(id),

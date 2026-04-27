@@ -46,5 +46,6 @@ function imagemRegras($pasta, $idImagemAntiga = null, $tipo)
     ];
 
     $modelImagem = new ImagemModel();
+    
     return $modelImagem->criar($dataSalvarImagem);
 }

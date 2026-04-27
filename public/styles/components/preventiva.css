@@ -86,10 +86,13 @@
 {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .preventiva-informacao
 {
+    min-width: 120px;
     text-align: center;
 }
 

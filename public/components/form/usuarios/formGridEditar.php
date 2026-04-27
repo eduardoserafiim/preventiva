@@ -56,10 +56,10 @@ function formGridEditarUsuario($usuario, $setores)
                 <label for="select-setor">Setor</label>
                 <select id="select-setor" name="setor" required>
                     <?php foreach($setores as $setor): ?>
-                        <?php if($setor['nome'] === $usuario['setor']): ?>
-                            <option value="<?= $setor['nome'] ?>" selected><?= $setor['nome'] ?></option>
+                        <?php if($setor['nome'] === $usuario['nome_setor']): ?>
+                            <option value="<?= $setor['id'] ?>" selected><?= $setor['nome'] ?></option>
                         <?php else: ?>
-                            <option value="<?= $setor['nome'] ?>"><?= $setor['nome'] ?></option>
+                            <option value="<?= $setor['id'] ?>"><?= $setor['nome'] ?></option>
                         <?php endif ?>
                     <?php endforeach ?>
                 </select>

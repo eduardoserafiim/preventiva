@@ -185,62 +185,132 @@ class PreventivaComputadorModel
         }
     }
 
+    public function listarComputadoresSemPreventiva()
+    {
+        try
+        {
+            $sql = 'SELECT 
+                dc.*, 
+                u.nome AS nome_unidade, 
+                i.nome_salvo AS nome_imagem, 
+                i.id AS id_imagem_antiga 
+            FROM dispositivos_computadores dc 
+            LEFT JOIN unidade u 
+                ON dc.id_unidade = u.id 
+            LEFT JOIN imagem i 
+                ON dc.id_imagem = i.id
+            WHERE dc.id NOT IN (SELECT id_computador FROM preventiva_computadores)    
+            ';
+            $stmt = $this->db->prepare($sql);
+            $query = $stmt->execute();
+
+            if ($query)
+            {
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+            else
+            {
+                throw new PDOException('Erro interno.');
+            }
+        }
+        catch (PDOException $e)
+        {
+            $texto = $e->getMessage();
+            
+            return false;
+        }
+    }
+
     public function listarQuantidade($data)
     {
-        $sql = 'SELECT 
-            p.id_unidade, 
-            pc.id_setor, 
-            pc.id_preventiva, 
-            COUNT(pc.id_computador) AS total_computadores, 
-            p.ano,
-            p.semestre
-        FROM preventiva_computadores pc 
-        LEFT JOIN preventiva p ON pc.id_preventiva = p.id 
-        WHERE 
-            p.ano = :ano 
-            AND p.semestre = :semestre 
-            AND p.id_unidade = :id_unidade
-        GROUP BY 
-            pc.id_setor
-        ';
+        try
+        {
+            $sql = 'SELECT 
+                p.id_unidade, 
+                pc.id_setor, 
+                pc.id_preventiva, 
+                COUNT(pc.id_computador) AS total_computadores, 
+                p.ano,
+                p.semestre
+            FROM preventiva_computadores pc 
+            LEFT JOIN preventiva p ON pc.id_preventiva = p.id 
+            WHERE 
+                p.ano = :ano 
+                AND p.semestre = :semestre 
+                AND p.id_unidade = :id_unidade
+            GROUP BY 
+                pc.id_setor
+            ';
+    
+            $stmt = $this->db->prepare($sql);
+            $query = $stmt->execute(
+                [
+                    'ano' => $data['ano'],
+                    'semestre' => $data['semestre'],
+                    'id_unidade' => $data['unidade']
+                ]
+            );
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(
-            [
-                'ano' => $data['ano'],
-                'semestre' => $data['semestre'],
-                'id_unidade' => $data['unidade']
-            ]
-        );
-        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if ($query)
+            {
+                $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                
+                $listaFormatada = [];
+                foreach ($resultados as $linha) {
+                    $listaFormatada[$linha['id_setor']] = $linha['total_computadores'];
+                }
         
-        $listaFormatada = [];
-        foreach ($resultados as $linha) {
-            $listaFormatada[$linha['id_setor']] = $linha['total_computadores'];
+                return $listaFormatada;
+            }
+            else
+            {
+                throw new PDOException('Erro interno.');
+            }
         }
+        catch (PDOException $e)
+        {
+            $texto = $e->getMessage();
 
-        return $listaFormatada;
+            return false;
+        }
     }
 
     public function desrelacionarComputadorPreventiva($data)
     {
         try
         {
-            $sql = 'DELETE FROM preventiva_computadores
-            WHERE id_computador = :id_computador
-            AND id_preventiva = :id_preventiva
-            AND id_setor = :id_setor';
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':id_computador' => $data['idComputador'],
-                ':id_preventiva' => $data['idPreventiva'],
-                ':id_setor' => $data['idSetor']
+            $sql_preventiva_computadores = 'DELETE FROM preventiva_computadores
+            WHERE id_computador = ?
+            AND id_preventiva = ?
+            AND id_setor = ?';
+            $stmt_preventiva_computadaores = $this->db->prepare($sql_preventiva_computadores);
+            $query_preventiva = $stmt_preventiva_computadaores->execute([
+                $data['idComputador'],
+                $data['idPreventiva'],
+                $data['idSetor']
             ]);
 
-            return true;
+            $sql_dispositivos_computadores_preventiva = 'DELETE FROM dispositivos_computadores_preventiva
+            WHERE id = ?
+            ';
+            $stmt_dispositivos_computadores_preventiva = $this->db->prepare($sql_dispositivos_computadores_preventiva);
+            $query_dispositivos_computadores = $stmt_dispositivos_computadores_preventiva->execute([
+                $data['idComputador']
+            ]);
+
+            if ($query_preventiva && $query_dispositivos_computadores)
+            {
+                return true;
+            }
+            else
+            {
+                throw new PDOException('Erro interno.');
+            }
         }
         catch(PDOException $e)
         {
+            $texto = $e->getMessage();
+
             return false;
         }
     }

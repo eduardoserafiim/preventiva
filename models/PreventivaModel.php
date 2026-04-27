@@ -33,7 +33,7 @@ class PreventivaModel
         }
     } 
 
-    public function listarPreventiva($ano = '', $semestre = '', $unidadeID = '')
+    public function listarPreventiva($ano = '', $semestre = '', $unidadeID = '', $unidade)
     {
         try
         {
@@ -49,8 +49,7 @@ class PreventivaModel
                     ON p.id_usuario_responsavel_criacao = r.id
                 WHERE p.ano = :ano 
                 AND p.semestre = :semestre
-                AND p.id_unidade = :unidadeID';
-    
+                AND p.id_unidade = :unidadeID';    
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute(
                     [
@@ -64,18 +63,25 @@ class PreventivaModel
             }
             else
             {
-                $sql = 'SELECT p.*,
-                    u.nome AS nome_unidade,
-                    r.nome AS nome_responsavel
-                FROM preventiva p
-                LEFT JOIN unidade u
-                    ON p.id_unidade = u.id
-                LEFT JOIN usuarios r
-                    ON p.id_usuario_responsavel_criacao = r.id
-                ORDER BY YEAR(ano) DESC';
+                $sql = 'SELECT 
+                        p.*, 
+                        u.nome AS nome_unidade, 
+                        r.nome AS nome_responsavel 
+                    FROM preventiva p 
+                    LEFT JOIN unidade u ON p.id_unidade = u.id 
+                    LEFT JOIN usuarios r ON p.id_usuario_responsavel_criacao = r.id 
+                    WHERE 
+                        (? = "AMBAS" AND u.nome IN ("HAP - UC", "HAP - MATRIZ")) 
+                        OR u.nome = ?
+                    ORDER BY YEAR(ano) DESC';
     
                 $stmt = $this->db->prepare($sql);
-                $stmt->execute();
+                $stmt->execute(
+                    [
+                        $unidade,
+                        $unidade
+                    ]
+                );
     
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             }

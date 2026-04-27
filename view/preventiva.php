@@ -75,7 +75,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Preventiva</h1>
-                        <p>Visualize o</p>
+                        <p>Visualize o <strong><?= $computadorEspecifico['nome'] ?></strong></p>
                     </div>
                 </div>
                 <div class="voltar">
@@ -86,8 +86,9 @@ $idComputador = $_GET['id_computador'] ?? '';
                 </div>
             <?php elseif ($url === 'relacionar' && $tipo === 'preventiva_computador'): ?>
                 <?php 
-                    $preventiva = $modelPreventiva->listarPreventiva($ano, $semestre, $unidadeID);
-                    $computadoresDisponiveis = $modelComputador->listarComputador();
+                    $preventiva = $modelPreventiva->listarPreventiva($ano, $semestre, $unidadeID, $unidade);
+                    $computadoresDisponiveis = $modelPreventivaComputador->listarComputadoresSemPreventiva();
+
                 ?>
                 <div class="page-header">
                     <div class="page-descricao">
@@ -119,7 +120,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                 </div>
             <?php elseif ($url === 'setor'): ?>
                 <?php 
-                    $preventiva = $modelPreventiva->listarPreventiva($ano, $semestre, $unidadeID);
+                    $preventiva = $modelPreventiva->listarPreventiva($ano, $semestre, $unidadeID, $unidade);
                     
                     $dataPreventivaEspecifico =
                     [
@@ -161,7 +162,11 @@ $idComputador = $_GET['id_computador'] ?? '';
                     <?= search('computadores', 'computadores', 'computadores') ?>
                 </div>
                 <div class="voltar">
-                    <?= voltar('preventiva?url=setores&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
+                    <?php if ($_SESSION['privilegio'] != 'TI' || $_SESSION['Administrador']): ?>
+                        <?= voltar('preventiva') ?>
+                    <?php else: ?>
+                        <?= voltar('preventiva?url=setores&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
+                    <?php endif ?>
                 </div>
                 <div class="preventiva-informacoes-basicas">
                     <div class="preventiva-informacao preventiva-disponibilidade">
@@ -225,7 +230,6 @@ $idComputador = $_GET['id_computador'] ?? '';
                                 'unidadeID' => $unidadeID
                             ];
                         ?>
-                        <?= var_dump($computadores) ?>
                         <?php foreach ($computadores as $computador): ?>
                             <?= criarComputadorCard($computador, $dataCriarComputadorPreventiva, $preventivaStatus) ?>
                         <?php endforeach ?>
@@ -347,13 +351,13 @@ $idComputador = $_GET['id_computador'] ?? '';
                     <?php endforeach ?>
                 </div>
             <?php else: ?>
-                <?php $preventivas = $modelPreventiva->listarPreventiva(); ?>
+                <?php $preventivas = $modelPreventiva->listarPreventiva('', '', '',$_SESSION['unidade']); ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Preventiva</h1>
                         <p>Visualize as preventivas disponíveis</p>
                     </div>
-                    <?php if ($_SESSION['privilegio'] === 'administrador'): ?>
+                    <?php if ($_SESSION['privilegio'] === 'Administrador'): ?>
                         <div class="page-criar-preventiva">
                             <?= criarPreventiva('Registrar', "preventiva?url=criar&token={$_SESSION['token']}&tipo=preventiva") ?>
                         </div>
@@ -367,32 +371,61 @@ $idComputador = $_GET['id_computador'] ?? '';
                         <p class="informarPreventivasDisponiveis">Nenhuma preventiva registrada.</p>
                     <?php else: ?>
                         <?php foreach($preventivas as $preventiva): ?>
-                            <a href="preventiva?url=setores&token=<?= $_SESSION['token'] ?>&id_preventiva=<?= htmlspecialchars($preventiva['id']) ?>&ano=<?= htmlspecialchars($preventiva['ano']) ?>&semestre=<?= htmlspecialchars($preventiva['semestre']) ?>&unidade=<?= htmlspecialchars($preventiva['nome_unidade']).'&id_unidade='.htmlspecialchars($preventiva['id_unidade']) ?>">
-                                <div class="card-preventiva" data-ano='<?= $preventiva['ano'] ?>'>
-                                    <div class="card-preventiva-titulo">
-                                        <div class="preventiva-titulo">
-                                            <i class="fas fa-clipboard-list"></i>
-                                            <h4>Preventiva <?= htmlspecialchars($preventiva['ano']) ?></h4>
+                            <?php if ($_SESSION['privilegio'] != 'TI' && $_SESSION['privilegio'] != 'Administrador'): ?>
+                                <a href="preventiva?url=setor&token=<?= htmlspecialchars($_SESSION['token']) ?>&id_preventiva=<?= htmlspecialchars($preventiva['id']) ?>&id_setor=<?= htmlspecialchars($_SESSION['id_setor']) ?>&setor=<?= htmlspecialchars($_SESSION['setor']) ?>&ano=<?= htmlspecialchars($preventiva['ano']) ?>&semestre=<?= htmlspecialchars($preventiva['semestre']) ?>&unidade=<?= htmlspecialchars($_SESSION['unidade']) ?>&id_unidade=<?= htmlspecialchars($_SESSION['id_unidade']) ?>">
+                                    <div class="card-preventiva" data-ano='<?= $preventiva['ano'] ?>'>
+                                        <div class="card-preventiva-titulo">
+                                            <div class="preventiva-titulo">
+                                                <i class="fas fa-clipboard-list"></i>
+                                                <h4>Preventiva <?= htmlspecialchars($preventiva['ano']) ?></h4>
+                                            </div>
+                                            <div class="preventiva-excluir">
+                                                <?php if($_SESSION['privilegio'] === 'Administrador'): ?>
+                                                    <form action="../controllers/PreventivaController.php" method="POST" class="form-actions">
+                                                        <input type="hidden" name="id" value="<?= $preventiva['id'] ?>">
+                                                        <input type="hidden" name="acao" value="excluirPreventiva">
+                                                        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                                        <button type="submit" style="background-color: inherit; border: none; cursor: pointer;" onclick="confirmarExclusaoPreventiva(event)">
+                                                            <i class="fas fa-icon fa-solid fa-trash fa-lg" style="color: red;"></i>
+                                                        </button>
+                                                    </form>
+                                                <?php endif ?>
+                                            </div>
                                         </div>
-                                        <div class="preventiva-excluir">
-                                            <?php if($_SESSION['privilegio'] === 'Administrador'): ?>
-                                                <form action="../controllers/PreventivaController.php" method="POST" class="form-actions">
-                                                    <input type="hidden" name="id" value="<?= $preventiva['id'] ?>">
-                                                    <input type="hidden" name="acao" value="excluirPreventiva">
-                                                    <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-                                                    <button type="submit" style="background-color: inherit; border: none; cursor: pointer;" onclick="confirmarExclusaoPreventiva(event)">
-                                                        <i class="fas fa-icon fa-solid fa-trash fa-lg" style="color: red;"></i>
-                                                    </button>
-                                                </form>
-                                            <?php endif ?>
+                                        <div class="card-preventiva-conteudo">
+                                            <p><strong><?= htmlspecialchars($preventiva['semestre'] ?? 'Sem Registro.') ?></strong></p>
+                                            <p><strong><?= htmlspecialchars($preventiva['nome_unidade'] ?? 'Sem Registro.') ?></strong></p>
                                         </div>
                                     </div>
-                                    <div class="card-preventiva-conteudo">
-                                        <p><strong><?= htmlspecialchars($preventiva['semestre'] ?? 'Sem Registro.') ?></strong></p>
-                                        <p><strong><?= htmlspecialchars($preventiva['nome_unidade'] ?? 'Sem Registro.') ?></strong></p>
+                                </a>
+                            <?php else: ?>
+                                <a href="preventiva?url=setores&token=<?= $_SESSION['token'] ?>&id_preventiva=<?= htmlspecialchars($preventiva['id']) ?>&ano=<?= htmlspecialchars($preventiva['ano']) ?>&semestre=<?= htmlspecialchars($preventiva['semestre']) ?>&unidade=<?= htmlspecialchars($preventiva['nome_unidade']).'&id_unidade='.htmlspecialchars($preventiva['id_unidade']) ?>">
+                                    <div class="card-preventiva" data-ano='<?= $preventiva['ano'] ?>'>
+                                        <div class="card-preventiva-titulo">
+                                            <div class="preventiva-titulo">
+                                                <i class="fas fa-clipboard-list"></i>
+                                                <h4>Preventiva <?= htmlspecialchars($preventiva['ano']) ?></h4>
+                                            </div>
+                                            <div class="preventiva-excluir">
+                                                <?php if($_SESSION['privilegio'] === 'Administrador'): ?>
+                                                    <form action="../controllers/PreventivaController.php" method="POST" class="form-actions">
+                                                        <input type="hidden" name="id" value="<?= $preventiva['id'] ?>">
+                                                        <input type="hidden" name="acao" value="excluirPreventiva">
+                                                        <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                                        <button type="submit" style="background-color: inherit; border: none; cursor: pointer;" onclick="confirmarExclusaoPreventiva(event)">
+                                                            <i class="fas fa-icon fa-solid fa-trash fa-lg" style="color: red;"></i>
+                                                        </button>
+                                                    </form>
+                                                <?php endif ?>
+                                            </div>
+                                        </div>
+                                        <div class="card-preventiva-conteudo">
+                                            <p><strong><?= htmlspecialchars($preventiva['semestre'] ?? 'Sem Registro.') ?></strong></p>
+                                            <p><strong><?= htmlspecialchars($preventiva['nome_unidade'] ?? 'Sem Registro.') ?></strong></p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            <?php endif ?>
                         <?php endforeach ?>
                     <?php endif ?>
                 </div>

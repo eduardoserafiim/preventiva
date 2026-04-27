@@ -30,7 +30,7 @@ class DVRModel
                         $data['mac'], 
                         $data['canais'], 
                         $data['responsavel'],
-                        $data['id_imagem'] ?? null,         
+                        $data['id_imagem'] ?? 0,         
                         $data['id_unidade'],         
                     ]
                 );
@@ -49,7 +49,7 @@ class DVRModel
                         $data['mac'], 
                         $data['canais'], 
                         $data['responsavel'],
-                        $data['id_imagem'] ?? null,         
+                        $data['id_imagem'] ?? 0,         
                         $data['id_unidade'],         
                     ]
                 );
@@ -59,7 +59,8 @@ class DVRModel
         }
         catch(PDOException $e)
         {
-            return false;
+            $texto = $e->getMessage();
+            return $texto;
         }
     } 
 

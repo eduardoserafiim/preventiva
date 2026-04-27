@@ -108,7 +108,7 @@ $usuarios = $usuariosModel->listar();
                 </div>
                 <div class="usuarios">
                     <?php if(empty($usuarios)): ?>
-                        <p class="informarUsuariosDisponiveis">Nenhum usuáirio cadastrado.</p>
+                        <p class="informarUsuariosDisponiveis">Nenhum usuário cadastrado.</p>
                     <?php else: ?>
                         <?php foreach($usuarios as $usuario): ?>
                             <?= criarCardUsuario($usuario) ?>

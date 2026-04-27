@@ -24,7 +24,7 @@ function criarCardUsuario($usuario)
                             </div>
                             <div class="setorUsuarioDetalhado">
                                 <p>Setor</p>
-                                <h4 class="setorUsuario"><?= htmlspecialchars($usuario['setor']) ?></h4>
+                                <h4 class="setorUsuario"><?= htmlspecialchars($usuario['nome_setor']) ?></h4>
                             </div>
                             <div class="privilegioUsuarioDetalhado">
                                 <p>Privilégio</p>
