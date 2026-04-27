@@ -33,6 +33,41 @@ class PreventivaSetorModel
         }
     } 
 
+    public function criarAssinaturaPreventiva($data)
+    {
+        try
+        {
+            $sql = 'UPDATE preventiva_setores
+            SET id_usuario_responsavel_setor = ?
+            WHERE id_preventiva = ?
+            AND id_setor = ?';
+
+            $stmt = $this->db->prepare($sql);
+            $query = $stmt->execute(
+                [
+                    $data['idUsuario'],
+                    $data['idPreventiva'],
+                    $data['idSetor']
+                ]
+            );
+
+            if ($query)
+            {
+                return true;
+            }
+            else
+            {
+                throw new PDOException('Erro interno.');
+            }
+        }
+        catch (PDOException $e)
+        {
+            $texto = $e->getMessage();
+
+            return false;
+        }
+    }
+
     public function listarPreventivaRelacionadaSetor($data)
     {
         try
@@ -110,7 +145,7 @@ class PreventivaSetorModel
         try
         {   
             $sql = 'UPDATE preventiva_setores ps
-                SET status = :status, id_usuario_responsavel_setor = :idResponsavel, data_finalizacao = NOW()
+                SET status = :status, id_usuario_responsavel_preventiva = :idResponsavel, data_finalizacao = NOW()
                 WHERE ps.id_preventiva = :idPreventiva
                 AND ps.id_setor= :idSetor';
             $stmt = $this->db->prepare($sql);

@@ -71,6 +71,60 @@ class PreventivaSetorController
         }
     }
 
+    public function criarAssinaturaPreventivaResponsavelSetor()
+    {
+        try
+        {
+            $model = new PreventivaSetorModel();
+
+            $idUsuarioSetorAssinatura = intval($_POST['idUsuarioResponsavelSetor']);
+            $token = trim($_POST['token']);
+            $setor = trim($_POST['setor']);
+            $idSetor = trim($_POST['setorID']);
+            $unidade = trim($_POST['unidade']);
+            $idUnidade = trim($_POST['unidadeID']);
+            $semestre = trim($_POST['semestre']);
+            $ano = trim($_POST['ano']);
+            $idPreventiva = trim($_POST['preventivaID']);
+
+            $dataUrl =
+            [
+                'token' => $token,
+                'setor' => $setor,
+                'id_setor' => $idSetor,
+                'ano' => $ano,
+                'semestre' => $semestre,
+                'unidade' => $unidade,
+                'unidadeID' => $idUnidade,
+                'id_preventiva' => $idPreventiva
+            ];
+
+            $data =
+            [
+                'idUsuario' => $idUsuarioSetorAssinatura,
+                'idPreventiva' => $idPreventiva,
+                'idSetor' => $idSetor
+            ];
+
+            $modelRes = $model->criarAssinaturaPreventiva($data);
+
+            if ($modelRes)
+            {
+                getMensagemSession('success', 'Assinado!', 'Obrigado por assinar. :)', 'preventiva', 'assinarPreventiva', $dataUrl);
+            }
+            else
+            {
+                throw new Error('Houve um erro interno. Entre em contato com o suporte.');
+            }
+        }
+        catch (Throwable $e)
+        {
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Erro ao relacionar!', $texto, 'preventiva', 'assinarPreventiva', $dataUrl);
+        }
+    }
+
     public function finalizarPreventivaSetor()
     {
         try
@@ -151,6 +205,16 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                 case 'finalizarPreventivaRelacionadaSetor';
                     $controller = new PreventivaSetorController();
                     $controller->finalizarPreventivaSetor();
+                    break;
+            }
+        }
+        elseif ($_SESSION['privilegio'] === 'Usuário')
+        {
+            switch ($acao)
+            {
+                case 'assinarPreventiva';
+                    $controller = new PreventivaSetorController();
+                    $controller->criarAssinaturaPreventivaResponsavelSetor();
                     break;
             }
         }

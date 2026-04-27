@@ -50,7 +50,7 @@ function criarComputadorCardEspecifico($computador)
                     </div>
                 </div>
                 <div class="opcoesComputador">
-                    <?php if ($computador['id_preventiva']): ?>
+                    <?php if ($computador['id_preventiva'] ?? ''): ?>
                     <?php else: ?>
                         <div class="configuracoesComputador">
                             <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">

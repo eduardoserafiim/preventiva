@@ -8,6 +8,7 @@
 
 <!-- SEARCH -->
 <script src="../public/javascript/setores/searchNomeSetor.js"></script>
+<script src="../public/javascript/computadores/searchComputador.js"></script>
 
 <!-- CONFIRMAÇÕES -->
 <script src="../public/javascript/usuarios/confirmarSaida.js"></script>

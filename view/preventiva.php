@@ -96,6 +96,9 @@ $idComputador = $_GET['id_computador'] ?? '';
                         <p>Relacione um dos computadores à preventiva.</p>
                     </div>
                 </div>
+                <div class="search">
+                    <?= search('search-input', 'computadores', 'computadores') ?>
+                </div>
                 <div class="voltar">
                     <?= voltar('preventiva?url=setor&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
                 </div>
@@ -162,7 +165,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                     <?= search('computadores', 'computadores', 'computadores') ?>
                 </div>
                 <div class="voltar">
-                    <?php if ($_SESSION['privilegio'] != 'TI' || $_SESSION['Administrador']): ?>
+                    <?php if ($_SESSION['privilegio'] != 'TI' || $_SESSION['privilegio'] === 'Administrador'): ?>
                         <?= voltar('preventiva') ?>
                     <?php else: ?>
                         <?= voltar('preventiva?url=setores&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
@@ -191,7 +194,28 @@ $idComputador = $_GET['id_computador'] ?? '';
                     </div>
                     <div class="preventiva-informacao preventiva-setor-responsavel">
                         <h2>Responsável pelo Setor</h2>
-                        <p><?= htmlspecialchars($preventivaEspecifica['setor_responsavel'] ?? 'Sem informação.') ?></p>
+                        <?php if (!$preventivaEspecifica): ?>
+                            <p>Sem informação.</p>
+                        <?php elseif ($preventivaEspecifica['responsavel_setor'] === null && $_SESSION['privilegio'] === 'Usuário' && $preventivaEspecifica['status'] === 'Fechado'): ?>
+                            <form action="../controllers/PreventivaSetorController.php" method="POST">
+                                <input type="hidden" name="acao" value="assinarPreventiva">
+                                <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                <input type="hidden" name="setor" value="<?= $setor ?>">
+                                <input type="hidden" name="semestre" value="<?= $semestre ?>">
+                                <input type="hidden" name="ano" value="<?= $ano ?>">
+                                <input type="hidden" name="setorID" value="<?= $setorID ?>">
+                                <input type="hidden" name="preventivaID" value="<?= $preventivaID ?>">
+                                <input type="hidden" name="unidade" value="<?= $unidade ?>">
+                                <input type="hidden" name="unidadeID" value="<?= $unidadeID ?>">
+                                <input type="hidden" name="idUsuarioResponsavelSetor" value="<?= $_SESSION['id'] ?>">
+                                <button type="submit" style="display: flex; width: 100%; height: 25px; justify-content: center; gap: 1rem; border: none; background-color: inherit; font-family: Montserrat; font-size: medium; cursor: pointer; color: green;">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <p>Assinar Preventiva</p>
+                                </button>
+                            </form>
+                        <?php else: ?>
+                            <p><?= htmlspecialchars($preventivaEspecifica['responsavel_setor'] ?? 'Sem informação.') ?></p>
+                        <?php endif ?>
                         <hr>
                     </div>
                     <div class="preventiva-informacao preventiva-data">

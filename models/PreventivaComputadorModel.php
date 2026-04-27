@@ -199,7 +199,6 @@ class PreventivaComputadorModel
                 ON dc.id_unidade = u.id 
             LEFT JOIN imagem i 
                 ON dc.id_imagem = i.id
-            WHERE dc.id NOT IN (SELECT id_computador FROM preventiva_computadores)    
             ';
             $stmt = $this->db->prepare($sql);
             $query = $stmt->execute();
