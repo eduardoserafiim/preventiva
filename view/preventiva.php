@@ -137,6 +137,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                     ];
 
                     $preventivaEspecifica = $modelPreventivaSetor->listarPreventiva($dataPreventivaEspecifico);
+
                     $preventivaEmailResponsavel = $modelPreventivaSetor->listarEmailResponsavelSetor($dataPreventivaEspecifico);
 
                     $preventivaStatus = $preventivaEspecifica['status'] ?? 'Nenhum';
@@ -188,12 +189,18 @@ $idComputador = $_GET['id_computador'] ?? '';
                     </div>
                     <div class="preventiva-informacao preventiva-solicitante">
                         <h2>Técnico Solicitante</h2>
-                        <p><?= htmlspecialchars($preventivaEspecifica['tecnico_solicitante'] ?? 'Sem informação.') ?></p>
+                        <div class="preventiva-informacao-usuario">
+                            <h4><?= htmlspecialchars($preventivaEspecifica['tecnico_solicitante'] ?? 'Sem informação.') ?></h4>
+                            <img class="preventiva-usuario-imagem" src="../upload/usuarios/<?= !empty($preventivaEspecifica['imagem_solicitante']) ? $preventivaEspecifica['imagem_solicitante'] : 'default-usuario.png' ?>"/>
+                        </div>
                         <hr>
                     </div>
                     <div class="preventiva-informacao preventiva-tecnico-responsavel">
                         <h2>Técnico Preventiva</h2>
-                        <p><?= htmlspecialchars($preventivaEspecifica['tecnico_responsavel'] ?? 'Sem informação.') ?></p>
+                        <div class="preventiva-informacao-usuario">
+                            <h4><?= htmlspecialchars($preventivaEspecifica['tecnico_responsavel'] ?? 'Sem informação.') ?></h4>
+                            <img class="preventiva-usuario-imagem" src="../upload/usuarios/<?= !empty($preventivaEspecifica['imagem_tecnico']) ? $preventivaEspecifica['imagem_tecnico'] : 'default-usuario.png' ?>"/>
+                        </div>
                         <hr>
                     </div>
                     <div class="preventiva-informacao preventiva-setor-responsavel">
@@ -218,7 +225,10 @@ $idComputador = $_GET['id_computador'] ?? '';
                                 </button>
                             </form>
                         <?php else: ?>
-                            <p><?= htmlspecialchars($preventivaEspecifica['responsavel_setor'] ?? 'Sem informação.') ?></p>
+                            <div class="preventiva-informacao-usuario">
+                                <h4><?= htmlspecialchars($preventivaEspecifica['responsavel_setor'] ?? 'Sem informação.') ?></h4>
+                                <img class="preventiva-usuario-imagem" src="../upload/usuarios/<?= !empty($preventivaEspecifica['imagem_responsavel']) ? $preventivaEspecifica['imagem_responsavel'] : 'default-usuario.png' ?>"/>
+                            </div>
                         <?php endif ?>
                         <hr>
                     </div>

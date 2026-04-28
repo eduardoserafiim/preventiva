@@ -38,6 +38,7 @@ class PreventivaSetorController
             'token' => $token,
             'setor' => $setor,
             'id_setor' => $idSetor,
+            'id_preventiva' => $idPreventiva,
             'ano' => $ano,
             'semestre' => $semestre,
             'unidade' => $unidade,

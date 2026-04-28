@@ -96,6 +96,23 @@
     text-align: center;
 }
 
+.preventiva-usuario-imagem
+{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.preventiva-informacao-usuario
+{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
 .preventiva-acoes
 {
     display: flex;

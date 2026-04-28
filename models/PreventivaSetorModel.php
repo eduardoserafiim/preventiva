@@ -18,14 +18,21 @@ class PreventivaSetorModel
             $sql = 'INSERT INTO preventiva_setores(id_preventiva, id_setor, status, id_usuario_responsavel_preventiva, data_inicio)
             VALUES (:id_preventiva, :id_setor, :status, :id_responsavel_preventiva, NOW())';
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([
+            $query = $stmt->execute([
                 ':id_preventiva' => $data['idPreventiva'],
                 ':id_responsavel_preventiva' => $data['idResponsavel'],
                 ':id_setor' => $data['idSetor'],
                 ':status' => $data['status']
             ]);
 
-            return true;
+            if ($query)
+            {
+                return true;
+            }
+            else
+            {
+                throw new Error('Erro interno.');
+            }
         }
         catch(PDOException $e)
         {
@@ -106,22 +113,31 @@ class PreventivaSetorModel
                 ps.*,
                 p.*,
                 u1.nome AS tecnico_solicitante,
+                i1.nome_salvo AS imagem_solicitante,
                 u2.nome AS tecnico_responsavel,
-                u3.nome AS responsavel_setor
+                i2.nome_salvo AS imagem_tecnico,
+                u3.nome AS responsavel_setor,
+                i3.nome_salvo AS imagem_responsavel
             FROM preventiva_setores ps
             INNER JOIN preventiva p 
                 ON ps.id_preventiva = p.id
             LEFT JOIN usuarios u1
                 ON p.id_usuario_responsavel_criacao = u1.id
+            LEFT JOIN imagem i1 
+                ON u1.id_imagem = i1.id
             LEFT JOIN usuarios u2
                 ON ps.id_usuario_responsavel_preventiva = u2.id
+            LEFT JOIN imagem i2 
+                ON u2.id_imagem = i2.id
             LEFT JOIN usuarios u3
                 ON ps.id_usuario_responsavel_setor = u3.id
+            LEFT JOIN imagem i3 
+                ON u3.id_imagem = i3.id
             WHERE ps.id_setor = :setor
             AND p.ano = :ano
             AND p.semestre = :semestre
-            AND p.id_unidade = :unidade
-            ';
+            AND p.id_unidade = :unidade';
+
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
