@@ -20,6 +20,7 @@ if ($_SESSION['privilegio'] != 'Administrador')
 
 // MODELS
 require_once "../models/SetorModel.php";
+require_once "../models/UsuarioModel.php";
 
 // COMPONENTS
 require_once "../public/components/header/header.php";
@@ -40,6 +41,7 @@ require_once "../public/components/form/setores/formActions.php";
 <?php
 
 $modelSetor = new SetorModel();
+$modelUsuario = new UsuarioModel();
 
 $url = $_GET['url'] ?? '';
 $token = $_GET['token'] ?? '';
@@ -49,11 +51,11 @@ $icone = $_GET['icone'] ?? '';
 $idSetor = $_GET['idSetor'] ?? '';
 
 $setores = $modelSetor->listarSetor();
-
+$usuario = $modelUsuario->validar($_SESSION['usuario']);
 ?>
 <body>
     <div class="app-container">
-        <?= navbar('setores') ?>
+        <?= navbar('setores', $usuario) ?>
         <main class="main-content">
             <?= bar() ?>
             <?php if($url === 'editar' && $tipo === 'setor'): ?>

@@ -50,6 +50,7 @@ require_once "../models/SetorModel.php";
 require_once "../models/DVRModel.php";
 require_once "../models/CameraModel.php";
 require_once "../models/CameraDVRModel.php";
+require_once "../models/UsuarioModel.php";
 
 ?>
 <?php
@@ -63,6 +64,7 @@ $modelSetor         = new SetorModel();
 $modelDVRs          = new DVRModel();
 $modelDVRCameras    = new CameraDVRModel();
 $modelCamera        = new CameraModel();
+$modelUsuario       = new UsuarioModel();
 
 $setores                        = $modelSetor->listarSetor();
 $dvrs                           = $modelDVRs->listarDVR();
@@ -70,11 +72,13 @@ $dvrEspecifico                  = $modelDVRs->listarDVR($id);
 $dvrEspecificoRelacionadoCamera = $modelDVRs->listarDVR($idDVR);
 $cameraEspecifica               = $modelCamera->listarCamera($id);
 $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR($idDVR);
+$usuario = $modelUsuario->validar($_SESSION['usuario']);
+
 ?>
 <body>
     <div class="app-container">
         <!-- NAVBAR -->
-        <?= navbar("cameras") ?>
+        <?= navbar("cameras", $usuario) ?>
         <main class="main-content">
             <!-- NAVBAR MOBILE -->
             <?= bar() ?>

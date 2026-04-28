@@ -3,6 +3,8 @@
 
 <!-- COMPONENTS -->
 <script src="../public/javascript/bar/bar.js"></script>
+<script src="../public/javascript/dragArea/dragArea.js"></script>
+<script src="../public/javascript/dragArea/adicionarBotaoSalvar.js"></script>
 
 <!-- AVISOS -->
 <script src="../public/javascript/usuarios/senhasDiferentes.js"></script>

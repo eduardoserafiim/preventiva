@@ -1,11 +1,17 @@
 <?php
 
 use App\Services\MailerService;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key; 
+use Dotenv\Dotenv;
+
+$ar = include __DIR__ . '/../vendor/autoload.php';
 
 require_once '../db/db.php';
 
 require_once '../models/UsuarioModel.php';
 require_once '../models/AssinarModel.php';
+require_once '../models/ImagemModel.php';  
 
 require_once '../reports/EmailReport.php';
 
@@ -13,7 +19,12 @@ require_once '../services/EmailService.php';
 
 require_once '../public/components/session/mensagem.php';
 
+include '../public/rules/regrasImagem.php';
+
 session_start();
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
@@ -163,6 +174,17 @@ class UsuarioController
                 'assunto' => $assunto
             ];
 
+            $key = $_ENV['PASSWORD_KEY'];
+            $payload = [
+                'iss' => 'portal.hap.org.br',
+                'exp' => time() + 900,      
+                'email' => $email
+            ];
+
+            $token = JWT::encode($payload, $key, 'HS256');
+
+            $data['token'] = $token;
+
             $conteudo = $report->reportSuporteTI($data);
 
             $serviceRes = $service->enviar($conteudo, $data['email'], $data['assunto']);   
@@ -217,18 +239,31 @@ class UsuarioController
         {
             $model = new UsuarioModel();
 
-            $email = trim($_POST['email']);
+            $key = $_ENV['PASSWORD_KEY'];
             $senha = trim($_POST['novaSenha']);
             $senhaConfirmada = trim($_POST['confirmarNovaSenha']);
 
-            if ($senha != $senhaConfirmada)
+            if ($senha != $senhaConfirmada) 
             {
-                throw new Error('Senhas diferentes.');
+                throw new Error('As novas senhas não coincidem.');
             }
 
-            $data = 
-            [
-                'email' => $email,
+            if (!empty($_POST['jwt'])) 
+            {
+                $decoded = JWT::decode($_POST['jwt'], new Key($key, 'HS256'));
+                $emailSeguro = $decoded->email;
+            } 
+            elseif (isset($_SESSION['id'])) 
+            {
+                $emailSeguro = $_SESSION['email'];
+            } 
+            else 
+            {
+                throw new Error('Ação não autorizada.');
+            }
+
+            $data = [
+                'email' => $emailSeguro,
                 'senha' => $senha
             ];
 
@@ -243,11 +278,63 @@ class UsuarioController
                 throw new Error('Houve um erro interno. Entre em contato com o Suporte T.I');
             }
         }
+        catch (Firebase\JWT\ExpiredException $e) 
+        {
+            getMensagemSession('error', 'Expirado.', 'O link de 15 minutos expirou. Peça um novo.', 'login');
+        }
         catch (Throwable $e)
         {
             $texto = $e->getMessage();
 
             getMensagemSession('error', 'Não realizado.', $texto, 'login');
+        }
+    }
+
+    public function alterarImagemUsuario()
+    {
+        try
+        {
+            $model = new UsuarioModel();
+
+            $idUsuario = intval($_POST['idUsuario']);
+
+            $pasta = realpath(__DIR__ . '/../upload/usuarios');
+            
+            $idImagemNovo = null;
+            $idImagemAntiga = $_POST['id_imagem_antiga'];
+
+            $data = 
+            [
+                'id_usuario' => $idUsuario
+            ];
+            
+            $idImagemNovo = imagemRegras($pasta, null, 'Usuario');
+
+            if ($idImagemNovo !== null) 
+            {
+                $data['id_imagem'] = $idImagemNovo;
+            }
+            elseif (!empty($_POST['id_imagem_antiga'])) 
+            {
+                $data['id_imagem'] = $idImagemAntiga;
+            }
+            
+            $modelRes = $model->atualizarImagem($data);
+
+            if ($modelRes)
+            {
+                getMensagemSession('success', 'Imagem alterada!', 'Sua imagem de perfil foi alterada com sucesso.', 'perfil');
+            }
+            else
+            {
+                throw new Error('Houve um erro interno. Entre em contato com o Suporte T.I');
+            }
+        }
+        catch (Throwable $e)
+        {
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Não realizado.', $texto, 'perfil');
         }
     }
 };
@@ -311,9 +398,20 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                     $controller = new UsuarioController();
                     $controller->alterarUsuarios();
                     break;
+
                 case 'excluir':
                     $controller = new UsuarioController();
                     $controller->apagarUsuarios();
+                    break;
+
+                case 'alterarMinhaSenha':
+                    $controller = new UsuarioController();
+                    $controller->alterarSenha();
+                    break;
+
+                case 'alterarImagemUsuario':
+                    $controller = new UsuarioController();
+                    $controller->alterarImagemUsuario();
                     break;
             }
         }
@@ -324,6 +422,11 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                 case 'alterarMinhaSenha':
                     $controller = new UsuarioController();
                     $controller->alterarSenha();
+                    break;
+
+                case 'alterarImagemUsuario':
+                    $controller = new UsuarioController();
+                    $controller->alterarImagemUsuario();
                     break;
             }
         }

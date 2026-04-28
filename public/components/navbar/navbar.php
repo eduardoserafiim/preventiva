@@ -3,7 +3,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-function navbar($active) 
+function navbar($active, $usuario = '') 
 { ?>
     <?php if (!isset($_SESSION['usuario'])): ?>
         <nav class="sidebar">
@@ -115,12 +115,12 @@ function navbar($active)
             </div>
             <div class="sidebar-footer">
                 <div class="sidebar-footer-controle">
-                    <div class="sidebar-user">
-                        <i class="fas fa-user"></i>
-                        <h4><?= htmlspecialchars($_SESSION['nome']) ?></h4>
+                    <div class=".sidebar-imagem-user">
+                        <img class="sidebar-imagem" src="../upload/usuarios/<?= !empty($usuario['nome_imagem']) ? $usuario['nome_imagem'] : 'default-usuario.png' ?>"/>
                     </div>
-                    <div class="sidebar-setor">
-                        <p><?= htmlspecialchars($_SESSION['setor']) ?></p>
+                    <div class="sidebar-informacoes-usuario">
+                        <h4><?= htmlspecialchars($usuario['nome']) ?></h4>
+                        <p><?= htmlspecialchars($usuario['nome_setor']) ?></p>
                     </div>
                 </div>
             </div>

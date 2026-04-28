@@ -46,11 +46,12 @@ $setoresModel = new SetorModel();
 
 $setores = $setoresModel->listarSetor();
 $usuarios = $usuariosModel->listar();
+$usuario = $usuariosModel->validar($_SESSION['usuario']);
 
 ?>
 <body>
     <div class="app-container">
-        <?= navbar("usuarios") ?>
+        <?= navbar("usuarios", $usuario) ?>
         <main class="main-content">
             <?= bar() ?>
             <?php if($url === 'editar' && $tipo === 'usuario' && $informacoes === 'basicas'): ?>

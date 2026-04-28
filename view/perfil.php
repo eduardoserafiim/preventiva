@@ -20,8 +20,11 @@ include_once "../public/components/voltar.php";
 require_once "../public/components/warning.php";
 
 // FORMS
-require_once '../public/components/form/usuarios/formSenha.php';
+require_once '../public/components/form/usuarios/formGridAlterarSenha.php';
 require_once "../public/components/form/usuarios/formActionsSenha.php";
+
+// DRAG AREA
+require_once "../public/components/dragAreaImagens/dragAreaUsuarios.php";
 
 
 ?>
@@ -33,13 +36,13 @@ $usuario = $modelUsuario->validar($_SESSION['usuario']);
 
 $url = $_GET['url'] ?? '';
 $id = $_SESSION['id'];
-$email = $_GET['email'];
-$tipo = $_GET['tipo'];
+$email = $_GET['email'] ?? '';
+$tipo = $_GET['tipo'] ?? '';
 
 ?>
 <body>
     <div class="app-container">
-        <?= navbar('menu') ?>
+        <?= navbar('menu', $usuario) ?>
         <main class="main-content">
             <?= bar() ?>
             <?php if ($url === 'alterarsenha'): ?>
@@ -68,7 +71,7 @@ $tipo = $_GET['tipo'];
                 </div>
             </div>
             <div class="voltar">
-                <?=  voltar( 'index') ?>
+                <?= voltar('index') ?>
             </div>
             <div class="page-perfil">
                 <div class="fundo-container fundo-perfil">
@@ -81,13 +84,26 @@ $tipo = $_GET['tipo'];
                             <input type="text" value="<?= $usuario['usuario'] ?>" readonly>
                         
                             <h4>Setor</h4>
-                            <input type="text" value="<?= $usuario['setor'] ?>" readonly>
+                            <input type="text" value="<?= $usuario['nome_setor'] ?>" readonly>
 
                             <h4>Unidade</h4>
-                            <input type="text" value="<?= $usuario['unidade'] ?>" readonly>
+                            <input type="text" value="<?= $usuario['nome_unidade'] ?>" readonly>
+                            
+                            <h4>Email</h4>
+                            <input type="text" value="<?= $usuario['email'] ?>" readonly>
                         </div>
                         <div class="perfil-imagem">
-                            <img src="../public/images/icon.jpg" alt="imagemUsuario">
+                            <form action="../controllers/UsuariosController.php" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="acao" value="alterarImagemUsuario">
+                                <input type="hidden" name="tipo" value="informacoesBasicas">
+                                <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                <input type="hidden" name="idUsuario" value="<?= $_SESSION['id'] ?>">
+                                <input type="hidden" name="id_imagem_antiga" value="<?= $usuario['id_imagem_antiga'] ?>">
+                                <?= dragAreaImagemUsuario($usuario) ?>
+                                <div class="form-actions-imagem">
+
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="container-perfil-senha">

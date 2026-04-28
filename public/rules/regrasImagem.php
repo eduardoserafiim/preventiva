@@ -33,6 +33,10 @@ function imagemRegras($pasta, $idImagemAntiga = null, $tipo)
     {
         $nomeSalvo = uniqid('dvr_') . '.' . $extensao;
     }
+    elseif($tipo === 'Usuario')
+    {
+        $nomeSalvo = uniqid('usuario_') . '.' . $extensao;
+    }
     $caminhoArquivo = rtrim($pasta, '/') . '/' . $nomeSalvo;
 
     if (!move_uploaded_file($imagem['tmp_name'], $caminhoArquivo)) {

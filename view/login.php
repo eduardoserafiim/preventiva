@@ -27,7 +27,7 @@ include_once "../public/components/form/usuarios/formGridAlterarSenha.php";
 
 $url = $_GET["url"] ?? '';
 $tipo = $_GET["tipo"] ?? '';
-$email = $_GET["email"] ?? '';
+$jwt = $_GET["token"] ?? '';
 
 ?>
 <body>
@@ -35,7 +35,7 @@ $email = $_GET["email"] ?? '';
         <!-- NAVBAR -->
         <?= navbar('login') ?>
         <main class="main-content">
-            <?php if ($url === 'suporte' && $tipo === 'esqueci_minha_senha' && $email): ?>
+            <?php if ($url === 'suporte' && $tipo === 'esqueci_minha_senha' && $jwt): ?>
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Suporte TI</h1>
@@ -48,7 +48,7 @@ $email = $_GET["email"] ?? '';
                 <div class="controleForm" style="margin: 0px;">
                 <div class="form-container">
                     <form action="../controllers/UsuariosController.php" method="POST" id="formularioUsuarios" class="equipment-form">
-                        <?= formGridSenha($email, $tipo) ?>
+                        <?= formGridSenha($tipo) ?>
                         <?= formActionsAlterarSenha() ?>
                     </form>
                 </div>

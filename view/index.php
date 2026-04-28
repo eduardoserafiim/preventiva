@@ -12,6 +12,7 @@ if (!isset($_SESSION['usuario'])) {
 // MODELS
 include_once "../models/AssinarModel.php";
 include_once "../models/ComputadorModel.php";
+include_once "../models/UsuarioModel.php";
 
 // COMPONENTS
 include_once "../public/components/header/header.php";
@@ -30,13 +31,15 @@ $dbassinatura = new AssinaturaModel();
 $modelComputador = new ComputadorModel();
 $assinaturasTecnicos = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome']);
 $assinaturas =  $dbassinatura->listarAssinaturas($_SESSION['nome']);
+$modelUsuario = new UsuarioModel();
 
+$usuario = $modelUsuario->validar($_SESSION['usuario']);
 $url = $_GET['url'] ?? '';
 
 ?>
 <body>
     <div class="app-container">
-        <?= navbar("menu") ?>
+        <?= navbar("menu", $usuario) ?>
         <main class="main-content">
             <?= bar() ?>
             <?php if ($_SESSION['privilegio'] === 'TI' && $url === 'visualizar-computador'): ?>

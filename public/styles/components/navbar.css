@@ -64,6 +64,22 @@
     gap: 1rem;
 }
 
+.sidebar-imagem-user
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+}
+
+.sidebar-imagem
+{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
 .sidebar-setor {
     display: flex;
 }
@@ -77,8 +93,9 @@
 
 .sidebar-footer-controle {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 1rem;
 }
 
 .menu-item {

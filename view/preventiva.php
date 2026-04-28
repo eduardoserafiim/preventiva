@@ -13,6 +13,7 @@ require_once "../models/SetorModel.php";
 require_once "../models/PreventivaComputadorModel.php";
 require_once "../models/PreventivaSetorModel.php";
 require_once "../models/PreventivaModel.php";
+require_once "../models/UsuarioModel.php";
 
 // COMPONENTS
 require_once "../public/components/header/header.php";
@@ -41,6 +42,9 @@ $modelPreventivaComputador = new PreventivaComputadorModel();
 $modelPreventivaSetor = new PreventivaSetorModel();
 $modelPreventiva = new PreventivaModel();
 $modelSetor = new SetorModel();
+$modelUsuario = new UsuarioModel();
+
+$usuario = $modelUsuario->validar($_SESSION['usuario']);
 
 // URL
 $url = $_GET['url'] ?? '';
@@ -57,7 +61,7 @@ $idComputador = $_GET['id_computador'] ?? '';
 ?>
 <body>
     <div class="app-container">
-        <?= navbar('preventiva') ?>
+        <?= navbar('preventiva', $usuario) ?>
         <main class="main-content">
             <?= bar() ?>
             <?php if ($url === 'visualizar' && $tipo === 'computador'): ?>

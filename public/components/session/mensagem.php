@@ -19,6 +19,11 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
         header("Location: ../view/login");
         exit();
     }
+    elseif ($view === 'perfil')
+    {
+        header("Location: ../view/perfil");
+        exit();
+    }
     elseif ($view === 'computadores')
     {
         if ($execucao === 'editarComputador')

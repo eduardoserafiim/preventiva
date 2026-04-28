@@ -170,6 +170,36 @@ class UsuarioModel{
         }
     }
 
+    public function atualizarImagem($data) 
+    {
+        try 
+        {
+            $sql = "UPDATE usuarios 
+                SET id_imagem = ? 
+                WHERE id = ?";
+            $stmt = $this->db->prepare($sql);
+            $query = $stmt->execute(
+                [
+                    $data['id_imagem'],
+                    $data['id_usuario']
+                ]
+            );
+
+            if ($query)
+            {
+                return true;
+            }
+            else
+            {
+                throw new PDOException('Erro interno.');
+            }
+        } catch (PDOException $e) {
+            $texto = $e->getMessage();
+
+            return false;
+        }
+    }
+
     public function apagar($id) 
     {
         try
@@ -207,12 +237,16 @@ class UsuarioModel{
         {
             $sql = 'SELECT u.*,
                     unid.nome AS nome_unidade,
-                    s.nome AS nome_setor
+                    s.nome AS nome_setor,
+                    i.nome_salvo AS nome_imagem,
+                    i.id AS id_imagem_antiga
                 FROM usuarios u
                 LEFT JOIN unidade unid
                     ON u.id_unidade = unid.id
                 LEFT JOIN setores s
                     ON u.id_setor = s.id
+                LEFT JOIN imagem i
+                    ON u.id_imagem = i.id
                 WHERE usuario = ?
                 LIMIT 1';
             $stmt = $this->db->prepare($sql);

@@ -47,16 +47,18 @@ function criarCardUsuario($usuario)
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
-                    <div class="deletarUsuario">
-                        <form action="../controllers/UsuariosController" method="POST">
-                            <input type="hidden" name="acao" value="excluir">
-                            <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-                            <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
-                            <button style="background-color: inherit; border: none; color: red; cursor: pointer;" type="submit" onclick="confirmarExclusao(event)">
-                                <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
-                            </button>
-                        </form>
-                    </div>
+                    <?php if ($_SESSION['id'] != $usuario['id']): ?>
+                        <div class="deletarUsuario">
+                            <form action="../controllers/UsuariosController" method="POST">
+                                <input type="hidden" name="acao" value="excluir">
+                                <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                <input type="hidden" name="id" value="<?= $usuario['id'] ?>">
+                                <button style="background-color: inherit; border: none; color: red; cursor: pointer;" type="submit" onclick="confirmarExclusao(event)">
+                                    <i class="fas fa-icon fa-solid fa-trash fa-xl"></i>
+                                </button>
+                            </form>
+                        </div>
+                    <?php endif ?>
                 </div>
             </div>
         </div>

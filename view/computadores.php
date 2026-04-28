@@ -18,6 +18,7 @@ if ($_SESSION['privilegio'] != 'Administrador' && $_SESSION['privilegio'] != 'TI
 // MODELS
 require_once '../models/ComputadorModel.php';
 require_once '../models/SetorModel.php';
+require_once '../models/UsuarioModel.php';
 
 // COMPONENTS
 require_once '../public/components/header/header.php';
@@ -41,7 +42,9 @@ require_once '../public/components/form/computadores/formActions.php';
 
 $modelSetor = new SetorModel();
 $modelComputador = new ComputadorModel();
+$modelUsuario = new UsuarioModel();
 
+$usuario = $modelUsuario->validar($_SESSION['usuario']);
 $setores = $modelSetor->listarSetor();
 $computadores = $modelComputador->listarComputador();
 
@@ -61,7 +64,7 @@ $computadorEspecifico = $modelComputador->listarComputador($id);
 ?>
 <body>
     <div class="app-container">
-        <?= navbar('computadores') ?>
+        <?= navbar('computadores', $usuario) ?>
         <main class="main-content">
             <?= bar() ?>
             <?php if($url === 'editar' && $tipo === 'computador' && $informacoes === 'hardware-e-patrimonio'): ?>

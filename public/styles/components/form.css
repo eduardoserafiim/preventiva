@@ -48,6 +48,13 @@
     justify-content: center;
 }
 
+.form-actions-imagem
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
 .form-flex 
 {
     display: flex;
