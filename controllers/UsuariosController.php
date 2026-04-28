@@ -1,8 +1,15 @@
 <?php
+
+use App\Services\MailerService;
+
 require_once '../db/db.php';
 
 require_once '../models/UsuarioModel.php';
 require_once '../models/AssinarModel.php';
+
+require_once '../reports/EmailReport.php';
+
+require_once '../services/EmailService.php';
 
 require_once '../public/components/session/mensagem.php';
 
@@ -12,6 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     $acao = trim($_POST['acao']);
     $token = trim($_POST['token']);    
+    $tipo = trim($_POST['tipo']);    
 }
 
 class UsuarioController
@@ -100,6 +108,7 @@ class UsuarioController
             $id         = intval($_POST['id']);
             $usuario    = trim($_POST['usuario']);
             $nome       = trim($_POST['nome']);
+            $email       = trim($_POST['email']);
             $setor      = trim($_POST['setor']);
             $privilegio = trim($_POST['privilegio']);
             $unidade    = trim($_POST['unidade']);
@@ -114,6 +123,7 @@ class UsuarioController
                 'nome' => $nome,
                 'usuario' => $usuario,
                 'setor' => $setor,
+                'email' => $email,
                 'privilegio' => $privilegio,
                 'unidade' => $unidade
             ];
@@ -134,6 +144,43 @@ class UsuarioController
             $texto = $e->getMessage();
 
             getMensagemSession('error', 'Não recebemos.', $texto, 'usuarios');
+        }
+    }
+
+    public function enviarEmailAlterarSenha()
+    {
+        try
+        {
+            $report = new MailerReport();
+            $service = new MailerService();
+
+            $email = trim($_POST['email']);
+            $assunto = 'Esqueceu sua senha Preventiva T.I';
+
+            $data = 
+            [
+                'email' => $email,
+                'assunto' => $assunto
+            ];
+
+            $conteudo = $report->reportSuporteTI($data);
+
+            $serviceRes = $service->enviar($conteudo, $data['email'], $data['assunto']);   
+            
+            if ($serviceRes)
+            {
+                getMensagemSession('success', 'Enviado!', 'visualize seu E-mail para continuar.', 'login');
+            }
+            else
+            {
+                throw new Error('não foi possivel enviar um e-mail. Entre em contato com a T.I');
+            }
+        }
+        catch (Throwable $e)
+        {
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Não enviamos.', $texto, 'login');
         }
     }
 
@@ -164,44 +211,62 @@ class UsuarioController
         }
     }
 
-    public function alterarSenhaUsuarios()
+    public function alterarSenha()
     {
-        $id = intval($_POST['id']);
-        $novaSenha = trim($_POST['novaSenha']);
-        $confirmarSenha = trim($_POST['confirmarSenha']);
-
-        if (!$novaSenha || !$confirmarSenha)
+        try
         {
-            echo 'Variáveis não preenchidas.';
+            $model = new UsuarioModel();
 
-        }
-        else if($novaSenha !== $confirmarSenha)
-        {
-            echo 'Senhas diferentes.';
+            $email = trim($_POST['email']);
+            $senha = trim($_POST['novaSenha']);
+            $senhaConfirmada = trim($_POST['confirmarNovaSenha']);
 
-        }
-        else
-        {
-            try
+            if ($senha != $senhaConfirmada)
             {
-                $model = new UsuarioModel();
-
-                $alterar = $model->atualizarSenha($id, $novaSenha);
-
+                throw new Error('Senhas diferentes.');
             }
-            catch (Exception $e)
-            {
-                echo 'Houve um erro ao executar: '. $e->getMessage();
 
+            $data = 
+            [
+                'email' => $email,
+                'senha' => $senha
+            ];
+
+            $modelRes = $model->atualizarSenha($data);
+
+            if ($modelRes)
+            {
+                getMensagemSession('success', 'Senha alterada!', 'Sua senha foi alterada com sucesso.', 'login');
+            }
+            else
+            {
+                throw new Error('Houve um erro interno. Entre em contato com o Suporte T.I');
             }
         }
-    }
+        catch (Throwable $e)
+        {
+            $texto = $e->getMessage();
 
-    public function assinarUsuarios()
-    {
-
+            getMensagemSession('error', 'Não realizado.', $texto, 'login');
+        }
     }
 };
+
+if (empty($token) && $tipo === 'esqueci_minha_senha')
+{
+    switch ($acao)
+    {
+        case 'alterarSenha';
+            $controller = new UsuarioController;
+            $controller->enviarEmailAlterarSenha();
+            break;
+
+        case 'alterarMinhaSenha';
+            $controller = new UsuarioController;
+            $controller->alterarSenha();
+            break;
+    }
+}
 
 if (empty($_SESSION['privilegio']))
 {
@@ -250,24 +315,16 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                     $controller = new UsuarioController();
                     $controller->apagarUsuarios();
                     break;
-                case 'alterarSenha':
-                    $controller = new UsuarioController();
-                    $controller->alterarSenhaUsuarios();
-                    break;
             }
         }
-        elseif ($_SESSION['privilegio'] !== 'administrador')
+        elseif ($_SESSION['privilegio'] === 'Administrador' || $_SESSION['privilegio'] === 'TI' || $_SESSION['privilegio'] === 'Usuário')
         {
-            switch($acao)
+            switch ($acao)
             {
-                case 'assinar':
+                case 'alterarMinhaSenha':
                     $controller = new UsuarioController();
-                    $controller->assinarUsuarios();
+                    $controller->alterarSenha();
                     break;
-                case 'alterarSenha':
-                    $controller = new UsuarioController();
-                    $controller->alterarSenhaUsuarios();
-                    break;        
             }
         }
         else

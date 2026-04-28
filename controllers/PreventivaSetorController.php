@@ -1,7 +1,14 @@
 <?php
+
+use App\Services\MailerService;
+
 require_once '../db/db.php';
 
 require_once '../models/PreventivaSetorModel.php';
+
+require_once '../reports/EmailReport.php';
+
+require_once '../services/EmailService.php';
 
 require_once '../public/components/session/mensagem.php';
 
@@ -130,6 +137,8 @@ class PreventivaSetorController
         try
         {
             $model = new PreventivaSetorModel();
+            $report = new MailerReport();
+            $service = new MailerService();
 
             $token = trim($_POST['token']);
             $setor = trim($_POST['setor']);
@@ -140,6 +149,9 @@ class PreventivaSetorController
             $unidade = trim($_POST['unidade']);
             $idUnidade = trim($_POST['unidadeID']);
             $idResponsavel = trim($_POST['idResponsavel']);
+            
+            $email = trim($_POST['email']);
+            $assunto = 'Oi! A preventiva foi finalizada!';
 
             $status = 'Fechado';
             
@@ -160,11 +172,18 @@ class PreventivaSetorController
                 'idSetor' => $idSetor,
                 'idResponsavel' => $idResponsavel,
                 'status' => $status,
+                'email' => $email,
+                'assunto' => $assunto
             ];
+            
 
             $modelRes = $model->finalizarPreventivaSetor($data);
 
-            if($modelRes)
+            $conteudo = $report->reportUsuarioAssinar();
+
+            $serviceRes = $service->enviar($conteudo, $data['email'], $data['assunto']);
+
+            if($modelRes && $serviceRes)
             {
                 getMensagemSession('success', 'Finalizada!', 'Enviamos um E-mail para o Responsável do Setor assinar.', 'preventiva', 'relacionarPreventiva', $dataUrl);
             }

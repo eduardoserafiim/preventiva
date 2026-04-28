@@ -88,7 +88,6 @@ $idComputador = $_GET['id_computador'] ?? '';
                 <?php 
                     $preventiva = $modelPreventiva->listarPreventiva($ano, $semestre, $unidadeID, $unidade);
                     $computadoresDisponiveis = $modelPreventivaComputador->listarComputadoresSemPreventiva();
-
                 ?>
                 <div class="page-header">
                     <div class="page-descricao">
@@ -134,6 +133,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                     ];
 
                     $preventivaEspecifica = $modelPreventivaSetor->listarPreventiva($dataPreventivaEspecifico);
+                    $preventivaEmailResponsavel = $modelPreventivaSetor->listarEmailResponsavelSetor($dataPreventivaEspecifico);
 
                     $preventivaStatus = $preventivaEspecifica['status'] ?? 'Nenhum';
 
@@ -287,6 +287,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                                 <input type="hidden" name="idResponsavel" value="<?= htmlspecialchars($_SESSION['id']) ?>">
                                 <input type="hidden" name="semestre" value="<?= htmlspecialchars($semestre) ?>">
                                 <input type="hidden" name="ano" value="<?= htmlspecialchars($ano) ?>">
+                                <input type="hidden" name="email" value="<?= $preventivaEmailResponsavel['email'] ?>">
                                 <button type="submit" class="botao botao-cancelar">Finalizar preventiva</button>
                             </form>
                         <?php endif ?>

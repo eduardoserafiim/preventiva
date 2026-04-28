@@ -21,7 +21,7 @@ function formGrid()
     </div>
 
     <div class="form-passwordforget">
-        <a href="login?url=suporte">
+        <a href="login?url=suporte&tipo=esqueci_minha_senha">
             <h5>Esqueceu seu usuário ou sua senha?</h5>
         </a>
     </div>

@@ -136,7 +136,41 @@ class PreventivaSetorModel
         }
         catch(PDOException $e)
         {
-            return $e->getMessage();
+            $texto = $e->getMessage();
+
+            return false;
+        }
+    }
+
+    public function listarEmailResponsavelSetor($data)
+    {
+        try
+        {
+            $sql = 'SELECT email
+                FROM usuarios
+                WHERE id_setor = ?';
+
+            $stmt = $this->db->prepare($sql);
+            $query = $stmt->execute(
+                [
+                    $data['setor']
+                ]
+            );
+            
+            if ($query)
+            {
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            else
+            {
+                throw new PDOException('Erro interno.');
+            }
+        }
+        catch (PDOException $e)
+        {
+            $texto = $e->getMessage();
+
+            return false;
         }
     }
 

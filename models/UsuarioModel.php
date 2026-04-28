@@ -106,6 +106,7 @@ class UsuarioModel{
                 SET  
                 nome = ?, 
                 usuario = ?,
+                email = ?,
                 privilegio = ?,
                 id_unidade = ?,
                 id_setor = ?
@@ -114,6 +115,7 @@ class UsuarioModel{
             $query = $stmt->execute([
                 $data['nome'],
                 $data['usuario'],
+                $data['email'],
                 $data['privilegio'],
                 $data['unidade'],
                 $data['setor'],
@@ -136,25 +138,33 @@ class UsuarioModel{
         }
     }
 
-    public function atualizarSenha($id, $novaSenha) 
+    public function atualizarSenha($data) 
     {
-        $sql = "UPDATE usuarios SET senha = ? WHERE id = ?";
-        try {
+        try 
+        {
+            $senhaComHash = password_hash($data['senha'], PASSWORD_BCRYPT, ['cost' => 10]);
+
+            $sql = "UPDATE usuarios 
+                SET senha = ? 
+                WHERE email = ?";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                $id,
-                password_hash($novaSenha, PASSWORD_BCRYPT, ['cost' => 10])
-            ]);
+            $query = $stmt->execute(
+                [
+                    $senhaComHash,
+                    $data['email']
+                ]
+            );
 
-            if ($stmt->rowCount() === 0) {
-                error_log("Falha ao atualizar senha: ID {$id} não encontrado ou senha igual à anterior");
-                return false;
+            if ($query)
+            {
+                return true;
             }
-
-            return true;
-
+            else
+            {
+                throw new PDOException('Erro interno.');
+            }
         } catch (PDOException $e) {
-            error_log("Erro ao atualizar a senha do usuário: " . $e->getMessage());
+            $texto = $e->getMessage();
 
             return false;
         }

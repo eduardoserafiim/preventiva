@@ -26,15 +26,14 @@ require_once '../public/components/bar/bar.php';
 require_once '../public/components/voltar.php';
 require_once '../public/components/search.php';
 require_once "../public/components/warning.php";
-
 require_once "../public/components/usuarios/usuariosRegistrar.php";
 require_once "../public/components/usuarios/usuarioCard.php";
+
+// FORMS
 require_once "../public/components/form/usuarios/formGridCriar.php";
 require_once "../public/components/form/usuarios/formGridEditar.php";
 require_once "../public/components/form/usuarios/formActions.php";
 require_once "../public/components/form/usuarios/formActionsEditar.php";
-
-// FORMS
 ?>
 <?php
 
