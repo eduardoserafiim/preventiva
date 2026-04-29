@@ -34,7 +34,7 @@ function formGridCriarUsuario($setores)
                     <option value="" selected disabled>Selecione...</option>
                     <option value="1">HAP - CENTRO</option>
                     <option value="2">HAP - MATRIZ</option>
-                    <option value="administrador">Ambas</option>
+                    <option value="3">Ambas</option>
                 </select>
             </div>
             <div class="setor">

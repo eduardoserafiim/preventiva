@@ -67,9 +67,9 @@ $modelCamera        = new CameraModel();
 $modelUsuario       = new UsuarioModel();
 
 $setores                        = $modelSetor->listarSetor();
-$dvrs                           = $modelDVRs->listarDVR();
-$dvrEspecifico                  = $modelDVRs->listarDVR($id);
-$dvrEspecificoRelacionadoCamera = $modelDVRs->listarDVR($idDVR);
+$dvrs                           = $modelDVRs->listarDVR($_SESSION['id_unidade']);
+$dvrEspecifico                  = $modelDVRs->listarDVR($_SESSION['id_unidade'], $id);
+$dvrEspecificoRelacionadoCamera = $modelDVRs->listarDVR($idDVR, $_SESSION['id_unidade'], $id);
 $cameraEspecifica               = $modelCamera->listarCamera($id);
 $camerasRelacionadasDVR         = $modelDVRCameras->chamarCamerasRelacionadasDVR($idDVR);
 $usuario = $modelUsuario->validar($_SESSION['usuario']);

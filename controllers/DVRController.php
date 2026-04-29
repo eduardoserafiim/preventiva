@@ -40,7 +40,6 @@ class DVRController
 
             $idImagemNovo = null;
 
-
             $idImagemAntiga = $_POST['imagem_antiga'] ?? '';
 
             $pasta = realpath(__DIR__ . '/../upload/dvrs');
@@ -63,7 +62,10 @@ class DVRController
                 $ano = $_POST['ano'] ?? '';
                 $data['ano'] = $ano+1;
 
-                $idImagemNovo = imagemRegras($pasta, $idImagemAntiga, 'DVR');
+                if ($_FILES['imagem'] !== null)
+                {
+                    $idImagemNovo = imagemRegras($pasta, $idImagemAntiga, 'DVR');
+                }
             }
             else
             {

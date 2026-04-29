@@ -46,7 +46,7 @@ $modelUsuario = new UsuarioModel();
 
 $usuario = $modelUsuario->validar($_SESSION['usuario']);
 $setores = $modelSetor->listarSetor();
-$computadores = $modelComputador->listarComputador();
+$computadores = $modelComputador->listarComputador('', $_SESSION['id_unidade']);
 
 ?>
 <?php 
@@ -76,7 +76,7 @@ $computadorEspecifico = $modelComputador->listarComputador($id);
                 <div class="page-header">
                     <div class="page-descricao">
                         <h1>Computadores</h1>
-                        <p>Editar Computador - Informações de Hardware e Patrmônio</p>
+                        <p>Editar Computador - <strong>Informações de Hardware e Patrimônio</strong></p>
                     </div>
                 </div>
                 <div class="voltar">

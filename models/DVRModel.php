@@ -30,7 +30,7 @@ class DVRModel
                         $data['mac'], 
                         $data['canais'], 
                         $data['responsavel'],
-                        $data['id_imagem'] ?? 0,         
+                        $data['id_imagem'] ?? null,         
                         $data['id_unidade'],         
                     ]
                 );
@@ -49,7 +49,7 @@ class DVRModel
                         $data['mac'], 
                         $data['canais'], 
                         $data['responsavel'],
-                        $data['id_imagem'] ?? 0,         
+                        $data['id_imagem'] ?? null,         
                         $data['id_unidade'],         
                     ]
                 );
@@ -146,7 +146,7 @@ class DVRModel
         }
     }
 
-    public function listarDVR($id = '')
+    public function listarDVR($idUnidade, $id = '')
     {
         try
         {
@@ -159,24 +159,34 @@ class DVRModel
                 ON d.id_unidade = u.id
             LEFT JOIN imagem i
                 ON d.id_imagem = i.id
+            WHERE d.id_unidade = ?
             ';
             if($id)
             {
-                $sql .= 'WHERE d.id = ?';
+                $sql .= 'AND d.id = ?';
             }
             
             $stmt = $this->db->prepare($sql);
             
             if($id)
             {
-                $stmt->execute([$id]);
+                $stmt->execute(
+                    [
+                        $idUnidade,
+                        $id
+                    ]
+                );
             }
-            $stmt->execute();
+
+            $stmt->execute(
+                [
+                    $idUnidade
+                ]
+            );
             
             if($id)
             {
                 return $stmt->fetch(PDO::FETCH_ASSOC); 
-
             }
             else
             {

@@ -39,7 +39,8 @@ class UsuarioModel{
         }
         catch (PDOException $e) 
         {         
-            return false;
+            $texto = $e->getMessage();
+            return $texto;
         }
     }
 

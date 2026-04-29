@@ -40,48 +40,73 @@ class ComputadorModel
         }
     }
 
-    public function listarComputador($id = '')
+    public function qunatidadeComputadoresRegistradosUnidade()
     {
         try
         {
-            if($id)
+            $sql = 'SELECT u.nome AS unidade, COUNT(d.id) AS total 
+                FROM dispositivos_computadores d
+                JOIN unidade u 
+                    ON d.id_unidade = u.id
+                GROUP BY u.nome';
+            $stmt = $this->db->prepare($sql);
+            $query = $stmt->execute();
+    
+            if ($query)
             {
-                $sql = 'SELECT dc.*,
-                u.nome AS nome_unidade, 
-                i.nome_salvo AS nome_imagem,
-                i.id AS id_imagem_antiga
-                FROM dispositivos_computadores dc
-                LEFT JOIN unidade u
-                    ON dc.id_unidade = u.id
-                LEFT JOIN imagem i
-                    ON dc.id_imagem = i.id
-                WHERE dc.id = ?';
-
-                $stmt = $this->db->prepare($sql);
-                $stmt->execute([$id]);
-
-                return $stmt->fetch(PDO::FETCH_ASSOC);
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
             else
             {
-                $sql = 'SELECT dc.*,
-                u.nome AS nome_unidade, 
-                i.nome_salvo AS nome_imagem,
-                i.id AS id_imagem_antiga
-                FROM dispositivos_computadores dc
-                LEFT JOIN unidade u
-                    ON dc.id_unidade = u.id
-                LEFT JOIN imagem i
-                    ON dc.id_imagem = i.id
-                ORDER BY dc.id DESC';
-        
-                $stmt = $this->db->prepare($sql);
-                $stmt->execute();
-                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                throw new PDOException('Erro interno.');
             }
         }
-        catch (PDOException $e) 
+        catch (PDOException $e)
         {
+            $texto = $e->getMessage();
+
+            return false;
+        }
+    }
+
+    public function listarComputador($id = null, $unidade = null)
+    {
+        try {
+            $sql = 'SELECT dc.*, 
+                        u.nome AS nome_unidade, 
+                        i.nome_salvo AS nome_imagem, 
+                        i.id AS id_imagem_antiga 
+                    FROM dispositivos_computadores dc 
+                    LEFT JOIN unidade u 
+                        ON dc.id_unidade = u.id 
+                    LEFT JOIN imagem i 
+                        ON dc.id_imagem = i.id';
+            
+            $params = [];
+
+            if ($id) 
+            {
+                $sql .= ' WHERE dc.id = ?';
+                $params[] = $id;
+            } 
+            else 
+            {
+                if ($unidade !== null && $unidade != 3) {
+                    $sql .= ' WHERE dc.id_unidade = ?';
+                    $params[] = $unidade;
+                }
+
+                $sql .= ' ORDER BY dc.id DESC';
+            }
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute($params);
+
+            return $id ? $stmt->fetch(PDO::FETCH_ASSOC) : $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            $texto = $e->getMessage();
+
             return false;
         }
     }

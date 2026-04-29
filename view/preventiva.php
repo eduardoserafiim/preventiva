@@ -91,7 +91,7 @@ $idComputador = $_GET['id_computador'] ?? '';
             <?php elseif ($url === 'relacionar' && $tipo === 'preventiva_computador'): ?>
                 <?php 
                     $preventiva = $modelPreventiva->listarPreventiva($ano, $semestre, $unidadeID, $unidade);
-                    $computadoresDisponiveis = $modelPreventivaComputador->listarComputadoresSemPreventiva();
+                    $computadoresDisponiveis = $modelPreventivaComputador->listarComputadoresSemPreventiva($unidadeID);
                 ?>
                 <div class="page-header">
                     <div class="page-descricao">

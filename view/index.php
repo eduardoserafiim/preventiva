@@ -13,6 +13,7 @@ if (!isset($_SESSION['usuario'])) {
 include_once "../models/AssinarModel.php";
 include_once "../models/ComputadorModel.php";
 include_once "../models/UsuarioModel.php";
+include_once "../models/PreventivaComputadorModel.php";
 
 // COMPONENTS
 include_once "../public/components/header/header.php";
@@ -29,9 +30,15 @@ include_once "../public/components/opcoes/dictionaryOpcoes.php";
 
 $dbassinatura = new AssinaturaModel();
 $modelComputador = new ComputadorModel();
+$modelComputadoresSetores = new PreventivaComputadorModel();
+$modelUsuario = new UsuarioModel();
+
 $assinaturasTecnicos = $dbassinatura->listarAssinaturasTecnico($_SESSION['nome']);
 $assinaturas =  $dbassinatura->listarAssinaturas($_SESSION['nome']);
-$modelUsuario = new UsuarioModel();
+
+$computadoresRelacionadosSetor = $modelComputadoresSetores->quantidadeComputadoreRelacionadosSetor();
+$computadoresRegistradosUnidade = $modelComputador->qunatidadeComputadoresRegistradosUnidade();
+
 
 $usuario = $modelUsuario->validar($_SESSION['usuario']);
 $url = $_GET['url'] ?? '';
@@ -42,24 +49,7 @@ $url = $_GET['url'] ?? '';
         <?= navbar("menu", $usuario) ?>
         <main class="main-content">
             <?= bar() ?>
-            <?php if ($_SESSION['privilegio'] === 'TI' && $url === 'visualizar-computador'): ?>
-                <div class="page-header">
-                    <div class="page-bem-vindo">
-                        <h1>Visualize o computador</h1>
-                        <p>Computador</p>
-                    </div>
-                    <div class="page-configuracoes">
-                        <div class="editarUsuario">
-                            <a href="perfil">
-                                <i class="fa-solid fa-user-pen fa-2xl anima-editarUsuario"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="voltar">
-                    <?= voltar('index') ?>
-                </div>
-            <?php elseif ($_SESSION['privilegio'] == 'TI' && $url == 'minhas-assinaturas'): ?>
+            <?php if ($_SESSION['privilegio'] == 'TI' && $url == 'minhas-assinaturas'): ?>
                 <div class="page-header">
                     <div class="page-bem-vindo">
                         <h1>Minhas assinaturas</h1>
@@ -78,6 +68,7 @@ $url = $_GET['url'] ?? '';
                 </div>
                 <div class="fundo-container">
                     <div class="equipment-grid-assinaturas">
+
                     </div>    
                 </div>
             <?php elseif ($_SESSION['privilegio'] === 'usuario' && $url === 'minhas-assinaturas'): ?>
@@ -132,36 +123,165 @@ $url = $_GET['url'] ?? '';
                     </div>
                 </div>
                 <div class="fundo-container">
-                    <?php if ($_SESSION['privilegio'] != "TI" && $_SESSION['privilegio'] != 'administrador'): ?>
+                    <?php if ($_SESSION['privilegio'] != "TI" && $_SESSION['privilegio'] != 'Administrador'): ?>
                         <h2 style="margin-bottom: 1rem;">Menu</h2>
                         <div class="opcoes">
-                            <?php foreach ($opcoes as $opcao): ?>
-                                <?= criarOpcoesDiv($opcao[1], $opcao[0], $opcao[2] , $opcao[3]) ?>
-                            <?php endforeach ?>
+                            <p>Olá! acesse <strong>Preventiva</strong> na Side Bar para poder assiná-la.</p>
                         </div>
                     <?php endif ?>    
                     <?php if ($_SESSION['privilegio'] === 'TI'): ?>
                         <div>
                             <h2 style="margin-bottom: 1rem;">Menu</h2>
                             <div class="opcoes">
-                                <?php foreach ($opcoes as $opcao): ?>
-                                    <?= criarOpcoesDiv($opcao[1], $opcao[0], $opcao[2], $opcao[3]) ?>
-                                <?php endforeach ?>
+                               
+                            </div>
+                            <?php 
+                            $labelsRelacionadosSetor = []; 
+                            $valoresRelacionadosSetor = []; 
+                            $labelsRegistradosUnidade = []; 
+                            $valoresRegistradosUnidade = []; 
+
+                            foreach ($computadoresRelacionadosSetor as $computadorSetor) { 
+                                $labelsRelacionadosSetor[] = $computadorSetor['nome']; 
+                                $valoresRelacionadosSetor[] = (int)$computadorSetor['total']; 
+                            } 
+
+                            foreach ($computadoresRegistradosUnidade as $computadorRegistrado) {
+                                $labelsRegistradosUnidade[] = $computadorRegistrado['unidade']; // nome da coluna no seu SQL
+                                $valoresRegistradosUnidade[] = (int)$computadorRegistrado['total'];
+                            }
+
+                            $dadosGraficoComputadoresSetores = [ 
+                                'setores' => $labelsRelacionadosSetor, 
+                                'quantidades' => $valoresRelacionadosSetor 
+                            ]; 
+
+                            $dadosGraficoComputadoresRegistrados = [ 
+                                'unidades' => $labelsRegistradosUnidade, 
+                                'quantidades' => $valoresRegistradosUnidade 
+                            ]; 
+                            ?>
+                            <div class="graficos">
+                                <div class='graficos-computadores-setores'>
+                                    <canvas id="graficoComputadoresSetores"></canvas>
+                                </div>
+                                <div class='graficos-computadores-registrados'>
+                                    <canvas id="graficoComputadoresRegistrados"></canvas>
+                                </div>
                             </div>
                         </div>
                     <?php endif ?>
-                    <?php if ($_SESSION['privilegio'] === 'administrador'): ?>
-                        <p>Ainda estamos trabalhando nisso...</p>
+                    <?php if ($_SESSION['privilegio'] === 'Administrador'): ?>
+                        <h2 style="margin-bottom: 1rem;">Menu</h2>
+                        <div class="opcoes">
+                            
+                        </div>
+                        <?php 
+                            $labelsRelacionadosSetor = []; 
+                            $valoresRelacionadosSetor = []; 
+                            $labelsRegistradosUnidade = []; 
+                            $valoresRegistradosUnidade = []; 
+
+                            foreach ($computadoresRelacionadosSetor as $computadorSetor) { 
+                                $labelsRelacionadosSetor[] = $computadorSetor['nome']; 
+                                $valoresRelacionadosSetor[] = (int)$computadorSetor['total']; 
+                            } 
+
+                            foreach ($computadoresRegistradosUnidade as $computadorRegistrado) {
+                                $labelsRegistradosUnidade[] = $computadorRegistrado['unidade']; // nome da coluna no seu SQL
+                                $valoresRegistradosUnidade[] = (int)$computadorRegistrado['total'];
+                            }
+
+                            $dadosGraficoComputadoresSetores = [ 
+                                'setores' => $labelsRelacionadosSetor, 
+                                'quantidades' => $valoresRelacionadosSetor 
+                            ]; 
+
+                            $dadosGraficoComputadoresRegistrados = [ 
+                                'unidades' => $labelsRegistradosUnidade, 
+                                'quantidades' => $valoresRegistradosUnidade 
+                            ]; 
+                            ?>
+
+                        <div class="graficos">
+                            <div class='graficos-computadores-setores'>
+                                <canvas id="graficoComputadoresSetores"></canvas>
+                            </div>
+                            <div class='graficos-computadores-registrados'>
+                                <canvas id="graficoComputadoresRegistrados"></canvas>
+                            </div>
+                        </div>
                     <?php endif ?>
                 <?php endif ?>
             </div>
         </main>
     </div>
 </body>
+
 <?php
 
 require_once "../public/components/scripts/scriptIndex.php";
 require_once "../public/components/scripts/scriptAlert.php";
+require_once "../public/components/scripts/scriptChartJS.php";
 
 ?>
+<script>
+    const gerarCoresAleatorias = (quantidade) => {
+    const cores = [];
+    for (let i = 0; i < quantidade; i++) {
+        const r = Math.floor(Math.random() * 255);
+        const g = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        cores.push(`rgba(${r}, ${g}, ${b}, 0.6)`);
+    }
+    return cores;
+};
+</script>
+<script>
+    const dadosSetores = <?= json_encode($dadosGraficoComputadoresSetores); ?>;
+    const dadosRegistrados = <?= json_encode($dadosGraficoComputadoresRegistrados); ?>;
+
+    const coresSetores = gerarCoresAleatorias(dadosSetores.quantidades.length);
+    const coresRegistrados = gerarCoresAleatorias(dadosRegistrados.quantidades.length);
+
+    const ctxSetores = document.getElementById('graficoComputadoresSetores');
+    new Chart(ctxSetores, {
+        type: 'polarArea',
+        data: {
+            labels: dadosSetores.setores,
+            datasets: [{
+                label: 'Computadores por Setor',
+                data: dadosSetores.quantidades,
+                backgroundColor: coresSetores,
+                borderColor: coresSetores.map(cor => cor.replace('0.6', '1')),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+
+    const ctxRegistrados = document.getElementById('graficoComputadoresRegistrados');
+    new Chart(ctxRegistrados, {
+        type: 'doughnut',
+        data: {
+            labels: dadosRegistrados.unidades,
+            datasets: [{
+                label: 'Computadores por Unidade',
+                data: dadosRegistrados.quantidades,
+                backgroundColor: coresRegistrados,
+                borderColor: coresRegistrados.map(cor => cor.replace('0.6', '1')),
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+</script>
 </html>

@@ -185,7 +185,36 @@ class PreventivaComputadorModel
         }
     }
 
-    public function listarComputadoresSemPreventiva()
+    public function quantidadeComputadoreRelacionadosSetor()
+    {
+        try
+        {   
+            $sql = 'SELECT s.nome, COUNT(pc.id_computador) as total 
+                FROM preventiva_computadores pc 
+                JOIN setores s 
+                    ON pc.id_setor = s.id 
+                GROUP BY s.nome';
+            $stmt = $this->db->prepare($sql);
+            $query = $stmt->execute();
+
+            if ($query)
+            {
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+            else
+            {
+                throw new PDOException('Erro interno.');
+            }
+        }
+        catch (PDOException $e)
+        {
+            $texto = $e->getMessage();
+
+            return false;
+        }
+    }
+
+    public function listarComputadoresSemPreventiva($idUnidade)
     {
         try
         {
@@ -199,9 +228,14 @@ class PreventivaComputadorModel
                 ON dc.id_unidade = u.id 
             LEFT JOIN imagem i 
                 ON dc.id_imagem = i.id
+            WHERE dc.id_unidade = ?
             ';
             $stmt = $this->db->prepare($sql);
-            $query = $stmt->execute();
+            $query = $stmt->execute(
+                [
+                    $idUnidade
+                ]
+            );
 
             if ($query)
             {
