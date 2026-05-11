@@ -1,17 +1,12 @@
 <?php 
 
 function formActions(){
-    return
-    '
-    <div class="form-actions form-actions-computadores" style="justify-content: start;">
+?>
+    <div class="form-actions form-actions-computadores" style="justify-content: center;">
         <button type="submit" class="botao botao-primario">
-            <i class="fas fa-save"></i>Salvar Computador
-        </button>
-        <button type="button" class="botao botao-secundario" onclick="limparFormularioComputador()">
-            <i class="fas fa-eraser"></i> Limpar
+            <i class="fas fa-save"></i>
+            <p>Salvar</p>
         </button>
     </div>
-    ';
+<?php
 }
-
-?>

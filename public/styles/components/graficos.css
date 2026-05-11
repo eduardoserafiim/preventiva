@@ -1,0 +1,17 @@
+.graficos
+{
+    margin-top: 2rem;
+    display: grid;
+    place-items: center;
+    align-items: center;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
+    gap: 2rem;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    margin-bottom: 2rem;
+}
+
+.graficos-computadores-setores
+{
+    width: 300px;
+    height: 300px;
+}

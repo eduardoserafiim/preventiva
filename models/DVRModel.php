@@ -17,10 +17,10 @@ class DVRModel
         {
             if(!empty($data['ano']))
             {
-                $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, id_imagem, id_unidade)
-                VALUES (?,?,?,?,?,?,?,?,?,?)';
+                $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, data_criacao, id_imagem, id_unidade)
+                VALUES (?,?,?,?,?,?,?,?,NOW(),?,?)';
                 $stmt = $this->db->prepare($sql);
-                return $stmt->execute(
+                $stmt->execute(
                     [
                         $data['nome'], 
                         $data['marca'], 
@@ -37,10 +37,10 @@ class DVRModel
             }
             else
             {
-                $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, id_imagem, id_unidade)
-                VALUES (?,?,?,YEAR(NOW()),?,?,?,?,?,?)';
+                $sql = 'INSERT INTO dispositivos_dvrs(nome, marca, modelo, ano, ip, mac, canais, tecnico_responsavel, data_criacao, id_imagem, id_unidade)
+                VALUES (?,?,?,YEAR(NOW()),?,?,?,?,NOW(),?,?)';
                 $stmt = $this->db->prepare($sql);
-                return $stmt->execute(
+                $stmt->execute(
                     [
                         $data['nome'], 
                         $data['marca'], 
@@ -54,10 +54,13 @@ class DVRModel
                     ]
                 );
             }
+
+            return $this->db->lastInsertId();
         }
         catch(PDOException $e)
         {
-            return $e->getMessage();
+            $texto = $e->getMessage();
+            return $texto;
         }
     } 
 
@@ -66,20 +69,26 @@ class DVRModel
         try
         {
             $sql = 'UPDATE dispositivos_dvrs
-            SET horario = ?
+            SET 
+                horario = ?,
+                responsavel_edicao = ?,
+                data_edicao = NOW() 
             WHERE id = ?';
             
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
                     $data['horario'],
+                    $data['responsavel_edicao'],
                     $data['id']
                 ]
             );    
+
+            return true;
         }
         catch (PDOException $e)
         {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -88,19 +97,25 @@ class DVRModel
         try
         {
             $sql = 'UPDATE dispositivos_dvrs
-            SET chamado_manutencao = ?
+            SET 
+                chamado_manutencao = ?,
+                responsavel_edicao = ?,
+                data_edicao = NOW() 
             WHERE id = ?';
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
                     $data['manutencao'],
+                    $data['responsavel_edicao'],
                     $data['id']
                 ]
             );
+
+            return true;
         }
         catch (PDOException $e)
         {
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -109,23 +124,29 @@ class DVRModel
         try
         {
             $sql = 'UPDATE dispositivos_dvrs
-            SET semestre = ?
+            SET
+                semestre = ?,
+                responsavel_edicao = ?,
+                data_edicao = NOW() 
             WHERE id = ?';
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
                     $data['semestre'],
+                    $data['responsavel_edicao'],
                     $data['id']
                 ]
             );
+
+            return true;
         }
         catch (PDOException $e)
         {
-            return $e->getMessage();
+            return false;
         }
     }
 
-    public function listar($id = '')
+    public function listarDVR($idUnidade, $id = '')
     {
         try
         {
@@ -138,24 +159,34 @@ class DVRModel
                 ON d.id_unidade = u.id
             LEFT JOIN imagem i
                 ON d.id_imagem = i.id
+            WHERE d.id_unidade = ?
             ';
             if($id)
             {
-                $sql .= 'WHERE d.id = ?';
+                $sql .= 'AND d.id = ?';
             }
             
             $stmt = $this->db->prepare($sql);
             
             if($id)
             {
-                $stmt->execute([$id]);
+                $stmt->execute(
+                    [
+                        $idUnidade,
+                        $id
+                    ]
+                );
             }
-            $stmt->execute();
+
+            $stmt->execute(
+                [
+                    $idUnidade
+                ]
+            );
             
             if($id)
             {
                 return $stmt->fetch(PDO::FETCH_ASSOC); 
-
             }
             else
             {
@@ -164,41 +195,53 @@ class DVRModel
         }
         catch (PDOException $e)
         {
-            return $e->getMessage();
+            return false;
         }
     }
 
     public function editarDVR($data)
     {
-        $sql = 'UPDATE dispositivos_dvrs
-        SET 
-            nome        = :nome,
-            marca       = :marca,
-            modelo      = :modelo,
-            ip          = :ip,
-            mac         = :mac,
-            canais      = :canais,
-            id_imagem   = :id_imagem,
-            id_unidade  = :id_unidade
-        WHERE id = :id';
+        try
+        {
+            $sql = 'UPDATE dispositivos_dvrs
+            SET 
+                nome        = :nome,
+                marca       = :marca,
+                modelo      = :modelo,
+                ip          = :ip,
+                mac         = :mac,
+                canais      = :canais,
+                data_edicao = NOW(),
+                responsavel_edicao = :responsavel_edicao,
+                id_imagem   = :id_imagem,
+                id_unidade  = :id_unidade
+            WHERE id = :id';
+    
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute(
+                [
+                    ':nome'         => $data['nome'],
+                    ':marca'        => $data['marca'],
+                    ':modelo'       => $data['modelo'],
+                    ':ip'           => $data['ip'],
+                    ':mac'          => $data['mac'],
+                    ':canais'       => $data['canais'],
+                    ':responsavel_edicao' => $data['responsavel_edicao'],
+                    ':id_imagem'    => $data['id_imagem'],
+                    ':id_unidade'   => $data['id_unidade'],
+                    ':id'           => $data['id']
+                ]
+            );
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(
-            [
-                ':nome'         => $data['nome'],
-                ':marca'        => $data['marca'],
-                ':modelo'       => $data['modelo'],
-                ':ip'           => $data['ip'],
-                ':mac'          => $data['mac'],
-                ':canais'       => $data['canais'],
-                ':id_imagem'    => $data['id_imagem'],
-                ':id_unidade'   => $data['id_unidade'],
-                ':id'           => $data['id']
-            ]
-        );
+            return true;
+        }
+        catch(PDOException $e)
+        {
+            return false;
+        }
     }
 
-    public function apagar($id)
+    public function apagarDVR($id)
     {
         try
         {
@@ -206,12 +249,13 @@ class DVRModel
             WHERE id = :id';
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
 
-            return $stmt->execute();
+            return true;
         }
         catch (PDOException $e)
         {
-            return $e->getMessage();
+            return false;
         }
     }
 }

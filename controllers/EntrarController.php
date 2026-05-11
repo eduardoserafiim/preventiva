@@ -28,7 +28,7 @@ class EntrarController
         {
             echo 'Variáveis não definidas.';
 
-            getMensagemSession('error', 'Erro ao entrar!', 'Preencha todos os campos!', 'login.php');
+            getMensagemSession('error', 'Erro ao entrar!', 'Preencha todos os campos!', 'login');
         }
         else
         {
@@ -42,23 +42,28 @@ class EntrarController
                     $_SESSION['id'] = $usuario['id'];
                     $_SESSION['usuario'] = $usuario['usuario'];
                     $_SESSION['nome'] = $usuario['nome'];
-                    $_SESSION['setor'] = $usuario['setor'];
+                    $_SESSION['email'] = $usuario['email'];
+                    $_SESSION['setor'] = $usuario['nome_setor'];
+                    $_SESSION['id_setor'] = $usuario['id_setor'];
                     $_SESSION['privilegio'] = $usuario['privilegio'];
-                    $_SESSION['unidade'] = $usuario['unidade'];
+                    $_SESSION['unidade'] = $usuario['nome_unidade'];
+                    $_SESSION['id_unidade'] = $usuario['id_unidade'];
+                    $_SESSION['id_imagem_antiga'] = $usuario['id_imagem_antiga'];
+                    $_SESSION['nome_imagem_usuario'] = $usuario['nome_imagem'];
                     $_SESSION['token'] = bin2hex(random_bytes(32));
-                
-                    getMensagemSession('success', 'Bem vindo!', 'Você já pode navegar no sistema.', 'index.php');
+                    
+                    getMensagemSession('success', 'Bem vindo!', 'Você já pode navegar no sistema.', 'index');
                 }
                 else
                 {
-                    getMensagemSession('error', 'Erro ao entrar!', 'Usuário ou Senha incorretos.', 'login.php');
+                    getMensagemSession('error', 'Erro ao entrar!', 'Usuário ou Senha incorretos.', 'login');
                 }
             }
             catch (Exception $e)
             {
                 echo 'Houve algum erro: '. $e->getMessage();
 
-                getMensagemSession('error', 'Erro ao entrar!', 'Preencha todos os campos!', 'login.php');
+                getMensagemSession('error', 'Erro ao entrar!', 'Preencha todos os campos!', 'login');
             }
         }
     }
@@ -72,7 +77,7 @@ class EntrarController
             
             session_start();  
 
-            getMensagemSession('success', 'Sucesso ao sair!', 'Você foi deslogado.', 'login.php');
+            getMensagemSession('success', 'Sucesso ao sair!', 'Você foi deslogado.', 'login');
         }
         catch (Exception $e)
         {
@@ -82,7 +87,7 @@ class EntrarController
                 session_start();
             }
 
-            getMensagemSession('error', 'Erro ao sair!', 'Você não foi deslogado.', 'index.php');
+            getMensagemSession('error', 'Erro ao sair!', 'Você não foi deslogado.', 'index');
         }
     }
 }

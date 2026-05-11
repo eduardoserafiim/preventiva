@@ -11,27 +11,38 @@ class SetorModel{
         $this->db = $database->getConnection();
     }
 
-    public function criar($data)
+    public function criarSetor($data)
     {
         try {
             $sql = 'INSERT INTO setores
                 (nome, icon)
-                VALUES (:nome, :icon)';
+                VALUES (?, ?)';
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':nome' => $data['nome'],
-                ':icon' => $data['icon'],
-            ]);
+            $query =$stmt->execute(
+                [
+                    $data['nome'],
+                    $data['icon']
+                ]
+            );
+
+            if ($query)
+            {
+                return true;
+            }
+            else
+            {
+                throw new PDOException('Houve um erro interno.');
+            }
         } 
         catch (PDOException $e) 
         {
-            error_log("Erro ao criar o setor: " . $e->getMessage());
+            $texto = $e->getMessage();
 
             return false;
         }
     }
 
-    public function listar()
+    public function listarSetor()
     {
         try
         {
@@ -39,79 +50,146 @@ class SetorModel{
                 FROM setores
                 ORDER BY nome';
             $stmt = $this->db->prepare($sql);
-            $stmt->execute();
-    
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $query = $stmt->execute();
 
+            if ($query)
+            {
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+            else
+            {
+                throw new PDOException('Houve um erro interno.');
+            }
         }
         catch (PDOException $e) 
         {
-            error_log("Erro ao listar setor: " . $e->getMessage());
-         
+            $texto = $e->getMessage();
+
             return false;
         }
     }
 
-    public function atualizar($id, $data)
+    public function listarIconesSetores()
     {
-        try {
+        try
+        {
+            $sql = 'SELECT DISTINCT icon 
+                FROM setores 
+                ORDER BY nome';
+            $stmt = $this->db->prepare($sql);
+            $query = $stmt->execute();
+
+            if ($query)
+            {
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+            else
+            {
+                throw new PDOException('Houve um erro interno.');
+            }
+        }
+        catch (PDOException $e)
+        {
+            $texto = $e->getMessage();
+
+            return false;
+        }
+    }
+
+    public function atualizarSetor($id, $data)
+    {
+        try 
+        {
             $sql = 'UPDATE setores
-                SET nome = :nome
-                WHERE id = :id;
+                SET nome = ?,
+                    icon = ?
+                WHERE id = ?
                 ';
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':id' => $id,
-                ':nome' => $data['nome'],
-            ]);
-            return true;
+            $query = $stmt->execute(
+                [
+                    $data['nome'],
+                    $data['icone'],
+                    $id
+                ]
+            );
+
+            if($query)
+            {
+                return true;
+            }
+            else
+            {
+                throw new PDOException('Houve um erro interno.');
+            }
         } 
         catch (PDOException $e) 
         {
-            error_log("Erro ao atualizar setor: " . $e->getMessage());
+            $texto = $e->getMessage();
 
             return false;
         }
         
     }
 
-    public function apagar($id)
+    public function apagarSetor($id)
     {
         try
         {
             $sql = "DELETE
                 FROM setores
-                WHERE id = :id";
+                WHERE id = ?";
             $stmt = $this->db->prepare($sql);
-            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-            
-            return $stmt->execute();
+            $query = $stmt->execute(
+                [
+                    $id
+                ]
+            );
+
+            if ($query)
+            {
+                return true;
+            }
+            else
+            {
+                throw new PDOException('Houve um erro interno.');
+            }
         }
         catch (PDOException $e) 
         {
-            error_log("Erro ao apagar o setor: " . $e->getMessage());
          
             return false;
         }
     }
 
-    public function validar($nome)
+    public function validarSetor($nome)
     {
         try 
         {
             $sql = 'SELECT *
                 FROM setores
-                WHERE nome = :nome 
+                WHERE nome = ?
                 LIMIT 1';
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([':nome' => $nome]);
-
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            $query = $stmt->execute(
+                [
+                    $nome
+                ]
+            );
+            
+            if ($query)
+            {
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            else
+            {
+                throw new PDOException('Houve um erro interno.');
+            }
         } 
         catch (PDOException $e) 
         {
-            error_log("Erro ao validar o setor: " . $e->getMessage());
-         
+            $texto = $e->getMessage();
+
             return false;
         }
     }

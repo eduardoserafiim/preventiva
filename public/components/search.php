@@ -2,10 +2,10 @@
 
 function search($name, $nome, $tipo='')
 { ?>
-    <?php if($tipo === 'computadorPesquisaRapida'): ?>
-        <input type="text" name="<?= $name ?>" id="search-input" placeholder="Procuro pelo nome do computador, IP ou MAC">    
+    <?php if($tipo === 'computadores' || $tipo === 'dvrs'): ?>
+        <input type="text" name="<?= $name ?>" id="search-input" placeholder="Procure pelo Nome, IP ou MAC">      
     <?php else: ?>
-        <input type="text" name="<?= $name ?>" id="search-input" placeholder="Digite o <?= $nome ?> aqui...">
+        <input type="text" name="<?= $name ?>" id="search-input" placeholder="Procure pelo <?= $nome ?>">
     <?php endif ?>
 <?php
 }

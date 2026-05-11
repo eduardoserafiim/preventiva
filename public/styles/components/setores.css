@@ -1,149 +1,139 @@
 .setores
 {
-  opacity: 0;
   display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-rows: repeat(200px);
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  transform: translateY(-10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  gap: 1rem;
+  place-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 2fr));
+  margin-bottom: 2rem;
 }
 
-.setoresAdministrador
-{
-  opacity: 0;
-  display: grid;
-  justify-content: center;
-  align-items: center;
-  grid-template-rows: repeat(200px);
-  grid-template-columns: repeat(2, 400px);
-  transform: translateY(-10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;    
-}
-
-.setoresAdministrador.show
-{
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.setores.show
-{
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.setor
+.card-setor
 {
   display: flex;
   flex-direction: column;
-  height: 160px;
-  width: 350px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  margin: 1rem;
-  padding: 1rem 0.2rem 0.2rem 0.2rem;
+  width: 300px;
   border-radius: 12px;
-  background-color: white;
-  border: 1px solid #e2e8f0;
-  transition: border 0.2s ease-in-out;
-  cursor: pointer;
-
+  transition: all 0.3s ease;
 }
 
-.setor:hover i {
-    animation: fa-bounce 1s infinite;
-}
-
-.setor:hover{
-  border: 1px solid #3b82f6;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-}
-
-.setor a
+.card-setor-setores
 {
-  display: block;
-  width: 100%;
-  height: 100%;
+  margin-top: 2rem;
 }
 
-.setor i
+.card-setor:hover
 {
-  padding: 1rem;
-}
-
-.setor p
-{
-  padding: 0 1rem;
-}
-
-.setor h4
-{
-  padding: 0rem 1rem 0rem 0rem;
-}
-
-.setorDiv
-{
-  display: flex;
-  flex-direction: column;
-  height: 160px;
-  width: 350px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  margin: 1rem;
-  border-radius: 12px;
-  background-color: white;
-  border: 1px solid #e2e8f0;
-  transition: transform 0.3s ease, border 0.2s ease-in-out;
-  cursor: pointer;
-
-}
-
-.setorDiv i
-{
-  padding: 0px 2rem 0px 0px;
-}
-
-.setorDiv p
-{
-  padding: 0.5rem 0 0 2rem;
-}
-
-.setorDiv:hover i {
-    animation: fa-bounce 1s infinite;
-}
-
-.setorDiv:hover{
-  border: 1px solid #3b82f6;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   transform: translateY(-2px);
 }
 
-.setorDiv a
+.card-setor:hover .card-setor-conteudo
 {
-  display: block;;
-  width: 100%;
-  height: 100%;
+    border: 1px solid #3b82f6;
 }
 
-.setorDiv i
+.card-setor-titulo
 {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1rem;
   padding: 1rem;
+  height: 80px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  background-color: #334155;
+  color: white;
+  transition: all 0.3s ease;
 }
 
-.setorDiv h4
+.card-setor-titulo-setores
 {
-  padding: 1rem 1rem 1rem 0rem;
+  border-radius: 12px;
 }
 
-.setores-listagem
+.card-setor-conteudo
 {
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  height: 100px;
+  border: 1px solid #334155;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  transition: all 0.3s ease;
 }
 
-.setores-listagem.show
+.quantidade-computadores
 {
-  opacity: 1;
-  transform: translateY(0);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.setorDiv
+{
+    display: flex;
+    width: 200px;
+    height: 50px;
+    background-color: white;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.setorLink
+{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.setorDiv:hover .color-content
+{
+    width: 100%;
+    border-radius: 12px;
+}
+
+.setorDiv:hover .setor-content
+{
+    display: none;
+}
+
+.setor-content
+{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.setor-content .flex
+{
+    gap: 1rem;
+}
+
+.setor-titulo
+{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.setor-editar-excluir
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.setor-editar:hover, .setor-excluir:hover
+{
+    animation: fa-bounce 1s linear infinite;
+    cursor: pointer;
 }

@@ -1,13 +1,4 @@
 @media (max-width: 2560px){
-  .setores
-  {
-    display: grid;
-    align-items: center;
-    grid-template-rows: repeat(200px);
-    grid-template-columns: repeat(5, minmax(350px, 1fr));
-    place-items: center;
-  }
-
   .form-flex {
     display: flex;
     align-items: center;
@@ -20,63 +11,20 @@
   }
 }
 
-@media (max-width: 1920px){
-  .page-header 
-  {
-    margin-bottom: 0rem;
-  }
-
-  .setores
-  {
-    grid-template-columns: repeat(3, 350px);
-  }
-
-  .setor
-  {
-    width: 300px;
-  }
-
-  .usuarios
-  {
-    grid-template-columns: repeat(2, 400px);
-  }
-
-  .equipment-grid-user
-  {
-    grid-template-columns: repeat(auto-fill, minmax(300, 1fr));
-  }
-
-  .form-flex .texto{
-    width: 260px;
-  }
-}
-
 @media (max-width: 1440px){
-  .setores
+  .cardDVR, .cardComputador
   {
-    grid-template-rows: repeat(200px);
-    grid-template-columns: repeat(2, 400px);
+    width: auto;
   }
 
-  .usuarios
+  .cardCamera
   {
-    grid-template-rows: repeat(200px);
-    grid-template-columns: repeat(2, 400px);
-  }
-
-  .form-flex .texto
-  {
-    width: 240px;
-  }
-
-  .cardDVR
-  {
-    width: 1000px;
+    width: auto;
   }
 
   .cameras
   {
-    width: 1000px;
+    width: auto;
   }
   .canaisDisponiveis .flex
   {
@@ -85,22 +33,22 @@
   
   .canaisDisponiveis
   {
-    width: 800px;
+    width: 600px;
   }
 
   .tituloDVR
   {
-    width: 800px;
+    width: 700px;
   }
 
   .tituloDetalhes
   {
-    grid-template-columns: repeat(3, auto);
+    grid-template-columns: repeat(3, auto-fit);
   }
 
-  .topoInformacoesDVR, .inferiorInformacoesDVR
+  .topoInformacoesDVR, .inferiorInformacoesDVR, .topoInformacoesCamera, .inferiorInformacoesCamera
   {
-    width: 800px;
+    width: 750px;
   }
 }
 
@@ -132,21 +80,6 @@
     margin-top: 0;
   }
 
-  .setores
-  {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-template-rows: auto;
-  }
-
-  /* usuarios */
-  .usuarios
-  {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    place-items: center;
-  }
-
   .cardDVR
   {
     width: 700px;
@@ -162,7 +95,7 @@
     width: 500px;
   }
 
-  .tituloDVR
+  .tituloDVR, .tituloCamera
   {
     width: 400px;
   }
@@ -172,9 +105,14 @@
     grid-template-columns: repeat(2, auto);
   }
 
-  .topoInformacoesDVR, .inferiorInformacoesDVR
+  .topoInformacoesDVR, .inferiorInformacoesDVR, .topoInformacoesCamera, .inferiorInformacoesCamera
   {
     width: 500px;
+  }
+
+  .cardCamera
+  {
+    width: 700px;
   }
 }
 
@@ -206,6 +144,22 @@
   .sidebar-voltar
   {
     display: flex;
+  }
+
+  .usuarioDiv
+  {
+    width: 250px;
+    height: 200px;
+  }
+
+  .topoInformacoesCamera, .inferiorInformacoesCamera
+  {
+    width: 500px;
+  }
+
+  .inferiorInformacoesCamera
+  {
+    gap: 5rem;
   }
 }
 
@@ -247,22 +201,16 @@
     width: 250px;
   }
 
-  /* usuarios */
-  .usuarios-listagem
+  .opcoes
   {
-    place-items: center;
-  }
-
-  .usuarios
-  {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    place-items: center;
+    justify-content: center;
+    align-items: center;
   }
 
   .usuarioDiv
   {
-    width: 300px;
+    width: 200px;
+    height: 250px;
   }
 
   .usuarioDiv p
@@ -338,20 +286,12 @@
     padding: 12px 12px 12px 12px;
   }
 
-  /* setores */
-  .setoresAdministrador
+  .fundo-container
   {
-    display: flex;
-    flex-direction: column;
+    width: 300px;
   }
 
-  .setores .flex
-  {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    
-  }
+  /* setores */
 
   .setorDiv
   {
@@ -395,7 +335,12 @@
     gap: 2rem;
   }
 
-  .cardDVR
+  .page-criar-computador, .page-criar-dvr
+  {
+    justify-content: flex-start;
+  }
+
+  .cardDVR, .cardComputador, .cardCamera
   {
     flex-direction: column;
     width: 325px;
@@ -411,9 +356,25 @@
     grid-template-columns: repeat(1, auto);
   }
 
-  .inferiorInformacoesDVR
+  .topoInformacoesDVR, .topoInformacoesCamera
+  {
+    width: auto;
+  }
+
+  .inferiorInformacoesDVR, .inferiorInformacoesCamera
   {
     flex-direction: column;
+  }
+
+  .inferiorInformacoesCamera
+  {
+    width: 250px;
+    gap: 1rem;
+  }
+
+  .informacoesUsuarioData, .informacoesStatus
+  {
+    width: 250px;
   }
 
   .informacoesGerais
@@ -438,33 +399,36 @@
     width: 275px;
   }
 
-  .imagemDVR, .imagemDVR img
+  .imagemDVR, .imagemDVR img, .imagemComputador, .imagemComputador img
   {
-    width: 200px;
-    height: 200px;
-    max-width: 200px;
-    max-height: 200px;
+    width: 150px;
+    height: 150px;
+    max-width: 259px;
+    max-height: 259px;
+  }
+
+  .canaisDisponiveis
+  {
+    width: 250px;
+  }
+
+  .formulario-imagem
+  {
+    width: 259px;
+    height: 259px;
   }
 }
 
 @media (max-width: 375px) {
+  .main-content
+  {
+    width: 375px;
+  }
+
   /* login */
   .controleForm
   {
     width: auto;
-  }
-
-  #formularioUsuario, #formularioUsuario input, .usuario, .senha
-  {
-    width: 225px;
-  }
-
-  /* usuarios */
-  .usuarios
-  {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    place-items: center;
   }
 
   .search
@@ -472,9 +436,29 @@
     width: 300px;
   }
 
-  #search-input, .usuarioDiv
+  #search-input
   {
     width: 300px;
+  }
+
+  #overlay
+  {
+    width: 375px;
+  }
+
+  #legenda
+  {
+    width: 300px;
+  }
+  
+  .legenda-destacada
+  {
+    margin: 2rem 0 2rem 0;
+  }
+
+  .tituloCamera
+  {
+    width: 200px;
   }
 
   .usuarioDiv p
@@ -527,18 +511,12 @@
     height: 2800px;
   }
 
-  /* setores */
-  .setores
-  {
-    width: 300px;
-  }
-
   .setor-preventiva{
     width: 250px;
     height: 250px;
   }
 
-    .preventiva-flex
+  .preventiva-flex
   {
     justify-content: center;
     width: 240px;
@@ -589,7 +567,7 @@
     width: 300px;
   }
 
-  .cardDVR
+  .cardDVR, .cardComputador
   {
     flex-direction: column;
     width: 300px;
@@ -618,6 +596,11 @@
 
 
 @media (max-width: 320px) {
+  .main-content
+  {
+    width: 320px;
+  }
+
   /* login */
   .controleForm
   {
@@ -647,16 +630,6 @@
   }
 
   .search, #search-input, .voltar
-  {
-    width: 250px;
-  }
-  
-  .equipment-card, .usuarios-listagem
-  {
-    width: 250px;
-  }
-
-  .equipment-grid-user
   {
     width: 250px;
   }
@@ -717,10 +690,6 @@
   }
 
   /* setores */
-  .setores
-  {
-    width: 250px;
-  }
 
   .setor-preventiva{
     width: 200px;
@@ -804,10 +773,15 @@
     width: 250px;
   }
 
-  .cardDVR
+  .cardDVR, .cardComputador
   {
     flex-direction: column;
     width: 250px;
+  }
+
+  .canaisDisponiveis
+  {
+    width: 200px;
   }
 
   .cameras

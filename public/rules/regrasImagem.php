@@ -1,11 +1,9 @@
 <?php
 
-function imagemRegras($pasta, $idImagemAntiga = null)
+function imagemRegras($pasta, $idImagemAntiga = null, $tipo)
 {
-    if (
-        !isset($_FILES['imagem']) ||
-        $_FILES['imagem']['error'] !== UPLOAD_ERR_OK
-    ) {
+    if (!isset($_FILES['imagem']) || $_FILES['imagem']['error'] !== UPLOAD_ERR_OK) 
+    {
         return $idImagemAntiga;
     }
 
@@ -27,7 +25,18 @@ function imagemRegras($pasta, $idImagemAntiga = null)
     }
 
     $extensao = pathinfo($imagem['name'], PATHINFO_EXTENSION);
-    $nomeSalvo = uniqid('dvr_') . '.' . $extensao;
+    if($tipo === 'Computador')
+    {
+        $nomeSalvo = uniqid('pc_') . '.' . $extensao;
+    }
+    elseif($tipo === 'DVR')
+    {
+        $nomeSalvo = uniqid('dvr_') . '.' . $extensao;
+    }
+    elseif($tipo === 'Usuario')
+    {
+        $nomeSalvo = uniqid('usuario_') . '.' . $extensao;
+    }
     $caminhoArquivo = rtrim($pasta, '/') . '/' . $nomeSalvo;
 
     if (!move_uploaded_file($imagem['tmp_name'], $caminhoArquivo)) {
@@ -41,5 +50,6 @@ function imagemRegras($pasta, $idImagemAntiga = null)
     ];
 
     $modelImagem = new ImagemModel();
+    
     return $modelImagem->criar($dataSalvarImagem);
 }

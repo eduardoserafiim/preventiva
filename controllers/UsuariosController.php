@@ -1,303 +1,391 @@
 <?php
+
+use App\Services\MailerService;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key; 
+use Dotenv\Dotenv;
+
+$ar = include __DIR__ . '/../vendor/autoload.php';
+
 require_once '../db/db.php';
 
 require_once '../models/UsuarioModel.php';
 require_once '../models/AssinarModel.php';
+require_once '../models/ImagemModel.php';  
+
+require_once '../reports/EmailReport.php';
+
+require_once '../services/EmailService.php';
 
 require_once '../public/components/session/mensagem.php';
 
+include '../public/rules/regrasImagem.php';
+
 session_start();
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     $acao = trim($_POST['acao']);
     $token = trim($_POST['token']);    
+    $tipo = trim($_POST['tipo']);    
 }
 
 class UsuarioController
 {
-    private $url = ['criar', 'listar'];
-
     public function criarUsuarios()
     {
-        $usuario        = trim($_POST['usuario']);
-        $nome           = trim($_POST['nome']);
-        $senha          = trim($_POST['senha']);
-        $confirmarSenha = trim($_POST['confirmar-senha']);
-        $setor          = trim($_POST['setor']);
-        $privilegio     = trim($_POST['privilegio']);
-        $unidade        = trim($_POST['unidade']);    
-        
-        if (!$usuario || !$nome || !$senha || !$confirmarSenha || !$setor || !$privilegio || !$unidade)
+        try
         {
-            echo 'Variável não definida.';
+            $model = new UsuarioModel();
 
-            getMensagemSession('error', 'Erro no preenchimento dos dados!', 'Você precisa preencher todos os campos.', 'usuarios.php', $this->url[0]);
-        }
-        else
-        {
-            try
+            $usuario        = trim($_POST['usuario']);
+            $email          = trim($_POST['email']);
+            $nome           = trim($_POST['nome']);
+            $senha          = trim($_POST['senha']);
+            $confirmarSenha = trim($_POST['confirmar-senha']);
+            $setor          = trim($_POST['setor']);
+            $privilegio     = trim($_POST['privilegio']);
+            $unidade        = trim($_POST['unidade']);    
+
+            $token = trim($_POST['token']);
+
+            $dataUrl = 
+            [
+                'url' => 'criar',
+                'token' => $token,
+                'tipo' => 'usuario',
+                'informacoes' => 'basicas'
+            ];
+            
+            if (!$usuario || !$nome || !$email || !$senha || !$confirmarSenha || !$setor || !$privilegio || !$unidade)
             {
-                $model = new UsuarioModel();
-    
-                $usuarioExistente = $model->validar($usuario);
-    
-                if ($usuarioExistente)
-                {
-                    echo 'Usuário já cadastrado no sistema.';
-    
-                    getMensagemSession('error', 'Usuário já cadastrado!', 'Esse usuário já está cadastrado no sistema.', 'usuarios.php', $this->url[1]);   
-                }
-                elseif ($senha !== $confirmarSenha)
-                {
-                    echo 'Senhas diferentes.';
-    
-                    getMensagemSession('error', 'Senhas diferentes!', 'As senhas não coencidem.', 'usuarios.php', $this->url[0]);
-                }
-                else
-                {
-                    $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
-    
-                    $data = 
-                    [   
-                        'usuario' => $usuario,
-                        'nome' => $nome,
-                        'senha' => $senhaHash,
-                        'setor' => $setor,
-                        'privilegio' => $privilegio,
-                        'unidade' => $unidade
-                    ];
-    
-                    $model->criar($data);
-    
-                    getMensagemSession('success', 'Sucesso ao cadastrar usuário!', 'Usuário cadastrado com sucesso no sistema.', 'usuarios.php', $this->url[1]);
-                }
+                throw new Error('Você precisa preencher todos os campos.');
             }
-            catch (Exception $e)
-            {
-                echo 'Houve um erro ao executar a criação do usuário: '. $e->getMessage();
 
-                getMensagemSession('error', 'Erro ao cadastrar o usuário!', 'Houve algum problema e o usuário não foi cadastrado.', 'usuarios.php', $this->url[0]);
+            $usuarioExistente = $model->validar($usuario);
+
+            if ($usuarioExistente)
+            {
+                throw new Error('Usuário já existente.');
             }
-        }
-    }
-
-    public function alterarUsuarios()
-    {
-        $id         = intval($_POST['id']);
-        $usuario    = trim($_POST['usuario']);
-        $nome       = trim($_POST['nome']);
-        $setor      = trim($_POST['setor']);
-        $privilegio = trim($_POST['privilegio']);
-        $unidade    = trim($_POST['unidade']);
-
-        if (!$usuario || !$nome || !$setor || !$privilegio || !$unidade)
-        {
-            echo 'Variáveis não definidas.';
-
-            getMensagemSession('error', 'Erro no preenchimento dos dados!', 'Você precisa preencher todos os campos.', 'usuarios.php', $this->url[0]);
-        }
-        else
-        {
-            try
+            elseif ($senha !== $confirmarSenha)
             {
-                $model = new UsuarioModel();
+                throw new Error('Senhas diferentes.');
+            }
+            else
+            {
+                $senhaHash = password_hash($senha, PASSWORD_DEFAULT);
 
-                $data =
-                [
-                    'nome' => $nome,
+                $data = 
+                [   
                     'usuario' => $usuario,
+                    'nome' => $nome,
+                    'email' => $email,
+                    'senha' => $senhaHash,
                     'setor' => $setor,
                     'privilegio' => $privilegio,
                     'unidade' => $unidade
                 ];
 
-                $model->atualizar($id, $data);
+                $modelRes = $model->criar($data);
 
-                getMensagemSession('success', 'Sucesso ao editar o usuário!', 'Usuário editado no sistema.', 'usuarios.php', $this->url[1]);
+                if($modelRes)
+                {
+                    getMensagemSession('success', 'Cadastrado!', 'O usuário foi cadastrado com sucesso.', 'usuarios');
+                }
+                else
+                {
+                    throw new Error('Não foi possivel cadastrar o usuário.');
+                }
             }
-            catch (Exception $e)
+        }
+        catch (Error $e)
+        {
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Erro ao cadastrar o usuário!', $texto, 'usuarios', 'criarUsuario', $dataUrl);
+        }
+    }
+
+    public function alterarUsuarios()
+    {
+        try
+        {
+            $model = new UsuarioModel();
+
+            $id         = intval($_POST['id']);
+            $usuario    = trim($_POST['usuario']);
+            $nome       = trim($_POST['nome']);
+            $email       = trim($_POST['email']);
+            $setor      = trim($_POST['setor']);
+            $privilegio = trim($_POST['privilegio']);
+            $unidade    = trim($_POST['unidade']);
+
+            if (!$usuario || !$nome || !$setor || !$privilegio || !$unidade)
             {
-                echo 'Houve um erro ao executar a edição do usuário: '. $e->getMessage();
-    
-                getMensagemSession('error', 'Erro ao editar o usuário!', 'Houve algum problema e o usuário não foi editado.', 'usuarios.php', $this->url[0]);
+                throw new Error('Todos os campos devem estar preenchidos.');
             }
+
+            $data =
+            [
+                'nome' => $nome,
+                'usuario' => $usuario,
+                'setor' => $setor,
+                'email' => $email,
+                'privilegio' => $privilegio,
+                'unidade' => $unidade
+            ];
+
+            $modelRes = $model->atualizar($id, $data);
+
+            if($modelRes)
+            {
+                getMensagemSession('success', 'Atualizado.', 'O usuário foi atualizado', 'usuarios');
+            }
+            else
+            {
+                throw new Error('Houve um erro interno. Entre em contato com a TI.');
+            }
+        }
+        catch (Exception $e)
+        {
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Não recebemos.', $texto, 'usuarios');
+        }
+    }
+
+    public function enviarEmailAlterarSenha()
+    {
+        try
+        {
+            $report = new MailerReport();
+            $service = new MailerService();
+
+            $email = trim($_POST['email']);
+            $assunto = 'Esqueceu sua senha Preventiva T.I';
+
+            $data = 
+            [
+                'email' => $email,
+                'assunto' => $assunto
+            ];
+
+            $key = $_ENV['PASSWORD_KEY'];
+            $payload = [
+                'iss' => 'portal.hap.org.br',
+                'exp' => time() + 900,      
+                'email' => $email
+            ];
+
+            $token = JWT::encode($payload, $key, 'HS256');
+
+            $data['token'] = $token;
+
+            $conteudo = $report->reportSuporteTI($data);
+
+            $serviceRes = $service->enviar($conteudo, $data['email'], $data['assunto']);   
+            
+            if ($serviceRes)
+            {
+                getMensagemSession('success', 'Enviado!', 'visualize seu E-mail para continuar.', 'login');
+            }
+            else
+            {
+                throw new Error('não foi possivel enviar um e-mail. Entre em contato com a T.I');
+            }
+        }
+        catch (Throwable $e)
+        {
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Não enviamos.', $texto, 'login');
         }
     }
 
     public function apagarUsuarios()
     {
-        $id = intval($_POST['id']);
-        
-        if (isset($id))
+        try
         {
-            try
+            $model = new UsuarioModel();
+
+            $id = intval($_POST['id']);
+
+            $modelRes = $model->apagar($id);
+
+            if($modelRes)
             {
-                $model = new UsuarioModel();
-
-                $apagar = $model->apagar($id);
-
-                getMensagemSession('success', 'Sucesso ao apagar!', 'O usuário foi apagado no sistema.', 'usuarios.php', $this->url[1]);
+                getMensagemSession('success', 'Excluído', 'Usuário excluído com sucesso.', 'usuarios');
             }
-            catch (Exception $e)
+            else
             {
-                echo 'Ocorreu algum erro durante a exclusão do usuário: '. $e->getMessage();
-
-                getMensagemSession('error', 'Erro ao apagar!', 'O usuário não pode ser excluído.', 'usuarios.php', $this->url[1]);
+                throw new Error('Houve um erro interno. Entre em contato com a TI.');
             }
         }
-        else
+        catch (Error $e)
         {
-            echo 'Ocorreu algum erro durante a exclusão do usuário id não informado';
+            $texto = $e->getMessage();
 
-            getMensagemSession('error', 'Erro ao apagar!', 'O usuário não pode ser excluído.', 'usuarios.php', $this->url[1]);
+            getMensagemSession('error', 'Não recebemos.', $texto, 'usuarios');
         }
     }
 
-    public function alterarSenhaUsuarios()
+    public function alterarSenha()
     {
-        $id = intval($_POST['id']);
-        $novaSenha = trim($_POST['novaSenha']);
-        $confirmarSenha = trim($_POST['confirmarSenha']);
-
-        if (!$novaSenha || !$confirmarSenha)
+        try
         {
-            echo 'Variáveis não preenchidas.';
+            $model = new UsuarioModel();
 
-            getMensagemSession('error', 'Erro ao alterar senha!', 'Você precisa preencher todos os campos!', 'usuarios.php', $id);
-        }
-        else if($novaSenha !== $confirmarSenha)
-        {
-            echo 'Senhas diferentes.';
+            $key = $_ENV['PASSWORD_KEY'];
+            $senha = trim($_POST['novaSenha']);
+            $senhaConfirmada = trim($_POST['confirmarNovaSenha']);
 
-            getMensagemSession('error', 'Erro ao alterar senha!', 'Senhas diferentes.', 'usuarios.php', $id);
-        }
-        else
-        {
-            try
+            if ($senha != $senhaConfirmada) 
             {
-                $model = new UsuarioModel();
-
-                $alterar = $model->atualizarSenha($id, $novaSenha);
-
-                getMensagemSession('success', 'Sucesso ao atualizar a senha!', 'A senha foi alterada com sucesso.', 'usuarios.php');
+                throw new Error('As novas senhas não coincidem.');
             }
-            catch (Exception $e)
+
+            if (!empty($_POST['jwt'])) 
             {
-                echo 'Houve um erro ao executar: '. $e->getMessage();
-
-                getMensagemSession('error', 'Erro ao alterar senha!', 'Houve um erro ao alterar.', 'usuarios.php', $id);
+                $decoded = JWT::decode($_POST['jwt'], new Key($key, 'HS256'));
+                $emailSeguro = $decoded->email;
+            } 
+            elseif (isset($_SESSION['id'])) 
+            {
+                $emailSeguro = $_SESSION['email'];
+            } 
+            else 
+            {
+                throw new Error('Ação não autorizada.');
             }
+
+            $data = [
+                'email' => $emailSeguro,
+                'senha' => $senha
+            ];
+
+            $modelRes = $model->atualizarSenha($data);
+
+            if ($modelRes)
+            {
+                getMensagemSession('success', 'Senha alterada!', 'Sua senha foi alterada com sucesso.', 'login');
+            }
+            else
+            {
+                throw new Error('Houve um erro interno. Entre em contato com o Suporte T.I');
+            }
+        }
+        catch (Firebase\JWT\ExpiredException $e) 
+        {
+            getMensagemSession('error', 'Expirado.', 'O link de 15 minutos expirou. Peça um novo.', 'login');
+        }
+        catch (Throwable $e)
+        {
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Não realizado.', $texto, 'login');
         }
     }
 
-    public function assinarUsuarios()
+    public function alterarImagemUsuario()
     {
-        $nome       = trim($_POST['assinatura-nome']);
-        $ano        = trim($_POST['assinatura-ano']);
-        $semestre   = trim($_POST['assinatura-semestre']);
-        $setor      = trim($_POST['assinatura-setor']);
-        $unidade    = trim($_POST['assinatura-unidade']);
-        $assinatura = trim($_POST['assinatura']);
-
-        if (!$nome || !$ano || !$semestre || !$setor || !$unidade || !$assinatura)
+        try
         {
-            echo 'Variáveis não definidas.';
+            $model = new UsuarioModel();
 
-            getMensagemSession('error', 'Erro no preenchimento dos dados!', 'Você precisa preencher todos os campos.', 'usuarios.php', $this->url[0]);
-        }
+            $idUsuario = intval($_POST['idUsuario']);
 
-        if ($_SESSION['setor'] === 'TI')
-        {
-            try
-            {
-                $model = new AssinaturaModel();
-                
-                $data = [
-                    'nome'       => $nome,
-                    'ano'        => $ano,
-                    'semestre'   => $semestre,
-                    'setor'      => $setor,
-                    'unidade'    => $unidade,
-                    'assinatura' => $assinatura,
-                ];
+            $pasta = realpath(__DIR__ . '/../upload/usuarios');
             
-                $model = new AssinaturaModel();
-                $assinar = $model->criarTecnicos($data);
+            $idImagemNovo = null;
+            $idImagemAntiga = $_POST['id_imagem_antiga'];
 
-                getMensagemSession('success', 'Sucesso ao assinar!', 'A preventiva do ano de '. $ano .' no '. $setor .', foi assinada.', 'preventiva.php', $setor);
-            }
-            catch (Exception $e)
+            $data = 
+            [
+                'id_usuario' => $idUsuario
+            ];
+            
+            $idImagemNovo = imagemRegras($pasta, null, 'Usuario');
+
+            if ($idImagemNovo !== null) 
             {
-                error_log('Ocorreu um erro ao tentar assinar a preventiva: '. $e->getMessage());
+                $data['id_imagem'] = $idImagemNovo;
+            }
+            elseif (!empty($_POST['id_imagem_antiga'])) 
+            {
+                $data['id_imagem'] = $idImagemAntiga;
+            }
+            
+            $modelRes = $model->atualizarImagem($data);
 
-                getMensagemSession('error', 'Erro ao assinar!', 'Houve um erro ao assinar a preventiva.', 'preventiva.php', $setor);
+            if ($modelRes)
+            {
+                getMensagemSession('success', 'Imagem alterada!', 'Sua imagem de perfil foi alterada com sucesso.', 'perfil');
+            }
+            else
+            {
+                throw new Error('Houve um erro interno. Entre em contato com o Suporte T.I');
             }
         }
-        else
+        catch (Throwable $e)
         {
-            try
-            {
-                $model = new AssinaturaModel();
-                $data = [
-                    'nome' => $nome,
-                    'ano' => $ano,
-                    'semestre' => $semestre,
-                    'setor' => $setor,
-                    'unidade' => $unidade,
-                    'assinatura' => $assinatura,
-                ];
-            
-                $model = new AssinaturaModel();
-                $assinar = $model->criarResponsaveis($data);
+            $texto = $e->getMessage();
 
-                getMensagemSession('success', 'Sucesso ao assinar!', 'Obrigado por assinar, você pode verificar sua assinatura no Início.', 'preventiva.php', $setor);
-            }
-            catch (Exception $e)
-            {
-                error_log('Ocorreu um erro ao tentar assinar a preventiva: '. $e->getMessage());
-
-                getMensagemSession('error', 'Erro ao assinar!', 'Houve um erro ao assinar a preventiva.', 'preventiva.php', $setor);
-            }
+            getMensagemSession('error', 'Não realizado.', $texto, 'perfil');
         }
     }
 };
+
+if (empty($token) && $tipo === 'esqueci_minha_senha')
+{
+    switch ($acao)
+    {
+        case 'alterarSenha';
+            $controller = new UsuarioController;
+            $controller->enviarEmailAlterarSenha();
+            break;
+
+        case 'alterarMinhaSenha';
+            $controller = new UsuarioController;
+            $controller->alterarSenha();
+            break;
+    }
+}
 
 if (empty($_SESSION['privilegio']))
 {
     echo 'Erro ao validar o privilégio.';
 
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do privilégio.', 'login.php');
 }
 elseif (empty($_SESSION['usuario']))
 {
     echo 'Erro ao validar o usuário.';
 
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do usuário.', 'login.php');
 }
 elseif (empty($_SESSION['token']))
 {
     echo 'Falha na verificação do token da session.';
 
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token da sessão.', 'login.php');
 }
 elseif (empty($acao))
 {
     echo 'Nenhuma ação foi instanciada.';
 
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação da ação.', 'index.php');
 }
 elseif (empty($token))
 {
     echo 'Erro ao validar o token.';
 
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token.', 'index.php');
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token.', 'index');
 }
 elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if ($_SESSION['token'] === $token)
     {
-        if ($_SESSION['privilegio'] === 'administrador')
+        if ($_SESSION['privilegio'] === 'Administrador')
         {
             switch ($acao)
             {
@@ -310,28 +398,36 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                     $controller = new UsuarioController();
                     $controller->alterarUsuarios();
                     break;
-                case 'apagar':
+
+                case 'excluir':
                     $controller = new UsuarioController();
                     $controller->apagarUsuarios();
                     break;
-                case 'alterarSenha':
+
+                case 'alterarMinhaSenha':
                     $controller = new UsuarioController();
-                    $controller->alterarSenhaUsuarios();
+                    $controller->alterarSenha();
+                    break;
+
+                case 'alterarImagemUsuario':
+                    $controller = new UsuarioController();
+                    $controller->alterarImagemUsuario();
                     break;
             }
         }
-        elseif ($_SESSION['privilegio'] !== 'administrador')
+        elseif ($_SESSION['privilegio'] === 'Administrador' || $_SESSION['privilegio'] === 'TI' || $_SESSION['privilegio'] === 'Usuário')
         {
-            switch($acao)
+            switch ($acao)
             {
-                case 'assinar':
+                case 'alterarMinhaSenha':
                     $controller = new UsuarioController();
-                    $controller->assinarUsuarios();
+                    $controller->alterarSenha();
                     break;
-                case 'alterarSenha':
+
+                case 'alterarImagemUsuario':
                     $controller = new UsuarioController();
-                    $controller->alterarSenhaUsuarios();
-                    break;        
+                    $controller->alterarImagemUsuario();
+                    break;
             }
         }
         else
@@ -348,4 +444,27 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
         getMensagemSession('error', 'Token não aceito.', 'Falha na verificação do token.', 'usuarios.php');
     }
 }
-exit();
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500</title>
+    <link rel="stylesheet" href="../public/styles/components/404.css">
+</head>
+<body>
+    <div class="erro-404">
+        <img class="erro-imagem" src="../public/images/error-404.png" alt="404">
+        <hr>
+        <div class="erro-texto">
+            <p>Como você chegou aqui?</p>
+        </div>
+        <div class="erro-link">
+            <a href="../view/">
+                <p>Se você não foi redirecionado automaticamente, clique aqui.</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,128 @@
+.usuarios
+{
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    gap: 2rem;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    margin-bottom: 2rem;
+}
+
+.usuario-titulo
+{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.usuarioDiv
+{
+    display: flex;
+    width: 200px;
+    height: 50px;
+    background-color: white;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.usuarioLink
+{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+}
+
+.usuarioDiv:hover .color-content
+{
+    width: 100%;
+    border-radius: 12px;
+}
+
+.usuarioDiv:hover .usuario-content
+{
+    display: none;
+}
+
+.usuario-content
+{
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+.usuario-content .flex
+{
+    gap: 1rem;
+}
+
+.cardUsuario
+{
+    display: flex;
+    background-color: white;
+    padding: 2rem;
+    gap: 1rem;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.cardUsuario:hover{
+  border: 1px solid #3b82f6;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.conteudoUsuario
+{
+    width: 100%;
+}
+
+.topoInformacoesUsuario
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.imagemUsuario, .imagemUsuario img
+{
+    height: 100px;
+    width: 100px;
+    max-height: 100px;
+    max-width: 100px;
+    border-radius: 12px;
+}
+
+.tituloUsuario
+{
+    width: 100%;
+}
+
+.configuracoesUsuario i
+{
+    animation: fa-spin 2s linear infinite;
+    animation-play-state: paused;
+    cursor: pointer;
+}
+
+.configuracoesUsuario:hover i
+{
+    animation-play-state: running;
+}
+
+.opcoesUsuario
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.informarUsuariosDisponiveis
+{
+    font-size: larger;
+    text-align: center;
+}

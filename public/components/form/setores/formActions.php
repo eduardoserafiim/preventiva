@@ -1,21 +1,11 @@
 <?php
 
 function formActions()
-{
-    return
-    '
+{ ?>
     <div class="form-actions form-actions-setores">
-        <a href="setores.php">
-            <button type="button" id="botaoCancelar" class="botao botao-cancelar">
-                <i class="fas fa-xmark"></i> Cancelar
-            </button>
-        </a>
-
-        <button type="submit" id="botaoCadastrar" class="botao botao-primario" onclick="salvarFormulario(event)">
-            <i class="fas fa-check"></i> Cadastrar
+        <button type="submit" id="botaoCadastrar" class="botao botao-primario">
+            <i class="fas fa-save"></i>
+            <p>Salvar</p>
         </button>
     </div>
-    ';
-}
-
-?>
+<?php }

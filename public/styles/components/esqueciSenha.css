@@ -1,22 +1,21 @@
 .forgetpassword-container {
     display: flex;
     flex-direction: column;
-    text-align: center;
-    align-items: center;
+    flex-wrap: wrap;
     background: white;
     border-radius: 12px;
     padding: 2rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     border: 1px solid #e2e8f0;
-    width: 20rem;
+    width: 25rem;
     gap: 30px;
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    transition: all 0.3s ease;
 }
 
 .forgetpassword-container a
 {
+    display: flex;
+    justify-content: center;
     color: #0000FF;
 }
 
@@ -26,8 +25,14 @@
     justify-content: center;
 }
 
-.forgetpassword-container.show
+.form-esqueci-senha
 {
-    opacity: 1;
-    transform: translateY(0);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.form-esqueci-senha i
+{
+    margin-bottom: 0.5rem;
 }

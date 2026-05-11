@@ -1,4 +1,4 @@
-function confirmarExclusao(event) {
+function confirmarExclusaoSetor(event) {
     event.preventDefault();
 
     Swal.fire({

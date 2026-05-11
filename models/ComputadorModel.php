@@ -11,173 +11,206 @@ class ComputadorModel
         $this->db = $database->getConnection();
     }
 
-    public function criar($data) 
+    public function criarComputador($data) 
     {
         try
         {
-            $sql = "INSERT INTO computadores
-                (semestre, ano, unidade, setor, nome, modelo, monitor, sistemaOperacional, office, processador, memoria, disco, ip, mac, numeroSerie, lacre, status, legendaA, legendaB, legendaC, legendaD, legendaE, legendaF, legendaG, legendaH, legendaI, dataCadastro, responsavelCadastroTI, responsavel)
-                VALUES (:semestre, :ano, :unidade, :setor, :nome, :modelo, :monitor, :sistemaOperacional, :office, :processador, :memoria, :disco, :ip, :mac, :numeroSerie, :lacre, :status, :legendaA, :legendaB, :legendaC, :legendaD, :legendaE, :legendaF, :legendaG, :legendaH, :legendaI, NOW(), :responsavelCadastroTI, :responsavel)";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':semestre'                 => $data['semestre'],
-                ':ano'                      => $data['ano'],
-                ':unidade'                  => $data['unidade'],
-                ':setor'                    => $data['setor'],
-                ':nome'                     => $data['nome'],
-                ':modelo'                   => $data['modelo'],
-                ':monitor'                  => $data['monitor'],
-                ':sistemaOperacional'       => $data['sistemaOperacional'],
-                ':office'                   => $data['office'],
-                ':processador'              => $data['processador'],
-                ':memoria'                  => $data['memoria'],
-                ':disco'                    => $data['disco'],
-                ':ip'                       => $data['ip'],
-                ':mac'                      => $data['mac'],
-                ':numeroSerie'              => $data['numeroSerie'],
-                ':lacre'                    => $data['lacre'],
-                ':legendaA'                 => $data['legendaA'] ? 1 : 0,
-                ':legendaB'                 => $data['legendaB'] ? 1 : 0,
-                ':legendaC'                 => $data['legendaC'] ? 1 : 0,
-                ':legendaD'                 => $data['legendaD'] ? 1 : 0,
-                ':legendaE'                 => $data['legendaE'] ? 1 : 0,
-                ':legendaF'                 => $data['legendaF'] ? 1 : 0,
-                ':legendaG'                 => $data['legendaG'] ? 1 : 0,
-                ':legendaH'                 => $data['legendaH'] ? 1 : 0,
-                ':legendaI'                 => $data['legendaI'] ? 1 : 0,
-                ':status'                   => $data['status'],
-                ':responsavelCadastroTI'    => $data['responsavelCadastroTI'],
-                ':responsavel'              => $data['responsavel'],
-            ]);
-
-            return true;
-        }
-        catch (PDOException $e) 
-        {
-            echo 'Erro na criação: '.$e->getMessage();
-            error_log("Erro ao criar um computador: " . $e->getMessage());
-        
-            return false;
-        }
-    }
-
-    public function listar($setor, $unidade)
-    {
-        try
-        {
-            $sql = 'SELECT *
-            FROM computadores ';
-            if ($unidade == 'administrador')
-            {
-                $sql .= 
-                '
-                WHERE setor = :setor
-                ';
-            }
-            else
-            {
-                $sql .= 
-                '
-                WHERE setor = :setor
-                AND unidade = :unidade
-                ';
-            }
-            $stmt = $this->db->prepare($sql);
-            if ($unidade == 'administrador')
-            {
-                $stmt->execute([
-                    ':setor' => $setor
-                ]);
-            }
-            else
-            {
-                $stmt->execute([
-                    ':setor' => $setor,
-                    ':unidade' => $unidade
-                ]);
-            }
-    
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-        catch (PDOException $e) 
-        {
-            echo 'Erro na listagem: '. $e->getMessage();
-            error_log("Erro ao atualizar computador: " . $e->getMessage());
-         
-            return false;
-        }
-    }
-
-    public function filtrar($setor, $semestre = '', $ano = '', $unidade = '') 
-    {
-        try
-        {
-            $query = "SELECT * FROM computadores WHERE setor = :setor";
-            $params = [':setor' => $setor];
-    
-            if ($semestre) 
-            {
-                $query .= " AND semestre = :semestre";
-                $params[':semestre'] = $semestre;
-            }
-    
-            if ($ano) 
-            {
-                $query .= " AND ano = :ano";
-                $params[':ano'] = $ano;
-            }
-    
-            if ($unidade) 
-            {
-                if ($unidade != $_SESSION['unidade'])
-                {
-                    if ($_SESSION['unidade'] === 'administrador')
-                    {
-                        $query .= " AND unidade = :unidade";
-                        $params[':unidade'] = $unidade;    
-                    }
-                    else
-                    {
-                       return header("Location: ../view/preventiva.php");
-                    }
-                }
-                else
-                {
-                    $query .= " AND unidade = :unidade";
-                    $params[':unidade'] = $unidade;
-                }
-            }
-    
-            $stmt = $this->db->prepare($query);
-            $stmt->execute($params);
-
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-        catch (PDOException $e) 
-        {
-            return false;
-        }
-    }
-
-    public function procurarPorComputador($computador)
-    {
-        try
-        {
-            $sql = 'SELECT *
-            FROM computadores
-            WHERE ip = :ip
-            OR nome = :nome
-            OR mac = :mac';
+            $sql = 'INSERT INTO dispositivos_computadores(id_unidade, id_imagem, nome, modelo, endereco_ip, endereco_mac, responsavel_cadastro, responsavel_uso, status, data_cadastro)
+            VALUES(:unidade, :imagem, :nome, :modelo, :endereco_ip, :endereco_mac, :responsavel_cadastro, :responsavel_uso, :status, NOW())';
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
-                    ':ip' => $computador, 
-                    ':nome' => $computador,
-                    ':mac' => $computador
+                    ':unidade' => $data['unidade'],
+                    ':nome' => $data['nome'],
+                    ':modelo' => $data['modelo'],
+                    ':endereco_ip' => $data['endereco_ip'],
+                    ':endereco_mac' => $data['endereco_mac'],
+                    ':responsavel_cadastro' => $data['responsavel_cadastro'],
+                    ':responsavel_uso' => $data['responsavel_uso'],
+                    ':status' => $data['status'],
+                    ':imagem' => $data['id_imagem']
                 ]
             );
+        
+            return $this->db->lastInsertId();
+        }
+        catch (PDOException $e) 
+        {
+            return false;
+        }
+    }
 
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function qunatidadeComputadoresRegistradosUnidade()
+    {
+        try
+        {
+            $sql = 'SELECT u.nome AS unidade, COUNT(d.id) AS total 
+                FROM dispositivos_computadores d
+                JOIN unidade u 
+                    ON d.id_unidade = u.id
+                GROUP BY u.nome';
+            $stmt = $this->db->prepare($sql);
+            $query = $stmt->execute();
+    
+            if ($query)
+            {
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+            else
+            {
+                throw new PDOException('Erro interno.');
+            }
+        }
+        catch (PDOException $e)
+        {
+            $texto = $e->getMessage();
+
+            return false;
+        }
+    }
+
+    public function listarComputador($id = null, $unidade = null)
+    {
+        try {
+            $sql = 'SELECT dc.*, 
+                        u.nome AS nome_unidade, 
+                        i.nome_salvo AS nome_imagem, 
+                        i.id AS id_imagem_antiga 
+                    FROM dispositivos_computadores dc 
+                    LEFT JOIN unidade u 
+                        ON dc.id_unidade = u.id 
+                    LEFT JOIN imagem i 
+                        ON dc.id_imagem = i.id';
+            
+            $params = [];
+
+            if ($id) 
+            {
+                $sql .= ' WHERE dc.id = ?';
+                $params[] = $id;
+            } 
+            else 
+            {
+                if ($unidade !== null && $unidade != 3) {
+                    $sql .= ' WHERE dc.id_unidade = ?';
+                    $params[] = $unidade;
+                }
+
+                $sql .= ' ORDER BY dc.id DESC';
+            }
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute($params);
+
+            return $id ? $stmt->fetch(PDO::FETCH_ASSOC) : $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+            $texto = $e->getMessage();
+
+            return false;
+        }
+    }
+
+    public function editarComputador($data, $tipo)
+    {
+        try
+        {
+            if($tipo === 'editarBasico')
+            {
+                $sql = 'UPDATE dispositivos_computadores
+                SET
+                    nome            = :nome,
+                    modelo          = :modelo,
+                    endereco_ip     = :endereco_ip,
+                    endereco_mac    = :endereco_mac,
+                    responsavel_edicao = :responsavel_edicao,
+                    status          = :status,
+                    data_edicao     = NOW(),
+                    id_imagem       = :id_imagem,
+                    id_unidade      = :id_unidade
+                WHERE id = :id';
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(
+                    [
+                        ':nome'                 => $data['nome'],
+                        ':modelo'               => $data['modelo'],
+                        ':endereco_ip'          => $data['endereco_ip'],
+                        ':endereco_mac'         => $data['endereco_mac'],
+                        ':responsavel_edicao'   => $data['responsavel_alteracao'],
+                        ':status'               => $data['status'],
+                        ':id_imagem'            => $data['id_imagem'],
+                        ':id_unidade'           => $data['id_unidade'],
+                        ':id'                   => $data['id']
+                    ]
+                );
+            }
+            elseif ($tipo === 'editarLegenda')
+            {
+                $sql = 'UPDATE dispositivos_computadores
+                SET
+                    legenda_a = :legenda_a,
+                    legenda_b = :legenda_b,
+                    legenda_c = :legenda_c,
+                    legenda_d = :legenda_d,
+                    legenda_e = :legenda_e,
+                    legenda_f = :legenda_f,
+                    legenda_g = :legenda_g,
+                    legenda_h = :legenda_h,
+                    legenda_i = :legenda_i,
+                    data_edicao         = NOW(),
+                    responsavel_edicao  = :responsavel_edicao
+                WHERE id = :id';
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(
+                    [
+                        ':id'        => $data['id'],
+                        ':legenda_a' => $data['legenda_a'],
+                        ':legenda_b' => $data['legenda_b'],
+                        ':legenda_c' => $data['legenda_c'],
+                        ':legenda_d' => $data['legenda_d'],
+                        ':legenda_e' => $data['legenda_e'],
+                        ':legenda_f' => $data['legenda_f'],
+                        ':legenda_g' => $data['legenda_g'],
+                        ':legenda_h' => $data['legenda_h'],
+                        ':legenda_i' => $data['legenda_i'],
+                        ':responsavel_edicao' => $data['responsavel_alteracao']
+                    ]
+                );
+            }
+            elseif ($tipo === 'editarHardwarePatrimonio')
+            {
+                $sql = 'UPDATE dispositivos_computadores
+                SET
+                    processador         = :processador,
+                    memoria_ram         = :memoria_ram,
+                    armazenamento       = :armazenamento,
+                    sistema_operacional = :sistema_operacional,
+                    numero_serie        = :numero_serie,
+                    lacre               = :lacre,
+                    etiqueta_patrimonio = :etiqueta_patrimonio,
+                    data_edicao         = NOW(),
+                    responsavel_edicao  = :responsavel_edicao
+                WHERE id = :id';
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(
+                    [
+                        ':id'                   => $data['id'],
+                        ':processador'          => $data['processador'],
+                        ':memoria_ram'          => $data['memoria_ram'],
+                        ':armazenamento'        => $data['armazenamento'],
+                        ':sistema_operacional'  => $data['sistema_operacional'],
+                        ':numero_serie'         => $data['numero_serie'],
+                        ':lacre'                => $data['lacre'],
+                        ':etiqueta_patrimonio'  => $data['etiqueta_patrimonio'],
+                        ':responsavel_edicao'   => $data['responsavel_alteracao']
+                    ]
+                );
+            }
+
+            return true;
         }
         catch(PDOException $e)
         {
@@ -185,90 +218,12 @@ class ComputadorModel
         }
     }
 
-    public function atualizar($id, $data) 
-    {
-        try 
-        {
-            $sql = "UPDATE computadores 
-                SET 
-                semestre = :semestre,
-                ano = :ano, 
-                unidade = :unidade, 
-                setor = :setor, 
-                nome = :nome, 
-                modelo = :modelo,
-                monitor = :monitor, 
-                responsavel = :responsavel,
-                sistemaOperacional = :sistemaOperacional, 
-                office = :office, 
-                processador = :processador, 
-                memoria = :memoria, 
-                disco = :disco,
-                ip = :ip, 
-                mac = :mac, 
-                numeroSerie = :numeroSerie, 
-                legendaA = :legendaA,
-                legendaB = :legendaB,
-                legendaC = :legendaC,
-                legendaD = :legendaD,
-                legendaE = :legendaE,
-                legendaF = :legendaF,
-                legendaG = :legendaG,
-                legendaH = :legendaH,
-                legendaI = :legendaI,
-                lacre = :lacre, 
-                status = :status
-                WHERE id = :id";
-
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':id' => $id,
-                ':semestre' => $data['semestre'],
-                ':ano' => $data['ano'],
-                ':unidade' => $data['unidade'],
-                ':setor' => $data['setor'],
-                ':nome' => $data['nome'],
-                ':modelo' => $data['modelo'],
-                ':monitor' => $data['monitor'],
-                ':responsavel' => $data['responsavel'],
-                ':sistemaOperacional' => $data['sistemaOperacional'],
-                ':office' => $data['office'],
-                ':processador' => $data['processador'],
-                ':memoria' => $data['memoria'],
-                ':disco' => $data['disco'],
-                ':ip' => $data['ip'],
-                ':mac' => $data['mac'],
-                ':numeroSerie' => $data['numeroSerie'],
-                ':legendaA'=> $data['legendaA'],
-                ':legendaB'=> $data['legendaB'],
-                ':legendaC'=> $data['legendaC'],
-                ':legendaD'=> $data['legendaD'],
-                ':legendaE'=> $data['legendaE'],
-                ':legendaF'=> $data['legendaF'],
-                ':legendaG'=> $data['legendaG'],
-                ':legendaH'=> $data['legendaH'],
-                ':legendaI'=> $data['legendaI'],
-                ':lacre' => $data['lacre'],
-                ':status' => $data['status'],
-            ]);
-
-            return true;
-        } 
-        catch (PDOException $e) {
-            echo 'Erro na edição: '. $e->getMessage();
-            error_log("Erro ao atualizar computador: " . $e->getMessage());
-
-            return false;
-        }
-        
-    }
-
-    public function apagar($id) 
+    public function apagarComputador($id) 
     {
         try
         {
             $sql = "DELETE 
-                FROM computadores 
+                FROM dispositivos_computadores 
                 WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);

@@ -15,169 +15,157 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
 class SetorController
 {
-    private $url = ['criar', 'listar'];
-
     public function criarSetores()
     {
-        $nome = trim($_POST['nome']);
-        $icon = trim($_POST['icon']);
+        try
+        {        
+            $model = new SetorModel();
 
-        if(!$nome || !$icon)
-        {
-            echo 'Variáveis não definidas.';
+            $nome = trim($_POST['nome']);
+            $icon = trim($_POST['icon']);
+            $token = trim($_POST['token']);
 
-            getMensagemSession('error', 'Erro ao criar setor!', 'Preencha todos os campos!', 'setores.php', $this->url[0]);
-        }
-        else
-        {
-            try
+            $dataUrl =
+            [
+                'token' => $token
+            ];
+
+            $setorExiste = $model->validarSetor($nome);
+
+            if ($setorExiste)
             {
-                $model = new SetorModel();
+                throw new Error('Setor já existe.');
+            }
+            else
+            {
+                $data = 
+                [
+                    'nome' => $nome,
+                    'icon' => $icon  
+                ];
 
-                $setorExiste = $model->validar($nome);
+                $modelRes = $model->criarSetor($data);
 
-                if ($setorExiste)
+                if ($modelRes)
                 {
-                    echo 'Setor já existe.';
-
-                    getMensagemSession('error', 'Erro ao criar setor!', 'Setor já existe.', 'setores.php', $this->url[0]);
+                    getMensagemSession('success', 'Registrado!', 'Setor foi criado.', 'setores', 'setores');
                 }
                 else
                 {
-                    $data = 
-                    [
-                        'nome' => $nome,
-                        'icon' => $icon  
-                    ];
-
-                    $model->criar($data);
-
-                    getMensagemSession('success', 'Sucesso ao criar setor!', 'Setor criado com sucesso.', 'setores.php', $this->url[1]);
+                    throw new Error('Houve um erro interno. Entre em contato com o suporte.');
                 }
             }
-            catch (Exception $e)
-            {
-                echo 'Houve algum erro ao criar o setor: '. $e->getMessage();
-                
-                getMensagemSession('error', 'Erro ao criar setor!', 'Houve algum problema ao criar o setor.', 'setores.php', $this->url[0]);
-            }
+        }
+        catch (Throwable $e)
+        {
+            $texto = $e->getMessage();
+            
+            getMensagemSession('error', 'Houve um problema!', $texto, 'setores', 'setoresCriar', $dataUrl);
         }
     }
 
     public function alterarSetores()
     {
-        $id = intval($_POST['id']);
-        $nome = trim($_POST['nome']);
-
-        if (!$nome)
+        try
         {
-            echo 'Variável não definida.';
+            $model = new SetorModel();
 
-            getMensagemSession('error', 'Erro ao editar o setor!', 'Você não pode deixar em branco o nome.', 'setores.php', $this->url[1]);
+            $id = intval($_POST['idSetor']);
+            $nome = trim($_POST['nome']);
+            $icone = trim($_POST['icon']);
+
+            $data = 
+            [
+                'nome' => $nome,
+                'icone' => $icone
+            ];
+            
+            $modelRes = $model->atualizarSetor($id, $data);
+            
+            if ($modelRes)
+            {
+                getMensagemSession('success', 'Sucesso ao editar!', 'Setor editado no sistema.', 'setores');
+            }
+            else
+            {
+                throw new Error('Houve um erro interno. Entre em contato com o suporte.');
+            }
         }
-        else
+        catch (Throwable $e)
         {
-            try
-            {
-                $model = new SetorModel();
-    
-                $data = 
-                [
-                    'nome' => $nome
-                ];
-                
-                $model->atualizar($id, $data);
-    
-                getMensagemSession('success', 'Sucesso ao editar o setor!', 'Setor editado no sistema.', 'setores.php', $this->url[1]);
-            }
-            catch (Exception $e)
-            {
-                echo 'Houve algum erro ao alterar o setor: '.$e->getMessage();
+            $texto = $e->getMessage();
 
-                getMensagemSession('error', 'Erro ao editar o setor!', 'Setor não editado no sistema.', 'setores.php', $this->url[1]);
-            }
+            getMensagemSession('error', 'Erro ao editar!', $texto, 'setores');
         }
     }
 
     public function apagarSetores()
     {
-        $id = intval($_POST['id']);
-
-        if (!$id)
+        try
         {
-            echo 'Erro ao validar id.';
+            $model = new SetorModel();
 
-            getMensagemSession('error', 'Erro ao apagar o setor!', 'Setor não pode ser apagado.', 'setores.php', $this->url[1]);
+            $id = intval($_POST['id']);
+
+            $modelRes = $model->apagarSetor($id);
+
+            if ($modelRes)
+            {
+                getMensagemSession('success', 'Sucesso!', 'Setor apagado com êxito.', 'setores');
+            }
+            else
+            {
+                throw new Error('Houve um erro interno. Entre em contato com o suporte.');
+            }
         }
-        else
+        catch (Exception $e)
         {
-            try
-            {
-                $model = new SetorModel();
+            $texto = $e->getMessage();
 
-                $model->apagar($id);
-
-                getMensagemSession('success', 'Sucesso ao apagar o setor!', 'Setor apagado com sucesso.', 'setores.php', $this->url[1]);
-            }
-            catch (Exception $e)
-            {
-                echo 'Houve algum problema ao apagar o setor: '. $e->getMessage();
-
-                getMensagemSession('error', 'Erro ao apagar o setor!', 'Houve algum erro.', 'setores.php', $this->url[1]);
-            }
+            getMensagemSession('error', 'Erro ao apagar o setor!', $texto, 'setores');
         }
     }
 }
 
 if (empty($_SESSION['privilegio']))
 {
-    echo 'Erro ao validar o privilégio.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do privilégio.', 'login.php');
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do privilégio.', 'login');
 }
 elseif (empty($_SESSION['usuario']))
 {
-    echo 'Erro ao validar o usuário.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do usuário.', 'login.php');
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do usuário.', 'login');
 }
 elseif (empty($_SESSION['token']))
 {
-    echo 'Falha na verificação do token da session.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token da sessão.', 'login.php');
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token da sessão.', 'login');
 }
 elseif (empty($acao))
 {
-    echo 'Nenhuma ação foi instanciada.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação da ação.', 'index.php');
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação da ação.', 'index');
 }
 elseif (empty($token))
 {
-    echo 'Erro ao validar o token.';
-
-    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token.', 'index.php');
+    getMensagemSession('error', 'Erro ao executar!', 'Erro na verificação do token.', 'index');
 }
 elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
 {
     if ($_SESSION['token'] === $token)
     {
-        if ($_SESSION['privilegio'] === 'administrador')
+        if ($_SESSION['privilegio'] === 'Administrador')
         {
             switch ($acao)
             {
-                case 'criar':
+                case 'criarSetor':
                     $controller = new SetorController();
                     $controller->criarSetores();
                     break;
     
-                case 'editar':
+                case 'editarSetor':
                     $controller = new SetorController();
                     $controller->alterarSetores();
                     break;
 
-                case 'apagar':
+                case 'excluirSetor':
                     $controller = new SetorController();
                     $controller->apagarSetores();
                     break;
@@ -185,16 +173,35 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
         }
         else
         {
-            error_log('Falha na verificação do privilégio.');
-
-            getMensagemSession('error', 'Privilégio não aceito.', 'Você não tem permissão para essa ação.', 'usuarios.php');
+            getMensagemSession('error', 'Privilégio não aceito.', 'Você não tem permissão para essa ação.', 'setores');
         }
     }
     else
     {
-        error_log('Falha na verificação do token.');
-
-        getMensagemSession('error', 'Token não aceito.', 'Falha na verificação do token.', 'usuarios.php');
+        getMensagemSession('error', 'Token não aceito.', 'Falha na verificação do token.', 'setores');
     }
 }
-exit();
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500</title>
+    <link rel="stylesheet" href="../public/styles/components/404.css">
+</head>
+<body>
+    <div class="erro-404">
+        <img class="erro-imagem" src="../public/images/error-404.png" alt="404">
+        <hr>
+        <div class="erro-texto">
+            <p>Como você chegou aqui?</p>
+        </div>
+        <div class="erro-link">
+            <a href="../view/">
+                <p>Se você não foi redirecionado automaticamente, clique aqui.</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

@@ -15,43 +15,87 @@ class UsuarioModel{
         try
         {
             $sql = "INSERT INTO usuarios
-            (nome, usuario, senha, setor, privilegio, unidade)
-                VALUES (:nome, :usuario, :senha, :setor, :privilegio, :unidade)";
+            (nome, usuario, email, senha, privilegio, id_unidade, id_setor)
+                VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':nome' => $data['nome'],
-                ':usuario' => $data['usuario'],
-                ':senha' => $data['senha'],
-                ':setor' => $data['setor'],
-                ':privilegio' => $data['privilegio'],
-                ':unidade' => $data['unidade'],
+            $query = $stmt->execute([
+                $data['nome'],
+                $data['usuario'],
+                $data['email'],
+                $data['senha'],
+                $data['privilegio'],
+                $data['unidade'],
+                $data['setor']
             ]);
 
-            return true;
+            if($query)
+            {
+                return true;
+            }
+            else
+            {
+                return 'Houve um erro interno.';
+            }
         }
         catch (PDOException $e) 
-        {
-            error_log("Erro ao criar usuario: " . $e->getMessage());
-         
-            return false;
+        {         
+            $texto = $e->getMessage();
+            return $texto;
         }
     }
 
-    public function listar() 
+    public function listar($id = '') 
     {
         try
         {
-            $sql = 'SELECT *
-                FROM usuarios';
-            $stmt = $this->db->prepare($sql);
-            $stmt ->execute();
+            if ($id != '')
+            {
+                $sql = 'SELECT us.*,
+                    u.nome AS nome_unidade, 
+                    i.nome_salvo AS nome_imagem,
+                    s.nome AS nome_setor
+                    FROM usuarios us
+                    LEFT JOIN unidade u
+                        ON us.id_unidade = u.id
+                    LEFT JOIN imagem i
+                        ON us.id_imagem = i.id
+                    LEFT JOIN setores s
+                        ON us.id_setor = s.id
+                    WHERE us.id = ?';
+                $stmt = $this->db->prepare($sql);
+                $stmt ->execute
+                (
+                    [
+                        $id
+                    ]
+                );
 
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            else
+            {
+                $sql = 'SELECT us.*,
+                    u.nome AS nome_unidade, 
+                    i.nome_salvo AS nome_imagem,
+                    s.nome AS nome_setor
+                    FROM usuarios us
+                    LEFT JOIN unidade u
+                        ON us.id_unidade = u.id
+                    LEFT JOIN imagem i
+                        ON us.id_imagem = i.id
+                    LEFT JOIN setores s
+                        ON us.id_setor = s.id
+                    ORDER BY us.id DESC';
+                $stmt = $this->db->prepare($sql);
+                $stmt ->execute();
+
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
         }
         catch (PDOException $e) 
         {
-            error_log("Erro ao listar os usuarios: " . $e->getMessage());
-         
+            $texto = $e->getMessage(); 
+
             return false;
         }
     }
@@ -61,50 +105,97 @@ class UsuarioModel{
         try {
             $sql = "UPDATE usuarios 
                 SET  
-                nome = :nome, 
-                usuario = :usuario,
-                setor = :setor,
-                privilegio = :privilegio,
-                unidade = :unidade
-                WHERE id = :id";
+                nome = ?, 
+                usuario = ?,
+                email = ?,
+                privilegio = ?,
+                id_unidade = ?,
+                id_setor = ?
+                WHERE id = ?";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':id' => $id,
-                ':nome' => $data['nome'],
-                ':usuario' => $data['usuario'],
-                ':setor' => $data['setor'],
-                ':privilegio' => $data['privilegio'],
-                ':unidade' => $data['unidade'],
+            $query = $stmt->execute([
+                $data['nome'],
+                $data['usuario'],
+                $data['email'],
+                $data['privilegio'],
+                $data['unidade'],
+                $data['setor'],
+                $id
             ]);
-            return true;
 
+            if($query)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         } 
         catch (PDOException $e) {
-            error_log("Erro ao atualizar o usuario: " . $e->getMessage());
-           
+            $texto = $e->getMessage();
+        
             return false;
         }
     }
 
-    public function atualizarSenha($id, $novaSenha) 
+    public function atualizarSenha($data) 
     {
-        $sql = "UPDATE usuarios SET senha = :senha WHERE id = :id";
-        try {
+        try 
+        {
+            $senhaComHash = password_hash($data['senha'], PASSWORD_BCRYPT, ['cost' => 10]);
+
+            $sql = "UPDATE usuarios 
+                SET senha = ? 
+                WHERE email = ?";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':id' => intval($id),
-                ':senha' => password_hash($novaSenha, PASSWORD_BCRYPT, ['cost' => 10])
-            ]);
+            $query = $stmt->execute(
+                [
+                    $senhaComHash,
+                    $data['email']
+                ]
+            );
 
-            if ($stmt->rowCount() === 0) {
-                error_log("Falha ao atualizar senha: ID {$id} não encontrado ou senha igual à anterior");
-                return false;
+            if ($query)
+            {
+                return true;
             }
-
-            return true;
-
+            else
+            {
+                throw new PDOException('Erro interno.');
+            }
         } catch (PDOException $e) {
-            error_log("Erro ao atualizar a senha do usuário: " . $e->getMessage());
+            $texto = $e->getMessage();
+
+            return false;
+        }
+    }
+
+    public function atualizarImagem($data) 
+    {
+        try 
+        {
+            $sql = "UPDATE usuarios 
+                SET id_imagem = ? 
+                WHERE id = ?";
+            $stmt = $this->db->prepare($sql);
+            $query = $stmt->execute(
+                [
+                    $data['id_imagem'],
+                    $data['id_usuario']
+                ]
+            );
+
+            if ($query)
+            {
+                return true;
+            }
+            else
+            {
+                throw new PDOException('Erro interno.');
+            }
+        } catch (PDOException $e) {
+            $texto = $e->getMessage();
 
             return false;
         }
@@ -116,16 +207,27 @@ class UsuarioModel{
         {
             $sql = "DELETE 
                 FROM usuarios 
-                WHERE id = :id";
+                WHERE id = ?";
             $stmt = $this->db->prepare($sql);
-            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-            
-            return $stmt->execute();
+            $query = $stmt->execute(
+                [
+                    $id
+                ]
+            );
+
+            if($query)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         catch (PDOException $e) 
         {
-            error_log("Erro ao apagar o usuario: " . $e->getMessage());
-         
+            $texto = $e->getMessage();
+
             return false;
         }
     }
@@ -134,19 +236,33 @@ class UsuarioModel{
     {
         try
         {
-            $sql = 'SELECT *
-                FROM usuarios
-                WHERE usuario = :usuario 
+            $sql = 'SELECT u.*,
+                    unid.nome AS nome_unidade,
+                    s.nome AS nome_setor,
+                    i.nome_salvo AS nome_imagem,
+                    i.id AS id_imagem_antiga
+                FROM usuarios u
+                LEFT JOIN unidade unid
+                    ON u.id_unidade = unid.id
+                LEFT JOIN setores s
+                    ON u.id_setor = s.id
+                LEFT JOIN imagem i
+                    ON u.id_imagem = i.id
+                WHERE usuario = ?
                 LIMIT 1';
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([':usuario' => $usuario]);
+            $stmt->execute(
+                [
+                    $usuario
+                ]
+            );
 
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
         catch (PDOException $e) 
         {
-            error_log("Erro ao validar o usuario: " . $e->getMessage());
-         
+            $texto = $e->getMessage();
+
             return false;
         }
     }

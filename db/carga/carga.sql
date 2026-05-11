@@ -1,6 +1,7 @@
-INSERT INTO usuarios (nome, usuario, senha, setor, privilegio, unidade) 
-VALUES 
-('Administrador', 'administrador', '$2y$10$x1Nxbuyu7uu/eZfPm/EfGeTPZ0v/YDGayKyrhTeBoHtQlC9iUDYKG', 'TI', 'administrador', 'administrador');
+USE informatica;
+
+INSERT INTO unidade(nome) 
+VALUES ('HAP - UC'),('HAP - MATRIZ'),('AMBAS');
 
 INSERT INTO setores (nome, icon) 
 VALUES
@@ -36,7 +37,7 @@ VALUES
 ('Gestão de Leitos', 'fa-bars-progress'),
 ('Hemodinâmica', 'fa-user-doctor'),
 ('Hotelaria', 'fa-user-doctor'),
-('Informática', 'fa-laptop-code'),
+('TI', 'fa-laptop-code'),
 ('Jardinagem', 'fa-leaf'),
 ('Jurídico', 'fa-scale-balanced'),
 ('Laboratório', 'fa-flask'),
@@ -76,3 +77,7 @@ VALUES
 ('Unidade Internação Clínica', 'fa-bed-pulse'),
 ('Vigilância', 'fa-eye'),
 ('Enfermaria', 'fa-hospital');
+
+INSERT INTO usuarios (nome, usuario, email, senha, privilegio, id_unidade, id_setor) 
+VALUES 
+('Administrador', 'administrador', 'administrador@example.com', '$2y$10$x1Nxbuyu7uu/eZfPm/EfGeTPZ0v/YDGayKyrhTeBoHtQlC9iUDYKG', 'Administrador', '3', '33');

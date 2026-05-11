@@ -4,7 +4,6 @@
 @import url("components/bar.css");
 @import url("components/search.css");
 @import url("components/filtro.css");
-@import url("components/assinar.css");
 @import url("components/fundo.css");
 @import url("components/form.css");
 @import url("components/botoes.css");
@@ -12,18 +11,21 @@
 @import url("components/setores.css");
 @import url("components/computadores.css");
 @import url("components/esqueciSenha.css");
-@import url("components/usuarioDiv.css");
+@import url("components/usuarios.css");
 @import url("components/switch.css");
 @import url("components/status.css");
-@import url("components/equipamento.css");
 @import url("components/warning.css");
 @import url("components/opcoes.css");
 @import url("components/editarUsuario.css");
 @import url("components/meuPerfil.css");
 @import url("components/cameras.css");
 @import url("components/legendaCamerasDVRs.css");
+@import url("components/404.css");
 @import url("components/dragArea.css");
 @import url("components/miniMenuDVR.css");
+@import url("components/preventiva.css");
+@import url("components/card.css");
+@import url("components/graficos.css");
 
 /* GERAIS */
 
@@ -36,6 +38,9 @@
 @import url("geral/link.css");
 @import url("geral/impressao.css");
 @import url("geral/responsividade.css");
+
+/* MAIN */
+@import url("main-content.css");
 
 /* LIMPEZA */
 

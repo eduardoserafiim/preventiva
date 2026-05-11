@@ -1,29 +1,38 @@
 <?php
-class Database {
-    // private $host = "localhost";
-    private $host = "10.141.121.67:3306";
-    private $database = "informatica";
-    // private $user = "root";
-    private $port = "3306";
-    private $user = "info";
-    // private $pass = "";
-    private $pass = "fefeco123@";
+
+use Dotenv\Dotenv;
+
+include __DIR__ . '/../vendor/autoload.php';
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+class Database 
+{
     private $pdo;
 
-    public function __construct() {
-        $this->connect();
+    public function __construct() 
+    {
+        $host = $_ENV['DATABASE_LOCALHOST_HOST'];
+        $database = $_ENV['DATABASE_INFORMATICA_NAME'];
+        $port = $_ENV['DATABASE_INFORMATICA_PORT'];
+        $user = $_ENV['DATABASE_LOCALHOST_USERNAME'];
+        $pass = $_ENV['DATABASE_LOCALHOST_PASSWORD'];
+
+        $this->connect($host, $database, $port, $user, $pass);
     }
 
-    private function connect() {
-        try {
-            $this->pdo = new PDO(
-                "mysql:host={$this->host};port={$this->port};dbname={$this->database};charset=utf8",
-                $this->user,
-                $this->pass
-            );
+    private function connect($host, $database, $port, $user, $pass) 
+    {
+        try 
+        {
+            $config = "mysql:host={$host};port={$port};dbname={$database};charset=utf8";
+            $this->pdo = new PDO($config, $user, $pass);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            die("Erro de conexão: " . $e->getMessage());
+        } 
+        catch (PDOException $e) 
+        {
+            die("Erro de conexão.");
         }
     }
 

@@ -5,6 +5,7 @@ function formGridEditarCamera($camera, $dvrEspecifico, $setores){
     <div class="form-grid">
         <input type="hidden" name="acao" value="editarCamera">
         <input type="hidden" name="id" value="<?= $camera['id'] ?>">
+        <input type="hidden" name="idDVR" value="<?= $dvrEspecifico['id'] ?>">
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
         <!-- UNIDADE -->
         <div class="form-group">

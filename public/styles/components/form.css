@@ -4,15 +4,14 @@
     padding: 2rem;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     border: 1px solid #e2e8f0;
-    opacity: 0;
-    transform: translateY(-10px);
     transition: opacity 0.4s ease, transform 0.4s ease;    
 }
 
-.form-container.show
+.form-container-editar-computador
 {
-    opacity: 1;
-    transform: translateY(0);
+    width: 585px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
 }
 
 .equipment-form {
@@ -26,13 +25,38 @@
     margin-bottom: 2rem;
 }
 
-.form-actions {
+.form-grid-editar-computadores
+{
+    margin-top: 1rem;
+}
+
+.form-group-editar-legenda-computadores, .form-group-editar-hardware-e-patrimonio
+{
+    display: grid;
+    grid-template-columns: repeat(2, 2fr);
+}
+
+.form-group-editar-hardware-e-patrimonio
+{
+    gap: 1rem;
+}
+
+.form-actions 
+{
     display: flex;
     gap: 1rem;
     justify-content: center;
 }
 
-.form-flex {
+.form-actions-imagem
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.form-flex 
+{
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -67,9 +91,15 @@
 .controleForm
 {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 2rem;
+}
+
+.form-wrap-imagem
+{
+    display: flex;
+    justify-content: center;
 }
 
 .form-warning
@@ -103,29 +133,25 @@
     width: 300px;
 }
 
-.step {
+.step 
+{
     display: none;
 }
 
-.step.active {
+.step.active
+{
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
-.nome
+.nome, .user, .email, .privilegio, .unidade, .setor, .cadastrar-senha, .confirmar-cadastrar-senha
 {
     display: flex;
     flex-direction: column;
 }
 
 .icone
-{
-    display: flex;
-    flex-direction: column;
-}
-
-.user
 {
     display: flex;
     flex-direction: column;
@@ -138,4 +164,43 @@
     gap: 1rem;
     padding: 0.5rem 0 0.5rem 0;
     width: 300px;padding: 0;
+}
+
+.form-group-editar-computadores
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-escolher-editar
+{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    place-items: center;
+    cursor: pointer;
+}
+
+.form-escolher-editar a
+{
+    width: 100%;
+    text-align: center;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    padding: 0.2rem;
+    border: 1px solid #e2e8f0;
+    border-color: rgb(229,231,235);
+}
+
+.form-escolher.selecionado
+{
+    background-color: rgb(38,62,104);
+    border-color: #3b82f6;
+    color: white;
+}
+
+
+.form-escolher-editar .borda-inferior
+{
+    background-color: #124e8a;
 }
