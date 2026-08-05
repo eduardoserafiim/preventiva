@@ -9,15 +9,15 @@ function formGridCriarUsuario($setores)
         <div class="form-group step active">
             <div class="nome">
                 <label for="input-nome">Nome</label>
-                <input type="text" id="input-nome" name="nome" placeholder="Ex: Nome Sobrenome" required>
+                <input type="text" id="input-nome" name="nome" placeholder="Ex: Nome Sobrenome" autocomplete="name" required>
             </div>
             <div class="user">
                 <label for="input-usuario">Usuário</label>
-                <input type="text" id="input-usuario" name="usuario" placeholder="Ex: nome.sobrenome" required>
+                <input type="text" id="input-usuario" name="usuario" placeholder="Ex: nome.sobrenome" autocomplete="username" autocapitalize="off" required>
             </div>
             <div class="email">
                 <label for="input-email">Email</label>
-                <input type="email" id="input-email" name="email" placeholder="Ex: informatica@example.com" required>
+                <input type="email" id="input-email" name="email" placeholder="Ex: informatica@example.com" autocomplete="email" required>
             </div>
             <div class="privilegio">
                 <label for="select-privilegio">Privilégio</label>
@@ -51,11 +51,11 @@ function formGridCriarUsuario($setores)
         <div class="form-group step">
             <div class="cadastrar-senha">
                 <label for="input-senha">Senha</label>
-                <input type="password" id="input-senha" name="senha" required>
+                <input type="password" id="input-senha" name="senha" autocomplete="new-password" required>
             </div>
             <div class="confirmar-cadastrar-senha">
                 <label for="input-confirmar-senha">Confirmar Senha</label>
-                <input type="password" id="input-confirmar-senha" name="confirmar-senha" required>
+                <input type="password" id="input-confirmar-senha" name="confirmar-senha" autocomplete="new-password" required>
             </div>
         </div>
     </div>

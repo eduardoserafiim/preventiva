@@ -359,8 +359,8 @@ $idComputador = $_GET['id_computador'] ?? '';
                             $totalComputadoresSetor = $quantidadeComputadores[$setor['id']] ?? '0';    
                             $statusPreventivaSetor = $preventivaStatus[$setor['id']] ?? '';
                         ?>
-                        <a href="preventiva?url=setor&token=<?= htmlspecialchars($_SESSION['token']) ?>&id_preventiva=<?= htmlspecialchars($preventivaID) ?>&id_setor=<?= htmlspecialchars($setor['id']) ?>&setor=<?= htmlspecialchars($setor['nome']) ?>&ano=<?= htmlspecialchars($ano) ?>&semestre=<?= htmlspecialchars($semestre) ?>&unidade=<?= htmlspecialchars($unidade) ?>&id_unidade=<?= htmlspecialchars($unidadeID) ?>">
-                            <div class="card-setor" data-nome="<?= $setor['nome'] ?>">
+                        <div class="card-setor" data-nome="<?= $setor['nome'] ?>">
+                            <a href="preventiva?url=setor&token=<?= htmlspecialchars($_SESSION['token']) ?>&id_preventiva=<?= htmlspecialchars($preventivaID) ?>&id_setor=<?= htmlspecialchars($setor['id']) ?>&setor=<?= htmlspecialchars($setor['nome']) ?>&ano=<?= htmlspecialchars($ano) ?>&semestre=<?= htmlspecialchars($semestre) ?>&unidade=<?= htmlspecialchars($unidade) ?>&id_unidade=<?= htmlspecialchars($unidadeID) ?>">
                                 <div class="card-setor-titulo">
                                     <i class="fa <?= $setor['icon'] ?> fa-xl"></i>
                                     <h4><?= $setor['nome'] ?></h4>
@@ -385,8 +385,8 @@ $idComputador = $_GET['id_computador'] ?? '';
                                         <h4 class="statusPreventiva nenhum">Não aberto</h4>
                                     <?php endif ?>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        </div>
                     <?php endforeach ?>
                 </div>
             <?php else: ?>

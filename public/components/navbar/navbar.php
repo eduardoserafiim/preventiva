@@ -102,10 +102,13 @@ function navbar($active, $usuario = '')
                         </li>
                     <?php endif ?>
                 <li>
-                    <a href="../controllers/EntrarController" class="menu-item" onclick="confirmarSaida(event)">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Sair</span>
-                    </a>
+                    <form action="../controllers/EntrarController.php" method="POST" class="logout-form">
+                        <input type="hidden" name="acao" value="sair">
+                        <button type="submit" class="menu-item logout-button" onclick="confirmarSaida(event)">
+                            <i class="fas fa-sign-out-alt"></i>
+                            <span>Sair</span>
+                        </button>
+                    </form>
                 </li>
             </ul>
             <div class="sidebar-voltar">

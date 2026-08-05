@@ -14,6 +14,7 @@ create table dispositivos_cameras
 	ip varchar(15) not null,
 	mac varchar(17) not null,
 	porta int(5) not null,
+	dias_gravados int(3),
 	status varchar(2) not null,
 	data_criada date not null,
 	id_responsavel_cadastro int not null,

@@ -124,6 +124,7 @@ class ComputadorModel
                     endereco_ip     = :endereco_ip,
                     endereco_mac    = :endereco_mac,
                     responsavel_edicao = :responsavel_edicao,
+                    responsavel_uso = :responsavel_uso,
                     status          = :status,
                     data_edicao     = NOW(),
                     id_imagem       = :id_imagem,
@@ -138,6 +139,7 @@ class ComputadorModel
                         ':endereco_ip'          => $data['endereco_ip'],
                         ':endereco_mac'         => $data['endereco_mac'],
                         ':responsavel_edicao'   => $data['responsavel_alteracao'],
+                        ':responsavel_uso'      => $data['responsavel_uso'],
                         ':status'               => $data['status'],
                         ':id_imagem'            => $data['id_imagem'],
                         ':id_unidade'           => $data['id_unidade'],
@@ -209,12 +211,29 @@ class ComputadorModel
                     ]
                 );
             }
+            elseif ($tipo === 'editarComentarios')
+            {
+                $sql = 'UPDATE dispositivos_computadores
+                SET
+                    descricao = :comentario
+                WHERE id = :id';
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute(
+                    [
+                        ':id' => $data['id'],
+                        ':comentario' => $data['comentario']
+                    ]
+                );
+            }
 
             return true;
         }
         catch(PDOException $e)
         {
-            return false;
+            $texto = $e->getMessage();
+
+            return $texto;
         }
     }
 
@@ -230,10 +249,8 @@ class ComputadorModel
             
             return $stmt->execute();
         }
-        catch (PDOException $e) {
-            echo 'Erro na exclusão: '. $e->getMessage();
-            error_log("Erro ao excluir o computador: " . $e->getMessage());
-            
+        catch (PDOException $e) 
+        {    
             return false;
         }
     }

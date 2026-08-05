@@ -72,6 +72,11 @@ function formGridEditarCamera($camera, $dvrEspecifico, $setores){
             <label for="input-porta">Porta</label>
             <input type="text" id="input-porta" value="<?= $camera['porta'] ?>" name="porta" required>
         </div>
+        <!-- DIAS GRAVADOS -->
+        <div class="form-group">
+            <label for="input-dias-gravados">Dias Gravados</label>
+            <input type="number" id="input-dias-gravados" value="<?= $camera['dias_gravados'] ?>" name="diasGravados" min="0" max="365">
+        </div>
         <!-- STATUS -->
         <div class="form-group">
             <label for="select-status">Status</label>

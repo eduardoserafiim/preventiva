@@ -7,7 +7,7 @@ function formGridCriarDVR(){
         <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
         <input type="hidden" name="tecnico_responsavel" value="<?= $_SESSION['nome'] ?>">
         <!-- IMAGEM -->
-        <?= dragAreaImagem('', 'DVR') ?>
+        <?= dragAreaImagem('', 'dvrs') ?>
         <!-- UNIDADE -->
         <div class="form-group">
             <label for="select-unidade">Unidade</label>

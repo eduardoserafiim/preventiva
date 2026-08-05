@@ -76,6 +76,11 @@ function criarCardCameraDetalhada($camera, $dvr)
                         <h4 class="portaCamera"><?= $camera['porta'] ?></h4>
                         <hr>
                     </div>
+                    <div class="diasCameraDetalhado">
+                        <p>Dias Gravados</p>
+                        <h4 class="diasCameras"><?= $camera['dias_gravados'] ?></h4>
+                        <hr>
+                    </div>
                 </div>
                 <div class="informacoesUsuarioData">
                     <div class="usuarioCameraDetalhado">

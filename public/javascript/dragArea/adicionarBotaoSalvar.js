@@ -13,14 +13,21 @@ function gerenciarBotaoSalvar() {
     }
 }
 
-document.getElementById("input-imagem").addEventListener("change", function() {
-    if (this.files && this.files[0]) {
-        gerenciarBotaoSalvar();
-    }
-});
+const inputImagem = document.getElementById("input-imagem");
+const formularioImagem = document.getElementById("formulario-imagem-receber");
 
-document.getElementById("formulario-imagem-receber").addEventListener("drop", function(e) {
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-        gerenciarBotaoSalvar();
-    }
-});
+if (inputImagem) {
+    inputImagem.addEventListener("change", function() {
+        if (this.files && this.files[0]) {
+            gerenciarBotaoSalvar();
+        }
+    });
+}
+
+if (formularioImagem) {
+    formularioImagem.addEventListener("drop", function(e) {
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            gerenciarBotaoSalvar();
+        }
+    });
+}

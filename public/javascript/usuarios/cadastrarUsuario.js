@@ -4,11 +4,17 @@ const botaoVoltar = document.querySelector(".botao-secundario");
 const botaoAvancar = document.querySelector(".botao-primario"); 
 
 function showStep(index) {
+    if (!etapas.length || !botaoAvancar) {
+        return;
+    }
+
     etapas.forEach((step, i) => {
         step.classList.toggle("active", i === index);
     });
 
-    botaoVoltar.style.display = index > 0 ? "flex" : "none";
+    if (botaoVoltar) {
+        botaoVoltar.style.display = index > 0 ? "flex" : "none";
+    }
 
     if (index === etapas.length - 1) {
         botaoAvancar.innerHTML = "<i class='fa-solid fa-save'></i> Salvar";
@@ -20,6 +26,10 @@ function showStep(index) {
 }
 
 function nextStep() {
+    if (!etapas.length || !etapas[currentStep]) {
+        return;
+    }
+
     const currentInputs = etapas[currentStep].querySelectorAll("input, select");
     for (let input of currentInputs) {
         if (!input.checkValidity()) {
@@ -68,5 +78,9 @@ function salvarFormulario(event) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    if (!etapas.length || !botaoAvancar) {
+        return;
+    }
+
     showStep(currentStep);
 });

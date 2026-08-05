@@ -28,8 +28,7 @@ class MailerReport
                                     <p style="font-size: 16px; color: #333333; margin-bottom: 10px;">Olá! Vamos alterar a senha?</p>
                                     <p style="font-size: 14px; color: #666666; margin-bottom: 25px;">Clique no botão abaixo para realizar o procedimento de forma segura.</p>
                                     
-                                    <!-- <a href="http://portal.hap.org.br/Preventiva%20-%20HAP/view/login?url=suporte&tipo=esqueci_minha_senha&token=<?= $data['token'] ?>"  -->
-                                    <a href="http://localhost/preventiva/view/login?url=suporte&tipo=esqueci_minha_senha&token=<?= $data['token'] ?>" style="background-color: #28a745; color: #ffffff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; font-size: 14px;">
+                                    <a href="http://portal.hap.org.br/Preventiva/view/login?url=suporte&tipo=esqueci_minha_senha&token=<?= $data['token'] ?>" style="background-color: #28a745; color: #ffffff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; font-size: 14px;">
                                         <p>Alterar Minha Senha</p>
                                     </a>
                                     <p style="font-size: 12px; color: #8d8d8d; margin-top: 25px;">Lembre-se, você tem <strong>15 minutos</strong> para realizar essa ação, caso contrário, ela irá expirar.</p>
@@ -77,8 +76,7 @@ class MailerReport
                                     <p style="font-size: 16px; color: #333333; margin-bottom: 10px;">Olá! Vamos assinar a preventiva?</p>
                                     <p style="font-size: 14px; color: #666666; margin-bottom: 25px;">Clique no botão abaixo para realizar o procedimento de acesso.</p>
                                     
-                                    <!-- <a href="http://portal.hap.org.br/Preventiva%20-%20HAP/view/login"  -->
-                                    <a href="http://localhost/preventiva/view/login" style="background-color: #28a745; color: #ffffff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; font-size: 14px;">
+                                    <a href="http://portal.hap.org.br/Preventiva/view/login" style="background-color: #28a745; color: #ffffff; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; font-size: 14px;">
                                         <p>Acessar Preventiva T.I</p>
                                     </a>
                                     <p style="font-size: 12px; color: #999999; margin-top: 25px;">Contamos com a sua participação!</p>

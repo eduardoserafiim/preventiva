@@ -66,7 +66,7 @@ $jwt = $_GET["token"] ?? '';
                 <div class="controleContainer">
                     <div class="forgetpassword-container">
                         <p>Caso tenha esquecido seu <strong>Usuário</strong>, crie um chamado para o Suporte T.I</p>
-                        <a href="http://portal.hap.org.br/Portal%20-%20HAP/forms/SuporteTI.php" target="_blank">
+                        <a href="http://portal.hap.org.br/intranet/view/chamados?url=criar&tipo=suporteTI" target="_blank">
                             <h5>portal.hap.org.br/SuporteTI</h5>
                         </a>
                         <hr>

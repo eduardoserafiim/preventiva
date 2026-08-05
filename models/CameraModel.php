@@ -16,8 +16,8 @@ class CameraModel
     {
         try
         {
-            $sql = 'INSERT INTO dispositivos_cameras(id_unidade, id_setor, id_dvr, canal, nome, marca, modelo, ip, mac, porta, status, data_criada, id_responsavel_cadastro)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,NOW(),?)
+            $sql = 'INSERT INTO dispositivos_cameras(id_unidade, id_setor, id_dvr, canal, nome, marca, modelo, ip, mac, porta, dias_gravados, status, data_criada, id_responsavel_cadastro)
+            VALUES (?,?,?,?,?,?,?,?,?,?,?,?,NOW(),?)
             ';
             $stmt = $this->db->prepare($sql);
             
@@ -34,6 +34,7 @@ class CameraModel
                     $data['ip'],
                     $data['mac'],
                     $data['porta'],
+                    $data['dias_gravados'],
                     $data['status'],
                     $data['id_responsavel_cadastro']
                 ]
@@ -89,6 +90,7 @@ class CameraModel
             ip = :ip,
             mac = :mac,
             porta = :porta,
+            dias_gravados = :dias_gravados,
             status = :status
             WHERE id = :id';
             $stmt =  $this->db->prepare($sql);
@@ -101,6 +103,7 @@ class CameraModel
                     ':ip'       => $data['ip'],
                     ':mac'      => $data['mac'],
                     ':porta'    => $data['porta'],
+                    ':dias_gravados' => $data['dias_gravados'],
                     ':status'   => $data['status'],
                     ':id'       => $data['id']
                 ]

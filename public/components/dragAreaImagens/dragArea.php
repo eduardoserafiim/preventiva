@@ -1,6 +1,6 @@
 <?php
 
-function dragAreaImagem($imagem = '', $dispositivo)
+function dragAreaImagem($imagem = '', $dispositivo = '')
 { ?>
     <div class="formulario-imagem" id="formulario-imagem-receber">
         <?php if ($imagem): ?>

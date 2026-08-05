@@ -1,7 +1,7 @@
 function confirmarSaida(event) {
     event.preventDefault();
     
-    const logoutUrl = event.currentTarget.href;
+    const form = event.currentTarget.closest('form');
 
     Swal.fire({
         icon: 'warning',
@@ -17,8 +17,8 @@ function confirmarSaida(event) {
     },
     buttonsStyling: false
     }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = logoutUrl;
+        if (result.isConfirmed && form) {
+            form.submit();
         }
     });
 }

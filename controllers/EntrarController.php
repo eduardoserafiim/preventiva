@@ -59,11 +59,21 @@ class EntrarController
                     getMensagemSession('error', 'Erro ao entrar!', 'Usuário ou Senha incorretos.', 'login');
                 }
             }
-            catch (Exception $e)
+            catch (Throwable $e)
             {
-                echo 'Houve algum erro: '. $e->getMessage();
+                error_log('Erro no login: ' . $e->getMessage());
 
-                getMensagemSession('error', 'Erro ao entrar!', 'Preencha todos os campos!', 'login');
+                $mensagem = 'Ocorreu um erro interno ao tentar entrar.';
+
+                if (
+                    str_contains($e->getMessage(), 'banco') ||
+                    str_contains($e->getMessage(), 'conexao') ||
+                    str_contains($e->getMessage(), 'driver')
+                ) {
+                    $mensagem = 'Nao foi possivel conectar ou consultar o banco de dados.';
+                }
+
+                getMensagemSession('error', 'Erro ao entrar!', $mensagem, 'login');
             }
         }
     }

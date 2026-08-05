@@ -248,6 +248,33 @@ class ComputadorController
                     getMensagemSession('success', 'Sucesso ao editar!',  'Computador alterado com sucesso.', 'computadores', 'visualizarComputador', $dataUrl);
                 }
             }
+            elseif ($edicao === 'editarComentarios')
+            {
+                $comentario = trim($_POST['comentario']);
+                $id = intval($_POST['id']);
+
+                $data = 
+                [
+                    'id' => $id,
+                    'comentario' => $comentario
+                ];
+
+                $modelRes = $modelComputadores->editarComputador($data, $edicao);
+                if($modelRes === false)
+                {
+                    new Error('Não foi possivel editar o computador no momento. Tente novamente mais tarde.');
+                }
+                else
+                {
+                    $dataUrl =
+                    [
+                        'token'         => $token,
+                        'id'            => $id
+                    ];
+                    
+                    getMensagemSession('success', 'Sucesso ao editar!',  'Computador alterado com sucesso.', 'computadores', 'visualizarComputador', $dataUrl);
+                }
+            }
             else
             {
                 new Error('Não foi possivel verificar a ação.');

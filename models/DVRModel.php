@@ -159,38 +159,26 @@ class DVRModel
                 ON d.id_unidade = u.id
             LEFT JOIN imagem i
                 ON d.id_imagem = i.id
-            WHERE d.id_unidade = ?
-            ';
-            if($id)
+            WHERE d.id_unidade = ?';
+
+            $params = [$idUnidade];
+
+            if ($id)
             {
-                $sql .= 'AND d.id = ?';
-            }
-            
-            $stmt = $this->db->prepare($sql);
-            
-            if($id)
-            {
-                $stmt->execute(
-                    [
-                        $idUnidade,
-                        $id
-                    ]
-                );
+                $sql .= ' AND d.id = ?';
+                $params[] = $id;
             }
 
-            $stmt->execute(
-                [
-                    $idUnidade
-                ]
-            );
-            
-            if($id)
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute($params);
+
+            if ($id)
             {
-                return $stmt->fetch(PDO::FETCH_ASSOC); 
+                return $stmt->fetch(PDO::FETCH_ASSOC);
             }
             else
             {
-                return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
         }
         catch (PDOException $e)

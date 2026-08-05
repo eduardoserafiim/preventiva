@@ -7,7 +7,7 @@ function formGridCriarComputador(){
         <input type="hidden" name="informacoes" value="basicas"> 
         <input type="hidden" name="responsavel_cadastro" value="<?= $_SESSION['nome'] ?>">
         <!-- IMAGEM -->
-        <?= dragAreaImagem('', 'computador') ?>
+        <?= dragAreaImagem('', 'computadores') ?>
         <!-- UNIDADE -->
         <div class="form-group">
             <label for="select-unidade">Unidade</label>

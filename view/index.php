@@ -39,9 +39,27 @@ $assinaturas =  $dbassinatura->listarAssinaturas($_SESSION['nome']);
 $computadoresRelacionadosSetor = $modelComputadoresSetores->quantidadeComputadoreRelacionadosSetor();
 $computadoresRegistradosUnidade = $modelComputador->qunatidadeComputadoresRegistradosUnidade();
 
+if (!is_array($computadoresRelacionadosSetor)) {
+    $computadoresRelacionadosSetor = [];
+}
+
+if (!is_array($computadoresRegistradosUnidade)) {
+    $computadoresRegistradosUnidade = [];
+}
+
 
 $usuario = $modelUsuario->validar($_SESSION['usuario']);
 $url = $_GET['url'] ?? '';
+
+$dadosGraficoComputadoresSetores = [
+    'setores' => [],
+    'quantidades' => []
+];
+
+$dadosGraficoComputadoresRegistrados = [
+    'unidades' => [],
+    'quantidades' => []
+];
 
 ?>
 <body>
@@ -259,7 +277,7 @@ require_once "../public/components/scripts/scriptChartJS.php";
         },
         options: {
             plugins: {
-                legend: { position: 'bottom' }
+                legend: { display: false }
             }
         }
     });

@@ -56,7 +56,7 @@ function formGridCriarCameras($id, $setores, $idDVR){
         <!-- IP -->
         <div class="form-group">
             <label for="input-ip">IP</label>
-            <input type="text" id="input-ip" name="ip" placeholder="Opcional">
+            <input type="text" id="input-ip" name="ip" placeholder="Obrigatório" required>
         </div>
         <!-- MAC -->
         <div class="form-group">
@@ -67,6 +67,11 @@ function formGridCriarCameras($id, $setores, $idDVR){
         <div class="form-group">
             <label for="input-porta">Porta</label>
             <input type="text" id="input-porta" name="porta" placeholder="Obrigatório" required>
+        </div>
+        <!-- DIAS GRAVADOS -->
+        <div class="form-group">
+            <label for="input-dias-gravados">Dias Gravados</label>
+            <input type="number" id="input-dias-gravados" name="diasGravados" placeholder="Opcional" min="0" max="365">
         </div>
         <!-- STATUS -->
         <div class="form-group">

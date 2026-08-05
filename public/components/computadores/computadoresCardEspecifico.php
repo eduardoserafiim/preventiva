@@ -160,6 +160,26 @@ function criarComputadorCardEspecifico($computador)
                     </div>   
                 </div>
             </div>
+            <hr>
+            <div class="comentariosGeraisComputador">
+                <div class="comentariosContador">
+                    <p>Comentários</p>
+                    <div class="salvarComentariosContadores">
+                        <button id="salvarComentario" class="botaoSalvarComentarios" type="submit" form="formularioComentarios" style="border: none; background-color: inherit; cursor: pointer;">
+                            <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                        </button>
+                        <span id="contadorComentarioComputador">255/255</span>
+                    </div>
+                </div>
+                <form id="formularioComentarios" action="../controllers/ComputadoresController" method="POST">
+                    <input type="hidden" name="id" value="<?= $computador['id'] ?>">
+                    <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                    <input type="hidden" name="acao" value="editarComputador">
+                    <input type="hidden" name="tipoEdicao" value="editarComentarios">
+                    <input type="hidden" name="informacoes" value="basicas">
+                    <textarea name="comentario" id="comentarioComputador" class="comentariosComputador" maxlength="255"><?= $computador['descricao'] ?? 'Sem comentários adicionados ainda...' ?></textarea>
+                </form>
+            </div>
         </div>
     </div>
 <?php

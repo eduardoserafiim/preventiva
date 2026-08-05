@@ -160,6 +160,7 @@ class PreventivaSetorController
             [
                 'token' => $token,
                 'setor' => $setor,
+                'id_preventiva'=> $idPreventiva,
                 'id_setor' => $idSetor,
                 'ano' => $ano,
                 'semestre' => $semestre,

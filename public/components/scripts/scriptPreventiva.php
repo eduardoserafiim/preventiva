@@ -2,8 +2,6 @@
 <script src="../public/javascript/animation.js"></script>
 
 <!-- MODELS -->
-<script src="../public/javascript/computadores/atualizarComputadores.js"></script>
-<script src="../public/javascript/computadores/excluirComputadores.js"></script>
 <script src="../public/javascript/computadores/imprimirComputadores.js"></script>
 
 <!-- SEARCH -->

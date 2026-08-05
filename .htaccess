@@ -1,4 +1,4 @@
-ErrorDocument 404 /preventiva/view/404.php
+ErrorDocument 404 /Preventiva/view/404.php
 
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -46,6 +46,7 @@ class CameraController
             $porta                  = trim($_POST['porta']);
             $status                 = trim($_POST['status']);
             $responsavelCadastro    = trim($_POST['responsavelCadastro']);
+            $diasGravados           = trim($_POST['diasGravados']);
 
             $data = 
             [
@@ -60,7 +61,8 @@ class CameraController
                 'mac'                       => $mac,
                 'porta'                     => $porta,
                 'status'                    => $status,
-                'id_responsavel_cadastro'   => $responsavelCadastro
+                'id_responsavel_cadastro'   => $responsavelCadastro,
+                'dias_gravados'             => $diasGravados
             ];
 
             $idCamera = $modelCamera->criarCamera($data);
@@ -124,6 +126,7 @@ class CameraController
             $ip             = trim($_POST['ip']);
             $mac            = trim($_POST['mac']);
             $porta          = trim($_POST['porta']);
+            $diasGravados   = trim($_POST['diasGravados']);
             $status         = trim($_POST['status']);
             $id             = intval($_POST['id']);
 
@@ -137,6 +140,7 @@ class CameraController
                 'ip'             => $ip,
                 'mac'            => $mac,
                 'porta'          => $porta,
+                'dias_gravados'  => $diasGravados,
                 'status'         => $status,
                 'id'             => $id
             ];

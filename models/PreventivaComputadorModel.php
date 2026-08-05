@@ -82,7 +82,7 @@ class PreventivaComputadorModel
         {
             $texto = $e->getMessage();
             
-            return $texto;
+            return false;
         }
     } 
 

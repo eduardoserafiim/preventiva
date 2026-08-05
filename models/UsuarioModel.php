@@ -261,9 +261,8 @@ class UsuarioModel{
         }
         catch (PDOException $e) 
         {
-            $texto = $e->getMessage();
-
-            return false;
+            error_log('Erro ao validar usuario: ' . $e->getMessage());
+            throw new RuntimeException('Falha ao consultar o banco de dados.');
         }
     }
 };

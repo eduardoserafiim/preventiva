@@ -102,11 +102,24 @@
     display: flex;
     align-items: center;
     gap: 1rem;
+    width: 100%;
     padding: 1rem 1.5rem;
     color: #cbd5e1;
     text-decoration: none;
     transition: all 0.3s ease;
     border-left: 4px solid transparent;
+}
+
+.logout-form {
+    width: 100%;
+}
+
+.logout-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
 }
 
 .menu-item:hover {

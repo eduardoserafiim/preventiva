@@ -9,7 +9,7 @@ function formGrid()
             <i class="fas fa-user fa-xl"></i>
             <h4>Usuário</h4>
         </div>
-        <input type="text" name="usuario" required>
+        <input type="text" name="usuario" autocomplete="username" autocapitalize="off" required>
     </div>
 
     <div class="senha">
@@ -17,7 +17,7 @@ function formGrid()
             <i class="fas fa-lock fa-xl"></i>
             <h4>Senha</h4>
         </div>
-        <input type="password" name="senha" required>
+        <input type="password" name="senha" autocomplete="current-password" required>
     </div>
 
     <div class="form-passwordforget">

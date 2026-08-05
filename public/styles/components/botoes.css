@@ -71,3 +71,8 @@
 {
   width: 100%;
 }
+
+.botaoSalvarComentarios
+{
+  display: none;
+}
