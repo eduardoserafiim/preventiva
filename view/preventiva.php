@@ -179,10 +179,12 @@ $idComputador = $_GET['id_computador'] ?? '';
                         <input type="hidden" name="unidade" value="<?= htmlspecialchars($unidade) ?>">
                         <input type="hidden" name="id_unidade" value="<?= htmlspecialchars($unidadeID) ?>">
                         <input type="hidden" name="id_setor" value="<?= htmlspecialchars($setorID) ?>">
+                        <input type="hidden" name="id_preventiva" value="<?= htmlspecialchars($preventivaID) ?>">
+                        <input type="hidden" name="data_inicio" value="<?= htmlspecialchars($preventivaEspecifica['data_inicio'] ?? '') ?>">
+                        <input type="hidden" name="data_finalizacao" value="<?= htmlspecialchars($preventivaEspecifica['data_finalizacao'] ?? '') ?>">
                         <input type="hidden" name="tecnicoSolicitante" value="<?= htmlspecialchars($preventivaEspecifica['tecnico_solicitante'] ?? '') ?>">
                         <input type="hidden" name="responsavelPreventiva" value="<?= htmlspecialchars($preventivaEspecifica['tecnico_responsavel'] ?? '') ?>">
                         <input type="hidden" name="responsavelSetor" value="<?= htmlspecialchars($preventivaEspecifica['responsavel_setor'] ?? '') ?>">
-                        <?php var_dump($preventivaEspecifica) ?>
                         <?php if(!empty($computadores) && $preventivaStatus === 'Fechado'): ?>
                             <button class="botao botaoPdfAtivo" type="submit">
                                 <i class="fa-solid fa-file-pdf fa-xl"></i>

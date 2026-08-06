@@ -2,7 +2,7 @@
 
 class PDFReport
 {
-    public function reportSuporteTI($data)
+    public function reportGerarPDFPrevenitva($data)
     {
         ob_start();
         ?>
@@ -160,7 +160,6 @@ class PDFReport
                 .footer-text 
                 {
                     display: flex;
-                    height: 100%;
                     flex-direction: column;
                     justify-content: end;
                     font-size: 9px;
@@ -207,7 +206,7 @@ class PDFReport
                         <th>Sistema Operacional</th>
                         <th>Processador</th>
                         <th>Memória</th>
-                        <th>Disco</th>
+                        <th>Armazenamento</th>
                         <th>IP</th>
                         <th>MAC</th>
                         <th>Número de Série</th>
@@ -221,12 +220,13 @@ class PDFReport
                                 <td><?= $computador + 1 ?></td>
                                 <td><?= htmlspecialchars($item['nome'] ?? '') ?></td>
                                 <td><?= htmlspecialchars($item['modelo'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($item['so'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($item['sistema_operacional'] ?? '') ?></td>
                                 <td><?= htmlspecialchars($item['processador'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($item['memoria'] ?? '') ?></td>
-                                <td><?= htmlspecialchars($item['disco'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($item['memoria_ram'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($item['armazenamento'] ?? '') ?></td>
                                 <td><?= htmlspecialchars($item['endereco_ip'] ?? '') ?></td>
                                 <td><?= htmlspecialchars($item['endereco_mac'] ?? '') ?></td>
+                                <td><?= htmlspecialchars($item['numero_serie'] ?? '') ?></td>
                                 <td><?= htmlspecialchars($item['lacre'] ?? '') ?></td>
                             </tr>
                         <?php endforeach; ?>
@@ -254,25 +254,35 @@ class PDFReport
                         </td>
                         <td style="width: 25%;">
                             <div class="field-label">Data Término</div>
-                            <div class="field-value"><?= $data['data_termino'] ?? '' ?></div>
+                            <div class="field-value"><?= $data['data_finalizacao'] ?? '' ?></div>
                         </td>
                     </tr>
                     <tr>
                         <td style="width: 25%;">
+                            <div class="field-label">Ano</div>
+                            <div class="field-value"><?= $data['ano'] ?? '' ?></div>
+                        </td>
+                        <td style="width: 25%;">
                             <div class="field-label">Semestre</div>
                             <div class="field-value"><?= $data['semestre'] ?? '' ?></div>
                         </td>
+                    </tr>
+                    <tr>
                         <td style="width: 30%; padding-top: 25px;">
                             <div class="field-label">Técnico Solicitante ( Assinatura )</div>
-                            <div class="line-only"><?= $data['tecnico_solicitante'] ?? '' ?></div>
+                            <div class="field-value"><?= $data['tecnicoSolicitante'] ?? '' ?></div>
                         </td>
                         <td style="width: 20%; padding-top: 25px;">
                             <div class="field-label">Técnico Responsável ( Assinatura )</div>
-                            <div class="line-only"><?= $data['tecnico_responsavel'] ?? '' ?></div>
+                            <div class="field-value"><?= $data['tecnicoResponsavel'] ?? '' ?></div>
                         </td>
                         <td colspan="2" style="width: 50%; padding-top: 25px;">
                             <div class="field-label">Responsável do Setor ( Assinatura )</div>
-                            <div class="line-only"><?= $data['responsavel_setor'] ?? '' ?></div>
+                            <?php if ($data['responsavelSetor'] === ''): ?>
+                                <div class="line-only"></div>
+                            <?php else: ?>
+                                <div class="field-value"><?= $data['responsavelSetor'] ?? '' ?></div>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 </table>
