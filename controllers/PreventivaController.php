@@ -69,6 +69,43 @@ class PreventivaController
         }
     }
 
+    public function gerarPDFPreventiva()
+    {
+        try
+        {
+            $model = new PreventivaModel();
+
+            $ano = trim($_POST['ano']);
+            $semestre = trim($_POST['semestre']);
+            $unidade = intval($_POST['id_unidade']);
+
+            $data =
+            [
+                'ano' => $ano,
+                'semestre' => $semestre,
+                'id_unidade' => $unidade
+            ];
+
+            $preventivaExistente = $model->validarPreventiva($data);
+
+            if ($preventivaExistente)
+            {
+                $model->gerarPDFPreventiva($data);
+            }
+            else
+            {
+                throw new Error('Não existe uma preventiva com essas informações!');
+            }
+        }
+        catch(Throwable $e)
+        {
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Erro ao gerar PDF!', $texto, 'preventiva');
+        }
+        
+    }
+
     public function apagarPreventiva()
     {
         $id   = intval($_POST['id']);
