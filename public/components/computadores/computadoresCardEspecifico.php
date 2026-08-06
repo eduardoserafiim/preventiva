@@ -165,9 +165,12 @@ function criarComputadorCardEspecifico($computador)
                 <div class="comentariosContador">
                     <p>Comentários</p>
                     <div class="salvarComentariosContadores">
-                        <button id="salvarComentario" class="botaoSalvarComentarios" type="submit" form="formularioComentarios" style="border: none; background-color: inherit; cursor: pointer;">
-                            <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                        </button>
+                        <?php if ($computador['id_preventiva'] ?? ''): ?>
+                        <?php else: ?>
+                            <button id="salvarComentario" class="botaoSalvarComentarios" type="submit" form="formularioComentarios" style="border: none; background-color: inherit; cursor: pointer;">
+                                <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                            </button>
+                        <?php endif ?>
                         <span id="contadorComentarioComputador">255/255</span>
                     </div>
                 </div>
@@ -177,7 +180,11 @@ function criarComputadorCardEspecifico($computador)
                     <input type="hidden" name="acao" value="editarComputador">
                     <input type="hidden" name="tipoEdicao" value="editarComentarios">
                     <input type="hidden" name="informacoes" value="basicas">
-                    <textarea name="comentario" id="comentarioComputador" class="comentariosComputador" maxlength="255"><?= $computador['descricao'] ?? 'Sem comentários adicionados ainda...' ?></textarea>
+                    <?php if ($computador['id_preventiva'] ?? ''): ?>
+                        <textarea name="comentario" id="comentarioComputador" class="comentariosComputador" maxlength="255" disabled><?= $computador['descricao'] ?? 'Sem comentários adicionados ainda...' ?></textarea>
+                    <?php else: ?>
+                        <textarea name="comentario" id="comentarioComputador" class="comentariosComputador" maxlength="255"><?= $computador['descricao'] ?? 'Sem comentários adicionados ainda...' ?></textarea>
+                    <?php endif ?>
                 </form>
             </div>
         </div>

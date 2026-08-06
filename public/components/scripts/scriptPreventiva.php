@@ -15,3 +15,4 @@
 
 <!-- COMPONENTS -->
 <script src="../public/javascript/bar/bar.js"></script>
+<script src="../public/javascript/computadores/contadorTextArea.js"></script>
