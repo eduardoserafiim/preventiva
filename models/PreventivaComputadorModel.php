@@ -15,8 +15,8 @@ class PreventivaComputadorModel
     {
         try
         {
-            $sql = 'INSERT INTO dispositivos_computadores_preventiva(nome, modelo, monitor, sistema_operacional, office, processador, memoria_ram, armazenamento, endereco_ip, endereco_mac, numero_serie, lacre, status, etiqueta_patrimonio, legenda_a, legenda_b, legenda_c, legenda_d, legenda_e, legenda_f, legenda_g, legenda_h, legenda_i, responsavel_cadastro, responsavel_uso, responsavel_edicao, data_cadastro, data_edicao, id_imagem, id_unidade)
-            VALUES (:nome, :modelo, :monitor, :sistema_operacional, :office, :processador, :memoria_ram, :armazenamento, :endereco_ip, :endereco_mac, :numero_serie, :lacre, :status, :etiqueta_patrimonio, :legenda_a, :legenda_b, :legenda_c, :legenda_d, :legenda_e, :legenda_f, :legenda_g, :legenda_h, :legenda_i, :responsavel_cadastro, :responsavel_uso, :responsavel_edicao, :data_cadastro, :data_edicao, :id_imagem, :id_unidade)';
+            $sql = 'INSERT INTO dispositivos_computadores_preventiva(nome, modelo, monitor, sistema_operacional, office, processador, memoria_ram, armazenamento, endereco_ip, endereco_mac, numero_serie, lacre, status, etiqueta_patrimonio, legenda_a, legenda_b, legenda_c, legenda_d, legenda_e, legenda_f, legenda_g, legenda_h, legenda_i, responsavel_cadastro, responsavel_uso, responsavel_edicao, data_cadastro, data_edicao, id_imagem, id_unidade, descricao)
+            VALUES (:nome, :modelo, :monitor, :sistema_operacional, :office, :processador, :memoria_ram, :armazenamento, :endereco_ip, :endereco_mac, :numero_serie, :lacre, :status, :etiqueta_patrimonio, :legenda_a, :legenda_b, :legenda_c, :legenda_d, :legenda_e, :legenda_f, :legenda_g, :legenda_h, :legenda_i, :responsavel_cadastro, :responsavel_uso, :responsavel_edicao, :data_cadastro, :data_edicao, :id_imagem, :id_unidade, :descricao)';
             $stmt = $this->db->prepare($sql);
             $stmt->execute(
                 [
@@ -49,7 +49,8 @@ class PreventivaComputadorModel
                     ':data_cadastro' => $data['data_cadastro'],
                     ':data_edicao' => $data['data_edicao'],
                     ':id_imagem' => $data['id_imagem'],
-                    ':id_unidade' => $data['id_unidade']
+                    ':id_unidade' => $data['id_unidade'],
+                    ':descricao'=> $data['descricao']
                 ]
             );
 

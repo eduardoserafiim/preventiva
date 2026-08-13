@@ -12,11 +12,8 @@ require_once '../db/db.php';
 require_once '../models/UsuarioModel.php';
 require_once '../models/AssinarModel.php';
 require_once '../models/ImagemModel.php';  
-
 require_once '../reports/EmailReport.php';
-
 require_once '../services/EmailService.php';
-
 require_once '../public/components/session/mensagem.php';
 
 include '../public/rules/regrasImagem.php';

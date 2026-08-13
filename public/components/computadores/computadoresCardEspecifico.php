@@ -162,22 +162,29 @@ function criarComputadorCardEspecifico($computador)
             </div>
             <hr>
             <div class="comentariosGeraisComputador">
-                <div class="comentariosContador">
-                    <p>Comentários</p>
-                    <div class="salvarComentariosContadores">
-                        <button id="salvarComentario" class="botaoSalvarComentarios" type="submit" form="formularioComentarios" style="border: none; background-color: inherit; cursor: pointer;">
-                            <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                        </button>
-                        <span id="contadorComentarioComputador">255/255</span>
-                    </div>
-                </div>
                 <form id="formularioComentarios" action="../controllers/ComputadoresController" method="POST">
+                    <div class="comentariosContador">
+                        <p>Comentários</p>
+                        <div class="salvarComentariosContadores">
+                            <?php if ($computador['id_preventiva'] ?? ''): ?>
+                            <?php else: ?>
+                                <button id="salvarComentario" class="botaoSalvarComentarios" type="submit" form="formularioComentarios" style="border: none; background-color: inherit; cursor: pointer;">
+                                    <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                                </button>
+                            <?php endif ?>
+                            <span id="contadorComentarioComputador">255/255</span>
+                        </div>
+                    </div>
                     <input type="hidden" name="id" value="<?= $computador['id'] ?>">
                     <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
                     <input type="hidden" name="acao" value="editarComputador">
                     <input type="hidden" name="tipoEdicao" value="editarComentarios">
                     <input type="hidden" name="informacoes" value="basicas">
-                    <textarea name="comentario" id="comentarioComputador" class="comentariosComputador" maxlength="255"><?= $computador['descricao'] ?? 'Sem comentários adicionados ainda...' ?></textarea>
+                    <?php if ($computador['id_preventiva'] ?? ''): ?>
+                        <textarea name="comentario" id="comentarioComputador" class="comentariosComputador" maxlength="255" placeholder="Sem comentários adicionados ainda..." readonly><?= htmlspecialchars($computador['descricao'] ?? '') ?></textarea>
+                    <?php else: ?>
+                        <textarea name="comentario" id="comentarioComputador" class="comentariosComputador" maxlength="255" placeholder="Sem comentários adicionados ainda..."><?= htmlspecialchars($computador['descricao'] ?? '') ?></textarea>
+                    <?php endif; ?>
                 </form>
             </div>
         </div>

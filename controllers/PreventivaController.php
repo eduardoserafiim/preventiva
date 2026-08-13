@@ -1,7 +1,14 @@
 <?php
+use App\Services\PDFService;
+
+include __DIR__ . '/../vendor/autoload.php';
+
 require_once '../db/db.php';
 
 require_once '../models/PreventivaModel.php';  
+require_once '../models/PreventivaComputadorModel.php';  
+require_once '../services/PDFService.php';  
+require_once '../reports/PDFReport.php';  
 
 require_once '../public/components/session/mensagem.php';
 
@@ -69,6 +76,76 @@ class PreventivaController
         }
     }
 
+    public function gerarPDFPreventiva()
+    {
+        try
+        {
+            $report = new PDFReport();
+            $service = new PDFService();
+            $model = new PreventivaModel();
+            $modelPreventivaComputador = new PreventivaComputadorModel();
+
+            $url = 'setor';
+            $token = trim($_POST['token']);
+            $setor = trim($_POST['setor']);
+            $idSetor = intval($_POST['id_setor']);
+            $unidade = trim($_POST['unidade']);
+            $idUnidade = intval($_POST['id_unidade']);
+            $idPreventiva = intval($_POST['id_preventiva']);
+            $ano = trim($_POST['ano']);
+            $semestre = trim($_POST['semestre']);
+            $dataInicio = trim($_POST['data_inicio']);
+            $dataTermino = trim($_POST['data_finalizacao']);
+            $tecnicoSolicitante = trim($_POST['tecnicoSolicitante']);
+            $tecnicoResponsavel = trim($_POST['responsavelPreventiva']);
+            $responsavelSetor = trim($_POST['responsavelSetor']);
+
+            $data =
+            [
+                'url'                   => $url,
+                'token'                 => $token,
+                'setor'                 => $setor,
+                'id_setor'              => $idSetor,
+                'ano'                   => $ano,
+                'semestre'              => $semestre,
+                'unidade'               => $unidade,
+                'id_unidade'            => $idUnidade,
+                'id_preventiva'         => $idPreventiva,
+                'data_inicio'           => $dataInicio,
+                'data_finalizacao'      => $dataTermino,
+                'tecnicoSolicitante'    => $tecnicoSolicitante,
+                'tecnicoResponsavel'    => $tecnicoResponsavel,
+                'responsavelSetor'      => $responsavelSetor
+            ];
+
+
+            $computadores = $modelPreventivaComputador->listarComputadorPreventiva($data);
+
+            $data += ['computadores' => $computadores];
+                
+            $conteudo = $report->reportGerarPDFPrevenitva($data);
+            $nomeArquivo = "{$semestre} - Preventiva {$ano} {$setor} {$unidade}";
+
+            if ($conteudo)
+            {
+                $service->serviceGerarPDF($conteudo, $nomeArquivo);
+
+                getMensagemSession('success', 'Sucesso ao gerar PDF!', 'PDF gerado com sucesso.', 'preventiva');
+            }
+            else
+            {  
+                throw new Error('Houve um erro interno, entre em contato com o suporte.');
+            }
+        }
+        catch(Throwable $e)
+        {
+            $texto = $e->getMessage();
+
+            getMensagemSession('error', 'Erro ao gerar PDF!', $texto, 'preventiva');
+        }
+        
+    }
+
     public function apagarPreventiva()
     {
         $id   = intval($_POST['id']);
@@ -121,23 +198,32 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'POST')
                     $controller = new PreventivaController();
                     $controller->apagarPreventiva();
                     break;
+                case 'gerarPDFPreventiva':
+                    $controller = new PreventivaController();
+                    $controller->gerarPDFPreventiva();
+                    break;
+            }
+        }
+        elseif ($_SESSION['privilegio'] === 'TI')
+        {
+            switch ($acao)
+            {
+                case 'gerarPDFPreventiva':
+                    $controller = new PreventivaController();
+                    $controller->gerarPDFPreventiva();
+                    break;
             }
         }
         else
         {
-            error_log('Falha na verificação do privilégio.');
-
             getMensagemSession('error', 'Privilégio não aceito.', 'Você não tem permissão para essa ação.', 'index');
         }
     }
     else
     {
-        error_log('Falha na verificação do token.');
-
         getMensagemSession('error', 'Token não aceito.', 'Falha na verificação do token.', 'index');
     }
 }
-exit();
 ?>
 
 <!DOCTYPE html>
@@ -156,7 +242,7 @@ exit();
             <p>Como você chegou aqui?</p>
         </div>
         <div class="erro-link">
-            <a href="../view/computadores">
+            <a href="../view/preventiva">
                 Se você não foi redirecionado automaticamente, clique aqui.
             </a>
         </div>

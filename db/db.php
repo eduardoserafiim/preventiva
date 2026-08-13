@@ -27,8 +27,7 @@ class Database
         $pass = $this->getEnvValue('DATABASE_INFORMATICA_PASSWORD');
 
         if (!$host || !$database || !$port || !$user) {
-            error_log('Database configuration is incomplete. Check DATABASE_INFORMATICA_* in .env.');
-            throw new RuntimeException('Configuracao do banco incompleta.');
+            throw new RuntimeException('Erro de conexao com o banco.');
         }
 
         $this->connect($host, $database, $port, $user, $pass);
@@ -41,7 +40,6 @@ class Database
             $this->pdo = new PDO($config, $user, $pass);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            error_log('Database connection failed: ' . $e->getMessage());
             throw new RuntimeException('Erro de conexao com o banco.');
         }
     }

@@ -169,6 +169,33 @@ $idComputador = $_GET['id_computador'] ?? '';
                 <div class="search">
                     <?= search('computadores', 'computadores', 'computadores') ?>
                 </div>
+                <div class="preventivaPDF">
+                    <form action="../controllers/PreventivaController" method="POST">
+                        <input type="hidden" name="acao" value="gerarPDFPreventiva">
+                        <input type="hidden" name="token" value="<?= htmlspecialchars($_SESSION['token']) ?>">
+                        <input type="hidden" name="setor" value="<?= htmlspecialchars($setor) ?>">
+                        <input type="hidden" name="ano" value="<?= htmlspecialchars($ano) ?>">
+                        <input type="hidden" name="semestre" value="<?= htmlspecialchars($semestre) ?>">
+                        <input type="hidden" name="unidade" value="<?= htmlspecialchars($unidade) ?>">
+                        <input type="hidden" name="id_unidade" value="<?= htmlspecialchars($unidadeID) ?>">
+                        <input type="hidden" name="id_setor" value="<?= htmlspecialchars($setorID) ?>">
+                        <input type="hidden" name="id_preventiva" value="<?= htmlspecialchars($preventivaID) ?>">
+                        <input type="hidden" name="data_inicio" value="<?= htmlspecialchars($preventivaEspecifica['data_inicio'] ?? '') ?>">
+                        <input type="hidden" name="data_finalizacao" value="<?= htmlspecialchars($preventivaEspecifica['data_finalizacao'] ?? '') ?>">
+                        <input type="hidden" name="tecnicoSolicitante" value="<?= htmlspecialchars($preventivaEspecifica['tecnico_solicitante'] ?? '') ?>">
+                        <input type="hidden" name="responsavelPreventiva" value="<?= htmlspecialchars($preventivaEspecifica['tecnico_responsavel'] ?? '') ?>">
+                        <input type="hidden" name="responsavelSetor" value="<?= htmlspecialchars($preventivaEspecifica['responsavel_setor'] ?? '') ?>">
+                        <?php if(!empty($computadores) && $preventivaStatus === 'Fechado'): ?>
+                            <button class="botao botaoPdfAtivo" type="submit">
+                                <i class="fa-solid fa-file-pdf fa-xl"></i>
+                            </button>
+                        <?php else: ?>
+                            <button class="botao botaoPdfInativo" type="button" disabled>
+                                <i class="fa-solid fa-file-pdf fa-xl"></i>
+                            </button>
+                        <?php endif ?>
+                    </form>
+                </div>
                 <div class="voltar">
                     <?php if ($_SESSION['privilegio'] != 'TI' || $_SESSION['privilegio'] === 'Administrador'): ?>
                         <?= voltar('preventiva') ?>

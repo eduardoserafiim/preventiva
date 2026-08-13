@@ -123,6 +123,11 @@
     margin-left: 0;
   }
 
+  .main-content.active
+  {
+    margin-left: 0;
+  }
+
   .sidebar {
     transform: translateX(-300px);
     visibility: hidden;
@@ -139,6 +144,8 @@
   .bar
   {
     display: flex;
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .sidebar-voltar
@@ -343,12 +350,12 @@
   .cardDVR, .cardComputador, .cardCamera
   {
     flex-direction: column;
-    width: 325px;
+    width: 365px;
   }
 
   .cameras
   {
-    width: 325px;
+    width: 365px;
   }
 
   .tituloDetalhes
@@ -417,12 +424,34 @@
     width: 259px;
     height: 259px;
   }
+
+  .legendaComputador
+  {
+    grid-template-columns: repeat(1, auto);
+  }
+  
+  .inferiorInformacoesComputador
+  {
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+    gap: 1rem;
+  }
+
+  .computadores, .botao-bar, .volltar, .page-header
+  {
+    width: 365px;
+  }
 }
 
 @media (max-width: 375px) {
   .main-content
   {
     width: 375px;
+  }
+
+  .page-header, .botao-bar, .volltar, .computadores, .cardComputador
+  {
+    width: 310px;
   }
 
   /* login */
