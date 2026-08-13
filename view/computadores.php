@@ -1,11 +1,14 @@
 <?php
 // VERIFICAÇÃO LOGIN
 session_start();
-if (!isset($_SESSION['usuario'])) {
-    header("Location: login");
-    exit;
-}
 
+if (!isset($_SESSION['id']) || !isset($_SESSION['usuario'])) {
+    
+    $_SESSION['redirect_url'] = $_SERVER['REQUEST_URI'];
+    
+    header('Location: login'); 
+    exit();
+}
 ?>
 <?php
 if ($_SESSION['privilegio'] != 'Administrador' && $_SESSION['privilegio'] != 'TI')

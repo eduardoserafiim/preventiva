@@ -7,14 +7,10 @@ require_once '../public/components/session/mensagem.php';
 
 session_start();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST')
+$acao = 'sair';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') 
 {
-    $acao = $_POST['acao'];
-}
-
-else
-{
-    $acao = 'sair';
+    $acao = $_POST['acao'] ?? 'entrar';
 }
 
 class EntrarController
@@ -52,7 +48,23 @@ class EntrarController
                     $_SESSION['nome_imagem_usuario'] = $usuario['nome_imagem'];
                     $_SESSION['token'] = bin2hex(random_bytes(32));
                     
-                    getMensagemSession('success', 'Bem vindo!', 'Você já pode navegar no sistema.', 'index');
+                    if (isset($_SESSION['redirect_url'])) 
+                    {
+                        $destino = $_SESSION['redirect_url']; 
+
+                        $data = [
+                            'destino' => $destino
+                        ];
+                        
+                        unset($_SESSION['redirect_url']);  
+
+                        getMensagemSession('success', 'Bem vindo!', 'Você já pode navegar no sistema.', 'computadores', 'QRCodeComputador', $data);
+                    }
+                    else
+                    {
+
+                        getMensagemSession('success', 'Bem vindo!', 'Você já pode navegar no sistema.', 'index');
+                    }
                 }
                 else
                 {

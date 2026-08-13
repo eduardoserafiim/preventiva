@@ -457,7 +457,7 @@
   /* login */
   .controleForm
   {
-    width: auto;
+    width:  100%;
   }
 
   .search
@@ -505,10 +505,16 @@
   {
       width: 225px;
   }
+  .form-container
+  {
+    width: 310px;
+  }
 
-  .form-grid {
+  .form-grid 
+  {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    grid-template-columns: repeat(1, auto);
+    width: 225px;
     gap: 1.5rem;
     margin-bottom: 2rem;
   }

@@ -41,6 +41,11 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
             header("Location: ../view/computadores?url=visualizar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=computador");
             exit();   
         }
+        elseif($execucao === 'QRCodeComputador')
+        {
+            header("Location: {$data['destino']}");
+            exit();   
+        }
         else
         {
             header("Location: ../view/computadores");
