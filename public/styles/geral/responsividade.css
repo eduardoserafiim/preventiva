@@ -12,6 +12,16 @@
 }
 
 @media (max-width: 1440px){
+  .container-perfil
+  {
+    width: auto;
+  }
+
+  .graficos, .container-perfil
+  {
+    grid-template-columns: repeat(1, auto);
+  }
+
   .cardDVR, .cardComputador
   {
     width: auto;
@@ -114,6 +124,11 @@
   {
     width: 700px;
   }
+
+  .setores
+  {
+    grid-template-columns: repeat(2, auto);
+  }
 }
 
 @media (max-width: 768px) {
@@ -168,9 +183,18 @@
   {
     gap: 5rem;
   }
+
+  .setores
+  {
+    grid-template-columns: repeat(2, auto);
+  }
 }
 
 @media (max-width: 425px) {
+  .main-content
+  {
+    width: 425px;
+  }
   /* computadores */
   .filtro
   {
@@ -195,6 +219,20 @@
   .form-actions-computer
   {
     height: 45px;
+  }
+
+    .form-group-editar-hardware-e-patrimonio
+  {
+    display: grid;
+    grid-template-columns: repeat(1, auto);
+  }
+
+  .form-escolher 
+  {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
   }
 
   /* login */
@@ -264,19 +302,9 @@
     width: 300px;
   }
 
-  #formularioUsuarios
-  {
-    width: 250px;
-  }
-
-  #formularioUsuarios select
-  {
-      width: 250px;
-  }
-
   .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(1, auto);
     gap: 1.5rem;
     margin-bottom: 2rem;
   }
@@ -293,9 +321,9 @@
     padding: 12px 12px 12px 12px;
   }
 
-  .fundo-container
+  .fundo-container, .fundo-perfil
   {
-    width: 300px;
+    width: auto;
   }
 
   /* setores */
@@ -441,12 +469,39 @@
   {
     width: 365px;
   }
+
+  .graficos-computadores-setores, .graficos-computadores-registrados
+  {
+    width: 250px;
+    height: 250px;
+  }
+
+  .form-container
+  {
+    width: 361px;
+  } 
+  .page-perfil
+  {
+    display: block;
+    justify-content: none;
+  }
 }
 
 @media (max-width: 375px) {
   .main-content
   {
     width: 375px;
+  }
+
+  .perfil-imagem, .perfil-informacao, .perfil-informacao input
+  {
+    width: 200px;
+  }
+
+  .formulario-imagem
+  {
+    width: 200px;
+    height: 200px;
   }
 
   .page-header, .botao-bar, .volltar, .computadores, .cardComputador
@@ -626,6 +681,17 @@
   .semestreDVREditar h4
   {
     width: 100px;
+  }
+
+  .graficos-computadores-setores, .graficos-computadores-registrados
+  {
+    width: 200px;
+    height: 200px;
+  }
+
+  .setores
+  {
+    grid-template-columns: repeat(1, auto);
   }
 }
 
@@ -843,5 +909,20 @@
   {
     width: 200px;
     height: 200px;
+  }
+
+  .form-container-editar-computador
+  {
+    width: 250px;
+  }
+
+  .form-escolher 
+  {
+    font-size: 12px;
+  }
+
+  .form-group-editar-legenda-computadores
+  {
+    grid-template-columns: repeat(1, auto);
   }
 }

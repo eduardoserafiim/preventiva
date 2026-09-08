@@ -76,6 +76,19 @@ $tipo = $_GET['tipo'] ?? '';
             <div class="page-perfil">
                 <div class="fundo-container fundo-perfil">
                     <div class="container-perfil">
+                        <div class="perfil-imagem">
+                            <form action="../controllers/UsuariosController.php" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="acao" value="alterarImagemUsuario">
+                                <input type="hidden" name="tipo" value="informacoesBasicas">
+                                <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
+                                <input type="hidden" name="idUsuario" value="<?= $_SESSION['id'] ?>">
+                                <input type="hidden" name="id_imagem_antiga" value="<?= $usuario['id_imagem_antiga'] ?>">
+                                <?= dragAreaImagemUsuario($usuario) ?>
+                                <div class="form-actions-imagem">
+        
+                                </div>
+                            </form>
+                        </div>
                         <div class="perfil-informacao">
                             <h4>Nome</h4>
                             <input type="text" value="<?= $usuario['nome'] ?>" readonly>
@@ -91,19 +104,6 @@ $tipo = $_GET['tipo'] ?? '';
                             
                             <h4>Email</h4>
                             <input type="text" value="<?= $usuario['email'] ?>" readonly>
-                        </div>
-                        <div class="perfil-imagem">
-                            <form action="../controllers/UsuariosController.php" method="POST" enctype="multipart/form-data">
-                                <input type="hidden" name="acao" value="alterarImagemUsuario">
-                                <input type="hidden" name="tipo" value="informacoesBasicas">
-                                <input type="hidden" name="token" value="<?= $_SESSION['token'] ?>">
-                                <input type="hidden" name="idUsuario" value="<?= $_SESSION['id'] ?>">
-                                <input type="hidden" name="id_imagem_antiga" value="<?= $usuario['id_imagem_antiga'] ?>">
-                                <?= dragAreaImagemUsuario($usuario) ?>
-                                <div class="form-actions-imagem">
-
-                                </div>
-                            </form>
                         </div>
                     </div>
                     <div class="container-perfil-senha">
