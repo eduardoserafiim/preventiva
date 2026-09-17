@@ -438,7 +438,16 @@ $idComputador = $_GET['id_computador'] ?? '';
                     <?php else: ?>
                         <?php foreach($preventivas as $preventiva): ?>
                             <?php if ($_SESSION['privilegio'] != 'TI' && $_SESSION['privilegio'] != 'Administrador'): ?>
-                                <a href="preventiva?url=setor&id_preventiva=<?= htmlspecialchars($preventiva['id']) ?>&id_setor=<?= htmlspecialchars($_SESSION['id_setor']) ?>&setor=<?= htmlspecialchars($_SESSION['setor']) ?>&ano=<?= htmlspecialchars($preventiva['ano']) ?>&semestre=<?= htmlspecialchars($preventiva['semestre']) ?>&unidade=<?= htmlspecialchars($_SESSION['unidade']) ?>&id_unidade=<?= htmlspecialchars($_SESSION['id_unidade']) ?>">
+                                <a href="preventiva?<?= http_build_query([
+                                    'url' => 'setor',
+                                    'id_preventiva' => $preventiva['id'],
+                                    'id_setor' => $_SESSION['id_setor'],
+                                    'setor' => $_SESSION['setor'],
+                                    'ano' => $preventiva['ano'],
+                                    'semestre' => $preventiva['semestre'],
+                                    'unidade' => $_SESSION['unidade'],
+                                    'id_unidade' => $_SESSION['id_unidade']
+                                ]) ?>">
                                     <div class="card-preventiva" data-ano='<?= $preventiva['ano'] ?>'>
                                         <div class="card-preventiva-titulo">
                                             <div class="preventiva-titulo">
@@ -465,7 +474,14 @@ $idComputador = $_GET['id_computador'] ?? '';
                                     </div>
                                 </a>
                             <?php else: ?>
-                                <a href="preventiva?url=setores&id_preventiva=<?= htmlspecialchars($preventiva['id']) ?>&ano=<?= htmlspecialchars($preventiva['ano']) ?>&semestre=<?= htmlspecialchars($preventiva['semestre']) ?>&unidade=<?= htmlspecialchars($preventiva['nome_unidade']).'&id_unidade='.htmlspecialchars($preventiva['id_unidade']) ?>">
+                                <a href="preventiva?<?= http_build_query([
+                                    'url' => 'setores',
+                                    'id_preventiva' => $preventiva['id'],
+                                    'ano' => $preventiva['ano'],
+                                    'semestre' => $preventiva['semestre'],
+                                    'unidade' => $preventiva['nome_unidade'],
+                                    'id_unidade' => $preventiva['id_unidade']
+                                ]) ?>">
                                     <div class="card-preventiva" data-ano='<?= $preventiva['ano'] ?>'>
                                         <div class="card-preventiva-titulo">
                                             <div class="preventiva-titulo">
