@@ -64,6 +64,10 @@ $informacoes = $_GET['informacoes'] ?? '';
 
 $computadorEspecifico = $modelComputador->listarComputador($id);
 
+if ($computadorEspecifico) {
+    $computadorEspecifico['imagens'] = $modelComputador->listarImagens($id);
+}
+
 ?>
 <body>
     <div class="app-container">

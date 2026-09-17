@@ -7,6 +7,7 @@
 <script src="../public/javascript/dragArea/dragArea.js"></script>
 <script src="../public/javascript/computadores/contadorTextArea.js"></script>
 <script src="../public/javascript/computadores/esconderSalvarComentarios.js"></script>
+<script src="../public/javascript/computadores/visualizarImagemComputador.js"></script>
 
 <!-- CONFIRMAÇÕES -->
 <script src="../public/javascript/usuarios/confirmarSaida.js"></script>

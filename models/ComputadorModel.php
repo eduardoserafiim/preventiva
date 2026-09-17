@@ -28,7 +28,7 @@ class ComputadorModel
                     ':responsavel_cadastro' => $data['responsavel_cadastro'],
                     ':responsavel_uso' => $data['responsavel_uso'],
                     ':status' => $data['status'],
-                    ':imagem' => $data['id_imagem']
+                    ':imagem' => $data['id_imagem'] ?? null
                 ]
             );
         
@@ -108,6 +108,41 @@ class ComputadorModel
             $texto = $e->getMessage();
 
             return false;
+        }
+    }
+
+    public function listarImagens($idComputador)
+    {
+        $sql = 'SELECT i.id, i.nome_salvo, i.nome_imagem
+                FROM computador_imagem ci
+                INNER JOIN imagem i ON i.id = ci.id_imagem
+                WHERE ci.id_computador = :id_computador
+                UNION
+                SELECT i.id, i.nome_salvo, i.nome_imagem
+                FROM dispositivos_computadores dc
+                INNER JOIN imagem i ON i.id = dc.id_imagem
+                WHERE dc.id = :id_computador_principal
+                ORDER BY id ASC';
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':id_computador' => (int) $idComputador,
+            ':id_computador_principal' => (int) $idComputador
+        ]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function vincularImagens($idComputador, array $idsImagens)
+    {
+        $sql = 'INSERT IGNORE INTO computador_imagem (id_computador, id_imagem)
+                VALUES (:id_computador, :id_imagem)';
+        $stmt = $this->db->prepare($sql);
+
+        foreach ($idsImagens as $idImagem) {
+            $stmt->execute([
+                ':id_computador' => (int) $idComputador,
+                ':id_imagem' => (int) $idImagem
+            ]);
         }
     }
 

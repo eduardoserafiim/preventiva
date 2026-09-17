@@ -2,6 +2,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const bar = document.querySelector('.bar');
   const navbar = document.querySelector('.sidebar');
   const voltar = document.querySelector('.menu-voltar');
+  const grupos = document.querySelectorAll('.menu-grupo-botao');
+
+  grupos.forEach((botao) => {
+    botao.addEventListener('click', () => {
+      const grupo = botao.closest('.menu-grupo');
+      const submenu = grupo.querySelector('.nav-children');
+      const aberto = !submenu?.classList.contains('expanded');
+      grupo.classList.toggle('aberto', aberto);
+      botao.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+
+      submenu?.classList.toggle('expanded', aberto);
+
+      const chevron = botao.querySelector('.chevron');
+      chevron?.classList.toggle('rotated', aberto);
+    });
+  });
 
   if (bar) {
     setTimeout(() => {

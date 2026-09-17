@@ -2,8 +2,27 @@
 function criarComputadorCardEspecifico($computador)
 { ?>
     <div class="cardComputador">
-        <div class="imagemComputador">
-            <img src="../upload/computadores/<?= !empty($computador['nome_imagem']) ? $computador['nome_imagem'] : 'default-computador.png' ?>" alt="Algo está errado.">
+        <div class="galeriaComputador">
+            <?php $imagens = $computador['imagens'] ?? []; ?>
+            <?php if (empty($imagens)): ?>
+                <?php $imagens = [['nome_salvo' => 'default-computador.png']]; ?>
+            <?php endif ?>
+            <?php $primeiraImagem = '../upload/computadores/' . $imagens[0]['nome_salvo']; ?>
+            <div class="galeriaImagemPrincipal">
+                <button type="button" class="botaoVisualizarImagemComputador" data-imagem="<?= htmlspecialchars($primeiraImagem, ENT_QUOTES, 'UTF-8') ?>" aria-label="Ampliar imagem de <?= htmlspecialchars($computador['nome'], ENT_QUOTES, 'UTF-8') ?>">
+                    <img class="imagemPrincipalComputador" src="<?= htmlspecialchars($primeiraImagem, ENT_QUOTES, 'UTF-8') ?>" alt="Imagem principal de <?= htmlspecialchars($computador['nome'], ENT_QUOTES, 'UTF-8') ?>">
+                </button>
+            </div>
+            <?php if (count($imagens) > 1): ?>
+                <div class="miniaturasComputador" aria-label="Miniaturas das imagens do computador">
+                    <?php foreach ($imagens as $indice => $imagem): ?>
+                        <?php $caminhoImagem = '../upload/computadores/' . $imagem['nome_salvo']; ?>
+                        <button type="button" class="miniaturaComputador <?= $indice === 0 ? 'selecionada' : '' ?>" data-imagem="<?= htmlspecialchars($caminhoImagem, ENT_QUOTES, 'UTF-8') ?>" aria-label="Visualizar imagem <?= $indice + 1 ?>">
+                            <img src="<?= htmlspecialchars($caminhoImagem, ENT_QUOTES, 'UTF-8') ?>" alt="Miniatura <?= $indice + 1 ?>">
+                        </button>
+                    <?php endforeach ?>
+                </div>
+            <?php endif ?>
         </div>
         <div class="conteudoComputador">
             <div class="topoInformacoesComputador">

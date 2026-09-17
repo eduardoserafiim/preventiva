@@ -53,3 +53,33 @@ function imagemRegras($pasta, $idImagemAntiga = null, $tipo)
     
     return $modelImagem->criar($dataSalvarImagem);
 }
+
+function imagensRegras($pasta, $tipo)
+{
+    if (!isset($_FILES['imagens']) || !is_array($_FILES['imagens']['name'])) {
+        return [];
+    }
+
+    $ids = [];
+    foreach ($_FILES['imagens']['name'] as $indice => $nomeOriginal) {
+        if ($_FILES['imagens']['error'][$indice] === UPLOAD_ERR_NO_FILE) {
+            continue;
+        }
+
+        $_FILES['imagem'] = [
+            'name' => $_FILES['imagens']['name'][$indice],
+            'type' => $_FILES['imagens']['type'][$indice],
+            'tmp_name' => $_FILES['imagens']['tmp_name'][$indice],
+            'error' => $_FILES['imagens']['error'][$indice],
+            'size' => $_FILES['imagens']['size'][$indice]
+        ];
+
+        $id = imagemRegras($pasta, null, $tipo);
+        if ($id !== null) {
+            $ids[] = $id;
+        }
+    }
+
+    unset($_FILES['imagem']);
+    return $ids;
+}

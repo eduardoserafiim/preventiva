@@ -52,7 +52,8 @@ class ComputadorController
                 'status'                => $status
             ];
             
-            $idImagemNovo = imagemRegras($pasta, null, 'Computador');
+            $idsImagensNovas = imagensRegras($pasta, 'Computador');
+            $idImagemNovo = $idsImagensNovas[0] ?? null;
 
             if ($idImagemNovo !== null) 
             {
@@ -62,6 +63,10 @@ class ComputadorController
             $modelRes = $modelComputadores->criarComputador($data);
 
             $id = $modelRes;
+
+            if ($modelRes && count($idsImagensNovas) > 1) {
+                $modelComputadores->vincularImagens($id, array_slice($idsImagensNovas, 1));
+            }
 
             if($modelRes === false)
             {
@@ -135,7 +140,8 @@ class ComputadorController
                     'id'                    => $id
                 ];
                 
-                $idImagemNovo = imagemRegras($pasta, null, 'Computador');
+                $idsImagensNovas = imagensRegras($pasta, 'Computador');
+                $idImagemNovo = $idsImagensNovas[0] ?? null;
     
                 if ($idImagemNovo !== null) 
                 {
@@ -148,6 +154,10 @@ class ComputadorController
                 }
     
                 $modelRes = $modelComputadores->editarComputador($data, $edicao);
+
+                if ($modelRes && count($idsImagensNovas) > 1) {
+                    $modelComputadores->vincularImagens($id, array_slice($idsImagensNovas, 1));
+                }
     
                 if($modelRes === false)
                 {

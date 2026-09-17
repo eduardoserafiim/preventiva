@@ -3,7 +3,10 @@ function criarComputadorCard($computador)
 { ?>
     <div class="cardComputador" data-nome="<?= $computador['nome'] ?>" data-endereco-ip="<?= $computador['endereco_ip'] ?>" data-endereco-mac="<?= $computador['endereco_mac'] ?>">
         <div class="imagemComputador">
-            <img src="../upload/computadores/<?= !empty($computador['nome_imagem']) ? $computador['nome_imagem'] : 'default-computador.png' ?>" alt="Algo está errado.">
+            <?php $caminhoImagem = '../upload/computadores/' . (!empty($computador['nome_imagem']) ? $computador['nome_imagem'] : 'default-computador.png'); ?>
+            <button type="button" class="botaoVisualizarImagemComputador" data-imagem="<?= htmlspecialchars($caminhoImagem, ENT_QUOTES, 'UTF-8') ?>" aria-label="Ampliar imagem de <?= htmlspecialchars($computador['nome'], ENT_QUOTES, 'UTF-8') ?>">
+                <img src="<?= htmlspecialchars($caminhoImagem, ENT_QUOTES, 'UTF-8') ?>" alt="Computador <?= htmlspecialchars($computador['nome'], ENT_QUOTES, 'UTF-8') ?>">
+            </button>
         </div>
         <div class="conteudoComputador">
             <div class="topoInformacoesComputador">
