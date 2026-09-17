@@ -1,9 +1,10 @@
 const dropArea = document.getElementById("formulario-imagem-receber");
 const fileInput = document.getElementById("input-imagem");
 const preview = document.getElementById("preview");
+const previewsContainer = document.getElementById("previews-imagens");
 
-if (dropArea && fileInput && preview) {
-  if (preview.src && preview.src !== window.location.href) {
+if (dropArea && fileInput && (preview || previewsContainer)) {
+  if (preview && preview.src && preview.src !== window.location.href) {
     preview.style.display = "block";
   }
 
@@ -21,16 +22,26 @@ if (dropArea && fileInput && preview) {
   dropArea.addEventListener("drop", (e) => {
     e.preventDefault();
     dropArea.classList.remove("dragover");
-    handleFile(e.dataTransfer.files[0]);
+    handleFiles(e.dataTransfer.files);
   });
 
   fileInput.addEventListener("change", () => {
-    handleFile(fileInput.files[0]);
+    handleFiles(fileInput.files);
   });
 }
 
-function handleFile(file) {
-  if (!preview) {
+function handleFiles(files) {
+  if (previewsContainer) {
+    previewsContainer.innerHTML = "";
+    Array.from(files).forEach((file) => handleFile(file, previewsContainer));
+    return;
+  }
+
+  handleFile(files[0], preview);
+}
+
+function handleFile(file, destino) {
+  if (!destino) {
     return;
   }
 
@@ -39,10 +50,17 @@ function handleFile(file) {
     return;
   }
 
+  const elemento = destino === previewsContainer ? document.createElement("img") : destino;
+  if (destino === previewsContainer) {
+    elemento.className = "preview-imagem";
+    elemento.alt = "Nova imagem do computador";
+    destino.appendChild(elemento);
+  }
+
   const reader = new FileReader();
   reader.onload = () => {
-    preview.src = reader.result;
-    preview.style.display = "block";
+    elemento.src = reader.result;
+    elemento.style.display = "block";
   };
   reader.readAsDataURL(file);
 }

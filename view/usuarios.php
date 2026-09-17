@@ -100,7 +100,7 @@ $usuario = $usuariosModel->validar($_SESSION['usuario']);
                         <p>Administrar usuários no sistema</p>
                     </div>
                     <div class="page-criar-usuario">
-                        <?= criarUsuario('Registrar',"usuarios?url=criar&token={$_SESSION['token']}&tipo=usuario&informacoes=basicas") ?>
+                        <?= criarUsuario('Registrar',"usuarios?url=criar&tipo=usuario&informacoes=basicas") ?>
                     </div>
                 </div>
                 <div class="search">

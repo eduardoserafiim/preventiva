@@ -216,7 +216,7 @@
         align-items: center;
         justify-content: center;
         padding: 2rem;
-        background: rgba(15, 23, 42, 0.82);
+        background: rgba(35, 38, 44, 0.82);
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.2s ease;

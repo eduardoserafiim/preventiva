@@ -46,7 +46,7 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                 </div>
                 <div class="opcoesDVR">
                     <div class="configuracoesDVR">
-                        <a href="cameras?url=editar&token=<?= $_SESSION['token'] ?>&tipo=dvr&id=<?= $dvrEspecifico['id'] ?>">
+                            <a href="cameras?url=editar&tipo=dvr&id=<?= $dvrEspecifico['id'] ?>">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
@@ -78,11 +78,11 @@ function criarCardDVRDetalhado($dvrEspecifico, $modelDVRCameras){ ?>
                         <?php if ($quantidadeCanais <= $dvrEspecifico['canais']): ?>
                             <?php if (isset($canaisOcupados[$quantidadeCanais])): ?>
                                 <?php $camera = $canaisOcupados[$quantidadeCanais]; ?>
-                                <a href="cameras?url=visualizar&token=<?= $_SESSION['token'] ?>&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvrEspecifico['id'] ?>" class="canalOcupado" title="Canal <?= $quantidadeCanais ?> ocupado - Status: <?= htmlspecialchars($camera['status']) ?>">
+                                <a href="cameras?url=visualizar&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvrEspecifico['id'] ?>" class="canalOcupado" title="Canal <?= $quantidadeCanais ?> ocupado - Status: <?= htmlspecialchars($camera['status']) ?>">
                                     <?= htmlspecialchars($camera['status']) ?>
                                 </a>
                             <?php else: ?>
-                                <a href="cameras?url=criar&token=<?= $_SESSION['token'] ?>&tipo=camera&id=<?= $quantidadeCanais ?>&idDVR=<?= $dvrEspecifico['id'] ?>" class="canalDisponivel verde" title="Canal <?= $quantidadeCanais ?> disponível">
+                                <a href="cameras?url=criar&tipo=camera&id=<?= $quantidadeCanais ?>&idDVR=<?= $dvrEspecifico['id'] ?>" class="canalDisponivel verde" title="Canal <?= $quantidadeCanais ?> disponível">
                                 </a>
                             <?php endif; ?>
                         <?php else: ?>

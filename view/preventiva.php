@@ -83,7 +83,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                     </div>
                 </div>
                 <div class="voltar">
-                    <?= voltar('preventiva?url=setor&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
+                    <?= voltar('preventiva?url=setor&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
                 </div>
                 <div class="computadores">
                     <?= criarComputadorCardEspecifico($computadorEspecifico) ?>
@@ -103,7 +103,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                     <?= search('search-input', 'computadores', 'computadores') ?>
                 </div>
                 <div class="voltar">
-                    <?= voltar('preventiva?url=setor&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
+                    <?= voltar('preventiva?url=setor&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
                 </div>
                 <div class="computadores">
                     <?php if(empty($computadoresDisponiveis)): ?>
@@ -161,7 +161,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                         <?php if($preventivaStatus === 'Nenhum' || $preventivaStatus === 'Fechado'): ?>
                         <?php else: ?>
                             <div class="page-relacionar-computador">
-                                <?= relacionarPreventiva('Registrar PC', 'preventiva?url=relacionar&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&tipo=preventiva_computador'.'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
+                                <?= relacionarPreventiva('Registrar PC', 'preventiva?url=relacionar&id_preventiva='.htmlspecialchars($preventivaID).'&id_setor='.htmlspecialchars($setorID).'&setor='.htmlspecialchars($setor).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&tipo=preventiva_computador'.'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
                             </div>
                         <?php endif ?>
                     <?php endif ?>
@@ -200,7 +200,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                     <?php if ($_SESSION['privilegio'] != 'TI' || $_SESSION['privilegio'] === 'Administrador'): ?>
                         <?= voltar('preventiva') ?>
                     <?php else: ?>
-                        <?= voltar('preventiva?url=setores&token='.htmlspecialchars($_SESSION['token']).'&id_preventiva='.htmlspecialchars($preventivaID).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
+                        <?= voltar('preventiva?url=setores&id_preventiva='.htmlspecialchars($preventivaID).'&ano='.htmlspecialchars($ano).'&semestre='.htmlspecialchars($semestre).'&unidade='.htmlspecialchars($unidade).'&id_unidade='.htmlspecialchars($unidadeID)) ?>
                     <?php endif ?>
                 </div>
                 <div class="preventiva-informacoes-basicas">
@@ -387,7 +387,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                             $statusPreventivaSetor = $preventivaStatus[$setor['id']] ?? '';
                         ?>
                         <div class="card-setor" data-nome="<?= $setor['nome'] ?>">
-                            <a href="preventiva?url=setor&token=<?= htmlspecialchars($_SESSION['token']) ?>&id_preventiva=<?= htmlspecialchars($preventivaID) ?>&id_setor=<?= htmlspecialchars($setor['id']) ?>&setor=<?= htmlspecialchars($setor['nome']) ?>&ano=<?= htmlspecialchars($ano) ?>&semestre=<?= htmlspecialchars($semestre) ?>&unidade=<?= htmlspecialchars($unidade) ?>&id_unidade=<?= htmlspecialchars($unidadeID) ?>">
+                            <a href="preventiva?url=setor&id_preventiva=<?= htmlspecialchars($preventivaID) ?>&id_setor=<?= htmlspecialchars($setor['id']) ?>&setor=<?= htmlspecialchars($setor['nome']) ?>&ano=<?= htmlspecialchars($ano) ?>&semestre=<?= htmlspecialchars($semestre) ?>&unidade=<?= htmlspecialchars($unidade) ?>&id_unidade=<?= htmlspecialchars($unidadeID) ?>">
                                 <div class="card-setor-titulo">
                                     <i class="fa <?= $setor['icon'] ?> fa-xl"></i>
                                     <h4><?= $setor['nome'] ?></h4>
@@ -425,7 +425,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                     </div>
                     <?php if ($_SESSION['privilegio'] === 'Administrador'): ?>
                         <div class="page-criar-preventiva">
-                            <?= criarPreventiva('Registrar', "preventiva?url=criar&token={$_SESSION['token']}&tipo=preventiva") ?>
+                            <?= criarPreventiva('Registrar', "preventiva?url=criar&tipo=preventiva") ?>
                         </div>
                     <?php endif ?>
                 </div>
@@ -438,7 +438,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                     <?php else: ?>
                         <?php foreach($preventivas as $preventiva): ?>
                             <?php if ($_SESSION['privilegio'] != 'TI' && $_SESSION['privilegio'] != 'Administrador'): ?>
-                                <a href="preventiva?url=setor&token=<?= htmlspecialchars($_SESSION['token']) ?>&id_preventiva=<?= htmlspecialchars($preventiva['id']) ?>&id_setor=<?= htmlspecialchars($_SESSION['id_setor']) ?>&setor=<?= htmlspecialchars($_SESSION['setor']) ?>&ano=<?= htmlspecialchars($preventiva['ano']) ?>&semestre=<?= htmlspecialchars($preventiva['semestre']) ?>&unidade=<?= htmlspecialchars($_SESSION['unidade']) ?>&id_unidade=<?= htmlspecialchars($_SESSION['id_unidade']) ?>">
+                                <a href="preventiva?url=setor&id_preventiva=<?= htmlspecialchars($preventiva['id']) ?>&id_setor=<?= htmlspecialchars($_SESSION['id_setor']) ?>&setor=<?= htmlspecialchars($_SESSION['setor']) ?>&ano=<?= htmlspecialchars($preventiva['ano']) ?>&semestre=<?= htmlspecialchars($preventiva['semestre']) ?>&unidade=<?= htmlspecialchars($_SESSION['unidade']) ?>&id_unidade=<?= htmlspecialchars($_SESSION['id_unidade']) ?>">
                                     <div class="card-preventiva" data-ano='<?= $preventiva['ano'] ?>'>
                                         <div class="card-preventiva-titulo">
                                             <div class="preventiva-titulo">
@@ -465,7 +465,7 @@ $idComputador = $_GET['id_computador'] ?? '';
                                     </div>
                                 </a>
                             <?php else: ?>
-                                <a href="preventiva?url=setores&token=<?= $_SESSION['token'] ?>&id_preventiva=<?= htmlspecialchars($preventiva['id']) ?>&ano=<?= htmlspecialchars($preventiva['ano']) ?>&semestre=<?= htmlspecialchars($preventiva['semestre']) ?>&unidade=<?= htmlspecialchars($preventiva['nome_unidade']).'&id_unidade='.htmlspecialchars($preventiva['id_unidade']) ?>">
+                                <a href="preventiva?url=setores&id_preventiva=<?= htmlspecialchars($preventiva['id']) ?>&ano=<?= htmlspecialchars($preventiva['ano']) ?>&semestre=<?= htmlspecialchars($preventiva['semestre']) ?>&unidade=<?= htmlspecialchars($preventiva['nome_unidade']).'&id_unidade='.htmlspecialchars($preventiva['id_unidade']) ?>">
                                     <div class="card-preventiva" data-ano='<?= $preventiva['ano'] ?>'>
                                         <div class="card-preventiva-titulo">
                                             <div class="preventiva-titulo">

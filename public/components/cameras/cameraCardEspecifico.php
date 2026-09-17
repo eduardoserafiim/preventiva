@@ -40,7 +40,7 @@ function criarCardCameraDetalhada($camera, $dvr)
                 </div>
                 <div class="opcoesCamera">
                     <div class="configuracoesCamera">
-                        <a href="cameras?url=editar&token=<?= $_SESSION['token'] ?>&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvr['id'] ?>">
+                        <a href="cameras?url=editar&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvr['id'] ?>">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>

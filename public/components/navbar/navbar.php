@@ -26,24 +26,33 @@ function navbar($active, $usuario = '')
                     </a>
                 </div>
             <?php else: ?>
+                <?php $ehUsuario = in_array($_SESSION['privilegio'] ?? '', ['usuario', 'Usuário'], true); ?>
                 <div class="nav-item">
                     <a href="index" class="nav-button <?= $active === 'menu' ? 'active' : '' ?>">
                         <span class="nav-button-content"><i class="fas fa-house"></i><span>Início</span></span>
                     </a>
                 </div>
 
-                <?php $dispositivosAtivos = in_array($active, ['computadores', 'cameras', 'preventiva'], true); ?>
-                <div class="nav-item menu-grupo">
-                    <button type="button" class="nav-button <?= $dispositivosAtivos ? 'active' : '' ?> menu-grupo-botao" aria-expanded="<?= $dispositivosAtivos ? 'true' : 'false' ?>">
-                        <span class="nav-button-content"><i class="fas fa-circle-info"></i><span>Dispositivos</span></span>
-                        <i class="fas fa-chevron-down chevron <?= $dispositivosAtivos ? 'rotated' : '' ?>"></i>
-                    </button>
-                    <div class="nav-children <?= $dispositivosAtivos ? 'expanded' : '' ?>">
-                        <a href="computadores" class="nav-child-link <?= $active === 'computadores' ? 'active' : '' ?>">Computadores</a>
-                        <a href="cameras" class="nav-child-link <?= $active === 'cameras' ? 'active' : '' ?>">CFTV</a>
-                        <a href="preventiva" class="nav-child-link <?= $active === 'preventiva' ? 'active' : '' ?>">Preventiva</a>
+                <?php if ($ehUsuario): ?>
+                    <div class="nav-item">
+                        <a href="preventiva" class="nav-button <?= $active === 'preventiva' ? 'active' : '' ?>">
+                            <span class="nav-button-content"><i class="fas fa-clipboard-check"></i><span>Preventiva</span></span>
+                        </a>
                     </div>
-                </div>
+                <?php else: ?>
+                    <?php $dispositivosAtivos = in_array($active, ['computadores', 'cameras', 'preventiva'], true); ?>
+                    <div class="nav-item menu-grupo">
+                        <button type="button" class="nav-button <?= $dispositivosAtivos ? 'active' : '' ?> menu-grupo-botao" aria-expanded="<?= $dispositivosAtivos ? 'true' : 'false' ?>">
+                            <span class="nav-button-content"><i class="fas fa-network-wired"></i><span>Dispositivos</span></span>
+                            <i class="fas fa-chevron-down chevron <?= $dispositivosAtivos ? 'rotated' : '' ?>"></i>
+                        </button>
+                        <div class="nav-children <?= $dispositivosAtivos ? 'expanded' : '' ?>">
+                            <a href="computadores" class="nav-child-link <?= $active === 'computadores' ? 'active' : '' ?>">Computadores</a>
+                            <a href="cameras" class="nav-child-link <?= $active === 'cameras' ? 'active' : '' ?>">CFTV</a>
+                            <a href="preventiva" class="nav-child-link <?= $active === 'preventiva' ? 'active' : '' ?>">Preventiva</a>
+                        </div>
+                    </div>
+                <?php endif ?>
 
                 <?php if ($_SESSION['privilegio'] === 'Administrador'): ?>
                     <?php $recursosAtivos = in_array($active, ['usuarios', 'setores'], true); ?>

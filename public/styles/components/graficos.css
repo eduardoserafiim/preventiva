@@ -2,16 +2,106 @@
 {
     margin-top: 2rem;
     display: grid;
-    place-items: center;
-    align-items: center;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem;
     transition: opacity 0.4s ease, transform 0.4s ease;
     margin-bottom: 2rem;
 }
 
-.graficos-computadores-setores
+.graficos-computadores-setores,
+.graficos-computadores-registrados,
+.graficos-status
 {
-    width: 300px;
-    height: 300px;
+    min-width: 0;
+    height: 360px;
+    padding: 1.25rem;
+    border: 1px solid #e5eaf0;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #ffffff 0%, #f7fafc 100%);
+}
+
+.graficos-computadores-setores {
+    grid-column: span 2;
+}
+
+.grafico-cabecalho {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.grafico-cabecalho h3 {
+    margin: 0;
+    color: #243447;
+    font-size: 1rem;
+}
+
+.grafico-cabecalho span {
+    color: #8492a6;
+    font-size: 0.75rem;
+}
+
+.dashboard-resumo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.dashboard-indicador {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 1rem;
+    border: 1px solid #e5eaf0;
+    border-radius: 10px;
+    background: #fbfcfd;
+}
+
+.dashboard-indicador-icone {
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    color: #105ca6;
+    background: #e8f1fa;
+}
+
+.dashboard-indicador div {
+    display: grid;
+    gap: 0.15rem;
+}
+
+.dashboard-indicador strong {
+    color: #243447;
+    font-size: 1.35rem;
+}
+
+.dashboard-indicador div span {
+    color: #718096;
+    font-size: 0.78rem;
+}
+
+@media (max-width: 760px) {
+    .graficos {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .graficos-computadores-setores {
+        grid-column: span 1;
+    }
+
+    .graficos-computadores-setores,
+    .graficos-computadores-registrados,
+    .graficos-status {
+        height: 320px;
+    }
+
+    .dashboard-resumo {
+        grid-template-columns: 1fr;
+    }
 }

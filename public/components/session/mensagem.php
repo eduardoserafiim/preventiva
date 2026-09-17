@@ -28,17 +28,17 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
     {
         if ($execucao === 'editarComputador')
         {
-            header("Location: ../view/computadores?url=editar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=computador". "&informacoes=" . urlencode($data['informacoes']));
+            header("Location: ../view/computadores?url=editar". "&id=" . urlencode($data['id']). "&tipo=computador". "&informacoes=" . urlencode($data['informacoes']));
             exit();
         }
         elseif ($execucao === 'criarComputador')
         {
-            header("Location: ../view/computadores?url=criar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=computador". "&informacoes=" . urlencode($data['informacoes']));
+            header("Location: ../view/computadores?url=criar". "&id=" . urlencode($data['id']). "&tipo=computador". "&informacoes=" . urlencode($data['informacoes']));
             exit();
         }
         elseif ($execucao === 'visualizarComputador')
         {
-            header("Location: ../view/computadores?url=visualizar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=computador");
+            header("Location: ../view/computadores?url=visualizar". "&id=" . urlencode($data['id']). "&tipo=computador");
             exit();   
         }
         elseif($execucao === 'QRCodeComputador')
@@ -56,22 +56,22 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
     {
         if ($execucao === 'editarDVR')
         {
-            header("Location: ../view/cameras?url=editar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=dvr". "&informacoes=" . urlencode($data['informacoes']));
+            header("Location: ../view/cameras?url=editar". "&id=" . urlencode($data['id']). "&tipo=dvr". "&informacoes=" . urlencode($data['informacoes']));
             exit();
         }
         elseif ($execucao === 'criarDVR')
         {
-            header("Location: ../view/cameras?url=criar". "&token=" . urlencode($data['token']). "&tipo=dvr". "&informacoes=" . urlencode($data['informacoes']));
+            header("Location: ../view/cameras?url=criar". "&tipo=dvr". "&informacoes=" . urlencode($data['informacoes']));
             exit();
         }
         elseif ($execucao === 'visualizarDVR')
         {
-            header("Location: ../view/cameras?url=visualizar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['id']). "&tipo=dvr". "&informacoes=" . urlencode($data['informacoes']));
+            header("Location: ../view/cameras?url=visualizar". "&id=" . urlencode($data['id']). "&tipo=dvr". "&informacoes=" . urlencode($data['informacoes']));
             exit();
         }
         elseif ($execucao === 'visualizarCamera')
         {
-            header("Location: ../view/cameras?url=visualizar". "&token=" . urlencode($data['token']). "&id=" . urlencode($data['idCamera']). "&idDVR=". $data['idDVR'] ."&tipo=camera");
+            header("Location: ../view/cameras?url=visualizar". "&id=" . urlencode($data['idCamera']). "&idDVR=". $data['idDVR'] ."&tipo=camera");
             exit();
         }
         else
@@ -84,17 +84,17 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
     {
         if($execucao === 'criarPreventiva')
         {
-            header("Location: ../view/preventiva?url=criar". "&token=" . urlencode($data['token']). "&tipo=preventiva");
+            header("Location: ../view/preventiva?url=criar". "&tipo=preventiva");
             exit();
         }
         elseif ($execucao === 'assinarPreventiva')
         {
-            header("Location: ../view/preventiva?url=setor&token=".$data['token']."&id_preventiva=".$data['id_preventiva']."&id_setor=".$data['id_setor']."&setor=".$data['setor']."&ano=".$data['ano']."&semestre=".$data['semestre']."&unidade=".$data['unidade']."&id_unidade=".$data['unidadeID']);
+            header("Location: ../view/preventiva?url=setor&id_preventiva=".$data['id_preventiva']."&id_setor=".$data['id_setor']."&setor=".$data['setor']."&ano=".$data['ano']."&semestre=".$data['semestre']."&unidade=".$data['unidade']."&id_unidade=".$data['unidadeID']);
             exit();
         }
         elseif ($execucao === 'relacionarPreventiva')
         {
-            header("Location: ../view/preventiva?url=setor&token=".$data['token']."&id_preventiva=".$data['id_preventiva']."&id_setor=".$data['id_setor']."&setor=".$data['setor']."&ano=".$data['ano']."&semestre=".$data['semestre']."&unidade=".$data['unidade']."&id_unidade=".$data['unidadeID']);
+            header("Location: ../view/preventiva?url=setor&id_preventiva=".$data['id_preventiva']."&id_setor=".$data['id_setor']."&setor=".$data['setor']."&ano=".$data['ano']."&semestre=".$data['semestre']."&unidade=".$data['unidade']."&id_unidade=".$data['unidadeID']);
             exit();
         }
         else
@@ -107,7 +107,7 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
     {
         if($execucao === 'criarUsuario')
         {
-            header("Location: ../view/usuarios?url=criar&token=".$data['token']."&tipo=".$data['tipo']."&informacoes=".$data['informacoe']);
+            header("Location: ../view/usuarios?url=criar&tipo=".$data['tipo']."&informacoes=".$data['informacoe']);
             exit();
         }
         else
@@ -120,7 +120,7 @@ function getMensagemSession($tipo, $titulo, $texto, $view, $execucao = '', $data
     {
         if ($execucao === 'setoresCriar')
         {
-            header("Location: ../view/setores?url=criar&token=".$data['token']."&tipo=setor");
+            header("Location: ../view/setores?url=criar&tipo=setor");
             exit();
         }
         else

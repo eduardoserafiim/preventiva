@@ -9,7 +9,7 @@ function criarSetorCard($setor)
             </div>
             <div class="setor-editar-excluir">
                 <div class="setor-editar">
-                    <a href="setores?url=editar&token=<?= htmlspecialchars($_SESSION['token']) ?>&nome=<?= htmlspecialchars($setor['nome']) ?>&icone=<?= htmlspecialchars($setor['icon']) ?>&idSetor=<?= htmlspecialchars($setor['id']) ?>&tipo=setor">
+                    <a href="setores?url=editar&nome=<?= htmlspecialchars($setor['nome']) ?>&icone=<?= htmlspecialchars($setor['icon']) ?>&idSetor=<?= htmlspecialchars($setor['id']) ?>&tipo=setor">
                         <i class="fa-solid fa-pen-to-square fa-lg"></i>
                     </a>
                 </div>

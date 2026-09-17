@@ -186,17 +186,46 @@ class PreventivaComputadorModel
         }
     }
 
-    public function quantidadeComputadoreRelacionadosSetor()
+    public function quantidadeComputadoreRelacionadosSetor($idUnidade = null, $idSetor = null)
     {
         try
         {   
-            $sql = 'SELECT s.nome, COUNT(pc.id_computador) as total 
-                FROM preventiva_computadores pc 
-                JOIN setores s 
-                    ON pc.id_setor = s.id 
-                GROUP BY s.nome';
+            $sql = 'SELECT s.nome, COUNT(pc.id_computador) as total
+                FROM preventiva_computadores pc
+                JOIN setores s
+                    ON pc.id_setor = s.id
+                JOIN preventiva p
+                    ON pc.id_preventiva = p.id';
+            $params = [];
+            $conditions = [];
+
+            $conditions[] = 'p.id = (
+                SELECT p_ultima.id
+                FROM preventiva p_ultima
+                WHERE p_ultima.id_unidade = p.id_unidade
+                ORDER BY p_ultima.ano DESC,
+                    CASE WHEN p_ultima.semestre LIKE "2%" THEN 2 ELSE 1 END DESC,
+                    p_ultima.id DESC
+                LIMIT 1
+            )';
+
+            if ($idUnidade !== null) {
+                $conditions[] = 'p.id_unidade = :id_unidade';
+                $params[':id_unidade'] = (int) $idUnidade;
+            }
+
+            if ($idSetor !== null) {
+                $conditions[] = 'pc.id_setor = :id_setor';
+                $params[':id_setor'] = (int) $idSetor;
+            }
+
+            if ($conditions) {
+                $sql .= ' WHERE ' . implode(' AND ', $conditions);
+            }
+
+            $sql .= ' GROUP BY s.nome';
             $stmt = $this->db->prepare($sql);
-            $query = $stmt->execute();
+            $query = $stmt->execute($params);
 
             if ($query)
             {

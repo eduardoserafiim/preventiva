@@ -44,7 +44,6 @@ $modelSetor = new SetorModel();
 $modelUsuario = new UsuarioModel();
 
 $url = $_GET['url'] ?? '';
-$token = $_GET['token'] ?? '';
 $tipo = $_GET['tipo'] ?? '';
 $nome = $_GET['nome'] ?? '';
 $icone = $_GET['icone'] ?? '';
@@ -110,7 +109,7 @@ $usuario = $modelUsuario->validar($_SESSION['usuario']);
                         <h1>Setores</h1>
                         <p>Visualize os setores disponíveis</p>
                     </div>
-                    <?= criarSetor('Criar Setor', 'setores?url=criar'.'&token='.$_SESSION['token'].'&tipo=setor') ?>
+                    <?= criarSetor('Criar Setor', 'setores?url=criar&tipo=setor') ?>
                 </div>
                 <div class="search">
                     <?= search('search-input-setor', 'setor') ?>

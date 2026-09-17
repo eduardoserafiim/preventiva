@@ -4,6 +4,7 @@
 <!-- COMPONENTS -->
 <script src="../public/javascript/bar/bar.js"></script>
 <script src="../public/javascript/computadores/searchComputador.js"></script>
+<script src="../public/javascript/computadores/rascunhoComputador.js"></script>
 <script src="../public/javascript/dragArea/dragArea.js"></script>
 <script src="../public/javascript/computadores/contadorTextArea.js"></script>
 <script src="../public/javascript/computadores/esconderSalvarComentarios.js"></script>

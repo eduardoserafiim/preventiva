@@ -40,17 +40,35 @@ class ComputadorModel
         }
     }
 
-    public function qunatidadeComputadoresRegistradosUnidade()
+    public function qunatidadeComputadoresRegistradosUnidade($idUnidade = null, $idSetor = null)
     {
         try
         {
-            $sql = 'SELECT u.nome AS unidade, COUNT(d.id) AS total 
-                FROM dispositivos_computadores d
-                JOIN unidade u 
-                    ON d.id_unidade = u.id
-                GROUP BY u.nome';
+            if ($idSetor !== null) {
+                $sql = 'SELECT u.nome AS unidade, COUNT(DISTINCT c.id) AS total
+                    FROM dispositivos_computadores_preventiva c
+                    JOIN preventiva_computadores pc
+                        ON pc.id_computador = c.id
+                    JOIN unidade u
+                        ON c.id_unidade = u.id
+                    WHERE pc.id_setor = :id_setor';
+                $params = [':id_setor' => (int) $idSetor];
+            } else {
+                $sql = 'SELECT u.nome AS unidade, COUNT(d.id) AS total
+                    FROM dispositivos_computadores d
+                    JOIN unidade u
+                        ON d.id_unidade = u.id';
+                $params = [];
+            }
+
+            if ($idUnidade !== null) {
+                $sql .= $idSetor !== null ? ' AND c.id_unidade = :id_unidade' : ' WHERE d.id_unidade = :id_unidade';
+                $params[':id_unidade'] = (int) $idUnidade;
+            }
+
+            $sql .= ' GROUP BY u.nome';
             $stmt = $this->db->prepare($sql);
-            $query = $stmt->execute();
+            $query = $stmt->execute($params);
     
             if ($query)
             {
@@ -69,12 +87,54 @@ class ComputadorModel
         }
     }
 
-    public function listarComputador($id = null, $unidade = null)
+    public function quantidadeComputadoresPorStatus($idUnidade = null, $idSetor = null)
+    {
+        try {
+            if ($idSetor !== null) {
+                $sql = 'SELECT c.status, COUNT(DISTINCT c.id) AS total
+                    FROM dispositivos_computadores_preventiva c
+                    JOIN preventiva_computadores pc
+                        ON pc.id_computador = c.id
+                    WHERE pc.id_setor = :id_setor';
+                $params = [':id_setor' => (int) $idSetor];
+            } else {
+                $sql = 'SELECT d.status, COUNT(d.id) AS total
+                    FROM dispositivos_computadores d';
+                $params = [];
+            }
+
+            if ($idUnidade !== null) {
+                $sql .= $idSetor !== null ? ' AND c.id_unidade = :id_unidade' : ' WHERE d.id_unidade = :id_unidade';
+                $params[':id_unidade'] = (int) $idUnidade;
+            }
+
+            $sql .= ' GROUP BY ' . ($idSetor !== null ? 'c.status' : 'd.status');
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute($params);
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
+    public function listarComputador($id = null, $unidade = null, $limite = null, $offset = 0, array $filtros = [])
     {
         try {
             $sql = 'SELECT dc.*, 
                         u.nome AS nome_unidade, 
-                        i.nome_salvo AS nome_imagem, 
+                        COALESCE(
+                            i.nome_salvo,
+                            (
+                                SELECT i_vinculada.nome_salvo
+                                FROM computador_imagem ci_vinculada
+                                INNER JOIN imagem i_vinculada
+                                    ON ci_vinculada.id_imagem = i_vinculada.id
+                                WHERE ci_vinculada.id_computador = dc.id
+                                ORDER BY ci_vinculada.data_vinculo ASC
+                                LIMIT 1
+                            )
+                        ) AS nome_imagem,
                         i.id AS id_imagem_antiga 
                     FROM dispositivos_computadores dc 
                     LEFT JOIN unidade u 
@@ -84,19 +144,50 @@ class ComputadorModel
             
             $params = [];
 
-            if ($id) 
+            if ($id)
             {
                 $sql .= ' WHERE dc.id = ?';
                 $params[] = $id;
             } 
             else 
             {
+                $conditions = [];
+
                 if ($unidade !== null && $unidade != 3) {
-                    $sql .= ' WHERE dc.id_unidade = ?';
+                    $conditions[] = 'dc.id_unidade = ?';
                     $params[] = $unidade;
                 }
 
+                if (!empty($filtros['busca'])) {
+                    $conditions[] = '(dc.nome LIKE ? OR dc.endereco_ip LIKE ? OR dc.endereco_mac LIKE ? OR CAST(dc.numero_serie AS CHAR) LIKE ?)';
+                    $termo = '%' . $filtros['busca'] . '%';
+                    array_push($params, $termo, $termo, $termo, $termo);
+                }
+
+                if (!empty($filtros['unidade'])) {
+                    $conditions[] = 'dc.id_unidade = ?';
+                    $params[] = (int) $filtros['unidade'];
+                }
+
+                if (!empty($filtros['status'])) {
+                    $conditions[] = 'dc.status = ?';
+                    $params[] = $filtros['status'];
+                }
+
+                if (!empty($filtros['modelo'])) {
+                    $conditions[] = 'dc.modelo = ?';
+                    $params[] = $filtros['modelo'];
+                }
+
+                if ($conditions) {
+                    $sql .= ' WHERE ' . implode(' AND ', $conditions);
+                }
+
                 $sql .= ' ORDER BY dc.id DESC';
+
+                if ($limite !== null) {
+                    $sql .= ' LIMIT ' . max(1, (int) $limite) . ' OFFSET ' . max(0, (int) $offset);
+                }
             }
 
             $stmt = $this->db->prepare($sql);
@@ -108,6 +199,94 @@ class ComputadorModel
             $texto = $e->getMessage();
 
             return false;
+        }
+    }
+
+    public function quantidadeComputadores($unidade = null, array $filtros = [])
+    {
+        try {
+            $sql = 'SELECT COUNT(*) FROM dispositivos_computadores';
+            $params = [];
+
+            $conditions = [];
+
+            if ($unidade !== null && $unidade != 3) {
+                $conditions[] = 'id_unidade = ?';
+                $params[] = $unidade;
+            }
+
+            if (!empty($filtros['busca'])) {
+                $conditions[] = '(nome LIKE ? OR endereco_ip LIKE ? OR endereco_mac LIKE ? OR CAST(numero_serie AS CHAR) LIKE ?)';
+                $termo = '%' . $filtros['busca'] . '%';
+                array_push($params, $termo, $termo, $termo, $termo);
+            }
+
+            if (!empty($filtros['unidade'])) {
+                $conditions[] = 'id_unidade = ?';
+                $params[] = (int) $filtros['unidade'];
+            }
+
+            if (!empty($filtros['status'])) {
+                $conditions[] = 'status = ?';
+                $params[] = $filtros['status'];
+            }
+
+            if (!empty($filtros['modelo'])) {
+                $conditions[] = 'modelo = ?';
+                $params[] = $filtros['modelo'];
+            }
+
+            if ($conditions) {
+                $sql .= ' WHERE ' . implode(' AND ', $conditions);
+            }
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute($params);
+
+            return (int) $stmt->fetchColumn();
+        } catch (PDOException $e) {
+            return 0;
+        }
+    }
+
+    public function listarOpcoesFiltros($unidade = null)
+    {
+        try {
+            $where = '';
+            $params = [];
+
+            if ($unidade !== null && $unidade != 3) {
+                $where = ' WHERE dc.id_unidade = ?';
+                $params[] = $unidade;
+            }
+
+            $sql = 'SELECT DISTINCT u.nome AS unidade, dc.status, dc.modelo
+                FROM dispositivos_computadores dc
+                LEFT JOIN unidade u ON dc.id_unidade = u.id' . $where . '
+                ORDER BY u.nome, dc.status, dc.modelo';
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute($params);
+
+            $opcoes = [
+                'unidades' => [],
+                'status' => [],
+                'modelos' => []
+            ];
+
+            foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $linha) {
+                $opcoes['unidades'][] = $linha['unidade'];
+                $opcoes['status'][] = $linha['status'];
+                $opcoes['modelos'][] = $linha['modelo'];
+            }
+
+            foreach ($opcoes as $tipo => $valores) {
+                $opcoes[$tipo] = array_values(array_unique(array_filter($valores)));
+                natcasesort($opcoes[$tipo]);
+            }
+
+            return $opcoes;
+        } catch (PDOException $e) {
+            return ['unidades' => [], 'status' => [], 'modelos' => []];
         }
     }
 
@@ -143,6 +322,37 @@ class ComputadorModel
                 ':id_computador' => (int) $idComputador,
                 ':id_imagem' => (int) $idImagem
             ]);
+        }
+    }
+
+    public function substituirImagens($idComputador, array $idsImagens)
+    {
+        if (empty($idsImagens)) {
+            return true;
+        }
+
+        try {
+            $this->db->beginTransaction();
+
+            $stmt = $this->db->prepare('DELETE FROM computador_imagem WHERE id_computador = :id_computador');
+            $stmt->execute([':id_computador' => (int) $idComputador]);
+
+            $stmt = $this->db->prepare('UPDATE dispositivos_computadores SET id_imagem = :id_imagem WHERE id = :id');
+            $stmt->execute([
+                ':id_imagem' => (int) $idsImagens[0],
+                ':id' => (int) $idComputador
+            ]);
+
+            $this->vincularImagens($idComputador, array_slice($idsImagens, 1));
+            $this->db->commit();
+
+            return true;
+        } catch (PDOException $e) {
+            if ($this->db->inTransaction()) {
+                $this->db->rollBack();
+            }
+
+            return false;
         }
     }
 

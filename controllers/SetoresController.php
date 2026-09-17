@@ -115,10 +115,10 @@ class SetorController
             }
             else
             {
-                throw new Error('Houve um erro interno. Entre em contato com o suporte.');
+                throw new Exception('Não foi possível apagar o setor. Ele pode estar vinculado a usuários, câmeras ou preventivas.');
             }
         }
-        catch (Exception $e)
+        catch (Throwable $e)
         {
             $texto = $e->getMessage();
 

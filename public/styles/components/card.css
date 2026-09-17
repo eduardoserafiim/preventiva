@@ -40,4 +40,10 @@
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
     transition: all 0.3s ease;
+    background-color: white;
+}
+
+.card-setor-conteudo
+{
+    background-color: white;
 }

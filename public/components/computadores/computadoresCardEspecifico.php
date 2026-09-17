@@ -72,7 +72,7 @@ function criarComputadorCardEspecifico($computador)
                     <?php if ($computador['id_preventiva'] ?? ''): ?>
                     <?php else: ?>
                         <div class="configuracoesComputador">
-                            <a href="computadores.php?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">
+                            <a href="computadores.php?url=editar&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">
                                 <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                             </a>
                         </div>

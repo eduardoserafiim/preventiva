@@ -46,12 +46,12 @@ function criarCardDVR($dvr, $modelDVRCameras){ ?>
                 </div>
                 <div class="opcoesDVR">
                     <div class="configuracoesDVR">
-                        <a href="cameras?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $dvr['id'] ?>&tipo=dvr&informacoes=basicas">
+                        <a href="cameras?url=editar&id=<?= $dvr['id'] ?>&tipo=dvr&informacoes=basicas">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
                     <div class="visualizacaoDVR">
-                        <a href="cameras?url=visualizar&token=<?= $_SESSION['token'] ?>&id=<?= $dvr['id'] ?>&tipo=dvr&informacoes=basicas">
+                        <a href="cameras?url=visualizar&id=<?= $dvr['id'] ?>&tipo=dvr&informacoes=basicas">
                             <i class="fas fa-icon fa-solid fa-eye fa-xl"></i>
                         </a>
                     </div>
@@ -102,11 +102,11 @@ function criarCardDVR($dvr, $modelDVRCameras){ ?>
                         <?php if ($quantidadeCanais <= $dvr['canais']): ?>
                             <?php if (isset($canaisOcupados[$quantidadeCanais])): ?>
                                 <?php $camera = $canaisOcupados[$quantidadeCanais]; ?>
-                                <a href="cameras?url=visualizar&token=<?= $_SESSION['token'] ?>&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvr['id'] ?>" class="canalOcupado" title="Canal <?= $quantidadeCanais ?> ocupado - Status: <?= htmlspecialchars($camera['status']) ?>">
+                                <a href="cameras?url=visualizar&tipo=camera&id=<?= $camera['id'] ?>&idDVR=<?= $dvr['id'] ?>" class="canalOcupado" title="Canal <?= $quantidadeCanais ?> ocupado - Status: <?= htmlspecialchars($camera['status']) ?>">
                                     <?= htmlspecialchars($camera['status']) ?>
                                 </a>
                             <?php else: ?>
-                                <a href="cameras?url=criar&token=<?= $_SESSION['token'] ?>&tipo=camera&id=<?= $quantidadeCanais ?>&idDVR=<?= $dvr['id'] ?>" class="canalDisponivel verde" title="Canal <?= $quantidadeCanais ?> disponível">
+                                <a href="cameras?url=criar&tipo=camera&id=<?= $quantidadeCanais ?>&idDVR=<?= $dvr['id'] ?>" class="canalDisponivel verde" title="Canal <?= $quantidadeCanais ?> disponível">
                                 </a>
                             <?php endif; ?>
                         <?php else: ?>

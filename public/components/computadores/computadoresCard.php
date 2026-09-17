@@ -1,7 +1,7 @@
 <?php
 function criarComputadorCard($computador)
 { ?>
-    <div class="cardComputador" data-nome="<?= $computador['nome'] ?>" data-endereco-ip="<?= $computador['endereco_ip'] ?>" data-endereco-mac="<?= $computador['endereco_mac'] ?>">
+    <div class="cardComputador" data-nome="<?= htmlspecialchars($computador['nome'], ENT_QUOTES, 'UTF-8') ?>" data-endereco-ip="<?= htmlspecialchars($computador['endereco_ip'], ENT_QUOTES, 'UTF-8') ?>" data-endereco-mac="<?= htmlspecialchars($computador['endereco_mac'], ENT_QUOTES, 'UTF-8') ?>" data-numero-serie="<?= htmlspecialchars((string) ($computador['numero_serie'] ?? ''), ENT_QUOTES, 'UTF-8') ?>" data-modelo="<?= htmlspecialchars($computador['modelo'], ENT_QUOTES, 'UTF-8') ?>" data-unidade="<?= htmlspecialchars($computador['nome_unidade'], ENT_QUOTES, 'UTF-8') ?>" data-status="<?= htmlspecialchars($computador['status'], ENT_QUOTES, 'UTF-8') ?>">
         <div class="imagemComputador">
             <?php $caminhoImagem = '../upload/computadores/' . (!empty($computador['nome_imagem']) ? $computador['nome_imagem'] : 'default-computador.png'); ?>
             <button type="button" class="botaoVisualizarImagemComputador" data-imagem="<?= htmlspecialchars($caminhoImagem, ENT_QUOTES, 'UTF-8') ?>" aria-label="Ampliar imagem de <?= htmlspecialchars($computador['nome'], ENT_QUOTES, 'UTF-8') ?>">
@@ -54,12 +54,12 @@ function criarComputadorCard($computador)
                 </div>
                 <div class="opcoesComputador">
                     <div class="configuracoesComputador">
-                        <a href="computadores?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">
+                        <a href="computadores?url=editar&id=<?= $computador['id'] ?>&tipo=computador&informacoes=basicas">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
                     <div class="visualizacaoComputador">
-                        <a href="computadores?url=visualizar&token=<?= $_SESSION['token'] ?>&id=<?= $computador['id'] ?>&tipo=computador">
+                        <a href="computadores?url=visualizar&id=<?= $computador['id'] ?>&tipo=computador">
                             <i class="fas fa-icon fa-solid fa-eye fa-xl"></i>
                         </a>
                     </div>

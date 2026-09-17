@@ -18,6 +18,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST')
 
 class ComputadorController
 {
+    private function aplicarRascunhoComplementar($modelComputadores, $id, $edicaoAtual)
+    {
+        if (empty($_POST['rascunho_completo'])) {
+            return true;
+        }
+
+        $responsavel = trim($_POST['responsavel_alteracao'] ?? '');
+
+        if ($edicaoAtual !== 'editarBasico' && isset($_POST['nome'], $_POST['modelo'], $_POST['endereco_ip'], $_POST['endereco_mac'], $_POST['responsavel_uso'], $_POST['status'], $_POST['id_unidade'])) {
+            $resultado = $modelComputadores->editarComputador([
+                'unidade' => intval($_POST['id_unidade']),
+                'nome' => trim($_POST['nome']),
+                'modelo' => trim($_POST['modelo']),
+                'endereco_ip' => trim($_POST['endereco_ip']),
+                'endereco_mac' => trim($_POST['endereco_mac']),
+                'responsavel_uso' => trim($_POST['responsavel_uso']),
+                'responsavel_alteracao' => $responsavel,
+                'status' => trim($_POST['status']),
+                'id_unidade' => intval($_POST['id_unidade']),
+                'id' => $id
+            ], 'editarBasico');
+
+            if (!$resultado) return false;
+        }
+
+        $camposHardware = ['processador', 'memoria-ram', 'armazenamento', 'sistema-operacional', 'numero-serie', 'lacre', 'etiqueta-patrimonio'];
+        if ($edicaoAtual !== 'editarHardwarePatrimonio' && count(array_intersect($camposHardware, array_keys($_POST))) === count($camposHardware)) {
+            $resultado = $modelComputadores->editarComputador([
+                'id' => $id,
+                'processador' => trim($_POST['processador']),
+                'memoria_ram' => trim($_POST['memoria-ram']),
+                'armazenamento' => trim($_POST['armazenamento']),
+                'sistema_operacional' => trim($_POST['sistema-operacional']),
+                'numero_serie' => trim($_POST['numero-serie']),
+                'lacre' => trim($_POST['lacre']),
+                'etiqueta_patrimonio' => trim($_POST['etiqueta-patrimonio']),
+                'responsavel_alteracao' => $responsavel
+            ], 'editarHardwarePatrimonio');
+
+            if (!$resultado) return false;
+        }
+
+        $camposLegenda = [
+            'input-atualizacao' => 'legenda_a',
+            'input-antivirus' => 'legenda_b',
+            'input-area-de-trabalho' => 'legenda_c',
+            'input-pasta-compartilhada' => 'legenda_d',
+            'input-software-nao-permitido' => 'legenda_e',
+            'input-limpeza' => 'legenda_f',
+            'input-oem-windows' => 'legenda_g',
+            'input-etiqueta' => 'legenda_h',
+            'input-licenca-server' => 'legenda_i'
+        ];
+        $temLegendaComplementar = $edicaoAtual !== 'editarLegenda' && count(array_intersect(array_keys($camposLegenda), array_keys($_POST))) > 0;
+
+        if ($temLegendaComplementar) {
+            $dadosLegenda = [
+                'id' => $id,
+                'responsavel_alteracao' => $responsavel
+            ];
+
+            foreach ($camposLegenda as $campo => $coluna) {
+                $valorLegenda = $_POST[$campo] ?? 0;
+                $dadosLegenda[$coluna] = in_array($valorLegenda, [1, '1', true, 'true'], true) ? 1 : 0;
+            }
+
+            if (!$modelComputadores->editarComputador($dadosLegenda, 'editarLegenda')) return false;
+        }
+
+        return true;
+    }
+
     public function criarComputadores()
     {
         $token       = trim($_POST['token']);
@@ -155,13 +227,17 @@ class ComputadorController
     
                 $modelRes = $modelComputadores->editarComputador($data, $edicao);
 
-                if ($modelRes && count($idsImagensNovas) > 1) {
-                    $modelComputadores->vincularImagens($id, array_slice($idsImagensNovas, 1));
+                if ($modelRes && !$this->aplicarRascunhoComplementar($modelComputadores, $id, $edicao)) {
+                    $modelRes = false;
+                }
+
+                if ($modelRes && $idsImagensNovas) {
+                    $modelRes = $modelComputadores->substituirImagens($id, $idsImagensNovas);
                 }
     
                 if($modelRes === false)
                 {
-                    new Error('Não foi possivel editar o computador no momento. Tente novamente mais tarde.');
+                    throw new Error('Não foi possivel editar o computador no momento. Tente novamente mais tarde.');
                 }
                 else
                 {
@@ -203,6 +279,9 @@ class ComputadorController
                 ];
 
                 $modelRes = $modelComputadores->editarComputador($data, $edicao);
+                if ($modelRes && !$this->aplicarRascunhoComplementar($modelComputadores, $id, $edicao)) {
+                    $modelRes = false;
+                }
                 if($modelRes === false)
                 {
                     new Error('Não foi possivel editar o computador no momento. Tente novamente mais tarde.');
@@ -243,6 +322,9 @@ class ComputadorController
                 ];
 
                 $modelRes = $modelComputadores->editarComputador($data, $edicao);
+                if ($modelRes && !$this->aplicarRascunhoComplementar($modelComputadores, $id, $edicao)) {
+                    $modelRes = false;
+                }
                 if($modelRes === false)
                 {
                     new Error('Não foi possivel editar o computador no momento. Tente novamente mais tarde.');

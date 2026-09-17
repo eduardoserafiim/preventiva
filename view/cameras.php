@@ -189,7 +189,7 @@ $usuario = $modelUsuario->validar($_SESSION['usuario']);
                         <p>Sistema e Monitoramento de Câmeras</p>
                     </div>
                     <div class="page-criar-dvr">
-                        <?= criarDVR('Registar DVR', 'cameras?url=criar&token='. $_SESSION["token"] .'&tipo=dvr&informacoes=basicas') ?>
+                        <?= criarDVR('Registar DVR', 'cameras?url=criar&tipo=dvr&informacoes=basicas') ?>
                     </div>
                 </div>
                 <div class="search">

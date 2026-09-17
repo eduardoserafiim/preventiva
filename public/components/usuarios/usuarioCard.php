@@ -43,7 +43,7 @@ function criarCardUsuario($usuario)
                 </div>
                 <div class="opcoesUsuario">
                     <div class="configuracoesUsuario">
-                        <a href="usuarios?url=editar&token=<?= $_SESSION['token'] ?>&id=<?= $usuario['id'] ?>&tipo=usuario&informacoes=basicas">
+                        <a href="usuarios?url=editar&id=<?= $usuario['id'] ?>&tipo=usuario&informacoes=basicas">
                             <i class="fas fa-icon fa-solid fa-gear fa-xl anima"></i>
                         </a>
                     </div>
