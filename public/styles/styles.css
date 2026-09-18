@@ -25,7 +25,7 @@
 @import url("components/miniMenuDVR.css");
 @import url("components/preventiva.css");
 @import url("components/card.css");
-@import url("components/graficos.css");
+@import url("components/graficos.css?v=20260917");
 
 /* GERAIS */
 
@@ -37,7 +37,7 @@
 @import url("geral/emptystate.css");
 @import url("geral/link.css");
 @import url("geral/impressao.css");
-@import url("geral/responsividade.css");
+@import url("geral/responsividade.css?v=20260917");
 
 /* MAIN */
 @import url("main-content.css");

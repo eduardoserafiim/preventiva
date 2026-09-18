@@ -17,9 +17,15 @@
     width: auto;
   }
 
-  .graficos, .container-perfil
+  .container-perfil
   {
     grid-template-columns: repeat(1, auto);
+  }
+
+  .graficos
+  {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
   }
 
   .cardDVR, .cardComputador
@@ -470,12 +476,6 @@
     width: 365px;
   }
 
-  .graficos-computadores-setores, .graficos-computadores-registrados
-  {
-    width: 250px;
-    height: 250px;
-  }
-
   .form-container
   {
     width: 361px;
@@ -681,12 +681,6 @@
   .semestreDVREditar h4
   {
     width: 100px;
-  }
-
-  .graficos-computadores-setores, .graficos-computadores-registrados
-  {
-    width: 200px;
-    height: 200px;
   }
 
   .setores

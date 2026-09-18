@@ -200,15 +200,15 @@ $totalSetores = count($dadosGraficoComputadoresSetores['setores']);
                         <div class="graficos">
                             <div class='graficos-computadores-setores'>
                                 <div class="grafico-cabecalho"><h3>Computadores por setor</h3><span>Comparativo</span></div>
-                                <canvas id="graficoComputadoresSetores"></canvas>
+                                <div class="grafico-area"><canvas id="graficoComputadoresSetores"></canvas></div>
                             </div>
                             <div class='graficos-computadores-registrados'>
                                 <div class="grafico-cabecalho"><h3>Distribuição por unidade</h3><span>Inventário</span></div>
-                                <canvas id="graficoComputadoresRegistrados"></canvas>
+                                <div class="grafico-area"><canvas id="graficoComputadoresRegistrados"></canvas></div>
                             </div>
                             <div class='graficos-status'>
                                 <div class="grafico-cabecalho"><h3>Status dos computadores</h3><span>Condição atual</span></div>
-                                <canvas id="graficoComputadoresStatus"></canvas>
+                                <div class="grafico-area"><canvas id="graficoComputadoresStatus"></canvas></div>
                             </div>
                         </div>
                     <?php endif ?>

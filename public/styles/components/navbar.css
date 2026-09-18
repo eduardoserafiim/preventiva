@@ -349,7 +349,7 @@
     padding-left: 16px;
     overflow: hidden;
     border-left: 1px solid var(--border);
-    transition: max-height 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .nav-children.expanded,
@@ -360,6 +360,7 @@
 
 .nav-child-link
 {
+    margin: 0.25rem;
     display: block;
     padding: 8px 12px;
     border-radius: 6px;
