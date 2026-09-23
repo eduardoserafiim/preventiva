@@ -22,6 +22,7 @@ function formGridEditarComputador($computador, $tipoEditar){
                         <option value="<?= $computador['memoria_ram'] ?? '' ?>" selected><?= $computador['memoria_ram'] ?? 'Selecione...' ?></option>
                         <option value="1GB">1GB</option>
                         <option value="2GB">2GB</option>
+                        <option value="3GB">3GB</option>
                         <option value="4GB">4GB</option>
                         <option value="5GB">5GB</option>
                         <option value="6GB">6GB</option>
@@ -43,14 +44,16 @@ function formGridEditarComputador($computador, $tipoEditar){
                     <label for="select-sistema-operacional">Sistema Operacional</label>
                     <select id="select-sistema-operacional" name="sistema-operacional" required>
                         <option value="<?= $computador['sistema_operacional'] ?>" selected><?= $computador['sistema_operacional'] ?? 'Selecione...' ?></option>
+                        <option value="MacOS">MacOS</option>
                         <option value="Linux Ubuntu">Linux Ubuntu</option>
                         <option value="Linux Mint">Linux Mint</option>
                         <option value="Linux Mint">Linux Cinnamon</option>
+                        <option value="Windows 7 Pro">Windows 7 Pro</option>
+                        <option value="Windows 8 Pro">Windows 8 Pro</option>
                         <option value="Windows 10 Pro">Windows 10 Pro</option>
                         <option value="Windows 10 Home">Windows 10 Home</option>
                         <option value="Windows 11 Pro">Windows 11 Pro</option>
                         <option value="Windows 11 Home">Windows 11 Home</option>
-                        <option value="MacOS">MacOS</option>
                     </select>
                 </div>
                 <div class="form-group">
