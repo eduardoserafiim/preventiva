@@ -1,6 +1,7 @@
 ErrorDocument 404 /Preventiva/view/404.php
 
 RewriteEngine on
+RewriteRule ^view/c/([0-9]+)/?$ view/computadores.php?url=visualizar&id=$1&tipo=computador [L,QSA]
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^(.*)$ $1.php

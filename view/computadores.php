@@ -1,12 +1,13 @@
 <?php
 // VERIFICAÇÃO LOGIN
 session_start();
+$caminhoView = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'] ?? '/view/computadores.php')), '/') . '/';
 
 if (!isset($_SESSION['id']) || !isset($_SESSION['usuario'])) {
     
     $_SESSION['redirect_url'] = $_SERVER['REQUEST_URI'];
     
-    header('Location: login'); 
+    header('Location: ' . $caminhoView . 'login');
     exit();
 }
 ?>
