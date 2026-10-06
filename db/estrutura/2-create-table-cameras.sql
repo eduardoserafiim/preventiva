@@ -8,7 +8,7 @@ create table dispositivos_cameras
 	id_setor int,
 	id_dvr int,
 	canal int(2) not null,
-	nome varchar(20) not null,
+	nome varchar(50) not null,
 	marca varchar(20) not null,
 	modelo varchar(20) not null,
 	ip varchar(15) not null,

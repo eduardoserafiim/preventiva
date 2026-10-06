@@ -20,7 +20,7 @@ class CameraController
     {
         $token = trim($_POST['token']);
         $idDVR  = intval($_POST['idDVR']);
-        $informacoes = trim($_POST['informacoes']);
+        $informacoes = trim($_POST['informacoes'] ?? 'basicas');
 
         $dataUrl =
         [
@@ -46,7 +46,8 @@ class CameraController
             $porta                  = trim($_POST['porta']);
             $status                 = trim($_POST['status']);
             $responsavelCadastro    = trim($_POST['responsavelCadastro']);
-            $diasGravados           = trim($_POST['diasGravados']);
+            $diasGravados           = trim($_POST['diasGravados'] ?? '');
+            $diasGravados           = $diasGravados === '' ? null : $diasGravados;
 
             $data = 
             [
@@ -84,7 +85,7 @@ class CameraController
 
             $modelRes = $modelCameraDVR->relacionarCamerasComDVR($dataCameraDVR);
 
-            if ($modelRes === false)
+            if ($modelRes !== true)
             {
                 throw new Error('Houve um erro interno, entre em contato com o suporte.');
             }
@@ -93,7 +94,7 @@ class CameraController
                 getMensagemSession('success', 'Sucesso ao criar!', 'câmera criada com sucesso.', 'cameras', 'visualizarCamera', $dataUrl);
             }
         }
-        catch (Error $e)
+        catch (Throwable $e)
         {
             $texto = $e->getMessage();
 

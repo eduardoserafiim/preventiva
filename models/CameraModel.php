@@ -44,7 +44,8 @@ class CameraModel
         }
         catch(PDOException $e)
         {
-            return $e->getMessage();
+            error_log('Falha ao criar câmera: ' . $e->getMessage());
+            return false;
         }
     } 
 

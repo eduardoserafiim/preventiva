@@ -25,10 +25,12 @@ class CameraDVRModel
                 ]
             );
 
+            return true;
         }
         catch(PDOException $e)
         {
-            return $e->getMessage();
+            error_log('Falha ao relacionar câmera ao DVR: ' . $e->getMessage());
+            return false;
         }
     } 
 
