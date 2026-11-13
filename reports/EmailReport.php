@@ -96,4 +96,88 @@ class MailerReport
     <?php
         return ob_get_clean(); 
     }
+
+    public function reportShellyTemperatura($temperatura, $horario)
+    {
+        ob_start();
+    ?>
+        <!DOCTYPE html>
+        <html lang="pt-br">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Temperatura</title>
+        </head>
+        <body style="margin: 0; padding: 0; background-color: #f4f4f4; font-family: Arial, sans-serif;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td style="padding: 20px 0;">
+                        <table align="center" border="0" cellpadding="0" cellspacing="0"
+                            width="400"
+                            style="background-color: #ffffff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border: 1px solid #dddddd;">
+
+                            <tr>
+                                <td bgcolor="#0056b3" style="padding: 20px; text-align: center;">
+                                    <h3 style="color: #ffffff; margin: 0; font-size: 18px; letter-spacing: 1px;">
+                                        Suporte T.I
+                                    </h3>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 30px; text-align: center;">
+
+                                    <p style="font-size: 18px; color: #dc3545; font-weight: bold; margin-bottom: 15px;">
+                                        Alerta de Temperatura!
+                                    </p>
+
+                                    <p style="font-size: 14px; color: #666666; margin-bottom: 20px;">
+                                        A temperatura registrada pelo sensor Shelly está detectando um problema.
+                                    </p>
+
+                                    <table width="100%" cellpadding="0" cellspacing="0"
+                                        style="background-color: #fff3f3; border: 1px solid #f5c6cb; border-radius: 5px;">
+                                        <tr>
+                                            <td style="padding: 20px; text-align: center;">
+                                                <p style="font-size: 13px; color: #666666; margin: 0 0 8px 0;">
+                                                    Temperatura atual
+                                                </p>
+                                                <p style="font-size: 32px; color: #dc3545; font-weight: bold; margin: 0;">
+                                                    <?= number_format((float) $temperatura, 1, ',', '.') . ' °C' ?>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <p style="font-size: 14px; color: #666666; margin-top: 25px;">
+                                        Verifique as condições de temperatura.
+                                    </p>
+
+                                    <h4 style="font-size: 16px; color: #0056b3; margin-top: 25px;">
+                                        UNIDADE CENTRO
+                                    </h4>
+
+                                    <p style="font-size: 14px; color: #666666; margin-top: 25px;">
+                                        Horário da leitura: <strong><?= $horario ?></strong>
+                                    </p>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td style="padding: 20px; text-align: center; border-top: 1px solid #eeeeee; background-color: #fafafa;">
+                                    <p style="font-size: 13px; color: #555555; margin: 0 0 10px 0;">
+                                        Alerta <strong>automático</strong> gerado pelo sistema de monitoramento.
+                                    </p>
+                                </td>
+                            </tr>
+
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>
+    <?php
+        return ob_get_clean(); 
+    }
 }
